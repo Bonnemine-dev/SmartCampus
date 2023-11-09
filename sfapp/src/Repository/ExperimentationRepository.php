@@ -21,6 +21,14 @@ class ExperimentationRepository extends ServiceEntityRepository
         parent::__construct($registry, Experimentation::class);
     }
 
+    public function findExperimentationsWithNullDateInstallation()
+    {
+        return $this->createQueryBuilder('experimentation')
+            ->where('experimentation.dateinstallation IS NULL')
+            ->orderBy('experimentation.datedemande', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Experimentation[] Returns an array of Experimentation objects
 //     */

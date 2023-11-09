@@ -9,5 +9,15 @@
 {% endblock %}
 
 {% block appcontent %}
-<h1>Technicien - Liste de souhaits</h1>
+<h1 class="">PlAN D'EXPÉRIMENTATION</h1>
+<div class="">
+<h2 class="">Systèmes d'acquisitions à installer</h2>
+{% for exp in experimentations %}
+    <ul class="">
+        <li>{{exp.datedemande|date('d-m-Y H:i')}}</li>
+        <li>{{exp.salle.getNom()}}</li>
+        <li>{{exp.sa.getNom()}}</li>
+    </ul>
+    {% endfor %}
+</div>
 {% endblock %}
