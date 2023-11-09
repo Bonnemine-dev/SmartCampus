@@ -9,15 +9,21 @@
 {% endblock %}
 
 {% block appcontent %}
-<h1 class="">PlAN D'EXPÉRIMENTATION</h1>
-<div class="">
-<h2 class="">Systèmes d'acquisitions à installer</h2>
-{% for exp in experimentations %}
-    <ul class="">
-        <li>{{exp.datedemande|date('d-m-Y H:i')}}</li>
-        <li>{{exp.salle.getNom()}}</li>
-        <li>{{exp.sa.getNom()}}</li>
-    </ul>
-    {% endfor %}
+<div class="app-content souhaits">
+    <h3 class="">PLAN D'EXPÉRIMENTATION</h3>
+
+    <div class="container">
+        <h4>Systèmes d'acquisitions à installer</h4>
+        <p>Liste des systèmes d'acquisitions à installer à la demande du chargé de mission.</p>
+        {% for exp in experimentations %}
+            <div class="souhait">
+                <p class="date">Date de la demande : {{exp.datedemande|date('d-m-Y H:i')}}</p>
+                <div class="souhait-info">
+                    <h5>{{exp.salle.getNom()}}</h5>
+                    <h5>{{exp.sa.getNom()}}</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
