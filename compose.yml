@@ -50,7 +50,7 @@ services:
         target: /var/lib/mysql
     environment:
       MYSQL_DATABASE: dbsfapp
-      MYSQL_ROOT_PASSWORD: rdbsfapp
+      MYSQL_ROOT_PASSWORD: pdbsfapp
       MYSQL_USER: udbsfapp
       MYSQL_PASSWORD: pdbsfapp
     networks:
