@@ -23,6 +23,10 @@ a {
     align-items: center;
 }
 
+.connexion-container{
+    background: linear-gradient(90deg, #00B292, #7ED957);
+}
+
 .container p{
     font-size: 1.6rem;
     font-weight: 500;
