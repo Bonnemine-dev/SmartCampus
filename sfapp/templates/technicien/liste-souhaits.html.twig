@@ -1,20 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TechnicienController!{% endblock %}
+{% block title %}SmartCampus. - Technicien{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block username %}Technicien{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block navlink %}
+    <li><a class="nav-link" href=#>Liste de souhaits</a></li>
+{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/sfapp/src/Controller/TechnicienController.php'|file_link(0) }}">src/Controller/TechnicienController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/sfapp/templates/technicien/index.html.twig'|file_link(0) }}">templates/technicien/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block appcontent %}
+<h1>Technicien - Liste de souhaits</h1>
 {% endblock %}
