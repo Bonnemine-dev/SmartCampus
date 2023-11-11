@@ -9,5 +9,31 @@
 {% endblock %}
 
 {% block appcontent %}
-    <h1>Liste des salles</h1>
+    <div class="">
+        <h2>Systèmes d'acquisitions disponibles : {{ nb_sa }}</h2>
+    </div>
+
+    <h1>Salles</h1>
+    <div class="">
+        <h2>Liste des salles</h2>
+        {% for salle in liste_salles %}
+                {% if salle.datedemande is not null %}
+                    <div class="">
+                        <p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+                        <h3>{{ salle.nom }}</h3>
+                        <a href="" class="">Retirer</a>
+                        {% set acquisitionStatus = salle.dateinstallation is null ? 'à installer' : 'installé' %}
+                            <p>Système d'acquisition : {{ acquisitionStatus }} | Nombre d'ordis : {{ salle.nb_ordis }} | Nombre de fenêtres : {{ salle.nb_fenetres }} | Orientation : {{ salle.orientation }}</p>
+                    </div>
+                {% else %}
+                    <div class="">
+                        <p>Pas encore de demande de SA</p>
+                        <h3>{{ salle.nom }}</h3>
+                        <a href="" class="">Ajouter</a>
+                        <p>Système d'acquisition : aucun | Nombre d'ordis : {{ salle.nb_ordis }} | Nombre de fenêtres : {{ salle.nb_fenetres }} | Orientation : {{ salle.orientation }}</p>
+                    </div>
+                {% endif %}
+        {% endfor %}
+    </div>
+
 {% endblock %}

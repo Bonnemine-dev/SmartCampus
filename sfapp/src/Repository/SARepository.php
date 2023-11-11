@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Experimentation;
 use App\Entity\SA;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,17 @@ class SARepository extends ServiceEntityRepository
     {
         parent::__construct($registry, SA::class);
     }
+
+    public function compteSASansExperimentation()
+    {
+        return $this->createQueryBuilder('sa')
+            ->select('count(sa.id)')
+            ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'sa.id = experimentation.SA')
+            ->where('experimentation.id IS NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
 //    /**
 //     * @return SA[] Returns an array of SA objects

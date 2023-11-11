@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Experimentation;
 use App\Entity\Salle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,18 @@ class SalleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Salle::class);
+    }
+
+    public function listerSallesAvecLeurExperimentation()
+    {
+        {
+            return $this->createQueryBuilder('salle')
+                ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
+                ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
+                ->orderBy('salle.nom', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
     }
 
 //    /**
