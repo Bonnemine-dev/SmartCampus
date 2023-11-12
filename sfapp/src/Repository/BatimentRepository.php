@@ -20,7 +20,6 @@ class BatimentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Batiment::class);
     }
-
 //    /**
 //     * @return Batiment[] Returns an array of Batiment objects
 //     */

@@ -22,15 +22,22 @@ class SalleRepository extends ServiceEntityRepository
         parent::__construct($registry, Salle::class);
     }
 
-    public function listerSallesAvecLeurExperimentation()
+    public function listerSallesAvecLeurExperimentation($batiment = null, $salle = null)
     {
         {
-            return $this->createQueryBuilder('salle')
+            $queryBuilder = $this->createQueryBuilder('salle')
                 ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
                 ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
-                ->orderBy('salle.nom', 'ASC')
-                ->getQuery()
-                ->getResult();
+                ->orderBy('salle.nom', 'ASC');
+                if ($batiment !== null && $batiment !== '') {
+                    $queryBuilder->andWhere('salle.batiment = :batiment')
+                        ->setParameter('batiment', $batiment);
+                }
+                if ($salle !== null) {
+                    $queryBuilder->andWhere('salle.nom LIKE :salle')
+                        ->setParameter('salle', '%' . $salle . '%');
+                }
+                return $queryBuilder->getQuery()->getResult();
         }
     }
 

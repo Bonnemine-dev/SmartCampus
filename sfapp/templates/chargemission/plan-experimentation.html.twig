@@ -14,8 +14,18 @@
     </div>
 
     <h1>Salles</h1>
-    <div class="">
+    <div class="liste-salles">
         <h2>Liste des salles</h2>
+        </select>
+        <form action='/charge-de-mission/plan-experimentation' method='get'>
+            <select name="batiment" id="" class="bat-selection">
+            <option value='' {{batiment_selectionne == ''?'selected':'none'}}>Choisir un batiment</option>
+            {% for batiment in liste_batiments %}
+            <option value={{batiment.id}} {{batiment_selectionne == batiment.id?'selected':'none'}}>{{batiment.nom}}</option>
+            {% endfor %}
+            <input type='search' name='salle' placeholder='Rechercher une salle' value={{nom_salle}}>
+            <button type='submit'>Rechercher</button>
+        </form>
         {% for salle in liste_salles %}
                 {% if salle.datedemande is not null %}
                     <div class="">
