@@ -9,26 +9,6 @@ body {
     font-family: 'Montserrat', Tahoma, Verdana, sans-serif;
 }
 
-  /* Style pour la fenêtre modale */
-  .popup {
-    display: none;
-    position: fixed;
-    padding: 20px;
-    background-color: #272727;
-    z-index: 1000;
-}
-/* Style pour l'arrière-plan obscurci */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
 a {
     text-decoration: none;
     color: #FFF;
@@ -41,6 +21,9 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.connexion-container{
     background: linear-gradient(90deg, #00B292, #7ED957);
 }
 
@@ -144,7 +127,8 @@ a {
 .app-container {
     color: #FFF;
     width: 100%;
-    height: 100vh;
+    height: fit-content;
+    min-height: 100vh;
     display: flex;
     background: linear-gradient(90deg, #00B292, #7ED957);
     z-index: 1;
@@ -152,9 +136,9 @@ a {
 
 .app-container .sidebar{
     width: 390px;
-    height: 100%;
     background-color: #444444;
     display: flex;
+    flex-grow: inherit;
     flex-direction: column;
     align-items: center;
     padding: 5% 0;
@@ -163,10 +147,12 @@ a {
     z-index: 1;
 }
 
-.app-container .app-content{
+.app-content{
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidebar h3{
@@ -216,3 +202,217 @@ a {
         padding: 20px 0;
     }
 }
+
+/* ------------------------------------------- */
+
+/* STYLE DE LA PARTIE GAUCHE (APP CONTENT) */
+
+.app-content.souhaits, .app-content.cm-pe {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5%;
+}
+
+.souhaits h3, .cm-pe h3{
+    font-size: 1.9rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.souhaits .container, .cm-pe .container{
+    background-color: #444444;
+    border-radius: 20px ;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 30px 50px;
+}
+
+.souhaits .container h4, .cm-pe .container h4{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+
+}
+
+.souhaits .container p, .cm-pe .container p{
+    color: #BABABA;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.souhaits .souhait{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #737373;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.souhaits .souhait .date{
+    margin-bottom: 0;
+    color: #F1F1F1;
+}
+
+.souhait-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.souhait-info h5{
+    color: #FFF;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+/* ------------------------------------------ */
+
+/* STYLE DU PLAN EXPERIMENTATION - CHARGE DE MISSION */
+
+/* Style pour la fenêtre modale */
+.popup {
+    display: none;
+    position: absolute;
+    top: 66%;
+    left: 55%;
+    padding: 20px;
+    background-color: #5d5d5d;
+    z-index: 1000;
+    border-radius: 15px;
+}
+
+.popup fieldset{
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+.popup fieldset input {
+    margin-left: 10px; /* Cela ajoute une marge entre la checkbox et le label */
+    margin-right: 3px;
+}
+
+.popup fieldset input:first-of-type{
+    margin-left: 0;
+}
+
+/* Style pour l'arrière-plan obscurci */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.search-and-filter{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #737373;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.search-and-filter button{
+    width: 24.5px;
+    height: 24.5px;
+    background-color: #FFF;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.search-and-filter button:hover{
+    cursor: pointer;
+    background-color: #D7D7D7;
+}
+
+.search-and-filter form{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.search-and-filter form select, .search-and-filter form input{
+    font-size: 1rem;
+    padding: 3px 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 250px;
+    margin-right: 15px;
+}
+
+.liste-salles{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.salle{
+    background-color: #7D7D7D;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.salle.darker{
+    background-color: #5d5d5d;
+}
+
+.liste-salles .salle h5{
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 4px 0;
+    letter-spacing: 2px;
+}
+
+.liste-salles .salle p{
+    color: #F1F1F1;
+    margin-bottom: 0;
+}
+
+/* Boutons */
+
+.salle-bouton, .popup form button{
+    color: #FFF;
+    font-size: 1rem;
+    background: linear-gradient(90deg, #00B292, #7ED957);
+    padding: 5px 15px;
+    border-radius: 25px;
+    border: 1px solid transparent;
+    margin-right: 15px;
+    transition: 0.2s ;
+}
+
+.salle-bouton:hover, .popup form button:hover{
+    border: 1px solid #FFF;
+    cursor: pointer;
+}
+
+
