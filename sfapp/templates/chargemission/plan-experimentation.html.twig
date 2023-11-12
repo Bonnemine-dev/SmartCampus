@@ -1,49 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SmartCampus. - Chargé de mission{% endblock %}
+{% block title %}SmartCampus. - Chargé de mission
+{% endblock %}
 
-{% block username %}Chargé de mission{% endblock %}
+{% block username %}Chargé de mission
+{% endblock %}
 
 {% block navlink %}
-    <li><a class="nav-link" href=#>Plan d'expérimentation</a></li>
+	<li>
+		<a class="nav-link" href="#">Plan d'expérimentation</a>
+	</li>
 {% endblock %}
 
 {% block appcontent %}
-    <div class="">
-        <h2>Systèmes d'acquisitions disponibles : {{ nb_sa }}</h2>
-    </div>
+	<div class="">
+		<h2>Systèmes d'acquisitions disponibles :
+			{{ nb_sa }}</h2>
+	</div>
 
-    <h1>Salles</h1>
-    <div class="liste-salles">
-        <h2>Liste des salles</h2>
-        </select>
-        <form action='/charge-de-mission/plan-experimentation' method='get'>
-            <select name="batiment" id="" class="bat-selection">
-            <option value='' {{batiment_selectionne == ''?'selected':'none'}}>Choisir un batiment</option>
-            {% for batiment in liste_batiments %}
-            <option value={{batiment.id}} {{batiment_selectionne == batiment.id?'selected':'none'}}>{{batiment.nom}}</option>
-            {% endfor %}
-            <input type='search' name='salle' placeholder='Rechercher une salle' value={{nom_salle}}>
-            <button type='submit'>Rechercher</button>
-        </form>
-        {% for salle in liste_salles %}
-                {% if salle.datedemande is not null %}
-                    <div class="">
-                        <p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
-                        <h3>{{ salle.nom }}</h3>
-                        <a href="" class="">Retirer</a>
-                        {% set acquisitionStatus = salle.dateinstallation is null ? 'à installer' : 'installé' %}
-                            <p>Système d'acquisition : {{ acquisitionStatus }} | Nombre d'ordis : {{ salle.nb_ordis }} | Nombre de fenêtres : {{ salle.nb_fenetres }} | Orientation : {{ salle.orientation }}</p>
-                    </div>
-                {% else %}
-                    <div class="">
-                        <p>Pas encore de demande de SA</p>
-                        <h3>{{ salle.nom }}</h3>
-                        <a href="" class="">Ajouter</a>
-                        <p>Système d'acquisition : aucun | Nombre d'ordis : {{ salle.nb_ordis }} | Nombre de fenêtres : {{ salle.nb_fenetres }} | Orientation : {{ salle.orientation }}</p>
-                    </div>
-                {% endif %}
-        {% endfor %}
-    </div>
+	<h1>Salles</h1>
+	<div class="liste-salles">
+		<h2>Liste des salles</h2>
+	</select>
+	<form action='/charge-de-mission/plan-experimentation' method='get'>
+		<select name="batiment" id="" class="bat-selection">
+			<option value='' {{batiment_selectionne == ''?'selected':'none'}}>Choisir un batiment</option>
+			{% for batiment in liste_batiments %}
+				<option value={{batiment.id}} {{batiment_selectionne == batiment.id?'selected':'none'}}>{{batiment.nom}}</option>
+			{% endfor %}
+			<input type='search' name='salle' placeholder='Rechercher une salle' value={{nom_salle}}>
+			<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
+			<button type='button'><img src="{{ asset('img/filter.svg') }}" alt="Filtres" onclick="ouvrirPopupFiltreSalles()"></button>
+			<div class="overlay" id="overlay" onclick=fermerPopupFiltreSalles()></div>
+			<!--Conteneur simplement pour l'arrière plan assombri-->
+			<div class="popup" id="popup"><!--Le popup lui même-->
+				<form action='/charge-de-mission/plan-experimentation' method='get' class="popup-filre-salles">
+					<fieldset>
+						<legend>Étage :</legend>
+							<input type="checkbox" value='0' name="etage[]" {{ '0' in etage ? 'checked' : 'none' }}>Rdc</input>
+							<input type="checkbox" value='1' name="etage[]" {{ '1' in etage ? 'checked' : 'none' }}/>1</input>
+                            <input type="checkbox" value='2' name="etage[]" {{ '2' in etage ? 'checked' : 'none' }}>2</input>
+							<input type="checkbox" value='3' name="etage[]" {{ '3' in etage ? 'checked' : 'none' }}/>3</input>
+					</fieldset>
+                    <fieldset>
+						<legend>Orientation :</legend>
+							<input type="checkbox" value='nord' name="orientation[]" {{ 'nord' in orientation ? 'checked' : 'none' }}>Nord</input>
+							<input type="checkbox" value='sud' name="orientation[]" {{ 'sud' in orientation ? 'checked' : 'none' }}/>Sud</input>
+                            <input type="checkbox" value='est' name="orientation[]" {{ 'est' in orientation ? 'checked' : 'none' }}>Est</input>
+							<input type="checkbox" value='ouest' name="orientation[]" {{ 'ouest' in orientation ? 'checked' : 'none' }}/>Ouest</input>
+					</fieldset>
+                    <fieldset>
+						<legend>Ordinateur :</legend>
+							<input type="radio" value='avec' name="ordinateur" {{ordinateur == 'avec'?'checked':'none'}}>Avec</input>
+							<input type="radio" value='sans' name="ordinateur" {{ordinateur == 'sans'?'checked':'none'}}/>Sans</input>
+					</fieldset>
+                    <fieldset>
+						<legend>Système d'acquisition :</legend>
+							<input type="radio" value='avec' name="sa" {{sa == 'avec'?'checked':'none'}}>Avec</input>
+							<input type="radio" value='sans' name="sa" {{sa == 'sans'?'checked':'none'}}/>Sans</input>
+                            <input type="radio" value='demande_en_cours' name="sa" {{sa == 'demande_en_cours'?'checked':'none'}}/>Demande en cours</input>
+					</fieldset>
+					<button type="submit" onclick=fermerPopupFiltreSalles()>Valider</button>
+				</form>
+			</div>
+			<script>
+				// Fonction pour ouvrir le popup
+                function ouvrirPopupFiltreSalles() {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('popup').style.display = 'block';
+                }
+
+                // Fonction pour fermer le popup
+                function fermerPopupFiltreSalles() {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('popup').style.display = 'none';
+                }
+			</script>
+
+		</form>
+		{% for salle in liste_salles %}
+			{% if salle.datedemande is not null %}
+				<div class="">
+					<p>Date de demande :
+						{{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+					<h3>{{ salle.nom }}</h3>
+					<a href="" class="">Retirer</a>
+					{% set acquisitionStatus = salle.dateinstallation is null ? 'à installer' : 'installé' %}
+					<p>Système d'acquisition :
+						{{ acquisitionStatus }}
+						| Nombre d'ordis :
+						{{ salle.nb_ordis }}
+						| Nombre de fenêtres :
+						{{ salle.nb_fenetres }}
+						| Orientation :
+						{{ salle.orientation }}</p>
+				</div>
+			{% else %}
+				<div class="">
+					<p>Pas encore de demande de SA</p>
+					<h3>{{ salle.nom }}</h3>
+					<a href="" class="">Ajouter</a>
+					<p>Système d'acquisition : aucun | Nombre d'ordis :
+						{{ salle.nb_ordis }}
+						| Nombre de fenêtres :
+						{{ salle.nb_fenetres }}
+						| Orientation :
+						{{ salle.orientation }}</p>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
 
 {% endblock %}

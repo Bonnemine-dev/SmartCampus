@@ -9,6 +9,26 @@ body {
     font-family: 'Montserrat', Tahoma, Verdana, sans-serif;
 }
 
+  /* Style pour la fenêtre modale */
+  .popup {
+    display: none;
+    position: fixed;
+    padding: 20px;
+    background-color: #272727;
+    z-index: 1000;
+}
+/* Style pour l'arrière-plan obscurci */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
 a {
     text-decoration: none;
     color: #FFF;

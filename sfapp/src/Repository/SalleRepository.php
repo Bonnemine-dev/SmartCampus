@@ -22,20 +22,49 @@ class SalleRepository extends ServiceEntityRepository
         parent::__construct($registry, Salle::class);
     }
 
-    public function listerSallesAvecLeurExperimentation($batiment = null, $salle = null)
+    public function listerSallesAvecLeurExperimentation($batiment = null, $salle = null,$etage = null, $orientation = null, $ordinateur = null, $sa = null)
     {
         {
             $queryBuilder = $this->createQueryBuilder('salle')
                 ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
                 ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
                 ->orderBy('salle.nom', 'ASC');
-                if ($batiment !== null && $batiment !== '') {
+                if (!empty($batiment) && $batiment !== '') {
                     $queryBuilder->andWhere('salle.batiment = :batiment')
                         ->setParameter('batiment', $batiment);
                 }
-                if ($salle !== null) {
+                if (!empty($salle)) {
                     $queryBuilder->andWhere('salle.nom LIKE :salle')
                         ->setParameter('salle', '%' . $salle . '%');
+                }
+                if (!empty($etage)) {
+                    // Utilisation de expr()->in() pour gérer un tableau d'etage
+                    $queryBuilder->andWhere($queryBuilder->expr()->in('salle.etage', $etage));
+                }
+                if (!empty($orientation)) {
+                    // Utilisation de expr()->in() pour gérer un tableau d'orientations
+                    $queryBuilder->andWhere($queryBuilder->expr()->in('salle.orientation', $orientation));
+                }
+                if (!empty($ordinateur)) {
+                    if ($ordinateur === 'sans') {
+                        $queryBuilder->andWhere('salle.nb_ordis IS NULL');
+                    } elseif ($ordinateur === 'avec') {
+                        $queryBuilder->andWhere('salle.nb_ordis IS NOT NULL');
+                    }
+                }
+                if (!empty($sa)) {
+                    if ($sa === 'sans') 
+                    {
+                        $queryBuilder->andWhere('experimentation.datedemande IS NULL AND experimentation.dateinstallation IS NULL');
+                    } 
+                    elseif ($sa === 'avec') 
+                    {
+                        $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NOT NULL');
+                    } 
+                    elseif ($sa === 'demande_en_cours') 
+                    {
+                        $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NULL');
+                    }
                 }
                 return $queryBuilder->getQuery()->getResult();
         }
