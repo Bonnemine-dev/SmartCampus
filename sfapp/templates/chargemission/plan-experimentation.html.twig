@@ -39,6 +39,7 @@
 			{# Partie Filtrage et Recherche #}
 
 			<div class="search-and-filter">
+
 				<form action='/charge-de-mission/plan-experimentation' method='get'>
 					<select name="batiment" id="" class="bat-selection">
 						<option value='' {{batiment_selectionne == ''?'selected':'none'}}>Choisir un batiment</option>
@@ -63,7 +64,7 @@
 				
 			<div class="popup" id="popup">
 				<!--Le popup lui même-->
-				<form action='/charge-de-mission/plan-experimentation' method='get' class="popup-filre-salles">
+				<form action='/charge-de-mission/plan-experimentation' method='get' class="popup-filtre-salles">
 					<fieldset>
 						<legend>Étage :</legend>
 						<input type="checkbox" value='0' name="etage[]" {{ '0' in etage ? 'checked' : 'none' }}>RDC</input>
@@ -92,6 +93,8 @@
 					</fieldset>
 						
 					<button type="submit" onclick="fermerPopupFiltreSalles()">Valider</button>
+					<button type="button" id="resetButton">Réinitialiser</button>
+
 				</form>
 			</div>
 
@@ -110,10 +113,10 @@
 							{% set acquisitionStatus = salle.dateinstallation is null ? 'à installer' : 'installé' %}
 						
 							<p>
-								Système d'acquisition :{{ acquisitionStatus }} | 
-								Nombre d'ordis :{{ salle.nb_ordis }} | 
-								Nombre de fenêtres :{{ salle.nb_fenetres }} | 
-								Orientation :{{ salle.orientation }}
+								Système d'acquisition : {{ acquisitionStatus }} | 
+								Nombre d'ordis : {{ salle.nb_ordis }} | 
+								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
+								Orientation : {{ salle.orientation }}
 							</p>
 						</div>
 
@@ -130,9 +133,9 @@
 
 							<p>
 								Système d'acquisition : aucun | 
-								Nombre d'ordis :{{ salle.nb_ordis }} | 
-								Nombre de fenêtres :{{ salle.nb_fenetres }} | 
-								Orientation :{{ salle.orientation }}
+								Nombre d'ordis : {{ salle.nb_ordis }} | 
+								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
+								Orientation : {{ salle.orientation }}
 							</p>
 						</div>
 
