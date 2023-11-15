@@ -17,7 +17,7 @@
     <div class="app-content cm-pe">
 
         {# Titre #}
-        <h3>Salle {{ nomsalle }}</h3>
+        <h3>DEMANDE D'INSTALLATION</h3>
 
         {# ------------------------------------------------------ #}
 
@@ -27,10 +27,13 @@
             {# Titre et description #}
             <h4>Ajouter la salle {{ nomsalle }} au plan d'expérimentation ?</h4>
             <p>
-                cela ajoutera une demande d'installation d'un système d'acquiqition en salle {{ nomsalle }} pour le technicien
+                Cela ajoutera une demande d'installation d'un système d'acquisition en salle {{ nomsalle }} pour le technicien.
             </p>
-            <a href="/charge-de-mission/plan-experimentation/ajout-experimentation/{{nomsalle}}" class="gradient-button">Valider</a>
-            <a href="/charge-de-mission/plan-experimentation" class="gradient-button">Annuler</a>
+            <div class="confirm-buttons">
+                <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Annuler</a>
+                <a href="/charge-de-mission/plan-experimentation/ajout-experimentation/{{nomsalle}}" class="confirm-button">Valider</a>
+            </div>
+
         </div>
     </div>
 

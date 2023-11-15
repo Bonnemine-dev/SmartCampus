@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExperimentationRepository;
 
@@ -75,12 +76,20 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/ajout-experimentation/{nomsalle}', name: 'ajout_exp')]
-    public function ajouterExperimentation(ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    public function ajouterExperimentation(ExperimentationRepository $experimentationRepository, $nomsalle): Response
     {
-        // Utilisez la méthode du repository pour ajouter des données
+        // Logique d'ajout d'expérimentation
         $experimentationRepository->ajouterExperimentation($nomsalle);
 
-        // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
+        // Vérifiez le résultat et ajoutez un message flash approprié
+        if ($experimentationRepository->verifierExperimentation($nomsalle)) {
+            $this->addFlash('success', "La salle " . $nomsalle . " a été ajoutée au plan d'expérimentation avec succès.");
+        } else {
+            $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être ajoutée au plan d'expérimentation.");
+        }
+
+        // Redirection
         return $this->redirectToRoute('app_charge_mission');
     }
+
 }

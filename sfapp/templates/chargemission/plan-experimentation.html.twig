@@ -16,6 +16,22 @@
 {% block appcontent %}
 	<div class="app-content cm-pe">
 
+		{# Affichage des messages de succès #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{# Affichage des messages d'erreur #}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-error">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{# --------------------------------------------- #}
+
 		{# Titre #}
 		<h3>PLAN D'EXPÉRIMENTATION</h3>
 
@@ -102,9 +118,8 @@
 							</p>
 						</div>
 
-						<div class="salle-bouton">
-							<a href="" class="">Retirer</a>
-						</div>
+
+						<a href="" class="salle-bouton">Retirer</a>
 					</div>
 				
 				{% else %}
@@ -121,9 +136,12 @@
 							</p>
 						</div>
 
-						<div class="salle-bouton">
-							<a href="plan-experimentation/ajouter-salle/{{ salle.nom }}" class="">Ajouter</a>
-						</div>
+
+						{% if nb_sa > 0 %}
+							<a href="plan-experimentation/ajouter-salle/{{ salle.nom }}" class="salle-bouton" >Ajouter</a>
+						{% else %}
+							<a href="" class="salle-bouton-unclickable">Ajouter</a>
+						{% endif %}
 					</div>
 				{% endif %}
 			{% endfor %} 
@@ -135,4 +153,5 @@
 
 {% block javascripts %}
 	<script src="{{ asset('js/filter.js') }}"></script>
+	<script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

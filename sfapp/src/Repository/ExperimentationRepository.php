@@ -42,6 +42,29 @@ class ExperimentationRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    /*
+     * Vérifie si une experimentation pour la salle nomSalle existe ou non
+     */
+    public function verifierExperimentation($nomSalle): bool
+    {
+        // Récupérer le gestionnaire d'entités
+        $entityManager = $this->getEntityManager();
+
+        // Créer une requête pour vérifier l'existence d'une expérimentation avec la salle donnée
+        $query = $entityManager->createQuery(
+            'SELECT e
+            FROM App\Entity\Experimentation e
+            JOIN e.Salle s
+            WHERE s.nom = :nomSalle'
+        )->setParameter('nomSalle', $nomSalle);
+
+        // Exécuter la requête
+        $resultat = $query->getResult();
+
+        // Retourner true si une expérimentation est trouvée, sinon false
+        return !empty($resultat);
+    }
+
 //    /**
 //     * @return Experimentation[] Returns an array of Experimentation objects
 //     */

@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -25,6 +24,14 @@ a {
 
 .connexion-container{
     background: linear-gradient(90deg, #00B292, #7ED957);
+    position: relative;
+}
+
+.mouse-trail {
+    position: absolute;
+    height: 10px; width: 10px;
+    border-radius: 50%;
+    background: #FFF;
 }
 
 .container p{
@@ -43,6 +50,7 @@ a {
     align-items: center;
     background-color: #272727;
     border-radius: 20px;
+    z-index: 100;
 }
 
 .connexion .title {
@@ -69,14 +77,17 @@ a {
     background: linear-gradient(90deg, #00B292, #7ED957);
     padding: 20px 50px;
     border-radius: 50px;
+    width: 330px;
     border: 2px solid transparent;
     margin: 20px 0;
     transition: 0.2s ;
+    text-align: center;
 }
 
 .gradient-button:hover{
     border: 2px solid #FFF;
     cursor: pointer;
+    transform: scale(1.1);
 }
 
 /* PAGE DE BASE */
@@ -91,8 +102,8 @@ a {
     padding: 0 6%;
     width: 100%;
     z-index: 999;
-    box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.25); /* l'ombre est placée en bas */
-    position: relative; /* pour que le z-index soit pris en compte */
+    box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.25);
+    position: fixed;
     z-index: 2;
 }
 
@@ -105,6 +116,14 @@ a {
     width: 70px;
     border-radius: 50%;
     margin-right: 30px;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.banner .logo:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    border: 2px solid #FFF;
 }
 
 .left-content img{
@@ -135,7 +154,7 @@ a {
 }
 
 .app-container .sidebar{
-    width: 390px;
+    width: 320px;
     background-color: #444444;
     display: flex;
     flex-grow: inherit;
@@ -143,16 +162,19 @@ a {
     align-items: center;
     padding: 5% 0;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.5);
-    position: relative;
+    position: fixed;
+    height: 100vh;
     z-index: 1;
+    padding-top: calc(120px + 5%);
 }
 
 .app-content{
-    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    margin-left: 320px;
 }
 
 .sidebar h3{
@@ -179,30 +201,6 @@ a {
     color: #bababa;
 }
 
-@media (max-width: 999px) {
-    .banner .logo{
-        width: 50px;
-    }
-
-    .banner .right-content h1{
-        font-size: 1.4rem;
-    }
-
-    .banner .right-content h2{
-        font-size: 1rem;
-    }
-
-    .app-container{
-        flex-direction: column;
-    }
-
-    .app-container .sidebar{
-        width: 100%;
-        height: fit-content;
-        padding: 20px 0;
-    }
-}
-
 /* ------------------------------------------- */
 
 /* STYLE DE LA PARTIE GAUCHE (APP CONTENT) */
@@ -215,6 +213,7 @@ a {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 5%;
+    padding-top: calc(5% + 120px);
 }
 
 .souhaits h3, .cm-pe h3{
@@ -225,6 +224,7 @@ a {
 
 .souhaits .container, .cm-pe .container{
     background-color: #444444;
+    position: relative;
     border-radius: 20px ;
     display: flex;
     flex-direction: column;
@@ -278,6 +278,38 @@ a {
     text-transform: uppercase;
 }
 
+@media (max-width: 999px) {
+    .banner .logo{
+        width: 50px;
+    }
+
+    .banner .right-content h1{
+        font-size: 1.4rem;
+    }
+
+    .banner .right-content h2{
+        font-size: 1rem;
+    }
+
+    .app-container{
+        flex-direction: column;
+    }
+
+    .app-container .sidebar{
+        width: 100%;
+        height: fit-content;
+        padding: 20px 0;
+        position: relative;
+        margin-top: 120px;
+    }
+
+    .app-content, .app-content.cm-pe, .app-content.souhaits{
+        width: 100%;
+        margin-left: 0;
+        padding-top: 40px;
+    }
+}
+
 /* ------------------------------------------ */
 
 /* STYLE DU PLAN EXPERIMENTATION - CHARGE DE MISSION */
@@ -286,8 +318,8 @@ a {
 .popup {
     display: none;
     position: absolute;
-    top: 66%;
-    left: 55%;
+    top: 230px;
+    left: 45%;
     padding: 20px;
     background-color: #5d5d5d;
     z-index: 1000;
@@ -408,9 +440,81 @@ a {
     transition: 0.2s ;
 }
 
+.salle-bouton-unclickable{
+    background: #737373;
+    cursor: not-allowed;
+    color: #FFF;
+    font-size: 1rem;
+    padding: 5px 15px;
+    border-radius: 25px;
+    border: 1px solid transparent;
+    margin-right: 15px;
+}
+
 .salle-bouton:hover, .popup form button:hover{
     border: 1px solid #FFF;
     cursor: pointer;
+}
+
+
+
+/* --------------------------------------------- */
+
+/* Messages d'alerte */
+
+.alert{
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    left: 0px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.15);
+}
+
+.alert.alert-success{
+    background-color: #00B292;
+}
+
+.alert.alert-error{
+    background-color: #ff5050;
+}
+
+/* ---------------------------------------  */
+
+/* Page confirmation Ajout/Retrait d'une salle au PE */
+
+.confirm-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-buttons a{
+    color: #FFF;
+    font-size: 1.2rem;
+    padding: 5px 15px;
+    border-radius: 25px;
+    border: 1px solid transparent;
+    margin-right: 15px;
+    transition: 0.2s ;
+}
+
+
+
+.confirm-buttons .confirm-button{
+    background: linear-gradient(90deg, #00B292, #7ED957);
+}
+
+.confirm-buttons a:hover{
+    border: 1px solid #FFF;
+    cursor: pointer;
+}
+
+.confirm-buttons .cancel-button{
+    background: #737373;
 }
 
 
