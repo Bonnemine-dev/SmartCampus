@@ -72,7 +72,7 @@ class SalleRepository extends ServiceEntityRepository
 
         if ($ordinateurs !== null) {
             if ($ordinateurs === 0) {
-                $queryBuilder->andWhere('salle.nb_ordis IS NULL');
+                $queryBuilder->andWhere('salle.nb_ordis = 0');
             } elseif ($ordinateurs === 1) {
                 $queryBuilder->andWhere('salle.nb_ordis > 0');
             }
