@@ -32,6 +32,13 @@ class SARepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function saNonUtiliser():?sa
+    {
+        $sa = $this->findOneBy(['etat' => 'Disponible']);
+        $sa->setEtat('En_preparation');
+        return $sa;
+    }
+
 
 //    /**
 //     * @return SA[] Returns an array of SA objects

@@ -7,10 +7,12 @@ use App\Form\RechercheSalleFormType;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
 use App\Repository\BatimentRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ExperimentationRepository;
 
 class ChargeMissionController extends AbstractController
 {
@@ -62,5 +64,23 @@ class ChargeMissionController extends AbstractController
             'filtreSalleForm' => $filtreSalleForm->createView(),
             'rechercheSalleForm' => $rechercheSalleForm->createView(),
         ]);
+    }
+
+    #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
+    public function ajout_salle($nomsalle): Response
+    {
+        return $this->render('chargemission/ajouter-salle.html.twig', [
+            'nomsalle' => $nomsalle,
+        ]);
+    }
+
+    #[Route('/charge-de-mission/plan-experimentation/ajout-experimentation/{nomsalle}', name: 'ajout_exp')]
+    public function ajouterExperimentation(ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    {
+        // Utilisez la méthode du repository pour ajouter des données
+        $experimentationRepository->ajouterExperimentation($nomsalle);
+
+        // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
+        return $this->redirectToRoute('app_charge_mission');
     }
 }

@@ -16,9 +16,30 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ExperimentationRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $salleRepository;
+    private $saRepository;
+    public function __construct(ManagerRegistry $registry , SalleRepository $salleRepository,SARepository $saRepository)
     {
         parent::__construct($registry, Experimentation::class);
+        $this->salleRepository = $salleRepository;
+        $this->saRepository = $saRepository;
+    }
+
+    public function ajouterExperimentation($salle)
+    {
+        // Créez une nouvelle instance de l'entité Experimentation
+        $experimentation = new Experimentation();
+        $id = $this->salleRepository->nomsalletoid($salle);
+        $experimentation->setSalle($id);
+        $dateDemande = new \DateTime();
+        $experimentation->setDatedemande($dateDemande);
+        $sa = $this->saRepository->saNonUtiliser();
+        $experimentation->setSA($sa);
+
+        // Obtenez le gestionnaire d'entités et persistez l'entité
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($experimentation);
+        $entityManager->flush();
     }
 
 //    /**

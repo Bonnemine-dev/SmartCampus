@@ -95,6 +95,11 @@ class SalleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function nomsalletoid($salle): ?Salle
+    {
+        return $this->findOneBy(['nom' => $salle]);
+    }
+
 
 
 //    /**
