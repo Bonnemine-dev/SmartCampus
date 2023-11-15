@@ -15,15 +15,22 @@
     <div class="container">
         <h4>Systèmes d'acquisitions à installer</h4>
         <p>Liste des systèmes d'acquisitions à installer à la demande du chargé de mission.</p>
-        {% for exp in experimentations %}
-            <div class="souhait">
-                <p class="date">Date de la demande : {{exp.datedemande|date('d-m-Y H:i')}}</p>
-                <div class="souhait-info">
-                    <h5>{{exp.salle.getNom()}}</h5>
-                    <h5>{{exp.sa.getNom()}}</h5>
+        {% if experimentations|length == 0 %}
+        <div class="souhait" style="justify-content: center;">
+            <p>Aucune expérimentation pour le moment...</p>
+        </div>
+        {% else %}
+            {% for exp in experimentations %}
+                <div class="souhait">
+                    <p class="date">Date de la demande : {{exp.datedemande|date('d-m-Y H:i')}}</p>
+                    <div class="souhait-info">
+                        <h5>{{exp.salle.getNom()}}</h5>
+                        <h5>{{exp.sa.getNom()}}</h5>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

@@ -73,6 +73,23 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function supprimerExperimentation($salle)
+    {
+        $idSalle = $this->salleRepository->nomsalletoid($salle);
+        $Exp = $this->findOneBy(['Salle' => $idSalle]);
+        $this->saRepository->supresionExp($Exp->getSA());
+
+        // Get the entity manager and perform the delete operation
+
+        $queryBuilder = $this->createQueryBuilder('experimentation');
+        $queryBuilder
+            ->delete()
+            ->where('experimentation.Salle = '.$idSalle->getId())
+            ->getQuery()
+            ->execute();
+    }
+
 //    /**
 //     * @return Experimentation[] Returns an array of Experimentation objects
 //     */

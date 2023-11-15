@@ -92,4 +92,28 @@ class ChargeMissionController extends AbstractController
         return $this->redirectToRoute('app_charge_mission');
     }
 
+    #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
+    public function supprimer_salle($nomsalle): Response
+    {
+        return $this->render('chargemission/supprimer-salle.html.twig', [
+            'nomsalle' => $nomsalle,
+        ]);
+    }
+
+    #[Route('/charge-de-mission/plan-experimentation/supprimer-experimentation/{nomsalle}', name: 'supprimer_exp')]
+    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    {
+        // Utilisez la méthode du repository pour ajouter des données
+        $experimentationRepository->supprimerExperimentation($nomsalle);
+
+        // Vérifiez le résultat et ajoutez un message flash approprié
+        if (!$experimentationRepository->verifierExperimentation($nomsalle)) {
+            $this->addFlash('success', "La salle " . $nomsalle . " a été retirée du plan d'expérimentation avec succès.");
+        } else {
+            $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
+        }
+
+        // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
+        return $this->redirectToRoute('app_charge_mission');
+    }
 }
