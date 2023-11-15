@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Chargé de mission
+{% endblock %}
+
+
+{% block username %}Chargé de mission
+{% endblock %}
+
+{% block navlink %}
+    <li>
+        <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+    </li>
+{% endblock %}
+
+{% block appcontent %}
+    <div class="app-content cm-pe">
+
+        {# Titre #}
+        <h3>DEMANDE D'INSTALLATION</h3>
+
+        {# ------------------------------------------------------ #}
+
+        {# CONTAINER (fond gris) #}
+        <div class="container">
+
+            {# Titre et description #}
+            <h4>Ajouter la salle {{ nomsalle }} au plan d'expérimentation ?</h4>
+            <p>
+                Cela ajoutera une demande d'installation d'un système d'acquisition en salle {{ nomsalle }} pour le technicien.
+            </p>
+            <div class="confirm-buttons">
+                <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Annuler</a>
+                <a href="/charge-de-mission/plan-experimentation/ajout-experimentation/{{nomsalle}}" class="confirm-button">Valider</a>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/filter.js') }}"></script>
+{% endblock %}

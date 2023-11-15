@@ -112,6 +112,7 @@ class Salle
         return $this;
     }
 
+
     public function getBatiment(): ?Batiment
     {
         return $this->batiment;
