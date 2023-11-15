@@ -39,6 +39,10 @@ class SARepository extends ServiceEntityRepository
         return $sa;
     }
 
+    public function supresionExp($sa)
+    {
+        $sa->setEtat('Disponible');
+    }
 
 //    /**
 //     * @return SA[] Returns an array of SA objects
