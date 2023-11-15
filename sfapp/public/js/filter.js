@@ -24,5 +24,8 @@ document.getElementById('resetButton').addEventListener('click', function() {
     radios.forEach(function(radio) {
         // Décochez ou réinitialisez les boutons radio ici si nécessaire
         radio.checked = false;
+        if (radio.id === 'filtre_salle_form_ordinateurs_0' || radio.id === 'filtre_salle_form_sa_0') {
+            radio.checked = true;
+        }
     });
 });

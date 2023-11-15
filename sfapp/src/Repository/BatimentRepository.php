@@ -20,6 +20,26 @@ class BatimentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Batiment::class);
     }
+
+    /**
+     * Retourne un tableau de bâtiments sous la forme ['Nom du bâtiment' => 'id'].
+     *
+     * @return array
+     */
+    public function getTableauBatimentsNomID(): array
+    {
+        $batiments = $this->createQueryBuilder('b')
+            ->select('b.id', 'b.nom')
+            ->getQuery()
+            ->getResult();
+
+        $batimentsArray = [];
+        foreach ($batiments as $batiment) {
+            $batimentsArray[$batiment['nom']] = $batiment['id'];
+        }
+
+        return $batimentsArray;
+    }
 //    /**
 //     * @return Batiment[] Returns an array of Batiment objects
 //     */

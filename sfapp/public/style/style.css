@@ -294,18 +294,16 @@ a {
     border-radius: 15px;
 }
 
-.popup fieldset{
-    border: none;
-    outline: none;
-    margin-bottom: 15px;
-}
-
-.popup fieldset input {
+.popup form input {
     margin-left: 10px; /* Cela ajoute une marge entre la checkbox et le label */
     margin-right: 3px;
 }
 
-.popup fieldset input:first-of-type{
+.popup form div{
+    margin-bottom: 15px;
+}
+
+.popup form div input:first-of-type{
     margin-left: 0;
 }
 

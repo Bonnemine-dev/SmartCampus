@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\FiltreSalleFormType;
+use App\Form\RechercheSalleFormType;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
 use App\Repository\BatimentRepository;
@@ -12,32 +14,53 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ChargeMissionController extends AbstractController
 {
-
-    /* Route vers le plan d'experimentation */
     #[Route('/charge-de-mission/plan-experimentation', name: 'app_charge_mission')]
-    public function index(Request $request, SalleRepository $salle_repository, SARepository $sa_repository, BatimentRepository $Bat_repository): Response
+    public function index(Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository): Response
     {
-        $batiment_selectionne = $_GET['batiment'] ?? null;
-        $nom_salle = $_GET['salle'] ?? null;
-        $etage = $_GET['etage'] ?? null;
-        $orientation = $_GET['orientation'] ?? null;
-        $ordinateur = $_GET['ordinateur'] ?? null;
-        $sa = $_GET['sa'] ?? null;
+        // Création des instances de formulaire
+        $filtreSalleForm = $this->createForm(FiltreSalleFormType::class);
+        $rechercheSalleForm = $this->createForm(RechercheSalleFormType::class, null, [
+            'liste_batiments' => $batimentRepository->getTableauBatimentsNomID(),
+        ]);
 
+        // Soumission des formulaires à la requête
+        $filtreSalleForm->handleRequest($request);
+        $rechercheSalleForm->handleRequest($request);
 
-        $salles = $salle_repository->listerSallesAvecLeurExperimentation($batiment_selectionne, $nom_salle, $etage, $orientation, $ordinateur, $sa);
-        $nb_sa = $sa_repository->compteSASansExperimentation();
-        $batiments = $Bat_repository->findAll();
+        // Initialisation des résultats de la salle
+        $salles = $salleRepository->listerSalles();
+
+        if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
+            $dataFiltre = $filtreSalleForm->getData();
+            // Extraire les données et les utiliser pour filtrer les salles
+            $salles = $salleRepository->filtrerSallePlanExp(
+                $dataFiltre['etage'] ?? null,
+                $dataFiltre['orientation'] ?? null,
+                $dataFiltre['ordinateurs'] ?? null,
+                $dataFiltre['sa'] ?? null
+            );
+        }
+
+        if ($rechercheSalleForm->isSubmitted() && $rechercheSalleForm->isValid()) {
+            $dataRecherche = $rechercheSalleForm->getData();
+            // Extraire les données et les utiliser pour rechercher les salles
+            $salles = $salleRepository->rechercheSallePlanExp(
+                $dataRecherche['batiment'] ?? null,
+                $dataRecherche['salle'] ?? null
+            );
+        }
+
+        // Logique métier supplémentaire
+        $nb_sa = $saRepository->compteSASansExperimentation();
+        $batiments = $batimentRepository->findAll();
+
+        // Passer les instances de formulaire au template
         return $this->render('chargemission/plan-experimentation.html.twig', [
             'liste_salles' => $salles,
             'nb_sa' => $nb_sa,
             'liste_batiments' => $batiments,
-            'batiment_selectionne' => $batiment_selectionne,
-            'nom_salle' => $nom_salle,
-            'etage' => $etage,
-            'orientation' => $orientation,
-            'ordinateur' => $ordinateur,
-            'sa' => $sa
+            'filtreSalleForm' => $filtreSalleForm->createView(),
+            'rechercheSalleForm' => $rechercheSalleForm->createView(),
         ]);
     }
 }

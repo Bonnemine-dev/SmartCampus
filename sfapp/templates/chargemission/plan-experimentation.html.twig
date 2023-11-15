@@ -40,17 +40,13 @@
 
 			<div class="search-and-filter">
 
-				<form action='/charge-de-mission/plan-experimentation' method='get'>
-					<select name="batiment" id="" class="bat-selection">
-						<option value='' {{batiment_selectionne == ''?'selected':'none'}}>Choisir un batiment</option>
-						{% for batiment in liste_batiments %}
-							<option value={{batiment.id}} {{batiment_selectionne == batiment.id?'selected':'none'}}>{{batiment.nom}}</option>
-						{% endfor %}
-					</select>
+				{{ form_start(rechercheSalleForm) }}
+				{{ form_widget(rechercheSalleForm.batiment) }}
+				{{ form_widget(rechercheSalleForm.salle) }}
 
-					<input type='search' name='salle' placeholder='Rechercher une salle' value={{nom_salle}}>
-					<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
-				</form>
+				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
+
+				{{ form_end(rechercheSalleForm, {'render_rest': false}) }}
 
 				<button type='button'><img src="{{ asset('img/filter.svg') }}" alt="Filtres" onclick="ouvrirPopupFiltreSalles()"></button>
 			</div>
@@ -64,38 +60,24 @@
 				
 			<div class="popup" id="popup">
 				<!--Le popup lui même-->
-				<form action='/charge-de-mission/plan-experimentation' method='get' class="popup-filtre-salles">
-					<fieldset>
-						<legend>Étage :</legend>
-						<input type="checkbox" value='0' name="etage[]" {{ '0' in etage ? 'checked' : 'none' }}>RDC</input>
-						<input type="checkbox" value='1' name="etage[]" {{ '1' in etage ? 'checked' : 'none' }}/>1</input>
-						<input type="checkbox" value='2' name="etage[]" {{ '2' in etage ? 'checked' : 'none' }}>2</input>
-						<input type="checkbox" value='3' name="etage[]" {{ '3' in etage ? 'checked' : 'none' }}/>3</input>
-					</fieldset>
-					<fieldset>
-						<legend>Orientation :</legend>
-						<input type="checkbox" value='nord' name="orientation[]" {{ 'nord' in orientation ? 'checked' : 'none' }}>Nord</input>
-						<input type="checkbox" value='sud' name="orientation[]" {{ 'sud' in orientation ? 'checked' : 'none' }}/>Sud</input>
-						<input type="checkbox" value='est' name="orientation[]" {{ 'est' in orientation ? 'checked' : 'none' }}>Est</input>
-						<input type="checkbox" value='ouest' name="orientation[]" {{ 'ouest' in orientation ? 'checked' : 'none' }}/>Ouest</input>
-					</fieldset>
-					<fieldset>
-						<legend>Ordinateur :</legend>
-						<input type="radio" value='avec' name="ordinateur" {{ordinateur == 'avec'?'checked':'none'}}>Avec</input>
-						<input type="radio" value='sans' name="ordinateur" {{ordinateur == 'sans'?'checked':'none'}}/>Sans</input>
-					</fieldset>
-					
-					<fieldset>
-						<legend>Système d'acquisition :</legend>
-						<input type="radio" value='avec' name="sa" {{sa == 'avec'?'checked':'none'}}>Avec</input>
-						<input type="radio" value='sans' name="sa" {{sa == 'sans'?'checked':'none'}}/>Sans</input>
-						<input type="radio" value='demande_en_cours' name="sa" {{sa == 'demande_en_cours'?'checked':'none'}}/>Demande en cours</input>
-					</fieldset>
-						
-					<button type="submit" onclick="fermerPopupFiltreSalles()">Valider</button>
-					<button type="button" id="resetButton">Réinitialiser</button>
+				{{ form_start(filtreSalleForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
+				{{ form_label(filtreSalleForm.etage) }}
+				{{ form_widget(filtreSalleForm.etage) }}
 
-				</form>
+				{{ form_label(filtreSalleForm.orientation) }}
+				{{ form_widget(filtreSalleForm.orientation) }}
+
+				{{ form_label(filtreSalleForm.ordinateurs) }}
+				{{ form_widget(filtreSalleForm.ordinateurs) }}
+
+				{{ form_label(filtreSalleForm.sa) }}
+				{{ form_widget(filtreSalleForm.sa) }}
+
+				<button type="submit" onclick="fermerPopupFiltreSalles()">Valider</button>
+				<button type="button" id="resetButton">Réinitialiser</button>
+
+				{{ form_end(filtreSalleForm, {'render_rest': false}) }}
+
 			</div>
 
 			{# ------------------------------------------------------------- #}
