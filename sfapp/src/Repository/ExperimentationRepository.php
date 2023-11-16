@@ -25,14 +25,22 @@ class ExperimentationRepository extends ServiceEntityRepository
         $this->saRepository = $saRepository;
     }
 
+    /*
+     * Ajoute une experimentation pour la salle de nom $salle
+     */
     public function ajouterExperimentation($salle)
     {
+        // Définir le fuseau horaire sur Paris
+        date_default_timezone_set('Europe/Paris');
+
         // Créez une nouvelle instance de l'entité Experimentation
         $experimentation = new Experimentation();
         $id = $this->salleRepository->nomsalletoid($salle);
         $experimentation->setSalle($id);
-        $dateDemande = new \DateTime();
+
+        $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $experimentation->setDatedemande($dateDemande);
+
         $sa = $this->saRepository->saNonUtiliser();
         $experimentation->setSA($sa);
 
@@ -65,7 +73,10 @@ class ExperimentationRepository extends ServiceEntityRepository
         return !empty($resultat);
     }
 
-    public function findExperimentationsWithNullDateInstallation()
+    /*
+     * Vérifie si il existe des experimentation à installer
+     */
+    public function trouveExperimentationsSansDateInstallation()
     {
         return $this->createQueryBuilder('experimentation')
             ->where('experimentation.dateinstallation IS NULL')
@@ -74,6 +85,9 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /*
+     * Supprime une experimentation pour la salle de nom $salle
+     */
     public function supprimerExperimentation($salle)
     {
         $idSalle = $this->salleRepository->nomsalletoid($salle);
@@ -94,28 +108,4 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->execute();
     }
 
-//    /**
-//     * @return Experimentation[] Returns an array of Experimentation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Experimentation
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
