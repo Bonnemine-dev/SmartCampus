@@ -25,6 +25,7 @@
         <div class="container">
 
             {# Titre et description #}
+            {% if  existedeja  == 1 %}
             <h4>Supprimer la salle {{ nomsalle }} du plan d'expérimentation ?</h4>
             <p>
                 Cela annulera la demande d'installation d'un système d'acquisition pour la salle {{ nomsalle }} pour le technicien.
@@ -34,6 +35,15 @@
                 <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Annuler</a>
                 <a href="/charge-de-mission/plan-experimentation/supprimer-experimentation/{{nomsalle}}" class="confirm-button">Valider</a>
             </div>
+            {% else %}
+            <h4>La salle {{ nomsalle }} n'est pas encore dans le plan d'expérimentation !</h4>
+            <p>
+                Retournez à l'accueil si vous souhaitez l'ajouter au plan d'expérimentation
+            </p>
+            <div class="confirm-buttons">
+                <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Retour</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 
