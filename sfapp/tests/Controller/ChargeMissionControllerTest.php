@@ -99,4 +99,34 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été ajoutée au plan d\'expérimentation avec succès.');
 
     }
+
+    public function testRedirectionSupprimerExperimentation()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/charge-de-mission/plan-experimentation');
+
+        $link = $client->getCrawler()->filter('a[href="plan-experimentation/supprimer-salle/D001"]')->link();
+        $client->click($link);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
+    public function testSupprimerExperimentation()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/charge-de-mission/plan-experimentation/supprimer-salle/D001');
+
+        $link = $client->getCrawler()->selectLink('Valider')->link();
+        $client->click($link);
+
+        $client->followRedirect();
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été retirée du plan d\'expérimentation avec succès.');
+    }
+
 }

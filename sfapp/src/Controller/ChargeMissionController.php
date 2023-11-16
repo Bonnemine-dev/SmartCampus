@@ -101,10 +101,18 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
-    public function supprimer_salle($nomsalle): Response
+    public function supprimer_salle(ExperimentationRepository $experimentationRepository , $nomsalle): Response
     {
+        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+            $existeDeja = 1;
+        }
+        else{
+            $existeDeja = 0;
+        }
+
         return $this->render('chargemission/supprimer-salle.html.twig', [
             'nomsalle' => $nomsalle,
+            'existedeja' => $existeDeja,
         ]);
     }
 
