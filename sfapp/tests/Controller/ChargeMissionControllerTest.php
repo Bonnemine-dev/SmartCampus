@@ -95,5 +95,8 @@ class ChargeMissionControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été ajoutée au plan d\'expérimentation avec succès.');
+
     }
 }
