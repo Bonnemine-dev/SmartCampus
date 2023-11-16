@@ -14,6 +14,7 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h3', 'Menu');
         $this->assertSelectorTextContains('h4', 'Liste des salles');
+        $this->assertSelectorExists('html div.salle-infos');
     }
 
     public function testSoumissionFiltre()
@@ -67,5 +68,32 @@ class ChargeMissionControllerTest extends WebTestCase
 
         $this->assertEquals([], $crawler->filter('input[name="filtreSalleForm[etage][]"]:checked')->extract(['value']));
         $this->assertEquals([], $crawler->filter('input[name="filtreSalleForm[orientation][]"]:checked')->extract(['value']));
+    }
+
+    public function testRedirectionAjoutExperimentation()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/charge-de-mission/plan-experimentation');
+
+        $link = $client->getCrawler()->filter('a[href="plan-experimentation/ajouter-salle/D001"]')->link();
+        $client->click($link);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
+    public function testAjoutExperimentation()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/charge-de-mission/plan-experimentation/ajouter-salle/D001');
+
+        $link = $client->getCrawler()->selectLink('Valider')->link();
+        $client->click($link);
+
+        $client->followRedirect();
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }
