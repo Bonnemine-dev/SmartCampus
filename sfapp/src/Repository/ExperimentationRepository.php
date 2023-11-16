@@ -80,6 +80,10 @@ class ExperimentationRepository extends ServiceEntityRepository
         $Exp = $this->findOneBy(['Salle' => $idSalle]);
         $this->saRepository->supresionExp($Exp->getSA());
 
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($Exp);
+        $entityManager->flush();
+
         // Get the entity manager and perform the delete operation
 
         $queryBuilder = $this->createQueryBuilder('experimentation');
