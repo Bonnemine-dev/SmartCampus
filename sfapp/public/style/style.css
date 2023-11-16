@@ -112,19 +112,64 @@ a {
     align-items: center;
 }
 
-.banner .logo {
-    width: 70px;
-    border-radius: 50%;
-    margin-right: 30px;
-    transition: 0.3s;
-    border: 2px solid transparent;
+.banner .link{
+  width: 70px; /* Diamètre du cercle */
+  height: 70px; /* Diamètre du cercle */
+  border-radius: 50%;
+  margin-right: 30px;
+}
+.banner .circle_icon{
+  width: 70px; /* Diamètre du cercle */
+  height: 70px; /* Diamètre du cercle */
+  background: linear-gradient(90deg, #00B292, #7ED957);
+  border-radius: 50%;
+  position: relative; /* Position relative pour positionner les images à l'intérieur */
+  overflow: hidden; /* Masquer le débordement des images à l'extérieur du cercle */
+  transition: transform 0.3s ease-in-out;
 }
 
-.banner .logo:hover{
-    cursor: pointer;
+.banner .circle_icon:hover {
     transform: scale(1.1);
+    cursor: pointer;
     border: 2px solid #FFF;
 }
+
+.banner .circle_icon img {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  
+  .banner .circle_icon .leave_left{
+    transform-origin:  bottom right;
+    position: absolute;
+    top: 19%;
+    left: 15%;
+    transform-origin: 37px 37px;
+  }
+  
+  .banner .circle_icon .leave_right{
+    transform-origin:  center;
+    position: absolute;
+    top: 36%;
+    left: 37%;
+  }
+  
+  .banner .circle_icon:hover .leave_right {
+    transform-origin: center;
+    transform: rotate(15deg);
+    transition: transform 0.3s ease;
+  }
+  
+  .banner .circle_icon:hover .leave_left {
+    transform: rotate(-15deg);
+    left: 14%;
+    transition: transform 0.3s ease;
+  }
 
 .left-content img{
     width: 60px;
