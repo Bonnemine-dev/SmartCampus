@@ -68,10 +68,18 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
-    public function ajout_salle($nomsalle): Response
+    public function ajout_salle(ExperimentationRepository $experimentationRepository,$nomsalle): Response
     {
+        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+            $existeDeja = 1;
+        }
+        else{
+            $existeDeja = 0;
+        }
+
         return $this->render('chargemission/ajouter-salle.html.twig', [
             'nomsalle' => $nomsalle,
+            'existedeja' => $existeDeja,
         ]);
     }
 
