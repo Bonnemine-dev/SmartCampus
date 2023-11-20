@@ -105,9 +105,13 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
-    public function supprimer_salle(ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    public function supprimer_salle(SalleRepository $salleRepository , ExperimentationRepository $experimentationRepository , $nomsalle): Response
     {
         // Vérifier si la salle existe déjà dans les expérimentations
+        if($salleRepository->nomSalleId($nomsalle) == null){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
+
         if($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
         }
