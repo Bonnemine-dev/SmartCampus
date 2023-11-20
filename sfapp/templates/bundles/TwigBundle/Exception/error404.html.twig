@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta
+		name="viewport" content="width=, initial-scale=1.0">
+		<!-- Inclusion de la feuille de style -->
+		<link rel="stylesheet" href="{{ asset('style/style.css') }}"/>
+		<title>Connexion</title>
+	</head>
+	<body>
+		<div class="container connexion-container">
+			<div class="connexion">
+				<div
+					class="title">
+					<!-- Logo Smart Campus -->
+					<a class="link" href="{{ path('app_connexion') }}">
+            <div class="circle_icon">
+                <img src="{{ asset('img/leave_left.png') }}" alt="leave_left" class="leave_left">
+                <img src="{{ asset('img/leave_right.png') }}" alt="leave_right" class="leave_right">
+            </div>
+        </a>
+					<h1>Smart Campus.</h1>
+				</div>
+
+				<p class="errorcode">404</p>
+				<p class="error_phrase">Oups... Nous ne trouvons pas votre page</p>
+                <a href="{{ path('app_connexion') }}" class="gradient-button">Acceuil</a>
+			</div>
+		</div>
+
+		<!-- Script pour les effets de souris -->
+		<script src="{{ asset('js/mouseTrail.js') }}"></script>
+
+	</body>
+</html>
