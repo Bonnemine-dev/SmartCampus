@@ -25,23 +25,32 @@
         <div class="container">
 
             {# Titre et description #}
-            {% if  existedeja  == 0 %}
-            <h4>Ajouter la salle {{ nomsalle }} au plan d'expérimentation ?</h4>
-            <p>
-                Cela ajoutera une demande d'installation d'un système d'acquisition en salle {{ nomsalle }} pour le technicien.
-            </p>
-            <div class="confirm-buttons">
-                <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Annuler</a>
-                <a href="/charge-de-mission/plan-experimentation/ajout-experimentation/{{nomsalle}}" class="confirm-button">Valider</a>
-            </div>
-            {% else %}
+            {% if  existedeja  == 1 %}
                 <h4>La salle {{ nomsalle }} est déjà dans le plan d'expérimentation !</h4>
                 <p>
                     Retournez à l'accueil si vous souhaitez la retirer du plan d'expérimentation
                 </p>
-            <div class="confirm-buttons">
-                <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Retour</a>
-            </div>
+                <div class="confirm-buttons">
+                    <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Retour</a>
+                </div>
+            {% elseif SADispo == 0 %}
+                <h4>Il n'y a plus de SA disponible pour la salle {{ nomsalle }}  !</h4>
+                <p>
+                    Retournez au plan d'expérimentation pour en retirer un puis revenez sur cette salle pour en ajouter un.
+                </p>
+                <div class="confirm-buttons">
+                    <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Retour</a>
+                </div>
+            {% else %}
+
+                <h4>Ajouter la salle {{ nomsalle }} au plan d'expérimentation ?</h4>
+                <p>
+                    Cela ajoutera une demande d'installation d'un système d'acquisition en salle {{ nomsalle }} pour le technicien.
+                </p>
+                <div class="confirm-buttons">
+                    <a href="/charge-de-mission/plan-experimentation" class="cancel-button">Annuler</a>
+                    <a href="/charge-de-mission/plan-experimentation/ajout-experimentation/{{nomsalle}}" class="confirm-button">Valider</a>
+                </div>
             {% endif %}
         </div>
     </div>
