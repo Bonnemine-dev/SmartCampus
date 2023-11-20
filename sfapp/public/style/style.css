@@ -75,6 +75,19 @@ a {
     margin-right: 50px;
 }
 
+.connexion .errorcode{
+    margin-top: -50px;
+    font-size: 10rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #FFF;
+}
+
+.connexion .error_phrase{
+    font-size: 2rem;
+    color: #FFF;
+}
+
 /* Boutons */
 
 .gradient-button{
@@ -117,13 +130,13 @@ a {
     align-items: center;
 }
 
-.banner .link{
+ .link{
   width: 70px; /* Diamètre du cercle */
   height: 70px; /* Diamètre du cercle */
   border-radius: 50%;
   margin-right: 30px;
 }
-.banner .circle_icon{
+ .circle_icon{
   width: 70px; /* Diamètre du cercle */
   height: 70px; /* Diamètre du cercle */
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -133,13 +146,13 @@ a {
   transition: transform 0.3s ease-in-out;
 }
 
-.banner .circle_icon:hover {
+ .circle_icon:hover {
     transform: scale(1.1);
     cursor: pointer;
     border: 2px solid #FFF;
 }
 
-.banner .circle_icon img {
+ .circle_icon img {
     width: 32px;
     height: 32px;
     position: absolute;
@@ -149,7 +162,7 @@ a {
   }
   
   
-  .banner .circle_icon .leave_left{
+   .circle_icon .leave_left{
     transform-origin:  bottom right;
     position: absolute;
     top: 19%;
@@ -157,20 +170,20 @@ a {
     transform-origin: 37px 37px;
   }
   
-  .banner .circle_icon .leave_right{
+   .circle_icon .leave_right{
     transform-origin:  center;
     position: absolute;
     top: 36%;
     left: 37%;
   }
   
-  .banner .circle_icon:hover .leave_right {
+    .circle_icon:hover .leave_right {
     transform-origin: center;
     transform: rotate(15deg);
     transition: transform 0.3s ease;
   }
   
-  .banner .circle_icon:hover .leave_left {
+    .circle_icon:hover .leave_left {
     transform: rotate(-15deg);
     left: 14%;
     transition: transform 0.3s ease;
