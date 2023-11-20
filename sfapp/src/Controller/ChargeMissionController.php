@@ -68,9 +68,9 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
-    public function ajout_salle(ExperimentationRepository $experimentationRepository,$nomsalle): Response
+    public function ajout_salle(SARepository $saRepository ,ExperimentationRepository $experimentationRepository,$nomsalle): Response
     {
-        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+        if($experimentationRepository->verifierExperimentation($nomsalle) or $saRepository->compteSASansExperimentation() == 0) {
             $existeDeja = 1;
         }
         else{
