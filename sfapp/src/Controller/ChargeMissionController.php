@@ -7,11 +7,9 @@ use App\Form\RechercheSalleFormType;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
 use App\Repository\BatimentRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExperimentationRepository;
 
@@ -23,7 +21,7 @@ class ChargeMissionController extends AbstractController
         // Création des instances de formulaire
         $filtreSalleForm = $this->createForm(FiltreSalleFormType::class);
         $rechercheSalleForm = $this->createForm(RechercheSalleFormType::class, null, [
-            'liste_batiments' => $batimentRepository->getTableauBatimentsNomID(),
+            'liste_batiments' => $batimentRepository->tableauBatimentsNomID(),
         ]);
 
         // Soumission des formulaires à la requête
@@ -33,6 +31,7 @@ class ChargeMissionController extends AbstractController
         // Initialisation des résultats de la salle
         $salles = $salleRepository->listerSalles();
 
+        // Filtrage des salles en fonction du formulaire de filtre
         if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
             $dataFiltre = $filtreSalleForm->getData();
             // Extraire les données et les utiliser pour filtrer les salles
@@ -44,6 +43,7 @@ class ChargeMissionController extends AbstractController
             );
         }
 
+        // Recherche des salles en fonction du formulaire de recherche
         if ($rechercheSalleForm->isSubmitted() && $rechercheSalleForm->isValid()) {
             $dataRecherche = $rechercheSalleForm->getData();
             // Extraire les données et les utiliser pour rechercher les salles
@@ -70,6 +70,7 @@ class ChargeMissionController extends AbstractController
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
     public function ajout_salle(ExperimentationRepository $experimentationRepository,$nomsalle): Response
     {
+        // Vérifier si la salle existe déjà dans les expérimentations
         if($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
         }
@@ -77,6 +78,7 @@ class ChargeMissionController extends AbstractController
             $existeDeja = 0;
         }
 
+        // Afficher la vue d'ajout de salle avec le résultat de l'existence
         return $this->render('chargemission/ajouter-salle.html.twig', [
             'nomsalle' => $nomsalle,
             'existedeja' => $existeDeja,
@@ -103,6 +105,7 @@ class ChargeMissionController extends AbstractController
     #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
     public function supprimer_salle(ExperimentationRepository $experimentationRepository , $nomsalle): Response
     {
+        // Vérifier si la salle existe déjà dans les expérimentations
         if($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
         }
@@ -110,6 +113,7 @@ class ChargeMissionController extends AbstractController
             $existeDeja = 0;
         }
 
+        // Afficher la vue de suppression de salle avec le résultat de l'existence
         return $this->render('chargemission/supprimer-salle.html.twig', [
             'nomsalle' => $nomsalle,
             'existedeja' => $existeDeja,

@@ -16,6 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BatimentRepository extends ServiceEntityRepository
 {
+    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée.
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Batiment::class);
@@ -26,42 +27,21 @@ class BatimentRepository extends ServiceEntityRepository
      *
      * @return array
      */
-    public function getTableauBatimentsNomID(): array
+    public function tableauBatimentsNomID(): array
     {
+        // Construction de la requête DQL pour sélectionner les id et noms des bâtiments.
         $batiments = $this->createQueryBuilder('b')
             ->select('b.id', 'b.nom')
             ->getQuery()
             ->getResult();
 
+        // Transformation du tableau de résultats en un tableau associatif ['Nom du bâtiment' => 'id'].
         $batimentsArray = [];
         foreach ($batiments as $batiment) {
             $batimentsArray[$batiment['nom']] = $batiment['id'];
         }
 
+        // Retour du tableau résultant.
         return $batimentsArray;
     }
-//    /**
-//     * @return Batiment[] Returns an array of Batiment objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Batiment
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

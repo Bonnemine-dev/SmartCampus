@@ -8,17 +8,21 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SARepository::class)]
 class SA
 {
+    // Identifiant unique généré automatiquement pour le SA.
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    // Numéro du SA.
     #[ORM\Column]
     private ?int $numero = null;
 
+    // Nom du SA, limité à 50 caractères.
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+    // État du SA, limité à 25 caractères.
     #[ORM\Column(length: 25)]
     private ?string $etat = null;
 

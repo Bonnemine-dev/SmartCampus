@@ -9,22 +9,27 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ExperimentationRepository::class)]
 class Experimentation
 {
+    // Identifiant unique généré automatiquement pour l'expérimentation.
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    // Relation OneToOne avec la salle, avec cascade persist et remove.
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Salle $Salle = null;
 
+    // Relation OneToOne avec SA, avec cascade persist et remove.
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?SA $SA = null;
 
+    // Date de demande de l'expérimentation.
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datedemande = null;
 
+    // Date d'installation de l'expérimentation (nullable).
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateinstallation = null;
 

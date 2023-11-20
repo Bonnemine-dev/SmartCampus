@@ -8,14 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: BatimentRepository::class)]
 class Batiment
 {
+    // Identifiant unique généré automatiquement pour le bâtiment.
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    // Nom du bâtiment, limité à 50 caractères.
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+    // Description optionnelle du bâtiment, limitée à 300 caractères.
     #[ORM\Column(length: 300, nullable: true)]
     private ?string $description = null;
 

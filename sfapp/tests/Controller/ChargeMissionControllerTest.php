@@ -6,10 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ChargeMissionControllerTest extends WebTestCase
 {
+    // Test de la page principale
     public function testPage(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/charge-de-mission/plan-experimentation');
+        $client->request('GET', '/charge-de-mission/plan-experimentation');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h3', 'Menu');
@@ -17,6 +18,7 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertSelectorExists('html div.salle-infos');
     }
 
+    // Test de soumission du formulaire de filtre
     public function testSoumissionFiltre()
     {
         $client = static::createClient();
@@ -38,6 +40,7 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    // Test de soumission du formulaire de recherche
     public function testSoumissionRecherche()
     {
         $client = static::createClient();
@@ -57,11 +60,12 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    // Test de la réinitialisation du formulaire de filtre
     public function testReinitialisationFiltre()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/charge-de-mission/plan-experimentation');
+        $client->request('GET', '/charge-de-mission/plan-experimentation');
         $crawler = $client->submitForm('Réinitialiser');
 
         $this->assertResponseIsSuccessful();
@@ -70,6 +74,7 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertEquals([], $crawler->filter('input[name="filtreSalleForm[orientation][]"]:checked')->extract(['value']));
     }
 
+    // Test de la redirection vers la page d'ajout d'expérimentation
     public function testRedirectionAjoutExperimentation()
     {
         $client = static::createClient();
@@ -83,6 +88,7 @@ class ChargeMissionControllerTest extends WebTestCase
 
     }
 
+    // Test de l'ajout d'expérimentation
     public function testAjoutExperimentation()
     {
         $client = static::createClient();
@@ -100,6 +106,7 @@ class ChargeMissionControllerTest extends WebTestCase
 
     }
 
+    // Test de la redirection vers la page de suppression d'expérimentation
     public function testRedirectionSupprimerExperimentation()
     {
         $client = static::createClient();
@@ -113,6 +120,7 @@ class ChargeMissionControllerTest extends WebTestCase
 
     }
 
+    // Test de la suppression d'expérimentation
     public function testSupprimerExperimentation()
     {
         $client = static::createClient();

@@ -17,6 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SalleRepository extends ServiceEntityRepository
 {
+    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée.
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Salle::class);
@@ -24,15 +25,18 @@ class SalleRepository extends ServiceEntityRepository
 
     public function listerSalles()
     {
+        // Requête pour sélectionner les salles avec des informations supplémentaires de l'expérimentation.
         $queryBuilder = $this->createQueryBuilder('salle')
             ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
             ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
             ->orderBy('salle.nom', 'ASC');
+        // Exécutez la requête et retournez les résultats.
         return $queryBuilder->getQuery()->getResult();
     }
 
     public function rechercheSallePlanExp($batiment = null, $salle = null)
     {
+        // Requête pour sélectionner les salles en fonction des critères spécifiés.
         $queryBuilder = $this->createQueryBuilder('salle')
             ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
             ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
@@ -48,11 +52,22 @@ class SalleRepository extends ServiceEntityRepository
                 ->setParameter('salle', '%' . $salle . '%');
         }
 
+        // Exécutez la requête et retournez les résultats.
         return $queryBuilder->getQuery()->getResult();
     }
 
+    /**
+     * Filtre les salles selon les critères spécifiés.
+     *
+     * @param array|null $etages
+     * @param array|null $orientation
+     * @param int|null $ordinateurs
+     * @param int|null $sa
+     * @return array
+     */
     public function filtrerSallePlanExp($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
     {
+        // Requête pour filtrer les salles selon les critères spécifiés.
         $queryBuilder = $this->createQueryBuilder('salle')
             ->select('salle')
             ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
@@ -92,38 +107,18 @@ class SalleRepository extends ServiceEntityRepository
             }
         }
 
+        // Exécutez la requête et retournez les résultats.
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function nomsalletoid($salle): ?Salle
+    /**
+     * Récupère l'entité Salle en fonction du nom de la salle.
+     *
+     * @param string $salle
+     * @return Salle|null
+     */
+    public function nomSalleId($salle): ?Salle
     {
         return $this->findOneBy(['nom' => $salle]);
     }
-
-
-
-//    /**
-//     * @return Salle[] Returns an array of Salle objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Salle
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

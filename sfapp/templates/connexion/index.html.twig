@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
+    <!-- Inclusion de la feuille de style -->
     <link rel="stylesheet" href="{{ asset('style/style.css') }}" />
     <title>Connexion</title>
 </head>
@@ -10,15 +11,18 @@
 <div class="container connexion-container">
     <div class="connexion">
         <div class="title">
+            <!-- Logo Smart Campus -->
             <img class="logo" src="{{ asset('img/logo.jpg') }}" alt="logo">
             <h1>Smart Campus.</h1>
         </div>
         <p>Choisissez votre profil :</p>
+        <!-- Liens vers les profils -->
         <a href="{{ path('app_charge_mission') }}" class="gradient-button">Chargé de mission</a>
         <a href="{{ path('app_technicien') }}" class="gradient-button">Technicien</a>
     </div>
 </div>
 
+<!-- Script pour les effets de souris -->
 <script src="{{ asset('js/mouseTrail.js') }}"></script>
 
 </body>

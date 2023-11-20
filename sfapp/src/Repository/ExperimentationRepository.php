@@ -16,8 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ExperimentationRepository extends ServiceEntityRepository
 {
+    // Références aux autres repositories nécessaires.
     private $salleRepository;
     private $saRepository;
+
+    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée,
+    // ainsi que les repositories des entités Salle et SA.
     public function __construct(ManagerRegistry $registry , SalleRepository $salleRepository,SARepository $saRepository)
     {
         parent::__construct($registry, Experimentation::class);
@@ -35,7 +39,7 @@ class ExperimentationRepository extends ServiceEntityRepository
 
         // Créez une nouvelle instance de l'entité Experimentation
         $experimentation = new Experimentation();
-        $id = $this->salleRepository->nomsalletoid($salle);
+        $id = $this->salleRepository->nomSalleId($salle);
         $experimentation->setSalle($id);
 
         $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -90,15 +94,15 @@ class ExperimentationRepository extends ServiceEntityRepository
      */
     public function supprimerExperimentation($salle)
     {
-        $idSalle = $this->salleRepository->nomsalletoid($salle);
+        $idSalle = $this->salleRepository->nomSalleId($salle);
         $Exp = $this->findOneBy(['Salle' => $idSalle]);
-        $this->saRepository->supresionExp($Exp->getSA());
+        $this->saRepository->suppressionExp($Exp->getSA());
 
         $entityManager = $this->getEntityManager();
         $entityManager->persist($Exp);
         $entityManager->flush();
 
-        // Get the entity manager and perform the delete operation
+        // Obtenez l'entité Experimentation correspondant à la salle donnée.
 
         $queryBuilder = $this->createQueryBuilder('experimentation');
         $queryBuilder

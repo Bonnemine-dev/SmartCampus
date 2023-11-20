@@ -17,6 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SARepository extends ServiceEntityRepository
 {
+    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée.
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SA::class);
@@ -24,6 +25,7 @@ class SARepository extends ServiceEntityRepository
 
     public function compteSASansExperimentation()
     {
+        // Requête pour compter les SA sans expérimentation.
         return $this->createQueryBuilder('sa')
             ->select('count(sa.id)')
             ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'sa.id = experimentation.SA')
@@ -34,38 +36,16 @@ class SARepository extends ServiceEntityRepository
 
     public function saNonUtiliser():?sa
     {
+        // Requête pour sélectionner un SA disponible.
         $sa = $this->findOneBy(['etat' => 'Disponible']);
         $sa->setEtat('En_preparation');
         return $sa;
     }
 
-    public function supresionExp($sa)
+    public function suppressionExp($sa)
     {
+        // Mettre à jour l'état du SA.
         $sa->setEtat('Disponible');
     }
 
-//    /**
-//     * @return SA[] Returns an array of SA objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?SA
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -3,46 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Icône de l'onglet -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {% block stylesheets %}
+        <!-- Inclusion de la feuille de style -->
         <link rel="stylesheet" href="{{ asset('style/style.css') }}">
     {% endblock %}
 </head>
 <body>
+<!-- Bannière avec le titre SmartCampus -->
 <div class="banner">
     <div class="right-content">
+        <!-- Lien de déconnexion avec icônes -->
         <a class="link" href="{{ path('app_connexion') }}">
             <div class="circle_icon">
                 <img src="{{ asset('img/leave_left.png') }}" alt="leave_left" class="leave_left">
                 <img src="{{ asset('img/leave_right.png') }}" alt="leave_right" class="leave_right">
             </div>
         </a>
+        <!-- Titre et sous-titre -->
         <h1>SmartCampus.</h1>
         <h2>[DASHBOARD Bêta]</h2>
     </div>
 
     <div class="left-content">
+        <!-- Affichage du nom d'utilisateur -->
         <p>{% block username %}{% endblock %}</p>
+        <!-- Icône utilisateur -->
         <img  src="{{ asset('img/user.png') }}" alt="Icone user">
     </div>
 </div>
 
+<!-- Contenu de l'application avec barre latérale -->
 <div class="app-container">
     <div class="sidebar">
         <h3>Menu</h3>
         <ul>
+            <!-- Liens du menu à personnaliser dans les vues enfants -->
             {% block navlink %}
             {% endblock %}
         </ul>
     </div>
 
+    <!-- Contenu principal à définir dans les vues enfants -->
     {% block appcontent %}
 
     {% endblock %}
 </div>
 
-
-
+<!-- Scripts JavaScript à personnaliser dans les vues enfants -->
 {% block javascripts %}
 {% endblock %}
 

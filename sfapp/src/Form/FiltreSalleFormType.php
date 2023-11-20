@@ -5,14 +5,15 @@ namespace App\Form;
 /*use App\Entity\Salle;*/
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FiltreSalleFormType extends AbstractType
 {
+    // Méthode pour construire le formulaire.
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Ajout d'un champ 'etage' de type ChoiceType avec des options spécifiques.
         $builder
             ->add('etage', ChoiceType::class, [
                 'choices' => [
@@ -26,6 +27,7 @@ class FiltreSalleFormType extends AbstractType
                 'label' => 'Étage',
                 'required' => false,
             ])
+            // Ajout d'un champ 'orientation' de type ChoiceType avec des options spécifiques.
             ->add('orientation', ChoiceType::class, [
                 'choices' => [
                     'Nord' => 'nord',
@@ -38,6 +40,7 @@ class FiltreSalleFormType extends AbstractType
                 'label' => 'Orientation',
                 'required' => false,
             ])
+            // Ajout d'un champ 'ordinateurs' de type ChoiceType avec des options spécifiques.
             ->add('ordinateurs', ChoiceType::class, [
                 'choices' => [
                     'Non spécifié' => null,
@@ -49,6 +52,7 @@ class FiltreSalleFormType extends AbstractType
                 'label' => 'Ordinateur',
                 'required' => true,
             ])
+            // Ajout d'un champ 'sa' de type ChoiceType avec des options spécifiques.
             ->add('sa', ChoiceType::class, [
                 'choices' => [
                     'Non spécifié' => null,
@@ -63,8 +67,10 @@ class FiltreSalleFormType extends AbstractType
             ]);
     }
 
+    // Méthode pour configurer les options du formulaire.
     public function configureOptions(OptionsResolver $resolver): void
     {
+        // Définition d'options par défaut, notamment la méthode de soumission du formulaire.
         $resolver->setDefaults([
             'method' => 'GET',
         ]);
