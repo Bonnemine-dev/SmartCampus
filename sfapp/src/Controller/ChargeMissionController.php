@@ -68,10 +68,13 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
-    public function ajout_salle(SARepository $saRepository ,ExperimentationRepository $experimentationRepository,$nomsalle): Response
+    public function ajout_salle(SalleRepository $salleRepository , SARepository $saRepository ,ExperimentationRepository $experimentationRepository,$nomsalle): Response
     {
 
         // Vérifier si la salle existe déjà dans les expérimentations
+        if($salleRepository->nomSalleId($nomsalle) == null){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $existeDeja = 0;
         $SADispo = $saRepository->compteSASansExperimentation();
         if($experimentationRepository->verifierExperimentation($nomsalle)) {
