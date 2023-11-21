@@ -30,6 +30,7 @@ a {
 .connexion-container{
     background: linear-gradient(90deg, #00B292, #7ED957);
     position: relative;
+    overflow:hidden;
 }
 
 .mouse-trail {
