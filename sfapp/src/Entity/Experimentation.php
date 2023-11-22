@@ -14,7 +14,7 @@ class Experimentation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\Notblank]
+    #[Assert\NotBlank]
     private ?int $id = null;
 
     // Relation OneToOne avec la salle, avec cascade persist et remove.

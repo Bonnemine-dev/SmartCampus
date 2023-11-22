@@ -13,7 +13,7 @@ class SA
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\Notblank]
+    #[Assert\NotBlank]
     private ?int $id = null;
 
     // Numéro du SA.

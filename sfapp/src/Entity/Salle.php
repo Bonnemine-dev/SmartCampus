@@ -14,7 +14,7 @@ class Salle
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\Notblank]
+    #[Assert\NotBlank]
     private ?int $id = null;
 
     // Nom de la salle, limité à 50 caractères.
