@@ -29,7 +29,7 @@ class SA
     private ?string $nom = null;
 
     // Tableau réunissant l'ensemble des orientations.
-    public const Etat = ['Disponible','En préparation'];
+    public const Etat = ['Disponible','En_preparation'];
     // État du SA, limité à 25 caractères.
     #[ORM\Column(length: 25)]
     #[Assert\NotBlank]
