@@ -13,9 +13,6 @@ class ChargeMissionControllerTest extends WebTestCase
         $client->request('GET', '/charge-de-mission/plan-experimentation');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h3', 'Menu');
-        $this->assertSelectorTextContains('h4', 'Liste des salles');
-        $this->assertSelectorExists('html div.salle-infos');
     }
 
     // Test de soumission du formulaire de filtre

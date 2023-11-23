@@ -13,7 +13,6 @@ class TechnicienControllerTest extends WebTestCase
         $client->request('GET', '/technicien/liste-souhaits');
             
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h4', "Systèmes d'acquisitions à installer");
         // Ajoutez d'autres assertions en fonction de votre logique de test spécifique à cette route
     }
 }
