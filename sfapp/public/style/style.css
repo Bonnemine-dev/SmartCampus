@@ -1,6 +1,6 @@
 @keyframes slideDown {
     0% { top: 50px; }
-    100% { top: 120px; }
+    100% { top: 100px; }
 }
 
 * {
@@ -114,7 +114,7 @@ a {
 .banner {
     color: #FFF;
     background-color: #272727;
-    height: 120px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -196,12 +196,12 @@ a {
 }
 
 .right-content h1{
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     font-weight: 500;
 }
 
 .right-content h2{
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: #737373;
     margin-left: 20px;
@@ -224,12 +224,19 @@ a {
     flex-grow: inherit;
     flex-direction: column;
     align-items: center;
-    padding: 5% 0;
+    justify-content: space-between;
+    padding: 5% 0 0 0;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.5);
     position: fixed;
     height: 100vh;
     z-index: 50;
-    padding-top: calc(120px + 5%);
+    padding-top: calc(100px + 5%);
+}
+
+.sidebar .menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .app-content{
@@ -278,7 +285,7 @@ a {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 5%;
-    padding-top: calc(5% + 120px);
+    padding-top: calc(5% + 100px);
 }
 
 .souhaits h3, .cm-pe h3{
@@ -385,7 +392,7 @@ a {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 5%;
-    padding-top: calc(5% + 120px);
+    padding-top: calc(5% + 100px);
 }
 
 .souhaits h3{
@@ -442,14 +449,17 @@ a {
 
 /* Style pour la fenêtre modale */
 .popup {
-    display: none;
-    position: absolute;
-    top: 230px;
-    left: 45%;
-    padding: 20px;
-    background-color: #5d5d5d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 30px 20px 50px;
+    background-color: #737373;
     z-index: 1000;
-    border-radius: 15px;
+}
+
+.popup form{
+    font-size: 13px;
 }
 
 .popup form input {
@@ -651,4 +661,20 @@ a {
 
 .confirm-buttons .cancel-button{
     background: #737373;
+}
+
+/* --------------------------------- */
+
+@keyframes blink-border {
+    0%, 100% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: white;
+    }
+}
+
+.salle.blink-border {
+    animation: blink-border 1s linear 3;
+    border: 2px solid transparent;
 }
