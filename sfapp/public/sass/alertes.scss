@@ -1,0 +1,25 @@
+/* Messages d'alerte */
+@keyframes slideDown {
+    0% { top: 50px; }
+    100% { top: 100px; }
+}
+
+.alert{
+    @include flex();
+    position: fixed;
+    width: calc(100% - 320px);
+    top: 50px;
+    left: $sidebar-width;
+    height: 50px;
+    box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.15);
+    z-index: 25;
+    animation: slideDown 0.5s ease-in-out 0.5s forwards;
+
+    &.alert-success{
+        background-color: #00B292;
+    }
+
+    &.alert-error{
+        background-color: #ff5050;
+    }
+}

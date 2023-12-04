@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block sidebar %}
-<div class="popup" id="popup">
+<div class="filtre">
 	<h3>FILTRES</h3>
 
 	<!--Le popup lui même-->
@@ -31,7 +31,7 @@
 	{{ form_label(filtreSalleForm.sa) }}
 	{{ form_widget(filtreSalleForm.sa) }}
 
-	<button type="submit" onclick="fermerPopupFiltreSalles()">Valider</button>
+	<button type="submit">Valider</button>
 	<button type="button" id="resetButton">Réinitialiser</button>
 
 	{{ form_end(filtreSalleForm, {'render_rest': false}) }}
@@ -130,7 +130,7 @@
 						{% if nb_sa > 0 %}
 							<a href="plan-experimentation/ajouter-salle/{{ salle.nom }}" class="salle-bouton" >Ajouter</a>
 						{% else %}
-							<a href="" class="salle-bouton-unclickable">Ajouter</a>
+							<a class="salle-bouton-unclickable">Ajouter</a>
 						{% endif %}
 					</div>
 				{% endif %}
