@@ -37,6 +37,9 @@ class SA
     #[Assert\Choice(choices: SA::Etat, message: 'Choisie un état valide')]
     private ?string $etat = null;
 
+    #[ORM\Column]
+    private ?bool $disponible = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class SA
     public function setEtat(string $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function isDisponible(): ?bool
+    {
+        return $this->disponible;
+    }
+
+    public function setDisponible(bool $disponible): static
+    {
+        $this->disponible = $disponible;
 
         return $this;
     }
