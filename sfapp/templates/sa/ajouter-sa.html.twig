@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Chargé de mission
+{% endblock %}
+
+
+{% block username %}Chargé de mission
+{% endblock %}
+
+{% block navlink %}
+    <li>
+        <a class="nav-link" href="liste-souhaits">Liste de souhaits</a>
+        <a class="nav-link" href="gestion-sa">Gestion des SA</a>
+    </li>
+
+{% endblock %}
+
+{% block appcontent %}
+    <div class="app-content cm-pe">
+
+        {# Titre #}
+        <h3>AJOUT D'UN SA</h3>
+
+        {# ------------------------------------------------------ #}
+
+        {# CONTAINER (fond gris) #}
+        <div class="container">
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/filter.js') }}"></script>
+{% endblock %}

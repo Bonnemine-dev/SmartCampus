@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Technicien{% endblock %}
+
+{% block username %}Technicien{% endblock %}
+
+{% block navlink %}
+    <li>
+        <a class="nav-link" href="liste-souhaits">Liste de souhaits</a>
+        <a class="nav-link" href="gestion-sa">Gestion des SA</a>
+    </li>
+{% endblock %}
+
+{% block appcontent %}
+    <div class="app-content souhaits">
+        <h3 class="">Gestion des SA</h3>
+
+        <div class="container">
+            <h4>Liste des SA</h4>
+            {% if SA|length == 0 %}
+                <div class="souhait" style="justify-content: center;">
+                    <p>Aucun SA pour le moment...</p>
+                </div>
+            {% endif %}
+            <div class="souhait">
+                <a href="gestion-sa/ajouter-sa" class="cancel-button">Ajouter un SA dans le stock</a>
+            </div>
+            {% for exp in experimentations %}
+                <div class="souhait">
+                    <div class="souhait-info">
+                        <h5>{{exp.sa.getNom()}}</h5>
+                        <p>Salle associée : {{exp.salle.getNom()}} etat : {{exp.sa.getEtat()}}</p>
+                        <a href=# class="salle-bouton">detail</a>
+                        <a href=# class="salle-bouton">supprimer</a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if SA|length > 0 %}
+                {% for sa in SA %}
+                    {% if sa.getEtat == "Disponible" %}
+                        <div class="souhait">
+                            <div class="souhait-info">
+                                <h5>{{ sa.getNom() }}</h5>
+                                <p>Salle associée : Aucune</p>
+                                <a href=# class="salle-bouton">detail</a>
+                                <a href=# class="salle-bouton">supprimer</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

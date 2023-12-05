@@ -34,6 +34,7 @@ class SARepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    // Fonction qui retourne le premier SA disponible
     public function saNonUtiliser():?sa
     {
         // Requête pour sélectionner un SA disponible.
@@ -42,10 +43,20 @@ class SARepository extends ServiceEntityRepository
         return $sa;
     }
 
+    //Fonction qui change l'etat du SA a disponible (si le sa est enlever de l'experimentation par exemple)
     public function suppressionExp($sa)
     {
         // Mettre à jour l'état du SA.
         $sa->setEtat('Disponible');
+    }
+
+    public function toutLesSA()
+    {
+        // Requête pour récupérer tous les SA.
+        return $this->createQueryBuilder('sa')
+            ->select('sa')
+            ->getQuery()
+            ->getResult();
     }
 
 }
