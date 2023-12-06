@@ -14,7 +14,7 @@ class ConnexionController extends AbstractController
     public function index(): Response
     {
         // Rend la vue 'connexion/ajouter-sa.html.twig' avec des données supplémentaires, ici le nom du contrôleur.
-        return $this->render('connexion/ajouter-sa.html.twig', [
+        return $this->render('connexion/index.html.twig', [
             'controller_name' => 'ConnexionController',
         ]);
     }

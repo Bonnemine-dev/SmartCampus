@@ -59,4 +59,33 @@ class SARepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function rechercheSA($nom = null)
+    {
+        // Requête pour sélectionner les salles en fonction des critères spécifiés.
+        $queryBuilder = $this->createQueryBuilder('sa')
+            ->select('sa.nom, sa.etat, sa.numero')
+            ->orderBy('sa.nom', 'ASC');
+
+        if ($nom !== null) {
+            $queryBuilder->andWhere('sa.nom = :nom')
+                ->setParameter('nom', $nom);
+        }
+
+        // Exécutez la requête et retournez les résultats.
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function ajoutSA($nom = null)
+    {
+        $sa = new SA();
+        $sa->setEtat("Disponible");
+        $sa->setNom($nom);
+        $sa->setNumero(0);
+
+        // Obtenez le gestionnaire d'entités et persistez l'entité
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($sa);
+        $entityManager->flush();
+    }
+
 }

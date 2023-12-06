@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SmartCampus. - Chargé de mission
+{% block title %}SmartCampus. - Technicien
 {% endblock %}
 
 
-{% block username %}Chargé de mission
+{% block username %}Technicien
 {% endblock %}
 
 {% block navlink %}
-    <li>
-        <a class="nav-link" href="liste-souhaits">Liste de souhaits</a>
-        <a class="nav-link" href="gestion-sa">Gestion des SA</a>
-    </li>
+    <li><a class="nav-link" href="../liste-souhaits">Liste de souhaits</a></li>
+    <li><a class="nav-link" href="../gestion-sa">Gestion des SA</a></li>
 
 {% endblock %}
 
@@ -25,7 +23,24 @@
 
         {# CONTAINER (fond gris) #}
         <div class="container">
+            <h1>Quel nom voulez-vous donner à votre système d'acquisition ?</h1>
+            <div class="search-and-filter">
+                {{ form_start(ajoutSAForm) }}
+                {{ form_widget(ajoutSAForm.nom) }}
+                <p>{{ erreur }}</p>
+                <div class="container">
+                    <p>
+                        Une fois le nom validé et vérifier, vous devez vous connecter au réseau wifi du système d’acquisition et de vous rendre via votre smartphone sur la page web disponible à l’adresse : 127.0.0.1:80. Une fois sur cette page web vous devez rentrer impérativement le même nom que vous venez de rentrer ci-dessus.
+                        Ne vous trompé pas, ce nommage est définitif.
+                    </p>
+                </div>
 
+                <button type='submit' class='salle-bouton'>Ajouter</button>
+
+                {{ form_end(ajoutSAForm, {'render_rest': false}) }}
+
+                <a href="../gestion-sa" class="cancel-button">annuler</a>
+            </div>
         </div>
     </div>
 
