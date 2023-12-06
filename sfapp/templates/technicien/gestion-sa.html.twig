@@ -38,14 +38,14 @@
                     <div class="souhait">
                         <div class="souhait-info">
                             <h5>{{ sa.nom }}</h5>
-                            {% if sa.etat == "Disponible" %}
+                            {% if sa.disponible == 1 %}
                                 <p>Salle associée : Aucune</p>
                             {% else %}
                                 {% for exp in experimentations %}
                                     <div class="souhait">
                                         <div class="souhait-info">
                                             {% if sa.nom == exp.sa.getNom() %}
-                                                <p>Salle associée : {{exp.salle.getNom()}} etat : {{exp.sa.getEtat()}}</p>
+                                                <p>Salle associée : {{exp.salle.getNom()}} etat : </p>
                                             {% endif %}
                                         </div>
                                     </div>

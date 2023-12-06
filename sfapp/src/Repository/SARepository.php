@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Config\EtatSA;
 use App\Entity\Experimentation;
 use App\Entity\SA;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -62,7 +63,7 @@ class SARepository extends ServiceEntityRepository
     {
         // Requête pour sélectionner les salles en fonction des critères spécifiés.
         $queryBuilder = $this->createQueryBuilder('sa')
-            ->select('sa.nom, sa.etat, sa.numero')
+            ->select('sa.nom, sa.etat, sa.numero,sa.disponible')
             ->orderBy('sa.nom', 'ASC');
 
         if ($nom !== null) {
@@ -77,9 +78,10 @@ class SARepository extends ServiceEntityRepository
     public function ajoutSA($nom = null)
     {
         $sa = new SA();
-        $sa->setEtat("Disponible");
+        $sa->setEtat(EtatSA::eteint);
         $sa->setNom($nom);
         $sa->setNumero(0);
+        $sa->setDisponible(1);
 
         // Obtenez le gestionnaire d'entités et persistez l'entité
         $entityManager = $this->getEntityManager();
