@@ -27,6 +27,9 @@ class SAController extends AbstractController
             if(strlen($dataRecherche['nom']) < 6){
                 $erreur = "* 6 caractères minimum";
             }
+            else if ($repository->existeDeja($dataRecherche['nom']) != null){
+                $erreur = "nom de SA deja atribuer";
+            }
             else{
                 // Extraire les données et les utiliser pour rechercher les salles
                 $repository->ajoutSA(

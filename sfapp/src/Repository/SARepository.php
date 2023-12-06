@@ -88,4 +88,8 @@ class SARepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    public function existeDeja($nom = null)
+    {
+        return $this->findOneBy(['nom' => $nom]);
+    }
 }
