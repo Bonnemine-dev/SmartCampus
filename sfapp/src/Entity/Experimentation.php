@@ -20,17 +20,6 @@ class Experimentation
     #[Assert\NotBlank]
     private ?int $id = null;
 
-    // Relation OneToOne avec la salle, avec cascade persist et remove.
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
-    private ?Salle $Salle = null;
-
-    // Relation OneToOne avec SA, avec cascade persist et remove.
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?SA $SA = null;
-
     // Date de demande de l'expérimentation.
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank]
@@ -58,6 +47,14 @@ class Experimentation
     #[ORM\OneToMany(mappedBy: 'experimentation', targetEntity: Donnees::class, orphanRemoval: true)]
     private Collection $donnees;
 
+    #[ORM\ManyToOne(inversedBy: 'experimentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Salle $Salles = null;
+
+    #[ORM\ManyToOne(inversedBy: 'experimentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?SA $SA = null;
+
     public function __construct()
     {
         $this->donnees = new ArrayCollection();
@@ -66,30 +63,6 @@ class Experimentation
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSalle(): ?Salle
-    {
-        return $this->Salle;
-    }
-
-    public function setSalle(Salle $Salle): static
-    {
-        $this->Salle = $Salle;
-
-        return $this;
-    }
-
-    public function getSA(): ?SA
-    {
-        return $this->SA;
-    }
-
-    public function setSA(SA $SA): static
-    {
-        $this->SA = $SA;
-
-        return $this;
     }
 
     public function getDatedemande(): ?\DateTimeInterface
@@ -142,6 +115,30 @@ class Experimentation
                 $donnee->setExperimentation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSalles(): ?Salle
+    {
+        return $this->Salles;
+    }
+
+    public function setSalles(?Salle $Salles): static
+    {
+        $this->Salles = $Salles;
+
+        return $this;
+    }
+
+    public function getSA(): ?SA
+    {
+        return $this->SA;
+    }
+
+    public function setSA(?SA $SA): static
+    {
+        $this->SA = $SA;
 
         return $this;
     }
