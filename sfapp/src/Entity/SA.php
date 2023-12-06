@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\SARepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Config\EtatSA;
 
 #[ORM\Entity(repositoryClass: SARepository::class)]
 class SA
@@ -28,14 +31,29 @@ class SA
     #[Assert\Length(min: 7, max: 7, maxMessage: 'Le nom d\'un SA est de la forme SA-????, et fais donc 7 caractères')]
     private ?string $nom = null;
 
-    // Tableau réunissant l'ensemble des orientations.
-    public const Etat = ['Disponible','En_preparation'];
-    // État du SA, limité à 25 caractères.
-    #[ORM\Column(length: 25)]
-    #[Assert\NotBlank]
-    #[Assert\Positive]
-    #[Assert\Choice(choices: SA::Etat, message: 'Choisie un état valide')]
-    private ?string $etat = null;
+    #[ORM\Column]
+    private ?EtatSA $etat = null;
+
+    #[ORM\Column]
+    private ?bool $disponible = null;
+
+    #[ORM\OneToMany(mappedBy: 'SA', targetEntity: Experimentation::class)]
+    private Collection $experimentations;
+
+    public function __construct()
+    {
+        $this->experimentations = new ArrayCollection();
+    }
+
+    public function getEtat(): ?EtatSA
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?EtatSA $etat): void
+    {
+        $this->etat = $etat;
+    }
 
     public function getId(): ?int
     {
@@ -66,14 +84,44 @@ class SA
         return $this;
     }
 
-    public function getEtat(): ?string
+    public function isDisponible(): ?bool
     {
-        return $this->etat;
+        return $this->disponible;
     }
 
-    public function setEtat(string $etat): static
+    public function setDisponible(bool $disponible): static
     {
-        $this->etat = $etat;
+        $this->disponible = $disponible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Experimentation>
+     */
+    public function getExperimentations(): Collection
+    {
+        return $this->experimentations;
+    }
+
+    public function addExperimentation(Experimentation $experimentation): static
+    {
+        if (!$this->experimentations->contains($experimentation)) {
+            $this->experimentations->add($experimentation);
+            $experimentation->setSA($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperimentation(Experimentation $experimentation): static
+    {
+        if ($this->experimentations->removeElement($experimentation)) {
+            // set the owning side to null (unless already changed)
+            if ($experimentation->getSA() === $this) {
+                $experimentation->setSA(null);
+            }
+        }
 
         return $this;
     }
