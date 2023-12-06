@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -44,9 +45,11 @@ class ExperimentationRepository extends ServiceEntityRepository
 
         $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $experimentation->setDatedemande($dateDemande);
+        $experimentation->setEtat(EtatExperimentation::demandeInstallation);
 
         $sa = $this->saRepository->saNonUtiliser();
         $experimentation->setSA($sa);
+
 
         // Obtenez le gestionnaire d'entités et persistez l'entité
         $entityManager = $this->getEntityManager();
@@ -67,8 +70,11 @@ class ExperimentationRepository extends ServiceEntityRepository
             'SELECT e
             FROM App\Entity\Experimentation e
             JOIN e.Salle s
-            WHERE s.nom = :nomSalle'
-        )->setParameter('nomSalle', $nomSalle);
+            WHERE s.nom = :nomSalle
+            AND e.etat BETWEEN :etat1 AND :etat2'
+        )->setParameter('nomSalle', $nomSalle)
+            ->setParameter('etat1', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat2', EtatExperimentation::demandeRetrait);
 
         // Exécuter la requête
         $resultat = $query->getResult();
@@ -96,20 +102,10 @@ class ExperimentationRepository extends ServiceEntityRepository
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
         $Exp = $this->findOneBy(['Salle' => $idSalle]);
-        $this->saRepository->suppressionExp($Exp->getSA());
+        $Exp->setEtat(EtatExperimentation::demandeRetrait);
 
         $entityManager = $this->getEntityManager();
         $entityManager->persist($Exp);
         $entityManager->flush();
-
-        // Obtenez l'entité Experimentation correspondant à la salle donnée.
-
-        $queryBuilder = $this->createQueryBuilder('experimentation');
-        $queryBuilder
-            ->delete()
-            ->where('experimentation.Salle = '.$idSalle->getId())
-            ->getQuery()
-            ->execute();
     }
-
 }

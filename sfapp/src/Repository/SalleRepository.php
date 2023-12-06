@@ -27,8 +27,9 @@ class SalleRepository extends ServiceEntityRepository
     {
         // Requête pour sélectionner les salles avec des informations supplémentaires de l'expérimentation.
         $queryBuilder = $this->createQueryBuilder('salle')
-            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
+            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.etat, experimentation.datedemande, experimentation.dateinstallation')
             ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
+            ->where('experimentation.etat BETWEEN 0 and 2 OR experimentation.etat IS NULL')
             ->orderBy('salle.nom', 'ASC');
         // Exécutez la requête et retournez les résultats.
         return $queryBuilder->getQuery()->getResult();

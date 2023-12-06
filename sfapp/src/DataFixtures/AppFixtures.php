@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
         $dixsas = array_rand($sas,10);
 
         // Création de 10 expérimentations avec des dates de demande et d'installation aléatoires.
-        for ($i=0; $i < 10; $i++) {
+        /*for ($i=0; $i < 10; $i++) {
             $exp = new Experimentation();
             $dateTimeNow = new DateTime($dateTime = 'now');
             $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
             $exp->setSalle($salles[$dixsalles[$i]]);
             $exp->setSA($sas[$dixsas[$i]]);
             $manager->persist($exp);
-        }
+        }*/
 
         // Exécution des opérations d'écriture dans la base de données.
         $manager->flush();
