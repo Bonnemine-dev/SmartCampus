@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Chargé de mission
+{% endblock %}
+
+
+{% block username %}Chargé de mission
+{% endblock %}
+
+{% block navlink %}
+    <li>
+        <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+    </li>
+{% endblock %}
+
+{% block appcontent %}
+    <div class="app-content cm-pe">
+
+        {# Titre #}
+        <h3>Salles en cours d'analyses</h3>
+
+        {# ------------------------------------------------------ #}
+
+        {# CONTAINER (fond gris) #}
+        <div class="container">
+            {% for experimentation in liste_experimentations %}
+                <div class="">
+                    <h1 class="">{{ experimentation.nom }}</h1>
+                    <p class="">
+                    {% if experimentation.sa_etat.value == 0 %} {# eteint #}
+                    eteint
+                    {% elseif experimentation.sa_etat.value == 1 %} {# marche #}
+                    marche
+                    {% elseif experimentation.sa_etat.value == 2 %} {# probleme #}
+                    probleme
+                    {% endif %}
+                    </p>
+                    <p class="">{{ listeDerniereValeur[experimentation.nom]['temp'] }}</p>
+                    <p class="">{{ listeDerniereValeur[experimentation.nom]['hum'] }}</p>
+                    <p class="">{{ listeDerniereValeur[experimentation.nom]['co2'] }}</p>
+                    <a href="/charge-de-mission/liste-salles/detail-salle/{{experimentation.nom}}" class="salle-bouton">Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/filter.js') }}"></script>
+{% endblock %}

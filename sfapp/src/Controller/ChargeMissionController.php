@@ -145,4 +145,46 @@ class ChargeMissionController extends AbstractController
         // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
         return $this->redirectToRoute('app_charge_mission');
     }
+
+    #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
+    public function liste_experimentation(ExperimentationRepository $experimentationRepository): Response
+    {
+        $liste_experimentations = $experimentationRepository->extraireLesExperimentations();
+        // Afficher la vue d'ajout de salle avec le résultat de l'existence
+        // 1. Lire le fichier JSON
+        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/liste_exp.json";
+        $jsonContent = file_get_contents($jsonFilePath);
+        $dataArray = json_decode($jsonContent, true);
+
+        // 2. Organiser les données par salle
+        $listeDerniereValue = [];
+        foreach ($dataArray as $data) {
+            $nomSalle = $data['localisation'];
+
+            // Si la salle n'existe pas encore dans la liste, ajoutez-la
+            if (!isset($listeDerniereValeur[$nomSalle])) {
+                $listeDerniereValeur[$nomSalle] = [
+                    'hum' => null,
+                    'temp' => null,
+                    'co2' => null,
+                ];
+            }
+
+            // 3. Calculer les dernières valeurs pour chaque type de mesure
+            if ($data['nom'] === 'temp') {
+                $listeDerniereValeur[$nomSalle]['temp'] = $data['valeur'];
+            } elseif ($data['nom'] === 'hum') {
+                $listeDerniereValeur[$nomSalle]['hum'] = $data['valeur'];
+            } elseif ($data['nom'] === 'co2') {
+                $listeDerniereValeur[$nomSalle]['co2'] = $data['valeur'];
+            }
+        }
+
+        dump($liste_experimentations);
+
+        return $this->render('chargemission/liste-salles.html.twig', [
+            'liste_experimentations' => $liste_experimentations, 
+            'listeDerniereValeur' => $listeDerniereValeur
+        ]);
+    }
 }

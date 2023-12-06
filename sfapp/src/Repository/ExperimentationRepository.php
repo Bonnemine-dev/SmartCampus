@@ -112,4 +112,20 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    public function extraireLesExperimentations()
+    {
+        $entityManager = $this->getEntityManager();
+        
+        $query = $entityManager->createQuery('
+            SELECT salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation, experimentation.etat, sa.etat as sa_etat
+            FROM App\Entity\Salle salle JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salle JOIN App\Entity\SA sa WITH experimentation.SA = sa.id
+            WHERE experimentation.etat = 1 OR experimentation.etat = 2
+        ');
+    
+        // Exécuter la requête
+        $resultat = $query->getResult();
+    
+        // Retourner true si une expérimentation est trouvée, sinon false
+        return $resultat;
+    }    
 }
