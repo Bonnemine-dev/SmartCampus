@@ -103,7 +103,7 @@
 			<div class="liste-salles">
 			
 			{% for salle in liste_salles %}
-				{% if salle.etat is null %}
+				{% if salle.etat == 4 %}
 					<div class="salle">
 						<div class="salle-infos">
 							<p>Pas encore de demande de SA</p>
@@ -142,7 +142,7 @@
 				{% elseif salle.etat == 1 %}
 					<div class="salle darker">
 						<div class="salle-infos">
-							<p>Date d'installation : {{ salle.installation|date('Y-m-d H:i:s') }}</p>
+							<p>Date d'installation : {{ salle.dateinstallation|date('Y-m-d H:i:s') }}</p>
 							<h5>{{ salle.nom }}</h5>
 							<p>
 								Système d'acquisition : installé |
@@ -157,7 +157,7 @@
 				{% elseif salle.etat == 2 %}
 					<div class="salle darker">
 						<div class="salle-infos">
-							<p>Date d'installation : {{ salle.installation|date('Y-m-d H:i:s') }}</p>
+							<p>Date d'installation : {{ salle.dateinstallation|date('Y-m-d H:i:s') }}</p>
 							<h5>{{ salle.nom }}</h5>
 							<p>
 								Système d'acquisition : à retirer |

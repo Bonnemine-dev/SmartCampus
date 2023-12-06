@@ -137,7 +137,7 @@ class ChargeMissionController extends AbstractController
         // Utilisez la méthode du repository pour ajouter des données
         $experimentationRepository->supprimerExperimentation($nomsalle);
         $salleId = $salleRepository->findOneBy(['nom' => $nomsalle]);
-        $experimentation = $experimentationRepository->findOneBy(['Salle' => $salleId]);
+        $experimentation = $experimentationRepository->findOneBy(['Salles' => $salleId]);
 
         // Vérifiez le résultat et ajoutez un message flash approprié
         if ($experimentation->getEtat() == EtatExperimentation::demandeRetrait) {

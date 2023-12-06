@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
 use App\Entity\Salle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -26,13 +27,29 @@ class SalleRepository extends ServiceEntityRepository
     public function listerSalles()
     {
         // Requête pour sélectionner les salles avec des informations supplémentaires de l'expérimentation.
-        $queryBuilder = $this->createQueryBuilder('salle')
-            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.etat, experimentation.datedemande, experimentation.dateinstallation')
-            ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
-            ->where('experimentation.etat BETWEEN 0 and 2 OR experimentation.etat IS NULL')
-            ->orderBy('salle.nom', 'ASC');
-        // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
+        $dql = '
+        SELECT salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis,
+               experimentation.datedemande, experimentation.dateinstallation,
+               CASE
+                   WHEN experimentation.etat = :etat_demande_installation THEN 0
+                   WHEN experimentation.etat = :etat_installee THEN 1
+                   WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                   WHEN experimentation.etat = :etat_retiree THEN 4
+                   ELSE 4
+               END AS etat
+        FROM App\Entity\Salle salle
+        LEFT JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
+        ORDER BY salle.nom ASC
+    ';
+
+        $query = $this->getEntityManager()->createQuery($dql);
+
+        $query->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat_installee', EtatExperimentation::installee)
+            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+
+        return $query->getResult();
     }
 
     public function rechercheSallePlanExp($batiment = null, $salle = null)
