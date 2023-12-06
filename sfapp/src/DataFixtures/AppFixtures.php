@@ -2,9 +2,13 @@
 
 namespace App\DataFixtures;
 
+use App\Config\EtatExperimentation;
+use App\Config\EtatSA;
 use App\Entity\Batiment;
 use App\Entity\Salle;
 use App\Entity\SA;
+use App\Entity\Experimentation;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -46,7 +50,8 @@ class AppFixtures extends Fixture
         // Création de 15 systèmes d'acquisitions (SA) avec des numéros générés aléatoirement.
         for ($i=0; $i < 15; $i++){
             $sa = new SA();
-            $sa->setEtat('Disponible');
+            $sa->setEtat(EtatSA::eteint);
+            $sa->setDisponible(true);
             $number = $this->faker->bothify('####');
             $sa->setNumero($number);
             $sa->setNom('SA-'. $number);
@@ -69,6 +74,17 @@ class AppFixtures extends Fixture
             $dateTimeNow = new DateTime($dateTime = 'now');
             $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
             $exp->setDateinstallation($this->faker->randomElement([true,false])?null:$dateTimeNow);
+            $sas[$dixsas[$i]]->setDisponible(false);//Rend le sa indisponible
+            if($exp->getDateinstallation() != null)
+            {   
+                $exp->setEtat($this->faker->randomElement([EtatExperimentation::installee,EtatExperimentation::demandeRetrait,EtatExperimentation::retiree]));//met l'etat de façon aléatoire sur les 3 autres etats possible
+                if($exp->getEtat() == EtatExperimentation::retiree)$sas[$dixsas[$i]]->setDisponible(true);
+                else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)$sas[$dixsas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
+            }
+            else
+            {
+                $exp->setEtat(EtatExperimentation::demandeInstallation);//met l'etat sur demmande
+            }
             $exp->setSalle($salles[$dixsalles[$i]]);
             $exp->setSA($sas[$dixsas[$i]]);
             $manager->persist($exp);
@@ -78,3 +94,5 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 }
+//0->eteint;1->marche;2->probleme                                etatSA
+//0->demandeInstallation;1->installe;2demandeRetrait;3->retiree  etatExperimentation

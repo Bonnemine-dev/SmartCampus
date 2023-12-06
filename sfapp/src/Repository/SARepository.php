@@ -28,8 +28,7 @@ class SARepository extends ServiceEntityRepository
         // Requête pour compter les SA sans expérimentation.
         return $this->createQueryBuilder('sa')
             ->select('count(sa.id)')
-            ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'sa.id = experimentation.SA')
-            ->where('experimentation.id IS NULL')
+            ->where('sa.disponible = 1')
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -38,8 +37,8 @@ class SARepository extends ServiceEntityRepository
     public function saNonUtiliser():?sa
     {
         // Requête pour sélectionner un SA disponible.
-        $sa = $this->findOneBy(['etat' => 'Disponible']);
-        $sa->setEtat('En_preparation');
+        $sa = $this->findOneBy(['disponible' => 1]);
+        $sa->setDisponible(0);
         return $sa;
     }
 
@@ -47,7 +46,7 @@ class SARepository extends ServiceEntityRepository
     public function suppressionExp($sa)
     {
         // Mettre à jour l'état du SA.
-        $sa->setEtat('Disponible');
+        $sa->setDisponible(1);
     }
 
     public function toutLesSA()

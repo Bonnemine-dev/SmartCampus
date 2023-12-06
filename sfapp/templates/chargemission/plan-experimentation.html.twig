@@ -103,34 +103,16 @@
 			<div class="liste-salles">
 			
 			{% for salle in liste_salles %}
-				{% if salle.datedemande is not null %}
-					<div class="salle darker">
-						<div class="salle-infos">
-							<p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
-							<h5>{{ salle.nom }}</h5>
-							{% set acquisitionStatus = salle.dateinstallation is null ? 'à installer' : 'installé' %}
-						
-							<p>
-								Système d'acquisition : {{ acquisitionStatus }} | 
-								Nombre d'ordis : {{ salle.nb_ordis }} | 
-								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
-								Orientation : {{ salle.orientation }}
-							</p>
-						</div>
-
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton">Retirer</a>
-					</div>
-				
-				{% else %}
+				{% if salle.etat is null %}
 					<div class="salle">
 						<div class="salle-infos">
 							<p>Pas encore de demande de SA</p>
 							<h5>{{ salle.nom }}</h5>
 
 							<p>
-								Système d'acquisition : aucun | 
-								Nombre d'ordis : {{ salle.nb_ordis }} | 
-								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
+								Système d'acquisition : aucun |
+								Nombre d'ordis : {{ salle.nb_ordis }} |
+								Nombre de fenêtres : {{ salle.nb_fenetres }} |
 								Orientation : {{ salle.orientation }}
 							</p>
 						</div>
@@ -141,6 +123,51 @@
 						{% else %}
 							<a href="" class="salle-bouton-unclickable">Ajouter</a>
 						{% endif %}
+					</div>
+				{% elseif salle.etat == 0 %}
+					<div class="salle darker">
+						<div class="salle-infos">
+							<p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+							<h5>{{ salle.nom }}</h5>
+							<p>
+								Système d'acquisition : à installer |
+								Nombre d'ordis : {{ salle.nb_ordis }} | 
+								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
+								Orientation : {{ salle.orientation }}
+							</p>
+						</div>
+
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton">Retirer</a>
+					</div>
+				{% elseif salle.etat == 1 %}
+					<div class="salle darker">
+						<div class="salle-infos">
+							<p>Date d'installation : {{ salle.installation|date('Y-m-d H:i:s') }}</p>
+							<h5>{{ salle.nom }}</h5>
+							<p>
+								Système d'acquisition : installé |
+								Nombre d'ordis : {{ salle.nb_ordis }} |
+								Nombre de fenêtres : {{ salle.nb_fenetres }} |
+								Orientation : {{ salle.orientation }}
+							</p>
+						</div>
+
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton">Retirer</a>
+					</div>
+				{% elseif salle.etat == 2 %}
+					<div class="salle darker">
+						<div class="salle-infos">
+							<p>Date d'installation : {{ salle.installation|date('Y-m-d H:i:s') }}</p>
+							<h5>{{ salle.nom }}</h5>
+							<p>
+								Système d'acquisition : à retirer |
+								Nombre d'ordis : {{ salle.nb_ordis }} |
+								Nombre de fenêtres : {{ salle.nb_fenetres }} |
+								Orientation : {{ salle.orientation }}
+							</p>
+						</div>
+
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton-unclickable">Retirer</a>
 					</div>
 				{% endif %}
 			{% endfor %} 
