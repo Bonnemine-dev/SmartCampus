@@ -54,11 +54,24 @@ class SalleRepository extends ServiceEntityRepository
 
     public function rechercheSallePlanExp($batiment = null, $salle = null)
     {
-        // Requête pour sélectionner les salles en fonction des critères spécifiés.
+        // Requête pour filtrer les salles selon les critères spécifiés.
         $queryBuilder = $this->createQueryBuilder('salle')
-            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation')
-            ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
+            ->select('salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
             ->orderBy('salle.nom', 'ASC');
+
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat_installee', EtatExperimentation::installee)
+            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+            ->setParameter('etat_retiree', EtatExperimentation::retiree);
 
         if ($batiment !== null) {
             $queryBuilder->andWhere('salle.batiment = :batiment')
@@ -87,11 +100,22 @@ class SalleRepository extends ServiceEntityRepository
     {
         // Requête pour filtrer les salles selon les critères spécifiés.
         $queryBuilder = $this->createQueryBuilder('salle')
-            ->select('salle')
-            ->leftJoin(Experimentation::class, 'experimentation', 'WITH', 'salle.id = experimentation.Salle')
+            ->select('salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
             ->orderBy('salle.nom', 'ASC');
 
-        $queryBuilder->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation');
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat_installee', EtatExperimentation::installee)
+            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+            ->setParameter('etat_retiree', EtatExperimentation::retiree);
 
         if (!empty($etages) && $etages !== null) {
             $queryBuilder->andWhere($queryBuilder->expr()->in('salle.etage', ':etages'))

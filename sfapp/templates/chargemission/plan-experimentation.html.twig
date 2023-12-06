@@ -107,7 +107,7 @@
 					<div class="salle">
 						<div class="salle-infos">
 							<p>Pas encore de demande de SA</p>
-							<h5>{{ salle.nom }}</h5>
+							<h5>{{ salle.nom_salle }}</h5>
 
 							<p>
 								Système d'acquisition : aucun |
@@ -119,7 +119,7 @@
 
 
 						{% if nb_sa > 0 %}
-							<a href="plan-experimentation/ajouter-salle/{{ salle.nom }}" class="salle-bouton" >Ajouter</a>
+							<a href="plan-experimentation/ajouter-salle/{{ salle.nom_salle }}" class="salle-bouton" >Ajouter</a>
 						{% else %}
 							<a href="" class="salle-bouton-unclickable">Ajouter</a>
 						{% endif %}
@@ -128,7 +128,7 @@
 					<div class="salle darker">
 						<div class="salle-infos">
 							<p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
-							<h5>{{ salle.nom }}</h5>
+							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : à installer |
 								Nombre d'ordis : {{ salle.nb_ordis }} | 
@@ -137,13 +137,13 @@
 							</p>
 						</div>
 
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton">Retirer</a>
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton">Retirer</a>
 					</div>
 				{% elseif salle.etat == 1 %}
 					<div class="salle darker">
 						<div class="salle-infos">
 							<p>Date d'installation : {{ salle.dateinstallation|date('Y-m-d H:i:s') }}</p>
-							<h5>{{ salle.nom }}</h5>
+							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : installé |
 								Nombre d'ordis : {{ salle.nb_ordis }} |
@@ -152,13 +152,13 @@
 							</p>
 						</div>
 
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton">Retirer</a>
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton">Retirer</a>
 					</div>
 				{% elseif salle.etat == 2 %}
 					<div class="salle darker">
 						<div class="salle-infos">
 							<p>Date d'installation : {{ salle.dateinstallation|date('Y-m-d H:i:s') }}</p>
-							<h5>{{ salle.nom }}</h5>
+							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : à retirer |
 								Nombre d'ordis : {{ salle.nb_ordis }} |
@@ -167,7 +167,7 @@
 							</p>
 						</div>
 
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton-unclickable">Retirer</a>
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton-unclickable">Retirer</a>
 					</div>
 				{% endif %}
 			{% endfor %} 
