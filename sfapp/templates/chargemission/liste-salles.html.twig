@@ -35,10 +35,10 @@
                     probleme
                     {% endif %}
                     </p>
-                    <p class="">{{ listeDerniereValeur[experimentation.nom]['temp'] }}</p>
-                    <p class="">{{ listeDerniereValeur[experimentation.nom]['hum'] }}</p>
-                    <p class="">{{ listeDerniereValeur[experimentation.nom]['co2'] }}</p>
-                    <a href="/charge-de-mission/liste-salles/detail-salle/{{experimentation.nom}}" class="salle-bouton">Details</a>
+                    <p class="">{{ listeDerniereValeur[experimentation.nom]['hum'] | default('--')}}</p>
+                    <p class="">{{ listeDerniereValeur[experimentation.nom]['temp'] | default('--,-')}}</p>
+                    <p class="">{{ listeDerniereValeur[experimentation.nom]['co2'] | default('---')}}</p>
+                    <a href="/charge-de-mission/liste-salles/detail-salle/{{experimentation.nom}}" class="salle-bouton">Détails</a>
                 </div>
             {% endfor %}
         </div>
