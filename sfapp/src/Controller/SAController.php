@@ -24,8 +24,8 @@ class SAController extends AbstractController
         $erreur = "";
         if ($ajoutSAForm->isSubmitted() && $ajoutSAForm->isValid()) {
             $dataRecherche = $ajoutSAForm->getData();
-            if(strlen($dataRecherche['nom']) < 6){
-                $erreur = "* 6 caractères minimum";
+            if(strlen($dataRecherche['nom']) < 7){
+                $erreur = "* 7 caractères minimum";
             }
             else if ($repository->existeDeja($dataRecherche['nom']) != null){
                 $erreur = "nom de SA deja atribuer";
