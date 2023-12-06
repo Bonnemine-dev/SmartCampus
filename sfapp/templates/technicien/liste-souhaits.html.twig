@@ -23,13 +23,15 @@
         </div>
         {% else %}
             {% for exp in experimentations %}
-                <div class="souhait">
-                    <p class="date">Date de la demande : {{exp.datedemande|date('d-m-Y H:i')}}</p>
-                    <div class="souhait-info">
-                        <h5>{{exp.salle.getNom()}}</h5>
-                        <h5>{{exp.sa.getNom()}}</h5>
+                {% if exp.etat == 0 %}
+                    <div class="souhait">
+                        <p class="date">Date de la demande : {{exp.datedemande|date('d-m-Y H:i')}}</p>
+                        <div class="souhait-info">
+                            <h5>{{exp.nom_salle}}</h5>
+                            <h5>{{exp.nom_sa}}</h5>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
 
