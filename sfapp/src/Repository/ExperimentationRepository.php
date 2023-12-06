@@ -42,7 +42,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         // Créez une nouvelle instance de l'entité Experimentation
         $experimentation = new Experimentation();
         $id = $this->salleRepository->nomSalleId($salle);
-        $experimentation->setSalle($id);
+        $experimentation->setSalles($id);
 
         $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $experimentation->setDatedemande($dateDemande);
@@ -70,7 +70,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT e
             FROM App\Entity\Experimentation e
-            JOIN e.Salle s
+            JOIN e.Salles s
             WHERE s.nom = :nomSalle
             AND e.etat BETWEEN :etat1 AND :etat2'
         )->setParameter('nomSalle', $nomSalle)
@@ -102,7 +102,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function supprimerExperimentation($salle)
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->findOneBy(['Salle' => $idSalle]);
+        $Exp = $this->findOneBy(['Salles' => $idSalle]);
         $Exp->setEtat(EtatExperimentation::demandeRetrait);
 
         $entityManager = $this->getEntityManager();
