@@ -179,9 +179,6 @@ class ChargeMissionController extends AbstractController
                 $listeDerniereValeur[$nomSalle]['co2'] = $data['valeur'];
             }
         }
-
-        dump($liste_experimentations);
-
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
             'listeDerniereValeur' => $listeDerniereValeur
