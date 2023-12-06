@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SARepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Config\EtatSA;
 
 #[ORM\Entity(repositoryClass: SARepository::class)]
 class SA
@@ -28,17 +29,21 @@ class SA
     #[Assert\Length(min: 7, max: 7, maxMessage: 'Le nom d\'un SA est de la forme SA-????, et fais donc 7 caractères')]
     private ?string $nom = null;
 
-    // Tableau réunissant l'ensemble des orientations.
-    public const Etat = ['Disponible','En_preparation'];
-    // État du SA, limité à 25 caractères.
-    #[ORM\Column(length: 25)]
-    #[Assert\NotBlank]
-    #[Assert\Positive]
-    #[Assert\Choice(choices: SA::Etat, message: 'Choisie un état valide')]
-    private ?string $etat = null;
+    #[ORM\Column]
+    private ?EtatSA $etat = null;
 
     #[ORM\Column]
     private ?bool $disponible = null;
+
+    public function getEtat(): ?EtatSA
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?EtatSA $etat): void
+    {
+        $this->etat = $etat;
+    }
 
     public function getId(): ?int
     {
@@ -65,18 +70,6 @@ class SA
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(string $etat): static
-    {
-        $this->etat = $etat;
 
         return $this;
     }

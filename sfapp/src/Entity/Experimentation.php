@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Config\EtatExperimentation;
 
 #[ORM\Entity(repositoryClass: ExperimentationRepository::class)]
 class Experimentation
@@ -27,8 +28,7 @@ class Experimentation
 
     // Relation OneToOne avec SA, avec cascade persist et remove.
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
+    #[ORM\JoinColumn(nullable: true)]
     private ?SA $SA = null;
 
     // Date de demande de l'expérimentation.
@@ -42,8 +42,18 @@ class Experimentation
     #[Assert\DateTime]
     private ?\DateTimeInterface $dateinstallation = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $etat = null;
+    #[ORM\Column]
+    private ?EtatExperimentation $etat = null;
+
+    public function getEtat(): ?EtatExperimentation
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?EtatExperimentation $etat): void
+    {
+        $this->etat = $etat;
+    }
 
     #[ORM\OneToMany(mappedBy: 'experimentation', targetEntity: Donnees::class, orphanRemoval: true)]
     private Collection $donnees;
@@ -102,18 +112,6 @@ class Experimentation
     public function setDateinstallation(?\DateTimeInterface $dateinstallation): static
     {
         $this->dateinstallation = $dateinstallation;
-
-        return $this;
-    }
-
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(string $etat): static
-    {
-        $this->etat = $etat;
 
         return $this;
     }
