@@ -119,10 +119,28 @@ class ExperimentationRepository extends ServiceEntityRepository
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
         $Exp = $this->findOneBy(['Salles' => $idSalle]);
-        $Exp->setEtat(EtatExperimentation::demandeRetrait);
 
-        $entityManager = $this->getEntityManager();
-        $entityManager->persist($Exp);
-        $entityManager->flush();
+        if($Exp->getEtat() == EtatExperimentation::demandeInstallation){
+            $this->saRepository->suppressionExp($Exp->getSA());
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($Exp);
+            $entityManager->flush();
+            $queryBuilder = $this->createQueryBuilder('experimentation');
+            $queryBuilder
+                ->delete()
+                ->where('experimentation.Salles = '.$idSalle->getId())
+                ->getQuery()
+                ->execute();
+
+        }
+        elseif($Exp->getEtat() == EtatExperimentation::installee){
+            $Exp->setEtat(EtatExperimentation::demandeRetrait);
+            $Exp->setDateinstallation(null);
+            $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+            $Exp->setDatedemande($dateDemande);
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($Exp);
+            $entityManager->flush();
+        }
     }
 }

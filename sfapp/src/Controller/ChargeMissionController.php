@@ -116,7 +116,6 @@ class ChargeMissionController extends AbstractController
         if($salleRepository->nomSalleId($nomsalle) == null){
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
-
         if($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
         }

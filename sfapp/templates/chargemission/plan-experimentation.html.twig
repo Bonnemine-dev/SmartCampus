@@ -118,7 +118,7 @@
 				{% elseif salle.etat == 0 %}
 					<div id="{{ salle.nom_salle }}" class="salle darker">
 						<div class="salle-infos">
-							<p>Date de demande : <strong>{{ salle.datedemande|date('Y-m-d H:i:s') }}</strong></p>
+							<p>Date de demande d'installation : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
 							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : à installer |
@@ -148,7 +148,7 @@
 				{% elseif salle.etat == 2 %}
 					<div id="{{ salle.nom_salle }}" class="salle darker">
 						<div class="salle-infos">
-							<p>Date d'installation : <strong>{{ salle.dateinstallation|date('Y-m-d H:i:s') }}</strong></p>
+							<p>Date de demande de retrait : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
 							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : à retirer |
@@ -158,7 +158,7 @@
 							</p>
 						</div>
 
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton-unclickable">Retirer</a>
+						<a class="salle-bouton-unclickable">Retirer</a>
 					</div>
 				{% endif %}
 			{% endfor %} 
