@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use App\Entity\Batiment;
+use App\Entity\Donnees;
 use App\Entity\Salle;
 use App\Entity\SA;
 use App\Entity\Experimentation;
@@ -78,8 +79,27 @@ class AppFixtures extends Fixture
             if($exp->getDateinstallation() != null)
             {   
                 $exp->setEtat($this->faker->randomElement([EtatExperimentation::installee,EtatExperimentation::demandeRetrait,EtatExperimentation::retiree]));//met l'etat de façon aléatoire sur les 3 autres etats possible
-                if($exp->getEtat() == EtatExperimentation::retiree)$sas[$dixsas[$i]]->setDisponible(true);
-                else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)$sas[$dixsas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
+                if($exp->getEtat() == EtatExperimentation::retiree)
+                {
+                    $sas[$dixsas[$i]]->setDisponible(true);
+                }
+                else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)
+                {
+                    $sas[$dixsas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
+                    $nbnuplet = $this->faker->numberBetween(0, 100);
+                    echo "Nombre de données generé : " . $nbnuplet . PHP_EOL;
+                    $nouvelledate = $this->faker->dateTimeBetween('-1 month', 'now');
+                    for ($x=0; $x < $nbnuplet; $x++) { 
+                        $nouvelledate->modify('+5 minutes');
+                        $donnees = new Donnees();
+                        $donnees->setExperimentation($exp)
+                        ->setDate($nouvelledate)
+                        ->setTemperature($this->faker->numberBetween(16, 27))
+                        ->setHumidite($this->faker->numberBetween(20, 70))
+                        ->setTauxcarbone($this->faker->numberBetween(400, 1200));
+                        $manager->persist($donnees);
+                    }
+                }
             }
             else
             {
