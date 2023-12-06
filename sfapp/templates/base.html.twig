@@ -37,12 +37,16 @@
 <!-- Contenu de l'application avec barre latérale -->
 <div class="app-container">
     <div class="sidebar">
-        <h3>Menu</h3>
-        <ul>
-            <!-- Liens du menu à personnaliser dans les vues enfants -->
-            {% block navlink %}
-            {% endblock %}
-        </ul>
+        <div class="menu">
+            <h3>Menu</h3>
+            <ul>
+                <!-- Liens du menu à personnaliser dans les vues enfants -->
+                {% block navlink %}
+                {% endblock %}
+            </ul>
+        </div>
+        {% block sidebar %}
+        {% endblock %}
     </div>
 
     <!-- Contenu principal à définir dans les vues enfants -->

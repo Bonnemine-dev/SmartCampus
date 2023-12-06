@@ -13,6 +13,31 @@
 	</li>
 {% endblock %}
 
+{% block sidebar %}
+<div class="filtre">
+	<h3>FILTRES</h3>
+
+	<!--Le popup lui même-->
+	{{ form_start(filtreSalleForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
+	{{ form_label(filtreSalleForm.etage) }}
+	{{ form_widget(filtreSalleForm.etage) }}
+
+	{{ form_label(filtreSalleForm.orientation) }}
+	{{ form_widget(filtreSalleForm.orientation) }}
+
+	{{ form_label(filtreSalleForm.ordinateurs) }}
+	{{ form_widget(filtreSalleForm.ordinateurs) }}
+
+	{{ form_label(filtreSalleForm.sa) }}
+	{{ form_widget(filtreSalleForm.sa) }}
+
+	<button type="submit">Valider</button>
+	<button type="button" id="resetButton">Réinitialiser</button>
+
+	{{ form_end(filtreSalleForm, {'render_rest': false}) }}
+</div>
+{% endblock %}
+
 {% block appcontent %}
 	<div class="app-content cm-pe">
 
@@ -43,9 +68,6 @@
 			{# Titre et description #}
 			<h4>Liste des salles</h4>
 			<p>
-				Vous trouverez ci-dessous la liste des salles, vous pouvez les filtrer en fonction de vos besoins. Vous
-							pouvez également ajouter ou retirer des salles du plan d'expérimentation en les liant à un SA.
-				<br><br>
 				Systèmes d'acquisitions disponibles :
 				<strong>{{ nb_sa }}</strong>
 			</p>
@@ -63,37 +85,6 @@
 				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
 
 				{{ form_end(rechercheSalleForm, {'render_rest': false}) }}
-
-				<button type='button'><img src="{{ asset('img/filter.svg') }}" alt="Filtres" onclick="ouvrirPopupFiltreSalles()"></button>
-			</div>
-			
-			{# ------------------------------------------------------------- #}
-
-			{# Pop-up et overlay #}
-
-			<div class="overlay" id="overlay" onclick="fermerPopupFiltreSalles()"></div>
-
-				
-			<div class="popup" id="popup">
-				<!--Le popup lui même-->
-				{{ form_start(filtreSalleForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
-				{{ form_label(filtreSalleForm.etage) }}
-				{{ form_widget(filtreSalleForm.etage) }}
-
-				{{ form_label(filtreSalleForm.orientation) }}
-				{{ form_widget(filtreSalleForm.orientation) }}
-
-				{{ form_label(filtreSalleForm.ordinateurs) }}
-				{{ form_widget(filtreSalleForm.ordinateurs) }}
-
-				{{ form_label(filtreSalleForm.sa) }}
-				{{ form_widget(filtreSalleForm.sa) }}
-
-				<button type="submit" onclick="fermerPopupFiltreSalles()">Valider</button>
-				<button type="button" id="resetButton">Réinitialiser</button>
-
-				{{ form_end(filtreSalleForm, {'render_rest': false}) }}
-
 			</div>
 
 			{# ------------------------------------------------------------- #}
@@ -121,7 +112,7 @@
 						{% if nb_sa > 0 %}
 							<a href="plan-experimentation/ajouter-salle/{{ salle.nom_salle }}" class="salle-bouton" >Ajouter</a>
 						{% else %}
-							<a href="" class="salle-bouton-unclickable">Ajouter</a>
+							<a class="salle-bouton-unclickable">Ajouter</a>
 						{% endif %}
 					</div>
 				{% elseif salle.etat == 0 %}
@@ -178,6 +169,7 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{ asset('js/scrollToRoom.js') }}"></script>
 	<script src="{{ asset('js/filter.js') }}"></script>
 	<script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

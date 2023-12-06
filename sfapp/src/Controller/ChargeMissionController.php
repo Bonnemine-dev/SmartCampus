@@ -141,7 +141,7 @@ class ChargeMissionController extends AbstractController
 
         // Vérifiez le résultat et ajoutez un message flash approprié
         if ($experimentation->getEtat() == EtatExperimentation::demandeRetrait) {
-            $this->addFlash('success', "La salle " . $nomsalle . " a été retirée du plan d'expérimentation avec succès.");
+            $this->addFlash('success', "La salle " . $nomsalle . " a été soumise au retrait du plan d'expérimentation.");
         } else {
             $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
         }

@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controller;
-
-use App\Entity\SA;
 use App\Form\AjoutSAFormType;
 use App\Repository\SARepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SAController extends AbstractController
 {
     #[Route('/technicien/gestion-sa/ajouter-sa', name: 'ajout-sa')]
-    public function index(Request $request , SARepository $repository): Response
+    public function index(Request $request, SARepository $repository): Response
     {
         // Création des instances de formulaire
         $ajoutSAForm = $this->createForm(AjoutSAFormType::class);
@@ -24,13 +22,11 @@ class SAController extends AbstractController
         $erreur = "";
         if ($ajoutSAForm->isSubmitted() && $ajoutSAForm->isValid()) {
             $dataRecherche = $ajoutSAForm->getData();
-            if(strlen($dataRecherche['nom']) < 7){
+            if (strlen($dataRecherche['nom']) < 7) {
                 $erreur = "* 7 caractères minimum";
-            }
-            else if ($repository->existeDeja($dataRecherche['nom']) != null){
+            } else if ($repository->existeDeja($dataRecherche['nom']) != null) {
                 $erreur = "nom de SA deja atribuer";
-            }
-            else{
+            } else {
                 // Extraire les données et les utiliser pour rechercher les salles
                 $repository->ajoutSA(
                     $dataRecherche['nom'] ?? null
@@ -40,8 +36,8 @@ class SAController extends AbstractController
         }
 
         return $this->render('sa/ajouter-sa.html.twig', [
-            'ajoutSAForm' => $ajoutSAForm->createView() ,
-            'erreur' => $erreur ,
+            'ajoutSAForm' => $ajoutSAForm->createView(),
+            'erreur' => $erreur,
         ]);
     }
 }

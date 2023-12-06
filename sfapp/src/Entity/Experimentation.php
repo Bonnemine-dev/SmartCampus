@@ -44,9 +44,6 @@ class Experimentation
         $this->etat = $etat;
     }
 
-    #[ORM\OneToMany(mappedBy: 'experimentation', targetEntity: Donnees::class, orphanRemoval: true)]
-    private Collection $donnees;
-
     #[ORM\ManyToOne(inversedBy: 'experimentations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Salle $Salles = null;
@@ -54,11 +51,6 @@ class Experimentation
     #[ORM\ManyToOne(inversedBy: 'experimentations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?SA $SA = null;
-
-    public function __construct()
-    {
-        $this->donnees = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -85,36 +77,6 @@ class Experimentation
     public function setDateinstallation(?\DateTimeInterface $dateinstallation): static
     {
         $this->dateinstallation = $dateinstallation;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Donnees>
-     */
-    public function getDonnees(): Collection
-    {
-        return $this->donnees;
-    }
-
-    public function addDonnee(Donnees $donnee): static
-    {
-        if (!$this->donnees->contains($donnee)) {
-            $this->donnees->add($donnee);
-            $donnee->setExperimentation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDonnee(Donnees $donnee): static
-    {
-        if ($this->donnees->removeElement($donnee)) {
-            // set the owning side to null (unless already changed)
-            if ($donnee->getExperimentation() === $this) {
-                $donnee->setExperimentation(null);
-            }
-        }
 
         return $this;
     }

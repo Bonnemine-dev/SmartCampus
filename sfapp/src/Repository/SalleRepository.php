@@ -28,7 +28,7 @@ class SalleRepository extends ServiceEntityRepository
     {
         // Requête pour sélectionner les salles avec des informations supplémentaires de l'expérimentation.
         $dql = '
-        SELECT salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis,
+        SELECT salle.nom as nom_salle, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis,
                experimentation.datedemande, experimentation.dateinstallation,
                CASE
                    WHEN experimentation.etat = :etat_demande_installation THEN 0

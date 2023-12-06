@@ -1,0 +1,27 @@
+.confirm-buttons{
+    @include flex;
+
+    a{
+        color: #FFF;
+        font-size: 1.2rem;
+        padding: 5px 15px;
+        border-radius: 25px;
+        border: 1px solid transparent;
+        margin-right: 15px;
+        transition: 0.2s ;
+
+        &:hover{
+            border: 1px solid #FFF;
+            cursor: pointer;
+        }
+    }
+
+    .confirm-button{
+        background: linear-gradient(90deg, #00B292, #7ED957);
+    }
+
+    .cancel-button{
+        background: $grey-4;
+    }
+    
+}
