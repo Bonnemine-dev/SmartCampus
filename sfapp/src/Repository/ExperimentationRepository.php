@@ -112,10 +112,25 @@ class ExperimentationRepository extends ServiceEntityRepository
 
     public function trouveExperimentationsNonRetirer()
     {
-        return $this->createQueryBuilder('experimentation')
-            ->select('experimentation')
-            ->where('experimentation.etat = 0 or experimentation.etat = 1 or experimentation.etat = 2')
-            ->getQuery()
-            ->getResult();
+        $queryBuilder = $this->createQueryBuilder('experimentation')
+            ->select('sa.nom as nom_sa,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->where('experimentation.etat != 3');
+
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation);
+        $queryBuilder->setParameter('etat_installee', EtatExperimentation::installee);
+        $queryBuilder->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait);
+        $queryBuilder->setParameter('etat_retiree', EtatExperimentation::retiree);
+
+
+        // Exécutez la requête et retournez les résultats.
+        return $queryBuilder->getQuery()->getResult();
     }
 }

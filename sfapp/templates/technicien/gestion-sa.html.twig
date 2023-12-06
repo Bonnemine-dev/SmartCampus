@@ -37,15 +37,22 @@
                 {% for sa in SA %}
                     <div class="souhait">
                         <div class="souhait-info">
-                            <h5>{{ sa.nom }}</h5>
+                            <h5>{{ sa.nom_sa }}</h5>
                             {% if sa.disponible == 1 %}
                                 <p>Salle associée : Aucune</p>
                             {% else %}
                                 {% for exp in experimentations %}
+                                    {% if exp.etat == 0 %}
+                                        {% set stringEtat = 'En demande d\'installation' %}
+                                    {% elseif exp.etat == 1 %}
+                                        {% set stringEtat = 'Installé' %}
+                                    {% elseif exp.etat == 2 %}
+                                        {% set stringEtat = 'En demande de retrait' %}
+                                    {% endif %}
                                     <div class="souhait">
                                         <div class="souhait-info">
-                                            {% if sa == exp.sa %}
-                                                    <p>Salle associée : {{exp.salles.getNom()}} etat :</p>
+                                            {% if sa.nom_sa == exp.nom_sa %}
+                                                    <p>Salle associée : {{exp.nom_sa}} etat : {{ stringEtat }}</p>
                                             {% endif %}
                                         </div>
                                     </div>

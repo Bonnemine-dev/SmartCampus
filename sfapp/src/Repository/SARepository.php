@@ -52,11 +52,11 @@ class SARepository extends ServiceEntityRepository
 
     public function toutLesSA()
     {
-        // Requête pour récupérer tous les SA.
-        return $this->createQueryBuilder('sa')
-            ->select('sa')
-            ->getQuery()
-            ->getResult();
+        $queryBuilder = $this->createQueryBuilder('sa')
+            ->select('sa.nom as nom_sa, sa.disponible');
+
+        // Exécutez la requête et retournez les résultats.
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function rechercheSA($nom = null)
