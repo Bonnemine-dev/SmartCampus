@@ -44,8 +44,8 @@
                                 {% for exp in experimentations %}
                                     <div class="souhait">
                                         <div class="souhait-info">
-                                            {% if sa.nom == exp.sa.getNom() %}
-                                                <p>Salle associée : {{exp.salle.getNom()}} etat : </p>
+                                            {% if sa == exp.sa %}
+                                                    <p>Salle associée : {{exp.salle.getNom()}} etat : </p>
                                             {% endif %}
                                         </div>
                                     </div>

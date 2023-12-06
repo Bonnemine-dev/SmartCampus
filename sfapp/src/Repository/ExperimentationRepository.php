@@ -108,4 +108,12 @@ class ExperimentationRepository extends ServiceEntityRepository
         $entityManager->persist($Exp);
         $entityManager->flush();
     }
+
+    public function trouveExperimentationsNonRetirer()
+    {
+        return $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat = 0 or experimentation.etat = 1 or experimentation.etat = 2')
+            ->getQuery()
+            ->getResult();
+    }
 }

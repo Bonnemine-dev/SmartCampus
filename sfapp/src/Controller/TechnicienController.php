@@ -35,7 +35,7 @@ class TechnicienController extends AbstractController
     {
         // Récupère les expérimentations sans date d'installation du repository.
         $SA = $saRepository->toutLesSA();
-        $experimentations = $expRepository->trouveExperimentationsSansDateInstallation();
+        $experimentations = $expRepository->trouveExperimentationsNonRetirer();
 
         // Création des instances de formulaire
         $rechercheSAForm = $this->createForm(RechercheSAFormType::class);
