@@ -9,6 +9,13 @@
 </head>
 <body>
 <div class="container connexion-container">
+    {# Affichage des messages d'erreur #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <div class="connexion">
         <div class="title">
             <!-- Logo Smart Campus -->
@@ -17,13 +24,33 @@
         </div>
         <p>Choisissez votre profil :</p>
         <!-- Liens vers les profils -->
-        <a href="{{ path('app_charge_mission') }}" class="gradient-button">Chargé de mission</a>
-        <a href="{{ path('app_technicien') }}" class="gradient-button">Technicien</a>
+        <button class="gradient-button btn-charge-mission" onclick="afficherFormChargeMission()">Chargé de mission</button>
+        <button class="gradient-button btn-technicien" onclick="afficherFormTechnicien()">Technicien</button>
+
     </div>
+
+    <div id="overlay">
+        <div class="connexion-form">
+            <h1>Connexion</h1>
+            <h2></h2>
+            <!-- Formulaire de connexion -->
+            <form action="{{ path('app_connexion') }}" method="post">
+                <input type="hidden" id="username" name="_username">
+
+                <input type="password" id="password" name="_password" placeholder="Mot de passe">
+                <input id="target-path" type="hidden" name="_target_path">
+
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <!-- Script pour les effets de souris -->
+<script src="{{ asset('js/connexionForm.js') }}"></script>
 <script src="{{ asset('js/mouseTrail.js') }}"></script>
+<script src="{{ asset('js/flashMessage.js') }}"></script>
 
 </body>
 </html>

@@ -48,6 +48,9 @@ a {
 // Boutons
 @import "boutons.scss";
 
+// Messages d'alerte
+@import "alertes.scss";
+
 // Page de CONNEXION
 @import "connexion.scss";
 
@@ -93,9 +96,6 @@ a {
 @import "recherche-filtre.scss";
 
 // ----------------------------------------------
-
-// Messages d'alerte
-@import "alertes.scss";
 
 // Pages de confirmation
 @import "confirmation.scss";
