@@ -89,11 +89,28 @@ class ExperimentationRepository extends ServiceEntityRepository
      */
     public function trouveExperimentationsSansDateInstallation()
     {
-        return $this->createQueryBuilder('experimentation')
-            ->where('experimentation.dateinstallation IS NULL')
-            ->orderBy('experimentation.datedemande', 'ASC')
-            ->getQuery()
-            ->getResult();
+        $queryBuilder = $this->createQueryBuilder('experimentation')
+            ->select('sa.nom as nom_sa, salle.nom as nom_salle, experimentation.datedemande, experimentation.dateinstallation,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->leftJoin('App\Entity\Salle', 'salle', 'WITH', 'salle.id = experimentation.Salles')
+            ->where('experimentation.etat = 0')
+            ->orderBy('experimentation.datedemande', 'ASC');
+
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation);
+        $queryBuilder->setParameter('etat_installee', EtatExperimentation::installee);
+        $queryBuilder->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait);
+        $queryBuilder->setParameter('etat_retiree', EtatExperimentation::retiree);
+
+
+        // Exécutez la requête et retournez les résultats.
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /*
@@ -113,7 +130,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function trouveExperimentationsNonRetirer()
     {
         $queryBuilder = $this->createQueryBuilder('experimentation')
-            ->select('sa.nom as nom_sa,
+            ->select('sa.nom as nom_sa, salle.nom as nom_salle,
                 CASE
                     WHEN experimentation.etat = :etat_demande_installation THEN 0
                     WHEN experimentation.etat = :etat_installee THEN 1
@@ -122,6 +139,7 @@ class ExperimentationRepository extends ServiceEntityRepository
                     ELSE 4
                 END AS etat')
             ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->leftJoin('App\Entity\Salle', 'salle', 'WITH', 'salle.id = experimentation.Salles')
             ->where('experimentation.etat != 3');
 
         $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation);
