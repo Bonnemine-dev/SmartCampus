@@ -70,16 +70,16 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
-    public function ajout_salle(SalleRepository $salleRepository , SARepository $saRepository ,ExperimentationRepository $experimentationRepository,$nomsalle): Response
+    public function ajout_salle(SalleRepository $salleRepository, SARepository $saRepository, ExperimentationRepository $experimentationRepository, $nomsalle): Response
     {
 
         // Vérifier si la salle existe déjà dans les expérimentations
-        if($salleRepository->nomSalleId($nomsalle) == null){
+        if ($salleRepository->nomSalleId($nomsalle) == null) {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
         $existeDeja = 0;
         $SADispo = $saRepository->compteSASansExperimentation();
-        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+        if ($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
         }
 
@@ -110,16 +110,15 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
-    public function supprimer_salle(SalleRepository $salleRepository , ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    public function supprimer_salle(SalleRepository $salleRepository, ExperimentationRepository $experimentationRepository, $nomsalle): Response
     {
         // Vérifier si la salle existe déjà dans les expérimentations
-        if($salleRepository->nomSalleId($nomsalle) == null){
+        if ($salleRepository->nomSalleId($nomsalle) == null) {
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
-        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+        if ($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
-        }
-        else{
+        } else {
             $existeDeja = 0;
         }
 
@@ -131,7 +130,7 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-experimentation/{nomsalle}', name: 'supprimer_exp')]
-    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository , $nomsalle): Response
+    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository, $nomsalle): Response
     {
         // Utilisez la méthode du repository pour ajouter des données
         $experimentationRepository->supprimerExperimentation($nomsalle);
@@ -149,22 +148,32 @@ class ChargeMissionController extends AbstractController
         return $this->redirectToRoute('app_charge_mission');
     }
 
-    #[Route('/charge-de-mission/tableau-bord', name: 'cm_tableau_de_bord')]
-    public function cm_tableau_de_bord(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository , $nomsalle): Response
+    #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
+    public function cm_tableau_de_bord(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository): Response
     {
-        // Utilisez la méthode du repository pour ajouter des données
-        $experimentationRepository->supprimerExperimentation($nomsalle);
-        $salleId = $salleRepository->findOneBy(['nom' => $nomsalle]);
-        $experimentation = $experimentationRepository->findOneBy(['Salles' => $salleId]);
-
-        // Vérifiez le résultat et ajoutez un message flash approprié
-        if ($experimentation->getEtat() == EtatExperimentation::demandeRetrait) {
-            $this->addFlash('success', "La salle " . $nomsalle . " a été soumise au retrait du plan d'expérimentation.");
-        } else {
-            $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
+        // Afficher la vue d'ajout de salle avec le résultat de l'existence
+        // 1. Lire le fichier JSON
+        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
+        $jsonContent = file_get_contents($jsonFilePath);
+        $dataArray = json_decode($jsonContent, true);
+        $taux_carbone_moy = null;
+        $temp_moy = null;
+        $hum_moy = null;
+        // 2. Organiser les données par salle
+        foreach ($dataArray as $data) {
+            // 3. Calculer les dernières valeurs pour chaque type de mesure
+            if ($data['nom'] === 'temp') {
+                $temp_moy = $data['valeur'];
+            } elseif ($data['nom'] === 'hum') {
+                $hum_moy = $data['valeur'];
+            } elseif ($data['nom'] === 'co2') {
+                $taux_carbone_moy = $data['valeur'];
+            }
         }
-
-        // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
-        return $this->redirectToRoute('app_charge_mission');
+        return $this->render('chargemission/tableau-de-bord.html.twig', [
+             'temp_moy' => $temp_moy,
+             'hum_moy' => $hum_moy,
+             'taux_carbone_moy' => $taux_carbone_moy
+        ]);
     }
 }

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Chargé de mission
+{% endblock %}
+
+
+{% block username %}Chargé de mission
+{% endblock %}
+
+{% block navlink %}
+	<li>
+        <a class="nav-link" href="#">Tableau de bord</a>
+		<a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+	</li>
+{% endblock %}
+
+{% block appcontent %}
+	<div
+		class="app-content cm-pe">
+
+		{# Titre #}
+		<h3>TABLEAU DE BORD</h3>
+		{# CONTAINER (heure_paris) #}
+		<div class="container">
+			<h1 id="heureParis"></h1>
+			<h2>La Rochelle</h2>
+		</div>
+		<div class="container">
+			<h1 class="">Données générales</h1>
+			<p class="">Ambiance global du batiment</p>
+			<div class="">
+				<h1 class="">
+					{{ hum_moy | default('--') }}
+				</h1>
+			</div>
+			<div class="">
+				<h1 class="">
+					{{ temp_moy | default('--,-') }}
+				</h1>
+			</div>
+			<div class="">
+				<h1 class="">
+					{{ taux_carbone_moy | default('---') }}
+				</h1>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/heure_paris.js') }}"></script>
+{% endblock %}
