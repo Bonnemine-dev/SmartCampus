@@ -38,7 +38,7 @@ class ExperimentationController extends AbstractController
             $this->addFlash('success', "La salle " . $nomsalle . " a été retirée du plan d'expérimentation avec succès.");
         }
         elseif ($etat[0] == EtatExperimentation::installee and $etat[1] == EtatExperimentation::demandeRetrait){
-            $this->addFlash('success', "La demande de retrait de la salle " . $nomsalle . " a été envoyer avec succès.");
+            $this->addFlash('success', "La demande de retrait de la salle " . $nomsalle . " a été envoyée avec succès.");
         }
         else {
             $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
