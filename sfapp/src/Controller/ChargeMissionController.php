@@ -148,4 +148,23 @@ class ChargeMissionController extends AbstractController
         // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
         return $this->redirectToRoute('app_charge_mission');
     }
+
+    #[Route('/charge-de-mission/tableau-bord', name: 'cm_tableau_de_bord')]
+    public function cm_tableau_de_bord(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository , $nomsalle): Response
+    {
+        // Utilisez la méthode du repository pour ajouter des données
+        $experimentationRepository->supprimerExperimentation($nomsalle);
+        $salleId = $salleRepository->findOneBy(['nom' => $nomsalle]);
+        $experimentation = $experimentationRepository->findOneBy(['Salles' => $salleId]);
+
+        // Vérifiez le résultat et ajoutez un message flash approprié
+        if ($experimentation->getEtat() == EtatExperimentation::demandeRetrait) {
+            $this->addFlash('success', "La salle " . $nomsalle . " a été soumise au retrait du plan d'expérimentation.");
+        } else {
+            $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
+        }
+
+        // Redirigez l'utilisateur après l'ajout réussi, par exemple à une page de confirmation
+        return $this->redirectToRoute('app_charge_mission');
+    }
 }
