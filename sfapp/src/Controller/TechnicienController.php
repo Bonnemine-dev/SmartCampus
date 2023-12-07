@@ -20,7 +20,6 @@ class TechnicienController extends AbstractController
     {
         // Récupère les expérimentations sans date d'installation du repository.
         $experimentations = $repository->trouveExperimentationsSansDateInstallation();
-        dump($experimentations);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/liste-souhaits.html.twig', [
