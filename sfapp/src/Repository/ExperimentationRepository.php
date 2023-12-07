@@ -89,7 +89,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function trouveExperimentations()
     {
         $dql = '
-        SELECT salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande,
+        SELECT salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, experimentation.dateinstallation,
                CASE
                    WHEN experimentation.etat = :etat_demande_installation THEN 0
                    WHEN experimentation.etat = :etat_installee THEN 1

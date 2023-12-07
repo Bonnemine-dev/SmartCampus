@@ -59,6 +59,10 @@ a {
   color: #FFF;
 }
 
+button {
+  font-family: "Montserrat", "Roboto", Tahoma, Verdana, sans-serif;
+}
+
 .gradient-button {
   font-size: 1.4rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -90,7 +94,7 @@ a {
   }
 }
 
-.little-gradient-button, .filtre form button, .salle .salle-bouton, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
+.little-gradient-button, .filtre form button, .salle .salle-bouton, .souhaits .popup a, .souhaits .popup button, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
   color: #FFF;
   font-size: 1rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -100,7 +104,7 @@ a {
   margin-right: 15px;
   transition: 0.2s;
 }
-.little-gradient-button:hover, .filtre form button:hover, .salle .salle-bouton:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
+.little-gradient-button:hover, .filtre form button:hover, .salle .salle-bouton:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
   border: 1px solid #FFF;
   cursor: pointer;
 }
@@ -509,6 +513,73 @@ a {
   }
 }
 
+@keyframes moveArrow {
+  0%, 60% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.container-experimentations {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #272727;
+  position: relative;
+  border-radius: 20px;
+  width: 100%;
+  height: fit-content;
+  padding: 30px 50px;
+}
+.container-experimentations p {
+  color: #BABABA;
+  margin-bottom: 20px;
+}
+.container-experimentations h4 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.container-experimentations .container-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-left: 0px;
+}
+.container-experimentations .flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+.container-experimentations .column-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 45%;
+}
+.container-experimentations .arrow-icon {
+  align-self: center;
+}
+.container-experimentations .arrow-icon svg {
+  animation: moveArrow 4s infinite;
+}
+.container-experimentations .liste-experimentations {
+  background-color: #444444;
+  height: 400px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
 .souhaits .souhait {
   display: flex;
   flex-direction: column;
@@ -519,10 +590,41 @@ a {
   margin-bottom: 15px;
   border-radius: 5px;
   padding: 10px 20px;
+  cursor: move;
 }
-.souhaits .souhait .date {
+.souhaits .date {
   margin-bottom: 0;
   color: #F1F1F1;
+}
+.souhaits #overlay {
+  top: -100px;
+  left: -320px;
+  width: calc(100% + 320px);
+  height: calc(100% + 100px);
+}
+.souhaits .popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: #5D5D5D;
+  border-radius: 15px;
+  padding: 40px 20px;
+  width: 500px;
+}
+.souhaits .popup h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.souhaits .popup a, .souhaits .popup button {
+  font-size: 1rem;
+  margin: 0px 30px;
+}
+.souhaits .popup #cancelButton {
+  background: #737373;
 }
 
 .souhait-info {

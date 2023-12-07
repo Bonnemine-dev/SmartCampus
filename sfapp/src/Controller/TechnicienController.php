@@ -15,7 +15,7 @@ class TechnicienController extends AbstractController
     #[Route('/technicien/liste-souhaits', name: 'app_technicien')]
     public function index(ExperimentationRepository $repository): Response
     {
-        // Récupère les expérimentations sans date d'installation du repository.
+        // Récupère les expérimentations du repository.
         $experimentations = $repository->trouveExperimentations();
 
         // Rend la vue avec la liste des expérimentations.

@@ -1,15 +1,119 @@
-.souhaits .souhait{
-    @include flex-column($align: flex-start);
+@keyframes moveArrow {
+    0%, 60% {
+        transform: translateX(0);
+    }
+    80% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.container-experimentations{
+    @include flex-column($align: flex-start, $justify: flex-start);
+    background-color: $grey-1;
+    position: relative;
+    border-radius: 20px ;
     width: 100%;
-    background-color: $grey-4;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    padding: 10px 20px;
+    height: fit-content;
+    padding: 30px 50px;
+
+    p{
+        color: $grey-5;
+        margin-bottom: 20px;
+    }
+
+    h4{
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-left: 15px;
+    }
+
+    .container-title{
+        font-size: 1.6rem;
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: normal;
+        margin-left: 0px;
+    }
+
+    .flex-container{
+        @include flex($justify: space-between, $align: flex-start);
+        width: 100%;
+    }
+
+    .column-container{
+        @include flex-column($align: flex-start);
+        width: 45%;
+    }
+
+    .arrow-icon{
+        align-self: center;
+
+        svg{
+            animation: moveArrow 4s infinite;
+        }
+    }
+
+    .liste-experimentations{
+        background-color: $grey-2;
+        height: 400px;
+        width: 100%;
+        padding: 15px;
+        border-radius: 10px;
+        overflow-y: scroll;
+    }
+}
+
+.souhaits{
+    .souhait {
+        @include flex-column($align: flex-start);
+        width: 100%;
+        background-color: $grey-4;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: move;
+    }
 
     .date{
         margin-bottom: 0;
         color: $other-white;
-    }    
+    }
+
+    #overlay {
+        top: -$banner-height;
+        left: -$sidebar-width;
+        width: calc(100% + #{$sidebar-width});
+        height: calc(100% + #{$banner-height});
+    }
+
+    .popup {
+        @include flex-column();
+        position: fixed;
+        background-color: $grey-3;
+        border-radius: 15px;
+        padding: 40px 20px;
+        width: 500px;
+
+        h5{
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        a, button{
+            @extend .little-gradient-button;
+            font-size: 1rem;
+            margin: 0px 30px;
+        }
+
+        #cancelButton{
+            background: $grey-4;
+        }
+    }
 }
 
 .souhait-info{
