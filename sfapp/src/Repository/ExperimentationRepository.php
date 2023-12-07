@@ -123,6 +123,7 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         $Exp = $Exp[0];
+        $listeEtat = [$Exp->getEtat(),null];
 
         if($Exp->getEtat() == EtatExperimentation::demandeInstallation){
             $this->saRepository->suppressionExp($Exp->getSA());
@@ -146,5 +147,7 @@ class ExperimentationRepository extends ServiceEntityRepository
             $entityManager->persist($Exp);
             $entityManager->flush();
         }
+        $listeEtat[1] = $Exp->getEtat();
+        return $listeEtat;
     }
 }
