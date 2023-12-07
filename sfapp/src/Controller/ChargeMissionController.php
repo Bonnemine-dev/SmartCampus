@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Config\EtatExperimentation;
+use App\Entity\Experimentation;
 use App\Form\FiltreSalleFormType;
 use App\Form\RechercheSalleFormType;
 use App\Repository\SalleRepository;
@@ -114,7 +116,6 @@ class ChargeMissionController extends AbstractController
         if($salleRepository->nomSalleId($nomsalle) == null){
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
-
         if($experimentationRepository->verifierExperimentation($nomsalle)) {
             $existeDeja = 1;
         }
@@ -130,14 +131,16 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-experimentation/{nomsalle}', name: 'supprimer_exp')]
-    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository , $nomsalle): Response
     {
         // Utilisez la méthode du repository pour ajouter des données
         $experimentationRepository->supprimerExperimentation($nomsalle);
+        $salleId = $salleRepository->findOneBy(['nom' => $nomsalle]);
+        $experimentation = $experimentationRepository->findOneBy(['Salles' => $salleId]);
 
         // Vérifiez le résultat et ajoutez un message flash approprié
-        if (!$experimentationRepository->verifierExperimentation($nomsalle)) {
-            $this->addFlash('success', "La salle " . $nomsalle . " a été retirée du plan d'expérimentation avec succès.");
+        if ($experimentation->getEtat() == EtatExperimentation::demandeRetrait) {
+            $this->addFlash('success', "La salle " . $nomsalle . " a été soumise au retrait du plan d'expérimentation.");
         } else {
             $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
         }

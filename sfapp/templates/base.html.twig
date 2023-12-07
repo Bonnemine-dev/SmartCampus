@@ -15,7 +15,7 @@
 <div class="banner">
     <div class="right-content">
         <!-- Lien de déconnexion avec icônes -->
-        <a class="link" href="{{ path('app_connexion') }}">
+        <a class="link" href="{{ path('app_deconnexion') }}">
             <div class="circle_icon">
                 <img src="{{ asset('img/leave_left.png') }}" alt="leave_left" class="leave_left">
                 <img src="{{ asset('img/leave_right.png') }}" alt="leave_right" class="leave_right">
@@ -37,12 +37,16 @@
 <!-- Contenu de l'application avec barre latérale -->
 <div class="app-container">
     <div class="sidebar">
-        <h3>Menu</h3>
-        <ul>
-            <!-- Liens du menu à personnaliser dans les vues enfants -->
-            {% block navlink %}
-            {% endblock %}
-        </ul>
+        <div class="menu">
+            <h3>Menu</h3>
+            <ul>
+                <!-- Liens du menu à personnaliser dans les vues enfants -->
+                {% block navlink %}
+                {% endblock %}
+            </ul>
+        </div>
+        {% block sidebar %}
+        {% endblock %}
     </div>
 
     <!-- Contenu principal à définir dans les vues enfants -->

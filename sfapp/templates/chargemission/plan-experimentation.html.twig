@@ -13,6 +13,31 @@
 	</li>
 {% endblock %}
 
+{% block sidebar %}
+<div class="filtre">
+	<h3>FILTRES</h3>
+
+	<!--Le popup lui même-->
+	{{ form_start(filtreSalleForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
+	{{ form_label(filtreSalleForm.etage) }}
+	{{ form_widget(filtreSalleForm.etage) }}
+
+	{{ form_label(filtreSalleForm.orientation) }}
+	{{ form_widget(filtreSalleForm.orientation) }}
+
+	{{ form_label(filtreSalleForm.ordinateurs) }}
+	{{ form_widget(filtreSalleForm.ordinateurs) }}
+
+	{{ form_label(filtreSalleForm.sa) }}
+	{{ form_widget(filtreSalleForm.sa) }}
+
+	<button type="submit">Valider</button>
+	<button type="button" id="resetButton">Réinitialiser</button>
+
+	{{ form_end(filtreSalleForm, {'render_rest': false}) }}
+</div>
+{% endblock %}
+
 {% block appcontent %}
 	<div class="app-content cm-pe">
 
@@ -43,9 +68,6 @@
 			{# Titre et description #}
 			<h4>Liste des salles</h4>
 			<p>
-				Vous trouverez ci-dessous la liste des salles, vous pouvez les filtrer en fonction de vos besoins. Vous
-							pouvez également ajouter ou retirer des salles du plan d'expérimentation en les liant à un SA.
-				<br><br>
 				Systèmes d'acquisitions disponibles :
 				<strong>{{ nb_sa }}</strong>
 			</p>
@@ -63,37 +85,6 @@
 				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
 
 				{{ form_end(rechercheSalleForm, {'render_rest': false}) }}
-
-				<button type='button'><img src="{{ asset('img/filter.svg') }}" alt="Filtres" onclick="ouvrirPopupFiltreSalles()"></button>
-			</div>
-			
-			{# ------------------------------------------------------------- #}
-
-			{# Pop-up et overlay #}
-
-			<div class="overlay" id="overlay" onclick="fermerPopupFiltreSalles()"></div>
-
-				
-			<div class="popup" id="popup">
-				<!--Le popup lui même-->
-				{{ form_start(filtreSalleForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
-				{{ form_label(filtreSalleForm.etage) }}
-				{{ form_widget(filtreSalleForm.etage) }}
-
-				{{ form_label(filtreSalleForm.orientation) }}
-				{{ form_widget(filtreSalleForm.orientation) }}
-
-				{{ form_label(filtreSalleForm.ordinateurs) }}
-				{{ form_widget(filtreSalleForm.ordinateurs) }}
-
-				{{ form_label(filtreSalleForm.sa) }}
-				{{ form_widget(filtreSalleForm.sa) }}
-
-				<button type="submit" onclick="fermerPopupFiltreSalles()">Valider</button>
-				<button type="button" id="resetButton">Réinitialiser</button>
-
-				{{ form_end(filtreSalleForm, {'render_rest': false}) }}
-
 			</div>
 
 			{# ------------------------------------------------------------- #}
@@ -103,44 +94,71 @@
 			<div class="liste-salles">
 			
 			{% for salle in liste_salles %}
-				{% if salle.datedemande is not null %}
-					<div class="salle darker">
-						<div class="salle-infos">
-							<p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
-							<h5>{{ salle.nom }}</h5>
-							{% set acquisitionStatus = salle.dateinstallation is null ? 'à installer' : 'installé' %}
-						
-							<p>
-								Système d'acquisition : {{ acquisitionStatus }} | 
-								Nombre d'ordis : {{ salle.nb_ordis }} | 
-								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
-								Orientation : {{ salle.orientation }}
-							</p>
-						</div>
-
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom}}" class="salle-bouton">Retirer</a>
-					</div>
-				
-				{% else %}
-					<div class="salle">
+				{% if salle.etat == 4 %}
+					<div id="{{ salle.nom_salle }}" class="salle">
 						<div class="salle-infos">
 							<p>Pas encore de demande de SA</p>
-							<h5>{{ salle.nom }}</h5>
+							<h5>{{ salle.nom_salle }}</h5>
 
 							<p>
-								Système d'acquisition : aucun | 
-								Nombre d'ordis : {{ salle.nb_ordis }} | 
-								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
+								Système d'acquisition : aucun |
+								Nombre d'ordis : {{ salle.nb_ordis }} |
+								Nombre de fenêtres : {{ salle.nb_fenetres }} |
 								Orientation : {{ salle.orientation }}
 							</p>
 						</div>
 
 
 						{% if nb_sa > 0 %}
-							<a href="plan-experimentation/ajouter-salle/{{ salle.nom }}" class="salle-bouton" >Ajouter</a>
+							<a href="plan-experimentation/ajouter-salle/{{ salle.nom_salle }}" class="salle-bouton" >Ajouter</a>
 						{% else %}
-							<a href="" class="salle-bouton-unclickable">Ajouter</a>
+							<a class="salle-bouton-unclickable">Ajouter</a>
 						{% endif %}
+					</div>
+				{% elseif salle.etat == 0 %}
+					<div id="{{ salle.nom_salle }}" class="salle darker">
+						<div class="salle-infos">
+							<p>Date de demande d'installation : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+							<h5>{{ salle.nom_salle }}</h5>
+							<p>
+								Système d'acquisition : à installer |
+								Nombre d'ordis : {{ salle.nb_ordis }} | 
+								Nombre de fenêtres : {{ salle.nb_fenetres }} | 
+								Orientation : {{ salle.orientation }}
+							</p>
+						</div>
+
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton">Retirer</a>
+					</div>
+				{% elseif salle.etat == 1 %}
+					<div id="{{ salle.nom_salle }}" class="salle darker">
+						<div class="salle-infos">
+							<p>Date d'installation : <strong>{{ salle.dateinstallation|date('Y-m-d H:i:s') }}</strong></p>
+							<h5>{{ salle.nom_salle }}</h5>
+							<p>
+								Système d'acquisition : installé |
+								Nombre d'ordis : {{ salle.nb_ordis }} |
+								Nombre de fenêtres : {{ salle.nb_fenetres }} |
+								Orientation : {{ salle.orientation }}
+							</p>
+						</div>
+
+						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton">Retirer</a>
+					</div>
+				{% elseif salle.etat == 2 %}
+					<div id="{{ salle.nom_salle }}" class="salle darker">
+						<div class="salle-infos">
+							<p>Date de demande de retrait : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+							<h5>{{ salle.nom_salle }}</h5>
+							<p>
+								Système d'acquisition : à retirer |
+								Nombre d'ordis : {{ salle.nb_ordis }} |
+								Nombre de fenêtres : {{ salle.nb_fenetres }} |
+								Orientation : {{ salle.orientation }}
+							</p>
+						</div>
+
+						<a class="salle-bouton-unclickable">Retirer</a>
 					</div>
 				{% endif %}
 			{% endfor %} 
@@ -151,6 +169,7 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{ asset('js/scrollToRoom.js') }}"></script>
 	<script src="{{ asset('js/filter.js') }}"></script>
 	<script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

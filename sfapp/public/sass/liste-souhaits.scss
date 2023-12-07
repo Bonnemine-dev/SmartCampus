@@ -1,0 +1,25 @@
+.souhaits .souhait{
+    @include flex-column($align: flex-start);
+    width: 100%;
+    background-color: $grey-4;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px 20px;
+
+    .date{
+        margin-bottom: 0;
+        color: $other-white;
+    }    
+}
+
+.souhait-info{
+    @include flex($justify: space-between);
+    width: 100%;
+
+    h5{
+        color: #FFF;
+        font-size: 30px;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+}

@@ -20,17 +20,6 @@ class Experimentation
     #[Assert\NotBlank]
     private ?int $id = null;
 
-    // Relation OneToOne avec la salle, avec cascade persist et remove.
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank]
-    private ?Salle $Salle = null;
-
-    // Relation OneToOne avec SA, avec cascade persist et remove.
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?SA $SA = null;
-
     // Date de demande de l'expérimentation.
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank]
@@ -55,41 +44,17 @@ class Experimentation
         $this->etat = $etat;
     }
 
-    #[ORM\OneToMany(mappedBy: 'experimentation', targetEntity: Donnees::class, orphanRemoval: true)]
-    private Collection $donnees;
+    #[ORM\ManyToOne(inversedBy: 'experimentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Salle $Salles = null;
 
-    public function __construct()
-    {
-        $this->donnees = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'experimentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?SA $SA = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSalle(): ?Salle
-    {
-        return $this->Salle;
-    }
-
-    public function setSalle(Salle $Salle): static
-    {
-        $this->Salle = $Salle;
-
-        return $this;
-    }
-
-    public function getSA(): ?SA
-    {
-        return $this->SA;
-    }
-
-    public function setSA(SA $SA): static
-    {
-        $this->SA = $SA;
-
-        return $this;
     }
 
     public function getDatedemande(): ?\DateTimeInterface
@@ -116,32 +81,26 @@ class Experimentation
         return $this;
     }
 
-    /**
-     * @return Collection<int, Donnees>
-     */
-    public function getDonnees(): Collection
+    public function getSalles(): ?Salle
     {
-        return $this->donnees;
+        return $this->Salles;
     }
 
-    public function addDonnee(Donnees $donnee): static
+    public function setSalles(?Salle $Salles): static
     {
-        if (!$this->donnees->contains($donnee)) {
-            $this->donnees->add($donnee);
-            $donnee->setExperimentation($this);
-        }
+        $this->Salles = $Salles;
 
         return $this;
     }
 
-    public function removeDonnee(Donnees $donnee): static
+    public function getSA(): ?SA
     {
-        if ($this->donnees->removeElement($donnee)) {
-            // set the owning side to null (unless already changed)
-            if ($donnee->getExperimentation() === $this) {
-                $donnee->setExperimentation(null);
-            }
-        }
+        return $this->SA;
+    }
+
+    public function setSA(?SA $SA): static
+    {
+        $this->SA = $SA;
 
         return $this;
     }

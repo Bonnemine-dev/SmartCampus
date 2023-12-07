@@ -2,6 +2,8 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\Experimentation;
+use App\Entity\Salle;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ChargeMissionControllerTest extends WebTestCase
@@ -76,6 +78,17 @@ class ChargeMissionControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        $expRepository = $entityManager->getRepository(Experimentation::class);
+        $salleRepository = $entityManager->getRepository(Salle::class);
+        $id = $salleRepository->nomSalleId('D001');
+
+        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+
+        if ($experimentation != null) {
+            $expRepository->supprimerExperimentation('D001');
+        }
+
         $client->request('GET', '/charge-de-mission/plan-experimentation');
 
         $link = $client->getCrawler()->filter('a[href="plan-experimentation/ajouter-salle/D001"]')->link();
@@ -89,6 +102,17 @@ class ChargeMissionControllerTest extends WebTestCase
     public function testAjoutExperimentation()
     {
         $client = static::createClient();
+
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        $expRepository = $entityManager->getRepository(Experimentation::class);
+        $salleRepository = $entityManager->getRepository(Salle::class);
+        $id = $salleRepository->nomSalleId('D001');
+
+        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+
+        if ($experimentation != null) {
+            $expRepository->supprimerExperimentation('D001');
+        }
 
         $client->request('GET', '/charge-de-mission/plan-experimentation/ajouter-salle/D001');
 
@@ -108,6 +132,17 @@ class ChargeMissionControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        $expRepository = $entityManager->getRepository(Experimentation::class);
+        $salleRepository = $entityManager->getRepository(Salle::class);
+        $id = $salleRepository->nomSalleId('D001');
+
+        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+
+        if ($experimentation == null) {
+            $expRepository->ajouterExperimentation('D001');
+        }
+
         $client->request('GET', '/charge-de-mission/plan-experimentation');
 
         $link = $client->getCrawler()->filter('a[href="plan-experimentation/supprimer-salle/D001"]')->link();
@@ -121,6 +156,17 @@ class ChargeMissionControllerTest extends WebTestCase
     public function testSupprimerExperimentation()
     {
         $client = static::createClient();
+
+        $entityManager = $this->getContainer()->get('doctrine')->getManager();
+        $expRepository = $entityManager->getRepository(Experimentation::class);
+        $salleRepository = $entityManager->getRepository(Salle::class);
+        $id = $salleRepository->nomSalleId('D001');
+
+        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+
+        if ($experimentation == null) {
+            $expRepository->ajouterExperimentation('D001');
+        }
 
         $client->request('GET', '/charge-de-mission/plan-experimentation/supprimer-salle/D001');
 

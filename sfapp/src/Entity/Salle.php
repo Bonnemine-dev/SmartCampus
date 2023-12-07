@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SalleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,6 +63,14 @@ class Salle
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
     private ?Batiment $batiment = null;
+
+    #[ORM\OneToMany(mappedBy: 'Salles', targetEntity: Experimentation::class, orphanRemoval: true)]
+    private Collection $experimentations;
+
+    public function __construct()
+    {
+        $this->experimentations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -148,6 +158,36 @@ class Salle
     public function setBatiment(?Batiment $batiment): static
     {
         $this->batiment = $batiment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Experimentation>
+     */
+    public function getExperimentations(): Collection
+    {
+        return $this->experimentations;
+    }
+
+    public function addExperimentation(Experimentation $experimentation): static
+    {
+        if (!$this->experimentations->contains($experimentation)) {
+            $this->experimentations->add($experimentation);
+            $experimentation->setSalles($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperimentation(Experimentation $experimentation): static
+    {
+        if ($this->experimentations->removeElement($experimentation)) {
+            // set the owning side to null (unless already changed)
+            if ($experimentation->getSalles() === $this) {
+                $experimentation->setSalles(null);
+            }
+        }
 
         return $this;
     }

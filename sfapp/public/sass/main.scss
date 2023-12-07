@@ -1,0 +1,101 @@
+@import "libs/reset.scss";
+
+$font: 'Montserrat', 'Roboto', Tahoma, Verdana, sans-serif;
+$gradient: linear-gradient(90deg, #00B292, #7ED957);
+
+// Couleurs
+$light-green: #7ED957;
+$dark-green: #00B292;
+$grey-1: #272727;
+$grey-2: #444444;
+$grey-3: #5D5D5D;
+$grey-4: #737373;
+$grey-5: #BABABA;
+$grey-6: #D7D7D7;
+$other-white: #F1F1F1;
+
+@mixin flex($justify: center, $align: center) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin flex-column($justify: center, $align: center) {
+    display: flex;
+    flex-direction: column;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font;
+    color: #FFF;
+}
+
+a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+// ----------------------------------------------
+
+// Boutons
+@import "boutons.scss";
+
+// Messages d'alerte
+@import "alertes.scss";
+
+// Page de CONNEXION
+@import "connexion.scss";
+
+// ----------------------------------------------
+
+// Page de BASE (base.html.twig)
+
+// Bannière
+@import "banniere.scss";
+
+// Container Principal
+.app-container {
+    color: #FFF;
+    width: 100%;
+    height: fit-content;
+    min-height: 100vh;
+    display: flex;
+    background: $gradient;
+    z-index: 1;
+
+    @media (max-width: 999px) {
+        flex-direction: column;
+    }
+}
+
+// Sidebar
+@import "sidebar.scss";
+
+// Container de droite (app-content)
+@import "app-content.scss";
+
+// ----------------------------------------------
+
+// Page de SOUHAITS (Technicien : liste-souhaits.html.twig)
+@import "liste-souhaits.scss";
+
+// ----------------------------------------------
+
+// Page PLAN EXPERIMENTATION (CM : plan-experimentation.html.twig)
+@import "plan-experimentation.scss";
+
+// Barre de recherche et filtre dans la sidebar (sera utilisé dans d'autres pages)
+@import "recherche-filtre.scss";
+
+// ----------------------------------------------
+
+// Pages de confirmation
+@import "confirmation.scss";
