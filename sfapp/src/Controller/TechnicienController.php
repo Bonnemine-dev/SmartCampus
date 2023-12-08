@@ -30,12 +30,11 @@ class TechnicienController extends AbstractController
     // La fonction gestionSA représente la page de gestion des SA du technicien.
     // Elle récupère la liste des SA à partir du repository.
     // Ensuite, elle rend la vue 'technicien/gestion-sa.html.twig' avec les SA récupérées.
-    #[Route('/technicien/gestion-sa', name: 'gestion-sa')]
-    public function gestionSA(Request $request , SARepository $saRepository , ExperimentationRepository $expRepository): Response
+    #[Route('/technicien/gestion-sa', name: 'gestion_sa')]
+    public function gestion_sa(Request $request , SARepository $saRepository): Response
     {
         // Récupère les expérimentations sans date d'installation du repository.
-        $SA = $saRepository->toutLesSA();
-        $experimentations = $expRepository->trouveExperimentationsNonRetirer();
+        $liste_sa = $saRepository->toutLesSA();
 
         // Création des instances de formulaire
         $rechercheSAForm = $this->createForm(RechercheSAFormType::class);
@@ -47,15 +46,12 @@ class TechnicienController extends AbstractController
         if ($rechercheSAForm->isSubmitted() && $rechercheSAForm->isValid()) {
             $dataRecherche = $rechercheSAForm->getData();
             // Extraire les données et les utiliser pour rechercher les salles
-            $SA = $saRepository->rechercheSA(
-                $dataRecherche['nom'] ?? null
-            );
+            $liste_sa = $saRepository->rechercheSA($dataRecherche['sa_nom'] ?? null);
         }
-
         // Rend la vue avec la liste des expérimentations.
+        // dump($liste_sa);
         return $this->render('technicien/gestion-sa.html.twig', [
-            'SA' => $SA ,
-            'experimentations' => $experimentations ,
+            'liste_sa' => $liste_sa ,
             'rechercheSAForm' => $rechercheSAForm->createView() ,
         ]);
     }

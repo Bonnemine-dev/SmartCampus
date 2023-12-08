@@ -5,66 +5,73 @@
 {% block username %}Technicien{% endblock %}
 
 {% block navlink %}
-    <li><a class="nav-link" href="liste-souhaits">Liste de souhaits</a></li>
-    <li><a class="nav-link" href="gestion-sa">Gestion des SA</a></li>
+	<li>
+		<a class="nav-link" href="liste-souhaits">Liste de souhaits</a>
+	</li>
+	<li>
+		<a class="nav-link" href="gestion-sa">Gestion des SA</a>
+	</li>
 {% endblock %}
 
 {% block appcontent %}
-    <div class="app-content souhaits">
-        <h3 class="">Gestion des SA</h3>
+	<div class="app-content souhaits">
+	{# Affichage des messages de succès #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-        <div class="container">
-            <h4>Liste des SA</h4>
-            <div class="search-and-filter">
+		{# Affichage des messages d'erreur #}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-error">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-                {{ form_start(rechercheSAForm) }}
-                {{ form_widget(rechercheSAForm.nom) }}
+		{# --------------------------------------------- #}
+		<h3 class="">Gestion des SA</h3>
 
-                <button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
+		<div class="container">
+			<h4>Liste des SA</h4>
+			<div class="search-and-filter">
 
-                {{ form_end(rechercheSAForm, {'render_rest': false}) }}
-            </div>
+				{{ form_start(rechercheSAForm) }}
+				{{ form_widget(rechercheSAForm.nom) }}
 
-            {% if SA|length == 0 %}
-                <div class="souhait" style="justify-content: center;">
-                    <p>Aucun SA pour le moment...</p>
-                </div>
-            {% endif %}
-            <div class="souhait">
-                <a href="gestion-sa/ajouter-sa" class="cancel-button">Ajouter un SA dans le stock</a>
-            </div>
-            {% if SA|length > 0 %}
-                {% for sa in SA %}
-                    <div class="souhait">
-                        <div class="souhait-info">
-                            <h5>{{ sa.nom_sa }}</h5>
-                            {% if sa.disponible == 1 %}
-                                <p>Salle associée : Aucune</p>
-                            {% else %}
-                                {% for exp in experimentations %}
-                                    {% if exp.etat == 0 %}
-                                        {% set stringEtat = 'En demande d\'installation' %}
-                                    {% elseif exp.etat == 1 %}
-                                        {% set stringEtat = 'Installé' %}
-                                    {% elseif exp.etat == 2 %}
-                                        {% set stringEtat = 'En demande de retrait' %}
-                                    {% endif %}
-                                    <div class="souhait">
-                                        <div class="souhait-info">
-                                            {% if sa.nom_sa == exp.nom_sa %}
-                                                    <p>Salle associée : {{exp.nom_salle}} | Etat : {{ stringEtat }}</p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
 
-                            <a href=# class="salle-bouton">detail</a>
-                            <a href=# class="salle-bouton">supprimer</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
+				{{ form_end(rechercheSAForm, {'render_rest': false}) }}
+			</div>
+
+			{% if liste_sa|length == 0 %}
+				<div class="souhait" style="justify-content: center;">
+					<p>Aucun SA pour le moment...</p>
+				</div>
+			{% endif %}
+			<div class="souhait">
+				<a href="gestion-sa/ajouter-sa" class="cancel-button">Ajouter un SA dans le stock</a>
+			</div>
+			{% for sa in liste_sa %}
+				<div class="">
+					<h1 class="">{{ sa.sa_nom | default('erreur')}}</h1>
+					<p class="">Localisation : {{ sa.salle_nom | default('Stocks')}} | État : </p>
+					{% if sa.sa_etat.value == 0 %}
+						<p class="">Éteint</p>
+					{% elseif sa.sa_etat.value == 1 %}
+						<p class="">En marche</p>
+					{% elseif sa.sa_etat.value == 2 %}
+						<p class="">Défaillance technique</p>
+					{% else %}
+						<p class="">Aucune donnée</p>
+					{% endif %}
+                    <a href="/technicien/gestion-sa/supprimer-sa/{{ sa.sa_nom }}">supprimer</a>
+                    <a href="/technicien/gestion-sa/details-sa/{{sa.sa_nom}}">détails</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

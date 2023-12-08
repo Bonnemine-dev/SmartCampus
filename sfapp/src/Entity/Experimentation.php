@@ -49,7 +49,7 @@ class Experimentation
     private ?Salle $Salles = null;
 
     #[ORM\ManyToOne(inversedBy: 'experimentations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?SA $SA = null;
 
     public function getId(): ?int

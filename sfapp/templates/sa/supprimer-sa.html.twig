@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Technicien
+{% endblock %}
+
+
+{% block username %}Technicien
+{% endblock %}
+
+{% block navlink %}
+    <li><a class="nav-link" href="../liste-souhaits">Liste de souhaits</a></li>
+    <li><a class="nav-link" href="../gestion-sa">Gestion des SA</a></li>
+
+{% endblock %}
+
+{% block appcontent %}
+    <div class="app-content cm-pe">
+
+        {# Titre #}
+        <h3>SUPPRIMER UN SYSTEME D'ACQUISITION</h3>
+
+        {# CONTAINER (fond gris) #}
+        <div class="container">
+            <h1 class="">Voulez-vous vraiment supprimer le système d'acquisition "{{ nomsa }}" du stock</h1>
+            <p class="">Cela supprimera son référencement dans la base de données.<br>Les données acquises par le boitier ne seront pas effacées.<br>Cette action est irréversible.</p>
+            <div class="confirm-buttons">
+                    <a href="/technicien/gestion-sa" class="cancel-button">Annuler</a>
+                    <a href="/charge-de-mission/plan-experimentation/suppression-sa/{{nomsa}}" class="confirm-button">Valider</a>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/filter.js') }}"></script>
+{% endblock %}

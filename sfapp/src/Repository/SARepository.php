@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Config\EtatSA;
-use App\Entity\Experimentation;
 use App\Entity\SA;
+use App\Repository\ExperimentationRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @extends ServiceEntityRepository<SA>
@@ -35,7 +36,7 @@ class SARepository extends ServiceEntityRepository
     }
 
     // Fonction qui retourne le premier SA disponible
-    public function saNonUtiliser():?sa
+    public function saNonUtiliser(): ?sa
     {
         // Requête pour sélectionner un SA disponible.
         $sa = $this->findOneBy(['disponible' => 1]);
@@ -52,11 +53,19 @@ class SARepository extends ServiceEntityRepository
 
     public function toutLesSA()
     {
-        $queryBuilder = $this->createQueryBuilder('sa')
-            ->select('sa.nom as nom_sa, sa.disponible');
+        $entityManager = $this->getEntityManager();
 
-        // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
+        $query = $entityManager->createQuery('
+            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat
+            FROM App\Entity\SA sa
+            LEFT JOIN App\Entity\Experimentation experimentation WITH sa.id = experimentation.SA
+            LEFT JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
+        ');
+        // Exécuter la requête
+        $resultat = $query->getResult();
+
+        // Retourner true si une expérimentation est trouvée, sinon false
+        return $resultat;
     }
 
     public function rechercheSA($nom = null)
@@ -92,5 +101,23 @@ class SARepository extends ServiceEntityRepository
     public function existeDeja($nom = null)
     {
         return $this->findOneBy(['nom' => $nom]);
+    }
+
+    public function supprimerSA($nomsa)
+    {
+        $sa = $this->findOneBy(['nom' => $nomsa]);
+        if ($sa) 
+        {
+            $entityManager = $this->getEntityManager();
+            // Supprimer l'objet SA
+            $entityManager->remove($sa);
+            // Exécuter les changements dans la base de données
+            $entityManager->flush();
+            // Retourner true pour indiquer que la suppression a réussi
+            return true;
+        } else 
+        {
+            return false;
+        }
     }
 }
