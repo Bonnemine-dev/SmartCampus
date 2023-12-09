@@ -13,6 +13,26 @@
 	</li>
 {% endblock %}
 
+{% block sidebar %}
+<div class="filtre">
+	<h3>FILTRES</h3>
+
+	<!--Le popup lui même-->
+	{{ form_start(filtreSAForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
+	{{ form_label(filtreSAForm.etat) }}
+	{{ form_widget(filtreSAForm.etat) }}
+
+	{{ form_label(filtreSAForm.localisation) }}
+	{{ form_widget(filtreSAForm.localisation) }}
+
+	<button type="submit">Valider</button>
+	<button type="button" id="resetButton">Réinitialiser</button>
+
+	{{ form_row(filtreSAForm._token) }}
+	{{ form_end(filtreSAForm, {'render_rest': false}) }}
+</div>
+{% endblock %}
+
 {% block appcontent %}
 	<div class="app-content souhaits gestion-sa">
 	{# Affichage des messages de succès #}
@@ -57,7 +77,7 @@
 			</a>
 
 			{% for sa in liste_sa %}
-				<div class="sa">
+				<div id="{{ sa.sa_nom | default('erreur')}}"class="sa">
 					<div class="sa-infos">
 						<div class="sa-name">
 							{% if sa.sa_etat.value == 0 %}
@@ -114,4 +134,6 @@
 {% endblock %}
 {% block javascripts %}
 	<script src="{{ asset('js/flashMessage.js') }}"></script>
+	<script src="{{ asset('js/filter.js') }}"></script>
+	<script src="{{ asset('js/scrollToRoom.js') }}"></script>
 {% endblock %}

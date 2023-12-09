@@ -37,9 +37,10 @@
             {{ form_start(ajoutSAForm) }}
             {{ form_widget(ajoutSAForm.nom) }}
             <p>{{ erreur }}</p>
-
+            
             <a class="cancel" href="../gestion-sa">Annuler</a>
             <button type='submit'>Ajouter</button>
+            {{ form_row(ajoutSAForm._token) }}
             {{ form_end(ajoutSAForm, {'render_rest': false}) }}
 
 

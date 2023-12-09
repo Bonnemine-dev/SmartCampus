@@ -67,7 +67,34 @@ class SARepository extends ServiceEntityRepository
         // Retourner true si une expérimentation est trouvée, sinon false
         return $resultat;
     }
+    public function filtrerSAGestionSA($etat = null, $localisation = null)
+    {
+        $entityManager = $this->getEntityManager();
 
+        $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder
+            ->select('sa.nom as sa_nom', 'salle.nom as salle_nom', 'sa.etat as sa_etat')
+            ->from('App\Entity\SA', 'sa')
+            ->leftJoin('sa.experimentations', 'experimentation')
+            ->leftJoin('experimentation.Salles', 'salle');
+       
+            if (!empty($etat) && $etat !== null) {
+                $queryBuilder->andWhere($queryBuilder->expr()->in('sa.etat', ':etat'))
+                    ->setParameter('etat', $etat);
+            }
+    
+            if (count($localisation) === 1 && $localisation !== null) {
+                if ($localisation[0] === 'salle') {
+                    // Si $localisation est true, ajouter la condition pour salle.nom IS NOT NULL
+                    $queryBuilder->andWhere($queryBuilder->expr()->isNotNull('salle.nom'));
+                } elseif ($localisation[0] === 'stock') {
+                    // Si $localisation est false, ajouter la condition pour salle.nom IS NULL
+                    $queryBuilder->andWhere($queryBuilder->expr()->isNull('salle.nom'));
+                }                
+            }
+        return $queryBuilder->getQuery()->getResult();;
+    }
     public function rechercheSA($contient_ce_string = null)
     {
         $entityManager = $this->getEntityManager();
@@ -84,7 +111,6 @@ class SARepository extends ServiceEntityRepository
         $query->setParameter('contient_ce_string', $contient_ce_string);
         $resultat = $query->getResult();
 
-        // Retourner true si une expérimentation est trouvée, sinon false
         return $resultat;
     }
 
@@ -110,8 +136,7 @@ class SARepository extends ServiceEntityRepository
     public function supprimerSA($nomsa)
     {
         $sa = $this->findOneBy(['nom' => $nomsa]);
-        if ($sa) 
-        {
+        if ($sa) {
             $entityManager = $this->getEntityManager();
             // Supprimer l'objet SA
             $entityManager->remove($sa);
@@ -119,8 +144,7 @@ class SARepository extends ServiceEntityRepository
             $entityManager->flush();
             // Retourner true pour indiquer que la suppression a réussi
             return true;
-        } else 
-        {
+        } else {
             return false;
         }
     }

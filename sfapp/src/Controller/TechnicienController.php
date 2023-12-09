@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\FiltreSAFormType;
 use App\Form\RechercheSAFormType;
 use App\Repository\ExperimentationRepository;
 use App\Repository\SARepository;
@@ -33,17 +34,21 @@ class TechnicienController extends AbstractController
     #[Route('/technicien/gestion-sa', name: 'gestion_sa')]
     public function gestion_sa(Request $request , SARepository $saRepository): Response
     {
-        // Récupère les expérimentations sans date d'installation du repository.
-        $liste_sa = $saRepository->toutLesSA();
-
-        // Création des instances de formulaire
+        $filtreSAForm = $this->createForm(FiltreSAFormType::class);
+        $filtreSAForm->handleRequest($request);
         $rechercheSAForm = $this->createForm(RechercheSAFormType::class);
-
-        // Soumission des formulaires à la requête
         $rechercheSAForm->handleRequest($request);
 
-        // Recherche des salles en fonction du formulaire de recherche
-        if ($rechercheSAForm->isSubmitted() && $rechercheSAForm->isValid()) {
+        if ($filtreSAForm->isSubmitted() && $filtreSAForm->isValid()) {
+            $dataFiltre = $filtreSAForm->getData();
+            // Extraire les données et les utiliser pour filtrer les salles
+            $liste_sa = $saRepository->filtrerSAGestionSA(
+                $dataFiltre['etat'] ?? null,
+                $dataFiltre['localisation'] ?? null,
+            );
+            if(empty($liste_sa))$this->addFlash('error', "Votre recherche ne correspond ni a un système d'acquisition ni a une salle");
+        }
+        else if ($rechercheSAForm->isSubmitted() && $rechercheSAForm->isValid()) {
             $dataRecherche = $rechercheSAForm->getData();
             // Extraire les données et les utiliser pour rechercher les salles
             if($dataRecherche['sa_nom'] == '')
@@ -54,12 +59,14 @@ class TechnicienController extends AbstractController
             {
                 $liste_sa = $saRepository->rechercheSA($dataRecherche['sa_nom']);
             }
+            if(empty($liste_sa))$this->addFlash('error', "Votre recherche " . $dataRecherche['sa_nom'] . " ne correspond ni a un système d'acquisition ni a une salle");
         }
-        if(empty($liste_sa))$this->addFlash('error', "Votre recherche " . $dataRecherche['sa_nom'] . " ne correspond ni a un système d'acquisition ni a une salle");
+        else $liste_sa = $saRepository->toutLesSA();
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/gestion-sa.html.twig', [
             'liste_sa' => $liste_sa ,
             'rechercheSAForm' => $rechercheSAForm->createView() ,
+            'filtreSAForm' => $filtreSAForm->createView(),
         ]);
     }
 }

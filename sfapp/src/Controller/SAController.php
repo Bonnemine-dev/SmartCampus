@@ -32,7 +32,7 @@ class SAController extends AbstractController
                 $saRepository->ajoutSA(
                     $dataRecherche['nom'] ?? null
                 );
-                return $this->redirectToRoute('gestion_sa');
+                return $this->redirectToRoute('gestion_sa', ['scrollTo' => $dataRecherche['nom']]);
             }
         }
 
