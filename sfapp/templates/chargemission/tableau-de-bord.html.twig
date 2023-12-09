@@ -27,7 +27,7 @@
 		</div>
 		<div class="container">
 			<h1 class="">Données générales</h1>
-			<p class="">Ambiance global du batiment</p>
+			<p class="">Ambiance globale du bâtiment</p>
 			<div class="">
 				<h1 class="">
 					{{ hum_moy | default('--') }}
@@ -44,6 +44,26 @@
 				</h1>
 			</div>
 		</div>
+		<div class="container">
+			<h1>Salles en cours d'analyse</h1>
+
+			{% for i in 1..16 %}
+				{# Vérifier si la salle existe dans les données #}
+				{% if salles[i] is defined %}
+					{# La salle existe, afficher les données #}
+					<div class="salle">
+						<h5>{{ salles[i].localisation }}</h5>
+						<p>{{ salles[i].hum | default('--') }}% - {{ salles[i].temp | default('---') }}°C - {{ salles[i].co2 | default('--,-') }}ppm</p>
+						<a href="" class="">+</a>
+					</div>
+				{% else %}
+					{# La salle n'existe pas, afficher une <div> vide #}
+					<div class="salle">
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+
 	</div>
 
 {% endblock %}

@@ -71,31 +71,21 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
-    public function cm_tableau_de_bord(ExperimentationRepository $experimentationRepository, SalleRepository $salleRepository): Response
+    public function cm_tableau_de_bord(ExperimentationRepository $experimentationRepository): Response
     {
         // Afficher la vue d'ajout de salle avec le résultat de l'existence
         // 1. Lire le fichier JSON
         $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
         $jsonContent = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonContent, true);
-        $taux_carbone_moy = null;
-        $temp_moy = null;
-        $hum_moy = null;
-        // 2. Organiser les données par salle
-        foreach ($dataArray as $data) {
-            // 3. Calculer les dernières valeurs pour chaque type de mesure
-            if ($data['nom'] === 'temp') {
-                $temp_moy = $data['valeur'];
-            } elseif ($data['nom'] === 'hum') {
-                $hum_moy = $data['valeur'];
-            } elseif ($data['nom'] === 'co2') {
-                $taux_carbone_moy = $data['valeur'];
-            }
-        }
+        $salles = $experimentationRepository->listerSallesAvecDonnees($dataArray);
+        $moyDonnees = $experimentationRepository->moyennesDonnees($dataArray);
+
         return $this->render('chargemission/tableau-de-bord.html.twig', [
-             'temp_moy' => $temp_moy,
-             'hum_moy' => $hum_moy,
-             'taux_carbone_moy' => $taux_carbone_moy
+             'temp_moy' => $moyDonnees[0],
+             'hum_moy' => $moyDonnees[1],
+             'taux_carbone_moy' => $moyDonnees[2],
+             'salles' => $salles,
         ]);
     }
 }

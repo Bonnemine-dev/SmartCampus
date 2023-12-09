@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\SimpleArrayType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -149,5 +150,73 @@ class ExperimentationRepository extends ServiceEntityRepository
         }
         $listeEtat[1] = $Exp->getEtat();
         return $listeEtat;
+    }
+
+    public function listerSallesAvecDonnees(array $dataArray): array
+    {
+        // Initialiser le tableau résultat
+        $salles = [];
+
+        $counter = 0;
+
+        // Parcourir les données
+        foreach ($dataArray as $item) {
+            $salle = $item['localisation'];
+            // Trouver la salle dans le tableau
+            $index = array_search(['localisation' => $salle], $salles);
+
+            // Si la salle n'est pas déjà dans le tableau, l'ajouter
+            if (!$index) {
+                $salles[$counter] = [
+                    'localisation' => $salle,
+                    'co2' => null,
+                    'hum' => null,
+                    'temp' => null,
+                ];
+
+                // Remplir les valeurs correspondantes
+                switch ($item['nom']) {
+                    case 'co2':
+                        $salles[$counter]['co2'] = $item['valeur'];
+                        break;
+                    case 'hum':
+                        $salles[$counter]['hum'] = $item['valeur'];
+                        break;
+                    case 'temp':
+                        $salles[$counter]['temp'] = $item['valeur'];
+                        break;
+                }
+                $counter++;
+            }
+        }
+
+        return $salles;
+    }
+
+    public function moyennesDonnees(array $dataArray): array
+    {
+        // Initialiser les tableaux pour stocker les valeurs de chaque type de mesure
+        $tempValues = [];
+        $humValues = [];
+        $co2Values = [];
+
+        // 2. Organiser les données par salle
+        foreach ($dataArray as $data) {
+            // 3. Stocker les valeurs dans les tableaux correspondants
+            if ($data['nom'] === 'temp') {
+                $tempValues[] = $data['valeur'];
+            } elseif ($data['nom'] === 'hum') {
+                $humValues[] = $data['valeur'];
+            } elseif ($data['nom'] === 'co2') {
+                $co2Values[] = $data['valeur'];
+            }
+        }
+
+        // 4. Calculer la moyenne pour chaque type de mesure
+        $temp_moy = count($tempValues) > 0 ? array_sum($tempValues) / count($tempValues) : null;
+        $hum_moy = count($humValues) > 0 ? array_sum($humValues) / count($humValues) : null;
+        $taux_carbone_moy = count($co2Values) > 0 ? array_sum($co2Values) / count($co2Values) : null;
+
+        return [$temp_moy, $hum_moy, $taux_carbone_moy];
     }
 }
