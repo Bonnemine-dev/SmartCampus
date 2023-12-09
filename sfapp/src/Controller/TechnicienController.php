@@ -17,6 +17,7 @@ class TechnicienController extends AbstractController
     {
         // Récupère les expérimentations du repository.
         $experimentations = $repository->trouveExperimentations();
+        $experimentations = $repository->triexperimentation($experimentations);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/liste-souhaits.html.twig', [

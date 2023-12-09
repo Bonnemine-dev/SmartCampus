@@ -100,7 +100,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         FROM App\Entity\Salle salle
         JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
         JOIN App\Entity\SA sa WITH sa.id = experimentation.SA
-        ORDER BY salle.nom ASC
+        ORDER BY salle.nom , etat ASC
     ';
         $query = $this->getEntityManager()->createQuery($dql);
 
@@ -157,8 +157,15 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function modifierEtat($etat, $salle) : void
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->findOneBy(['Salles' => $idSalle]);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        $Exp = $Exp[0];
         $Exp->setEtat($etat);
+        if($etat == EtatExperimentation::retiree){
+            $Exp->getSA()->setDisponible(1);
+        }
         $entityManager = $this->getEntityManager();
         $entityManager->persist($Exp);
         $entityManager->flush();
@@ -170,8 +177,35 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function etatExperimentation($salle) : EtatExperimentation
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->findOneBy(['Salles' => $idSalle]);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        if(count($Exp)==0){
+            return EtatExperimentation::retiree;
+        }
+        $Exp = $Exp[0];
         return $Exp->getEtat();
     }
 
+    public function triexperimentation($exp)
+    {
+        if(count($exp)>2){
+            $salle = $exp[0]['nom_salle'];
+            for($i = 0 ; $i < count($exp)-1 ; $i = $i + 1)
+            {
+                if($salle == $exp[$i+1]['nom_salle'])
+                {
+                    unset($exp[$i+1]);
+                }else{
+                    $salle = $exp[$i+1]['nom_salle'];
+                }
+            }
+        }
+        if($salle == $exp[count($exp)-1]['nom_salle'])
+        {
+            unset($exp[$i+1]);
+        }
+        return $exp;
+    }
 }
