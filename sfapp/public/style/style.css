@@ -535,6 +535,7 @@ button {
   width: 100%;
   height: fit-content;
   padding: 30px 50px;
+  margin-bottom: 50px;
 }
 .container-experimentations p {
   color: #BABABA;
@@ -612,10 +613,13 @@ button {
   justify-content: center;
   align-items: center;
   position: fixed;
+  top: calc(50% - 75px);
+  left: calc(50% - 250px);
   background-color: #5D5D5D;
   border-radius: 15px;
   padding: 40px 20px;
   width: 500px;
+  height: 150px;
 }
 .souhaits .popup h5 {
   font-size: 1.4rem;
