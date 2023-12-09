@@ -1,36 +1,4 @@
-/*document.querySelectorAll('.souhait').forEach(item => {
-    item.addEventListener('dragstart', dragStart);
-});
-
-function dragStart(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
-
-document.getElementById('installees').addEventListener('drop', drop);
-document.getElementById('installees').addEventListener('dragover', allowDrop);
-
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function drop(event) {
-    event.preventDefault();
-    var data = event.dataTransfer.getData("text");
-    // event.target.appendChild(document.getElementById(data));
-
-    console.log(data);
-
-    // Afficher la popup avec les informations de la carte
-    var cardText = document.getElementById(data).textContent;
-    document.getElementById('cardInfo').textContent = cardText;
-    document.getElementById('modifyLink').href = "/modifier-etat-experimentation/installee/" + cardText;
-    //document.getElementById('overlay').style.display = 'flex';
-}
-
-// Fermer le popup
-document.getElementById('cancelButton').addEventListener('click', function() {
-    //document.getElementById('overlay').style.display = 'none';
-});*/
+var originalColumnId = null;
 
 // Sélectionner toutes les cartes "souhait" et ajouter l'événement dragstart
 document.querySelectorAll('.souhait').forEach(item => {
@@ -39,6 +7,8 @@ document.querySelectorAll('.souhait').forEach(item => {
 
 function dragStart(event) {
     event.dataTransfer.setData("text", event.target.id);
+    // Stocker l'ID de la colonne parente
+    originalColumnId = event.target.closest('.liste-experimentations').id;
 }
 
 // Ajouter les événements dragover et drop à la div "installees"
@@ -51,17 +21,21 @@ function allowDrop(event) {
 
 function drop(event) {
     event.preventDefault();
-    var data = event.dataTransfer.getData("text");
-    var draggedElement = document.getElementById(data);
+    let data = event.dataTransfer.getData("text");
+    let draggedElement = document.getElementById(data);
 
-    // Récupérer les informations de la carte et les afficher dans le popup
-    var nomSalle = draggedElement.querySelector('#nomsalle').textContent;
-    var nomSa = draggedElement.querySelector('h5:not(#nomsalle)').textContent;
+    // Récupérer les informations de la carte
+    let nomSalle = draggedElement.querySelector('#nomsalle').textContent;
+    let nomSa = draggedElement.querySelector('h5:not(#nomsalle)').textContent;
 
-    console.log(event.target.id);
-    if(event.target.id === "installees") {
+    // Utiliser closest pour obtenir toujours l'ID de la div .liste-experimentations
+    let targetColumn = event.target.closest('.liste-experimentations').id;
+
+    console.log(targetColumn, " - ",  originalColumnId," - ", nomSalle," - ", nomSa);
+
+    if(targetColumn === "installees") {
         document.getElementById('cardInfo').textContent = "Valider l'installation du " + nomSa + " dans la salle " + nomSalle + " ?";
-        document.getElementById('modifyLink').href = "/modifier-etat-experimentation/installee/" + nomSalle;
+        document.getElementById('modifyLink').href = "/technicien/modifier-etat-experimentation/installee/" + nomSalle;
         document.getElementById('overlay').style.display = 'flex';
     }
 }
@@ -71,3 +45,37 @@ document.getElementById('cancelButton').addEventListener('click', function() {
     document.getElementById('overlay').style.display = 'none';
 });
 
+// ---------------------------------------------
+
+// Scroll automatique vers la salle sélectionnée
+
+function scrollTo(scrollId) {
+    let elementCible = document.getElementById(scrollId);
+    if (elementCible) {
+        let conteneur = elementCible.closest('.liste-experimentations'); // Ajustez si nécessaire
+        conteneur.scrollTop = elementCible.offsetTop - conteneur.offsetTop; // Défiler vers la div
+        //elementCible.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
+
+        // Ajouter la classe .blink-border et la retirer après 3 secondes
+        elementCible.classList.add('blink-border');
+        setTimeout(function() {
+            elementCible.classList.remove('blink-border');
+        }, 3000);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    function getQueryParam(name) {
+        const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        }
+        return decodeURI(results[1]) || 0;
+    }
+
+    let scrollToId = getQueryParam('scrollTo');
+
+    if (scrollToId && document.getElementById(scrollToId)) {
+        scrollTo(scrollToId);
+    }
+});

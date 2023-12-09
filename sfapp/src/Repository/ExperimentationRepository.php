@@ -143,4 +143,28 @@ class ExperimentationRepository extends ServiceEntityRepository
             $entityManager->flush();
         }
     }
+
+    /*
+     * Modifie l'etat du experimentation à $etat pour la salle de nom $salle
+     */
+    public function modifierEtat($etat, $salle) : void
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        $Exp = $this->findOneBy(['Salles' => $idSalle]);
+        $Exp->setEtat($etat);
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($Exp);
+        $entityManager->flush();
+    }
+
+    /*
+     * Récupère l'état d'une experimentation pour la salle de nom $salle
+     */
+    public function etatExperimentation($salle) : EtatExperimentation
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        $Exp = $this->findOneBy(['Salles' => $idSalle]);
+        return $Exp->getEtat();
+    }
+
 }

@@ -75,6 +75,11 @@
         border-radius: 5px;
         padding: 10px 20px;
         cursor: move;
+        border: 2px solid transparent;
+
+        &.blink-border {
+            animation: blinkBorder 1s linear 3;
+        }
     }
 
     .date{

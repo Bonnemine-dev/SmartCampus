@@ -10,6 +10,23 @@
 
 {% block appcontent %}
 <div class="app-content souhaits">
+
+    {# Affichage des messages de succès #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# Affichage des messages d'erreur #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# --------------------------------------------- #}
+
     <h3 class="">PLAN D'EXPÉRIMENTATION</h3>
 
     {# Si il n'y a aucune experimentation dans la table#}
@@ -101,4 +118,5 @@
 
 {% block javascripts %}
     <script src="{{ asset('js/dragAndDrop.js') }}"></script>
+    <script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

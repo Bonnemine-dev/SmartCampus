@@ -591,6 +591,10 @@ button {
   border-radius: 5px;
   padding: 10px 20px;
   cursor: move;
+  border: 2px solid transparent;
+}
+.souhaits .souhait.blink-border {
+  animation: blinkBorder 1s linear 3;
 }
 .souhaits .date {
   margin-bottom: 0;
@@ -662,13 +666,13 @@ button {
   padding: 20px;
   border-radius: 20px;
   margin: 20px 0;
+  border: 2px solid transparent;
 }
 .salle.darker {
   background-color: #5D5D5D;
 }
 .salle.blink-border {
   animation: blinkBorder 1s linear 3;
-  border: 2px solid transparent;
 }
 .salle h5 {
   font-size: 1.6rem;
