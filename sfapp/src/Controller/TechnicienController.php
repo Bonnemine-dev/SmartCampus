@@ -15,6 +15,7 @@ class TechnicienController extends AbstractController
     #[Route('/technicien/liste-souhaits', name: 'app_technicien')]
     public function index(ExperimentationRepository $repository): Response
     {
+
         // Récupère les expérimentations du repository.
         $experimentations = $repository->trouveExperimentations();
         $experimentations = $repository->triexperimentation($experimentations);

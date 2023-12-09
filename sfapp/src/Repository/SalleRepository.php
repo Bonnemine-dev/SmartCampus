@@ -166,14 +166,17 @@ class SalleRepository extends ServiceEntityRepository
 
     public function triListeSalle($salle)
     {
-        $nom_salle = $salle[0]['nom_salle'];
-        for($i = 0 ; $i < count($salle)-1 ; $i = $i + 1)
-        {
-            if($nom_salle == $salle[$i+1]['nom_salle'])
+        $len = count($salle);
+        if(count($salle)>2){
+            $nom_salle = $salle[0]['nom_salle'];
+            for($i = 0 ; $i < $len-1 ; $i ++)
             {
-                unset($salle[$i]);
-            }else{
-                $nom_salle = $salle[$i+1]['nom_salle'];
+                if($nom_salle == $salle[$i+1]['nom_salle'])
+                {
+                    unset($salle[$i]);
+                }else{
+                    $nom_salle = $salle[$i+1]['nom_salle'];
+                }
             }
         }
         return $salle;
