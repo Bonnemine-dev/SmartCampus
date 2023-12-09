@@ -157,36 +157,39 @@ class ExperimentationRepository extends ServiceEntityRepository
         // Initialiser le tableau résultat
         $salles = [];
 
-        $counter = 0;
-
         // Parcourir les données
         foreach ($dataArray as $item) {
             $salle = $item['localisation'];
+
             // Trouver la salle dans le tableau
-            $index = array_search(['localisation' => $salle], $salles);
+            $index = array_search($salle, array_column($salles, 'localisation'));
 
             // Si la salle n'est pas déjà dans le tableau, l'ajouter
-            if (!$index) {
-                $salles[$counter] = [
-                    'localisation' => $salle,
-                    'co2' => null,
-                    'hum' => null,
-                    'temp' => null,
-                ];
+            if ($index === false or $item['dateCapture'] >= $salles[$index]['dateCapture']) {
+                if ($index === false) {
+                    $salles[] = [
+                        'localisation' => $salle,
+                        'co2' => null,
+                        'hum' => null,
+                        'temp' => null,
+                        'dateCapture' => null,
+                    ];
+                    $index = count($salles) - 1; // L'index de la nouvelle salle
+                }
 
-                // Remplir les valeurs correspondantes
+                // Remplir les valeurs correspondantes avec les dernières données
                 switch ($item['nom']) {
                     case 'co2':
-                        $salles[$counter]['co2'] = $item['valeur'];
+                        $salles[$index]['co2'] = $item['valeur'];
                         break;
                     case 'hum':
-                        $salles[$counter]['hum'] = $item['valeur'];
+                        $salles[$index]['hum'] = $item['valeur'];
                         break;
                     case 'temp':
-                        $salles[$counter]['temp'] = $item['valeur'];
+                        $salles[$index]['temp'] = $item['valeur'];
                         break;
                 }
-                $counter++;
+                $salles[$index]['dateCapture'] = $item['dateCapture'];
             }
         }
 
@@ -195,21 +198,18 @@ class ExperimentationRepository extends ServiceEntityRepository
 
     public function moyennesDonnees(array $dataArray): array
     {
+        $salles = $this->listerSallesAvecDonnees($dataArray);
         // Initialiser les tableaux pour stocker les valeurs de chaque type de mesure
         $tempValues = [];
         $humValues = [];
         $co2Values = [];
 
         // 2. Organiser les données par salle
-        foreach ($dataArray as $data) {
+        foreach ($salles as $data) {
             // 3. Stocker les valeurs dans les tableaux correspondants
-            if ($data['nom'] === 'temp') {
-                $tempValues[] = $data['valeur'];
-            } elseif ($data['nom'] === 'hum') {
-                $humValues[] = $data['valeur'];
-            } elseif ($data['nom'] === 'co2') {
-                $co2Values[] = $data['valeur'];
-            }
+            $tempValues[] = $data['temp'];
+            $humValues[] = $data['hum'];
+            $co2Values[] = $data['co2'];
         }
 
         // 4. Calculer la moyenne pour chaque type de mesure
