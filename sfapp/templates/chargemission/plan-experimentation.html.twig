@@ -33,7 +33,7 @@
 
 	<button type="submit">Valider</button>
 	<button type="button" id="resetButton">Réinitialiser</button>
-
+	{{ form_row(filtreSalleForm._token) }}
 	{{ form_end(filtreSalleForm, {'render_rest': false}) }}
 </div>
 {% endblock %}
@@ -83,7 +83,7 @@
 				{{ form_widget(rechercheSalleForm.salle) }}
 
 				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
-
+				{{ form_row(rechercheSalleForm._token) }}
 				{{ form_end(rechercheSalleForm, {'render_rest': false}) }}
 			</div>
 
