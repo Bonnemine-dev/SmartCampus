@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "nom": "hum",
+    "valeur": 52,
+    "dateCapture": "2022-01-28 11:50:07",
+    "localisation": "D102",
+    "tag": 1
+  },
+  {
+    "id": 2,
+    "nom": "temp",
+    "valeur": 21.3,
+    "dateCapture": "2022-01-28 11:50:07",
+    "localisation": "D102",
+    "tag": 1
+  },
+  {
+    "id": 3,
+    "nom": "co2",
+    "valeur": 543,
+    "dateCapture": "2022-01-28 11:50:07",
+    "localisation": "D102",
+    "tag": 1
+  },
+  {
+    "id": 4,
+    "nom": "hum",
+    "valeur": 60,
+    "dateCapture": "2022-02-15 09:30:45",
+    "localisation": "D201",
+    "tag": 2
+  },
+  {
+    "id": 5,
+    "nom": "temp",
+    "valeur": 22.5,
+    "dateCapture": "2022-02-15 09:30:45",
+    "localisation": "D201",
+    "tag": 2
+  },
+  {
+    "id": 6,
+    "nom": "co2",
+    "valeur": 480,
+    "dateCapture": "2022-02-15 09:30:45",
+    "localisation": "D201",
+    "tag": 2
+  },
+  {
+    "id": 7,
+    "nom": "hum",
+    "valeur": 55,
+    "dateCapture": "2022-03-05 14:20:30",
+    "localisation": "D106",
+    "tag": 3
+  },
+  {
+    "id": 8,
+    "nom": "temp",
+    "valeur": 23.0,
+    "dateCapture": "2022-03-05 14:20:30",
+    "localisation": "D106",
+    "tag": 3
+  },
+  {
+    "id": 9,
+    "nom": "co2",
+    "valeur": 600,
+    "dateCapture": "2022-03-05 14:20:30",
+    "localisation": "D106",
+    "tag": 3
+  },
+  {
+    "id": 14,
+    "nom": "temp",
+    "valeur": 23.2,
+    "dateCapture": "2023-04-20 18:15:12",
+    "localisation": "D304",
+    "tag": 5
+  },
+  {
+    "id": 15,
+    "nom": "co2",
+    "valeur": 750,
+    "dateCapture": "2023-04-20 18:15:12",
+    "localisation": "D304",
+    "tag": 5
+  },
+  {
+    "id": 16,
+    "nom": "hum",
+    "valeur": 58,
+    "dateCapture": "2023-04-20 18:15:12",
+    "localisation": "D304",
+    "tag": 5
+  },
+  {
+    "id": 11,
+    "nom": "temp",
+    "valeur": 20.8,
+    "dateCapture": "2022-04-20 18:15:12",
+    "localisation": "D304",
+    "tag": 4
+  },
+  {
+    "id": 12,
+    "nom": "co2",
+    "valeur": 550,
+    "dateCapture": "2022-04-20 18:15:12",
+    "localisation": "D304",
+    "tag": 4
+  },
+  {
+    "id": 13,
+    "nom": "hum",
+    "valeur": 67,
+    "dateCapture": "2022-04-20 18:15:12",
+    "localisation": "D304",
+    "tag": 4
+  }
+]

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\SimpleArrayType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -161,9 +162,75 @@ class ExperimentationRepository extends ServiceEntityRepository
         ');
     
         // Exécuter la requête
-        $resultat = $query->getResult();
-    
         // Retourner true si une expérimentation est trouvée, sinon false
-        return $resultat;
-    }    
+        return $query->getResult();
+    }
+
+    public function listerSallesAvecDonnees(array $dataArray): array
+    {
+        // Initialiser le tableau résultat
+        $salles = [];
+
+        // Parcourir les données
+        foreach ($dataArray as $item) {
+            $salle = $item['localisation'];
+
+            // Trouver la salle dans le tableau
+            $index = array_search($salle, array_column($salles, 'localisation'));
+
+            // Si la salle n'est pas déjà dans le tableau, l'ajouter
+            if ($index === false or $item['dateCapture'] >= $salles[$index]['dateCapture']) {
+                if ($index === false) {
+                    $salles[] = [
+                        'localisation' => $salle,
+                        'co2' => null,
+                        'hum' => null,
+                        'temp' => null,
+                        'dateCapture' => null,
+                    ];
+                    $index = count($salles) - 1; // L'index de la nouvelle salle
+                }
+
+                // Remplir les valeurs correspondantes avec les dernières données
+                switch ($item['nom']) {
+                    case 'co2':
+                        $salles[$index]['co2'] = $item['valeur'];
+                        break;
+                    case 'hum':
+                        $salles[$index]['hum'] = $item['valeur'];
+                        break;
+                    case 'temp':
+                        $salles[$index]['temp'] = $item['valeur'];
+                        break;
+                }
+                $salles[$index]['dateCapture'] = $item['dateCapture'];
+            }
+        }
+
+        return $salles;
+    }
+
+    public function moyennesDonnees(array $dataArray): array
+    {
+        $salles = $this->listerSallesAvecDonnees($dataArray);
+        // Initialiser les tableaux pour stocker les valeurs de chaque type de mesure
+        $tempValues = [];
+        $humValues = [];
+        $co2Values = [];
+
+        // 2. Organiser les données par salle
+        foreach ($salles as $data) {
+            // 3. Stocker les valeurs dans les tableaux correspondants
+            $tempValues[] = $data['temp'];
+            $humValues[] = $data['hum'];
+            $co2Values[] = $data['co2'];
+        }
+
+        // 4. Calculer la moyenne pour chaque type de mesure
+        $temp_moy = count($tempValues) > 0 ? array_sum($tempValues) / count($tempValues) : null;
+        $hum_moy = count($humValues) > 0 ? array_sum($humValues) / count($humValues) : null;
+        $taux_carbone_moy = count($co2Values) > 0 ? array_sum($co2Values) / count($co2Values) : null;
+
+        return [$temp_moy, $hum_moy, $taux_carbone_moy];
+    }
 }
