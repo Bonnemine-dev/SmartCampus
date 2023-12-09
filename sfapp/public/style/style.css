@@ -90,7 +90,7 @@ a {
   }
 }
 
-.little-gradient-button, .filtre form button, .salle .salle-bouton, .little-unclickable-button, .salle .salle-bouton-unclickable {
+.little-gradient-button, .sa-form .cancel, .sa-form button, .sa .sa-boutons a, .filtre form button, .salle .salle-bouton, .little-unclickable-button, .salle .salle-bouton-unclickable {
   color: #FFF;
   font-size: 1rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -100,7 +100,7 @@ a {
   margin-right: 15px;
   transition: 0.2s;
 }
-.little-gradient-button:hover, .filtre form button:hover, .salle .salle-bouton:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
+.little-gradient-button:hover, .sa-form .cancel:hover, .sa-form button:hover, .sa .sa-boutons a:hover, .filtre form button:hover, .salle .salle-bouton:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
   border: 1px solid #FFF;
   cursor: pointer;
 }
@@ -577,6 +577,34 @@ a {
   background-color: #ff5050;
 }
 
+@keyframes voyant {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.voyant {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.voyant.voyant-vert {
+  background: radial-gradient(50% 50% at 50% 50%, #6FCF67 0%, #37EB1A 100%);
+}
+.voyant.voyant-orange {
+  background: radial-gradient(50% 50% at 50% 50%, #F3DF75 0%, #F5C108 100%);
+  animation: voyant 1s infinite;
+}
+.voyant.voyant-rouge {
+  background: radial-gradient(50% 50% at 50% 50%, #F37C7C 0%, #F32D2D 100%);
+}
+
 .confirm-buttons {
   display: flex;
   justify-content: center;
@@ -600,6 +628,121 @@ a {
 }
 .confirm-buttons .cancel-button {
   background: #737373;
+}
+
+.gestion-sa .container {
+  width: 100%;
+  padding: 20px;
+}
+
+.ajout-sa-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #737373;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  font-size: 1.4rem;
+}
+.ajout-sa-button:hover {
+  border: 2px solid #FFF;
+  background-color: #BABABA;
+}
+
+.sa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #737373;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 15px;
+}
+.sa .sa-infos .sa-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.sa .sa-infos h5 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-left: 10px;
+}
+.sa .sa-infos p {
+  margin-bottom: 0px;
+}
+.sa .sa-boutons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.sa .sa-boutons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0;
+  margin-left: 20px;
+}
+.sa .sa-boutons a svg {
+  margin-left: 10px;
+}
+
+/* Formulaire d'ajout d'un SA */
+.sa-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  background: #444444;
+  padding: 30px;
+  border-radius: 15px;
+}
+.sa-form h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 20px 0;
+}
+.sa-form p {
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #D7D7D7;
+}
+.sa-form input {
+  font-size: 1.3rem;
+  padding: 10px 15px;
+  border-radius: 30px;
+  border: none;
+}
+.sa-form button {
+  font-size: 1.3rem;
+  font-family: "Montserrat", "Roboto", Tahoma, Verdana, sans-serif;
+}
+.sa-form .cancel {
+  margin-right: 15px;
+  background: #737373;
+  font-size: 1.3rem;
+}
+
+.return-arrow {
+  transition: 0.2s;
+  cursor: pointer;
+}
+.return-arrow svg {
+  width: 30px;
+  height: 30px;
+}
+.return-arrow:hover {
+  transform: scale(1.2);
 }
 
 /*# sourceMappingURL=style.css.map */

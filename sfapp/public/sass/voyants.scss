@@ -1,0 +1,32 @@
+@keyframes voyant {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+.voyant{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.voyant-vert{
+    background: radial-gradient(50% 50% at 50% 50%, #6FCF67 0%, #37EB1A 100%);
+  }
+
+  &.voyant-orange{
+    background: radial-gradient(50% 50% at 50% 50%, #F3DF75 0%, #F5C108 100%);
+    animation: voyant 1s infinite;
+  }
+
+  &.voyant-rouge{
+    background: radial-gradient(50% 50% at 50% 50%, #F37C7C 0%, #F32D2D 100%);
+  }
+}

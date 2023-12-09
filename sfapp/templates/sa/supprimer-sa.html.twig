@@ -20,13 +20,18 @@
         <h3>SUPPRIMER UN SYSTEME D'ACQUISITION</h3>
 
         {# CONTAINER (fond gris) #}
-        <div class="container">
-            <h1 class="">Voulez-vous vraiment supprimer le système d'acquisition "{{ nomsa }}" du stock</h1>
-            <p class="">Cela supprimera son référencement dans la base de données.<br>Les données acquises par le boitier ne seront pas effacées.<br>Cette action est irréversible.</p>
+        <div class="sa-form">
+            <a class="return-arrow" href="/technicien/gestion-sa">
+                <svg xmlns="http://www.w3.org/2000/svg" width="47" height="40" viewBox="0 0 47 40" fill="none">
+                    <path d="M9.63677 21.6039H6.64587L8.74729 23.7322L20.8538 35.9933C21.151 36.2943 21.3207 36.706 21.3207 37.1385C21.3207 37.571 21.151 37.9826 20.8538 38.2836C20.5572 38.5841 20.1584 38.7499 19.746 38.7499C19.3336 38.7499 18.9347 38.5841 18.6381 38.2836L1.71895 21.145L1.71742 21.1435C1.57029 20.9949 1.4527 20.8176 1.37219 20.6212C1.29166 20.4247 1.25 20.2135 1.25 19.9999C1.25 19.7862 1.29166 19.575 1.37219 19.3786C1.45271 19.1821 1.57029 19.0048 1.71742 18.8563L1.71894 18.8547L18.6381 1.71612L17.7538 0.843108L18.6381 1.71612C18.7851 1.56724 18.9587 1.45001 19.1486 1.37033C19.3385 1.29066 19.5414 1.24987 19.746 1.24987C19.9505 1.24987 20.1535 1.29066 20.3433 1.37033C20.5332 1.45001 20.7069 1.56724 20.8538 1.71612L21.7412 0.840088L20.8538 1.71612C21.0008 1.86504 21.1183 2.0427 21.1987 2.23937C21.2792 2.43606 21.3207 2.64743 21.3207 2.86126C21.3207 3.07509 21.2792 3.28646 21.1987 3.48316C21.1183 3.67982 21.0008 3.85748 20.8538 4.00639L8.74746 16.2626L6.64506 18.3911H9.63677H44.1801C44.5913 18.3911 44.9888 18.5563 45.2845 18.8559C45.5807 19.1559 45.75 19.5663 45.75 19.9975C45.75 20.4287 45.5807 20.8391 45.2845 21.1391C44.9888 21.4386 44.5913 21.6039 44.1801 21.6039H9.63677Z" fill="white" stroke="white" stroke-width="2.5"/>
+                </svg>
+            </a>
+            <h1>Voulez-vous vraiment supprimer le système d'acquisition "{{ nomsa }}" du stock ?</h1>
+            <p>Cela supprimera son référencement dans la base de données.<br>Les données acquises par le boitier ne seront pas effacées.<br>Cette action est irréversible.</p>
             <div class="confirm-buttons">
-                    <a href="/technicien/gestion-sa" class="cancel-button">Annuler</a>
-                    <a href="/charge-de-mission/plan-experimentation/suppression-sa/{{nomsa}}" class="confirm-button">Valider</a>
-                </div>
+                <a href="/technicien/gestion-sa" class="cancel-button">Annuler</a>
+                <a href="/charge-de-mission/plan-experimentation/suppression-sa/{{nomsa}}" class="confirm-button">Valider</a>
+            </div>
         </div>
     </div>
 

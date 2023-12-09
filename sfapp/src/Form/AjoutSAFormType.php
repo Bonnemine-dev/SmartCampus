@@ -16,7 +16,7 @@ class AjoutSAFormType extends AbstractType
             ->add('nom', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'ajouter un SA'
+                    'placeholder' => 'Nom du SA'
                 ],
                 'label' => false,
             ])
