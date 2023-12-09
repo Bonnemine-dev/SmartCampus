@@ -31,12 +31,16 @@ class ExperimentationController extends AbstractController
     public function supprimerExperimentation(ExperimentationRepository $experimentationRepository , $nomsalle): Response
     {
         // Utilisez la méthode du repository pour ajouter des données
-        $experimentationRepository->supprimerExperimentation($nomsalle);
+        $etat = $experimentationRepository->supprimerExperimentation($nomsalle);
 
         // Vérifiez le résultat et ajoutez un message flash approprié
-        if (!$experimentationRepository->verifierExperimentation($nomsalle)) {
+        if ($etat[0] == EtatExperimentation::demandeInstallation) {
             $this->addFlash('success', "La salle " . $nomsalle . " a été retirée du plan d'expérimentation avec succès.");
-        } else {
+        }
+        elseif ($etat[0] == EtatExperimentation::installee and $etat[1] == EtatExperimentation::demandeRetrait){
+            $this->addFlash('success', "La demande de retrait de la salle " . $nomsalle . " a été envoyée avec succès.");
+        }
+        else {
             $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être retirée du plan d'expérimentation.");
         }
 

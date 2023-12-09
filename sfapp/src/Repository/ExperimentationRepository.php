@@ -118,7 +118,12 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function supprimerExperimentation($salle)
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->findOneBy(['Salles' => $idSalle]);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        $Exp = $Exp[0];
+        $listeEtat = [$Exp->getEtat(),null];
 
         if($Exp->getEtat() == EtatExperimentation::demandeInstallation){
             $this->saRepository->suppressionExp($Exp->getSA());
@@ -128,7 +133,7 @@ class ExperimentationRepository extends ServiceEntityRepository
             $queryBuilder = $this->createQueryBuilder('experimentation');
             $queryBuilder
                 ->delete()
-                ->where('experimentation.Salles = '.$idSalle->getId())
+                ->where('experimentation.etat != 3 and experimentation.Salles = '.$idSalle->getId())
                 ->getQuery()
                 ->execute();
 
@@ -142,6 +147,8 @@ class ExperimentationRepository extends ServiceEntityRepository
             $entityManager->persist($Exp);
             $entityManager->flush();
         }
+        $listeEtat[1] = $Exp->getEtat();
+        return $listeEtat;
     }
 
     /*
