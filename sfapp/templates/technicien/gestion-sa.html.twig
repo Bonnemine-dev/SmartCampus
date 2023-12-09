@@ -37,10 +37,10 @@
 			<div class="search-and-filter">
 
 				{{ form_start(rechercheSAForm) }}
-				{{ form_widget(rechercheSAForm.nom) }}
+				{{ form_widget(rechercheSAForm.sa_nom) }}
 
 				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
-
+				{{ form_row(rechercheSAForm._token) }}
 				{{ form_end(rechercheSAForm, {'render_rest': false}) }}
 			</div>
 

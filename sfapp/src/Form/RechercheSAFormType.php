@@ -13,7 +13,7 @@ class RechercheSAFormType extends AbstractType
     {
         // Ajout d'un champ 'batiment' de type ChoiceType avec des options spécifiques.
         $builder
-            ->add('nom', TextType::class, [
+            ->add('sa_nom', TextType::class, [
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Rechercher un SA'

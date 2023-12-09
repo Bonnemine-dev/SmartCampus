@@ -46,10 +46,17 @@ class TechnicienController extends AbstractController
         if ($rechercheSAForm->isSubmitted() && $rechercheSAForm->isValid()) {
             $dataRecherche = $rechercheSAForm->getData();
             // Extraire les données et les utiliser pour rechercher les salles
-            $liste_sa = $saRepository->rechercheSA($dataRecherche['sa_nom'] ?? null);
+            if($dataRecherche['sa_nom'] == '')
+            {
+                $liste_sa = $saRepository->toutLesSA();
+            }
+            else
+            {
+                $liste_sa = $saRepository->rechercheSA($dataRecherche['sa_nom']);
+            }
         }
+        if(empty($liste_sa))$this->addFlash('error', "Votre recherche " . $dataRecherche['sa_nom'] . " ne correspond ni a un système d'acquisition ni a une salle");
         // Rend la vue avec la liste des expérimentations.
-        // dump($liste_sa);
         return $this->render('technicien/gestion-sa.html.twig', [
             'liste_sa' => $liste_sa ,
             'rechercheSAForm' => $rechercheSAForm->createView() ,

@@ -68,20 +68,24 @@ class SARepository extends ServiceEntityRepository
         return $resultat;
     }
 
-    public function rechercheSA($nom = null)
+    public function rechercheSA($contient_ce_string = null)
     {
-        // Requête pour sélectionner les salles en fonction des critères spécifiés.
-        $queryBuilder = $this->createQueryBuilder('sa')
-            ->select('sa.nom, sa.etat, sa.numero,sa.disponible')
-            ->orderBy('sa.nom', 'ASC');
+        $entityManager = $this->getEntityManager();
 
-        if ($nom !== null) {
-            $queryBuilder->andWhere('sa.nom = :nom')
-                ->setParameter('nom', $nom);
-        }
+        $query = $entityManager->createQuery('
+            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat
+            FROM App\Entity\SA sa
+            LEFT JOIN App\Entity\Experimentation experimentation WITH sa.id = experimentation.SA
+            LEFT JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
+            WHERE sa.nom LIKE CONCAT(\'%\', :contient_ce_string, \'%\') 
+            OR salle.nom LIKE CONCAT(\'%\', :contient_ce_string, \'%\')
+        ');
+        // Exécuter la requête
+        $query->setParameter('contient_ce_string', $contient_ce_string);
+        $resultat = $query->getResult();
 
-        // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
+        // Retourner true si une expérimentation est trouvée, sinon false
+        return $resultat;
     }
 
     public function ajoutSA($nom = null)
