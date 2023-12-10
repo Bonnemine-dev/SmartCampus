@@ -721,6 +721,9 @@ a {
   margin-bottom: 20px;
   color: #D7D7D7;
 }
+.sa-form .erreur-form {
+  color: #FF3A3A;
+}
 .sa-form input {
   font-size: 1.3rem;
   padding: 10px 15px;
