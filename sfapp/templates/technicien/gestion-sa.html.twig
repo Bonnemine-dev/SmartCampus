@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Technicien{% endblock %}
+
+{% block username %}Technicien{% endblock %}
+
+{% block navlink %}
+	<li>
+		<a class="nav-link" href="liste-souhaits">Liste de souhaits</a>
+	</li>
+	<li>
+		<a class="nav-link" href="gestion-sa">Gestion des SA</a>
+	</li>
+{% endblock %}
+
+{% block sidebar %}
+<div class="filtre">
+	<h3>FILTRES</h3>
+
+	<!--Le popup lui même-->
+	{{ form_start(filtreSAForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
+	{{ form_label(filtreSAForm.etat) }}
+	{{ form_widget(filtreSAForm.etat) }}
+
+	{{ form_label(filtreSAForm.localisation) }}
+	{{ form_widget(filtreSAForm.localisation) }}
+
+	<button type="submit">Valider</button>
+	<button type="button" id="resetButton">Réinitialiser</button>
+
+	{{ form_row(filtreSAForm._token) }}
+	{{ form_end(filtreSAForm, {'render_rest': false}) }}
+</div>
+{% endblock %}
+
+{% block appcontent %}
+	<div class="app-content souhaits gestion-sa">
+	{# Affichage des messages de succès #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{# Affichage des messages d'erreur #}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-error">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{# --------------------------------------------- #}
+		<h3 class="">Gestion des SA</h3>
+
+		<div class="container">
+			<h4>Liste des SA</h4>
+			<div class="search-and-filter">
+
+				{{ form_start(rechercheSAForm) }}
+				{{ form_widget(rechercheSAForm.sa_nom) }}
+
+				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
+				{{ form_row(rechercheSAForm._token) }}
+				{{ form_end(rechercheSAForm, {'render_rest': false}) }}
+			</div>
+
+			<a href="gestion-sa/ajouter-sa" class="ajout-sa-button">
+				Ajouter un SA dans le stock
+				<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M18.75 10.4167C18.75 9.3116 19.189 8.25179 19.9704 7.47039C20.7518 6.68899 21.8116 6.25 22.9167 6.25H27.0833C28.1884 6.25 29.2482 6.68899 30.0296 7.47039C30.811 8.25179 31.25 9.3116 31.25 10.4167V18.75H39.5833C40.6884 18.75 41.7482 19.189 42.5296 19.9704C43.311 20.7518 43.75 21.8116 43.75 22.9167V27.0833C43.75 28.1884 43.311 29.2482 42.5296 30.0296C41.7482 30.811 40.6884 31.25 39.5833 31.25H31.25V39.5833C31.25 40.6884 30.811 41.7482 30.0296 42.5296C29.2482 43.311 28.1884 43.75 27.0833 43.75H22.9167C21.8116 43.75 20.7518 43.311 19.9704 42.5296C19.189 41.7482 18.75 40.6884 18.75 39.5833V31.25H10.4167C9.3116 31.25 8.25179 30.811 7.47039 30.0296C6.68899 29.2482 6.25 28.1884 6.25 27.0833V22.9167C6.25 21.8116 6.68899 20.7518 7.47039 19.9704C8.25179 19.189 9.3116 18.75 10.4167 18.75H18.75V10.4167ZM27.0833 10.4167H22.9167V20.8333C22.9167 21.3859 22.6972 21.9158 22.3065 22.3065C21.9158 22.6972 21.3859 22.9167 20.8333 22.9167H10.4167V27.0833H20.8333C21.3859 27.0833 21.9158 27.3028 22.3065 27.6935C22.6972 28.0842 22.9167 28.6141 22.9167 29.1667V39.5833H27.0833V29.1667C27.0833 28.6141 27.3028 28.0842 27.6935 27.6935C28.0842 27.3028 28.6141 27.0833 29.1667 27.0833H39.5833V22.9167H29.1667C28.6141 22.9167 28.0842 22.6972 27.6935 22.3065C27.3028 21.9158 27.0833 21.3859 27.0833 20.8333V10.4167Z" fill="white"/>
+				</svg>
+			</a>
+
+			{% if liste_sa|length == 0 %}
+				<div class="sa-infos" style="justify-content: center;">
+					<p>Aucun SA pour le moment ou aucun SA trouvé pour cette recherche...</p>
+				</div>
+			{% endif %}
+
+			{% for sa in liste_sa %}
+				<div id="{{ sa.sa_nom | default('erreur')}}"class="sa">
+					<div class="sa-infos">
+						<div class="sa-name">
+							{% if sa.sa_etat.value == 0 %}
+								<div class="voyant voyant-rouge"></div>
+							{% elseif sa.sa_etat.value == 1 %}
+								<div class="voyant voyant-vert"></div>
+							{% elseif sa.sa_etat.value == 2 %}
+								<div class="voyant voyant-orange"></div>
+							{% else %}
+								<div class="voyant voyant-rouge"></div>
+							{% endif %}
+
+							<h5 class="">{{ sa.sa_nom | default('erreur')}}</h5>
+						</div>
+
+						<p class="infos">Localisation : <strong>{{ sa.salle_nom | default('Stock')}}</strong> | État :
+							{% if sa.sa_etat.value == 0 %}
+								<strong>Éteint</strong>
+							{% elseif sa.sa_etat.value == 1 %}
+								<strong>En marche</strong>
+							{% elseif sa.sa_etat.value == 2 %}
+								<strong>Défaillance technique</strong>
+							{% else %}
+								<strong>Aucune données</strong>
+							{% endif %}
+						</p>
+					</div>
+
+					<div class="sa-boutons">
+						<a href="/technicien/gestion-sa/supprimer-sa/{{ sa.sa_nom }}">
+							Supprimer
+							<svg xmlns="http://www.w3.org/2000/svg" width="21" height="23" viewBox="0 0 21 23" fill="none">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M5.957 0.63595C6.05382 0.444957 6.20267 0.284305 6.38689 0.171985C6.5711 0.0596656 6.78339 0.000114021 7 0H14C14.2166 0.000114021 14.4289 0.0596656 14.6131 0.171985C14.7973 0.284305 14.9462 0.444957 15.043 0.63595L17.0543 4.6H19.8333C20.1428 4.6 20.4395 4.72116 20.6583 4.93683C20.8771 5.15249 21 5.445 21 5.75C21 6.055 20.8771 6.34751 20.6583 6.56317C20.4395 6.77884 20.1428 6.9 19.8333 6.9H18.6667V19.55C18.6667 20.465 18.2979 21.3425 17.6415 21.9895C16.9852 22.6365 16.0949 23 15.1667 23H5.83333C4.90508 23 4.01484 22.6365 3.35846 21.9895C2.70208 21.3425 2.33333 20.465 2.33333 19.55V6.9H1.16667C0.857247 6.9 0.560501 6.77884 0.341709 6.56317C0.122916 6.34751 0 6.055 0 5.75C0 5.445 0.122916 5.15249 0.341709 4.93683C0.560501 4.72116 0.857247 4.6 1.16667 4.6H3.94567L5.957 0.63595ZM13.279 2.3L14.4457 4.6H6.55433L7.721 2.3H13.279ZM9.33333 10.35C9.33333 10.045 9.21042 9.75249 8.99162 9.53683C8.77283 9.32116 8.47609 9.2 8.16667 9.2C7.85725 9.2 7.5605 9.32116 7.34171 9.53683C7.12292 9.75249 7 10.045 7 10.35V17.25C7 17.555 7.12292 17.8475 7.34171 18.0632C7.5605 18.2788 7.85725 18.4 8.16667 18.4C8.47609 18.4 8.77283 18.2788 8.99162 18.0632C9.21042 17.8475 9.33333 17.555 9.33333 17.25V10.35ZM14 10.35C14 10.045 13.8771 9.75249 13.6583 9.53683C13.4395 9.32116 13.1428 9.2 12.8333 9.2C12.5239 9.2 12.2272 9.32116 12.0084 9.53683C11.7896 9.75249 11.6667 10.045 11.6667 10.35V17.25C11.6667 17.555 11.7896 17.8475 12.0084 18.0632C12.2272 18.2788 12.5239 18.4 12.8333 18.4C13.1428 18.4 13.4395 18.2788 13.6583 18.0632C13.8771 17.8475 14 17.555 14 17.25V10.35Z" fill="white"/>
+							</svg>
+						</a>
+						<a href="/technicien/gestion-sa/details-sa/{{sa.sa_nom}}">
+							Détails
+							<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+								<g clip-path="url(#clip0_224_376)">
+									<path d="M18.6875 9.34375C18.6875 11.4057 18.0182 13.3104 16.8906 14.8557L22.5777 20.5473C23.1393 21.1088 23.1393 22.0207 22.5777 22.5822C22.0162 23.1437 21.1043 23.1437 20.5428 22.5822L14.8557 16.8906C13.3104 18.0227 11.4057 18.6875 9.34375 18.6875C4.18223 18.6875 0 14.5053 0 9.34375C0 4.18223 4.18223 0 9.34375 0C14.5053 0 18.6875 4.18223 18.6875 9.34375ZM9.34375 15.8125C10.1932 15.8125 11.0344 15.6452 11.8192 15.3201C12.6041 14.995 13.3172 14.5185 13.9178 13.9178C14.5185 13.3172 14.995 12.6041 15.3201 11.8192C15.6452 11.0344 15.8125 10.1932 15.8125 9.34375C15.8125 8.49426 15.6452 7.65309 15.3201 6.86827C14.995 6.08344 14.5185 5.37033 13.9178 4.76965C13.3172 4.16897 12.6041 3.69249 11.8192 3.3674C11.0344 3.04232 10.1932 2.875 9.34375 2.875C8.49426 2.875 7.65309 3.04232 6.86827 3.3674C6.08344 3.69249 5.37033 4.16897 4.76965 4.76965C4.16897 5.37033 3.69249 6.08344 3.3674 6.86827C3.04232 7.65309 2.875 8.49426 2.875 9.34375C2.875 10.1932 3.04232 11.0344 3.3674 11.8192C3.69249 12.6041 4.16897 13.3172 4.76965 13.9178C5.37033 14.5185 6.08344 14.995 6.86827 15.3201C7.65309 15.6452 8.49426 15.8125 9.34375 15.8125Z" fill="white"/>
+								</g>
+								<defs>
+									<clipPath id="clip0_224_376">
+										<rect width="23" height="23" fill="white"/>
+									</clipPath>
+								</defs>
+							</svg>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('js/flashMessage.js') }}"></script>
+	<script src="{{ asset('js/filter.js') }}"></script>
+	<script src="{{ asset('js/scrollToRoom.js') }}"></script>
+{% endblock %}

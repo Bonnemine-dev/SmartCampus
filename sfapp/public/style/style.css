@@ -59,6 +59,10 @@ a {
   color: #FFF;
 }
 
+button {
+  font-family: "Montserrat", "Roboto", Tahoma, Verdana, sans-serif;
+}
+
 .gradient-button {
   font-size: 1.4rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -90,7 +94,7 @@ a {
   }
 }
 
-.little-gradient-button, .filtre form button, .salle .salle-bouton, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
+.little-gradient-button, .sa-form .cancel, .sa-form button, .sa .sa-boutons a, .filtre form button, .salle .salle-bouton, .souhaits .popup a, .souhaits .popup button, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
   color: #FFF;
   font-size: 1rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -100,7 +104,7 @@ a {
   margin-right: 15px;
   transition: 0.2s;
 }
-.little-gradient-button:hover, .filtre form button:hover, .salle .salle-bouton:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
+.little-gradient-button:hover, .sa-form .cancel:hover, .sa-form button:hover, .sa .sa-boutons a:hover, .filtre form button:hover, .salle .salle-bouton:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
   border: 1px solid #FFF;
   cursor: pointer;
 }
@@ -509,6 +513,74 @@ a {
   }
 }
 
+@keyframes moveArrow {
+  0%, 60% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.container-experimentations {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #272727;
+  position: relative;
+  border-radius: 20px;
+  width: 100%;
+  height: fit-content;
+  padding: 30px 50px;
+  margin-bottom: 50px;
+}
+.container-experimentations p {
+  color: #BABABA;
+  margin-bottom: 20px;
+}
+.container-experimentations h4 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.container-experimentations .container-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-left: 0px;
+}
+.container-experimentations .flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+.container-experimentations .column-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 45%;
+}
+.container-experimentations .arrow-icon {
+  align-self: center;
+}
+.container-experimentations .arrow-icon svg {
+  animation: moveArrow 4s infinite;
+}
+.container-experimentations .liste-experimentations {
+  background-color: #444444;
+  height: 400px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
 .souhaits .souhait {
   display: flex;
   flex-direction: column;
@@ -519,10 +591,48 @@ a {
   margin-bottom: 15px;
   border-radius: 5px;
   padding: 10px 20px;
+  cursor: move;
+  border: 2px solid transparent;
 }
-.souhaits .souhait .date {
+.souhaits .souhait.blink-border {
+  animation: blinkBorder 1s linear 3;
+}
+.souhaits .date {
   margin-bottom: 0;
   color: #F1F1F1;
+}
+.souhaits #overlay {
+  top: -100px;
+  left: -320px;
+  width: calc(100% + 320px);
+  height: calc(100% + 100px);
+}
+.souhaits .popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: calc(50% - 75px);
+  left: calc(50% - 250px);
+  background-color: #5D5D5D;
+  border-radius: 15px;
+  padding: 40px 20px;
+  width: 500px;
+  height: 150px;
+}
+.souhaits .popup h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.souhaits .popup a, .souhaits .popup button {
+  font-size: 1rem;
+  margin: 0px 30px;
+}
+.souhaits .popup #cancelButton {
+  background: #737373;
 }
 
 .souhait-info {
@@ -560,13 +670,13 @@ a {
   padding: 20px;
   border-radius: 20px;
   margin: 20px 0;
+  border: 2px solid transparent;
 }
 .salle.darker {
   background-color: #5D5D5D;
 }
 .salle.blink-border {
   animation: blinkBorder 1s linear 3;
-  border: 2px solid transparent;
 }
 .salle h5 {
   font-size: 1.6rem;
@@ -643,6 +753,72 @@ a {
   margin-right: 15px;
 }
 
+/* Messages d'alerte */
+@keyframes slideDown {
+  0% {
+    top: 50px;
+  }
+  100% {
+    top: 100px;
+  }
+}
+/* Messages d'alerte */
+@keyframes slideDownConnexion {
+  0% {
+    top: -100px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: calc(100% - 320px);
+  top: 50px;
+  left: 320px;
+  height: 50px;
+  box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.15);
+  z-index: 25;
+  animation: slideDown 0.5s ease-in-out 0.5s forwards;
+}
+.alert.alert-success {
+  background-color: #00B292;
+}
+.alert.alert-error {
+  background-color: #ff5050;
+}
+
+@keyframes voyant {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.voyant {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.voyant.voyant-vert {
+  background: radial-gradient(50% 50% at 50% 50%, #6FCF67 0%, #37EB1A 100%);
+}
+.voyant.voyant-orange {
+  background: radial-gradient(50% 50% at 50% 50%, #F3DF75 0%, #F5C108 100%);
+  animation: voyant 1s infinite;
+}
+.voyant.voyant-rouge {
+  background: radial-gradient(50% 50% at 50% 50%, #F37C7C 0%, #F32D2D 100%);
+}
+
 .confirm-buttons {
   display: flex;
   justify-content: center;
@@ -666,6 +842,128 @@ a {
 }
 .confirm-buttons .cancel-button {
   background: #737373;
+}
+
+.gestion-sa .container {
+  width: 100%;
+  padding: 20px;
+}
+
+.ajout-sa-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #737373;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  font-size: 1.4rem;
+}
+.ajout-sa-button:hover {
+  border: 2px solid #FFF;
+  background-color: #BABABA;
+}
+
+.sa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #737373;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 15px;
+  border: 2px solid transparent;
+}
+.sa.blink-border {
+  animation: blinkBorder 1s linear 3;
+}
+.sa .sa-infos .sa-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.sa .sa-infos h5 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-left: 10px;
+}
+.sa .sa-infos p {
+  margin-bottom: 0px;
+}
+.sa .sa-boutons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.sa .sa-boutons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0;
+  margin-left: 20px;
+}
+.sa .sa-boutons a svg {
+  margin-left: 10px;
+}
+
+/* Formulaire d'ajout d'un SA */
+.sa-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  background: #444444;
+  padding: 30px;
+  border-radius: 15px;
+}
+.sa-form h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 20px 0;
+}
+.sa-form p {
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #D7D7D7;
+}
+.sa-form .erreur-form {
+  color: #FF3A3A;
+}
+.sa-form input {
+  font-size: 1.3rem;
+  padding: 10px 15px;
+  border-radius: 30px;
+  border: none;
+}
+.sa-form button {
+  font-size: 1.3rem;
+  font-family: "Montserrat", "Roboto", Tahoma, Verdana, sans-serif;
+}
+.sa-form .cancel {
+  margin-right: 15px;
+  background: #737373;
+  font-size: 1.3rem;
+}
+
+.return-arrow {
+  transition: 0.2s;
+  cursor: pointer;
+}
+.return-arrow svg {
+  width: 30px;
+  height: 30px;
+}
+.return-arrow:hover {
+  transform: scale(1.2);
 }
 
 /*# sourceMappingURL=style.css.map */

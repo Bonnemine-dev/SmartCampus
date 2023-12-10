@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
+use App\Entity\Salle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Types\SimpleArrayType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -90,7 +91,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function trouveExperimentations()
     {
         $dql = '
-        SELECT salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande,
+        SELECT salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, experimentation.dateinstallation,
                CASE
                    WHEN experimentation.etat = :etat_demande_installation THEN 0
                    WHEN experimentation.etat = :etat_installee THEN 1
@@ -101,7 +102,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         FROM App\Entity\Salle salle
         JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
         JOIN App\Entity\SA sa WITH sa.id = experimentation.SA
-        ORDER BY salle.nom ASC
+        ORDER BY salle.nom , etat ASC
     ';
         $query = $this->getEntityManager()->createQuery($dql);
 
@@ -112,6 +113,7 @@ class ExperimentationRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
 
     /*
      * Supprime une experimentation pour la salle de nom $salle
@@ -151,6 +153,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         $listeEtat[1] = $Exp->getEtat();
         return $listeEtat;
     }
+
     public function extraireLesExperimentations()
     {
         $entityManager = $this->getEntityManager();
@@ -232,5 +235,85 @@ class ExperimentationRepository extends ServiceEntityRepository
         $taux_carbone_moy = count($co2Values) > 0 ? array_sum($co2Values) / count($co2Values) : null;
 
         return [$temp_moy, $hum_moy, $taux_carbone_moy];
+    }
+
+    /*
+     * Modifie l'etat du experimentation à $etat pour la salle de nom $salle
+     */
+    public function modifierEtat($etat, $salle) : void
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        $Exp = $Exp[0];
+        $Exp->setEtat($etat);
+        if($etat == EtatExperimentation::retiree){
+            $Exp->getSA()->setDisponible(1);
+        }
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($Exp);
+        $entityManager->flush();
+    }
+
+    public function trouveExperimentationsNonRetirer()
+    {
+        $queryBuilder = $this->createQueryBuilder('experimentation')
+            ->select('sa.nom as nom_sa, salle.nom as nom_salle,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->leftJoin('App\Entity\Salle', 'salle', 'WITH', 'salle.id = experimentation.Salles')
+            ->where('experimentation.etat != 3');
+
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation);
+        $queryBuilder->setParameter('etat_installee', EtatExperimentation::installee);
+        $queryBuilder->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait);
+        $queryBuilder->setParameter('etat_retiree', EtatExperimentation::retiree);
+
+
+        // Exécutez la requête et retournez les résultats.
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /*
+     * Récupère l'état d'une experimentation pour la salle de nom $salle
+     */
+    public function etatExperimentation($salle) : EtatExperimentation
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        if(count($Exp)==0){
+            return EtatExperimentation::retiree;
+        }
+        $Exp = $Exp[0];
+        return $Exp->getEtat();
+    }
+
+    public function triexperimentation($exp)
+    {
+        $len = count($exp);
+        if(count($exp)>2){
+            $salle = $exp[0]['nom_salle'];
+            for($i = 0 ; $i < $len-1 ; $i ++)
+            {
+                if($salle == $exp[$i+1]['nom_salle'])
+                {
+                    unset($exp[$i+1]);
+                }else{
+                    $salle = $exp[$i+1]['nom_salle'];
+                }
+            }
+        }
+        return $exp;
     }
 }

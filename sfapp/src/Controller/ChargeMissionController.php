@@ -60,6 +60,7 @@ class ChargeMissionController extends AbstractController
         $nb_sa = $saRepository->compteSASansExperimentation();
         $batiments = $batimentRepository->findAll();
 
+
         // Passer les instances de formulaire au template
         return $this->render('chargemission/plan-experimentation.html.twig', [
             'liste_salles' => $salles,

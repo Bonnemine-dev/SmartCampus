@@ -1,0 +1,132 @@
+.gestion-sa{
+  .container{
+    width: 100%;
+    padding: 20px
+  }
+
+}
+
+.ajout-sa-button{
+  @include flex($justify: space-between);
+  background-color: $grey-4;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  font-size: 1.4rem;
+
+    &:hover{
+        border: 2px solid #FFF;
+        background-color: $grey-5;
+    }
+}
+
+.sa{
+  @include flex($justify: space-between);
+  background-color: $grey-4;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 15px;
+  border: 2px solid transparent;
+
+  &.blink-border{
+    animation: blinkBorder 1s linear 3;
+  }
+
+  .sa-infos{
+    .sa-name{
+      @include flex($justify: flex-start);
+    }
+    h5{
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-left: 10px;
+    }
+
+    p{
+        margin-bottom: 0px;
+    }
+  }
+
+  .sa-boutons{
+    @include flex($justify: flex-end);
+
+
+    a{
+      @extend .little-gradient-button;
+      @include flex();
+      margin-right: 0;
+      margin-left: 20px;
+
+      svg{
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+/* Formulaire d'ajout d'un SA */
+.sa-form{
+  @include flex-column($justify: flex-start, $align: flex-start);
+  width: 100%;
+  background: $grey-2;
+  padding: 30px;
+  border-radius: 15px;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 20px 0;
+  }
+
+  p{
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: $grey-6;
+  }
+
+  .erreur-form{
+    color: #FF3A3A;
+  }
+
+  input{
+    font-size: 1.3rem;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+  }
+
+  button{
+    @extend .little-gradient-button;
+    font-size: 1.3rem;
+    font-family: $font;
+  }
+
+  .cancel{
+    @extend .little-gradient-button;
+    margin-right: 15px;
+    background: $grey-4;
+    font-size: 1.3rem;
+  }
+}
+
+.return-arrow{
+  transition: 0.2s;
+  cursor: pointer;
+
+  svg{
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover{
+    transform: scale(1.2);
+  }
+}
