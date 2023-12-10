@@ -32,6 +32,11 @@
   width: 100%;
   border-radius: 15px;
   padding: 10px 15px;
+  border: 2px solid transparent;
+
+  &.blink-border{
+    animation: blinkBorder 1s linear 3;
+  }
 
   .sa-infos{
     .sa-name{

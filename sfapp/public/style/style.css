@@ -465,13 +465,13 @@ a {
   padding: 20px;
   border-radius: 20px;
   margin: 20px 0;
+  border: 2px solid transparent;
 }
 .salle.darker {
   background-color: #5D5D5D;
 }
 .salle.blink-border {
   animation: blinkBorder 1s linear 3;
-  border: 2px solid transparent;
 }
 .salle h5 {
   font-size: 1.6rem;
@@ -664,6 +664,10 @@ a {
   width: 100%;
   border-radius: 15px;
   padding: 10px 15px;
+  border: 2px solid transparent;
+}
+.sa.blink-border {
+  animation: blinkBorder 1s linear 3;
 }
 .sa .sa-infos .sa-name {
   display: flex;
