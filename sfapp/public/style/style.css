@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -94,7 +95,7 @@ button {
   }
 }
 
-.little-gradient-button, .sa-form .cancel, .sa-form button, .sa .sa-boutons a, .filtre form button, .salle .salle-bouton, .souhaits .popup a, .souhaits .popup button, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
+.little-gradient-button, .container.widget-salles .voir-tout-bouton, .sa-form .cancel, .sa-form button, .sa .sa-boutons a, .filtre form button, .salle .salle-bouton, .souhaits .popup a, .souhaits .popup button, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
   color: #FFF;
   font-size: 1rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -104,7 +105,7 @@ button {
   margin-right: 15px;
   transition: 0.2s;
 }
-.little-gradient-button:hover, .sa-form .cancel:hover, .sa-form button:hover, .sa .sa-boutons a:hover, .filtre form button:hover, .salle .salle-bouton:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
+.little-gradient-button:hover, .container.widget-salles .voir-tout-bouton:hover, .sa-form .cancel:hover, .sa-form button:hover, .sa .sa-boutons a:hover, .filtre form button:hover, .salle .salle-bouton:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
   border: 1px solid #FFF;
   cursor: pointer;
 }
@@ -447,9 +448,13 @@ button {
 }
 .sidebar a {
   transition: 0.3s;
+  color: #BABABA;
 }
 .sidebar a:hover {
-  color: #BABABA;
+  color: #FFF;
+}
+.sidebar a.current-page {
+  color: #FFF;
 }
 @media (max-width: 999px) {
   .sidebar {
@@ -461,24 +466,25 @@ button {
   }
 }
 
-.app-content, .app-content.souhaits, .app-content.cm-pe {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  margin-left: 320px;
-}
-.app-content.souhaits, .app-content.cm-pe {
+.app-content {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 5%;
   padding-top: calc(5% + 100px);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin-left: 320px;
+  /*&.souhaits, &.cm-pe{
+      @extend .app-content;
+      @include flex-column($align: flex-start, $justify: flex-start);
+      padding: 5%;
+      padding-top: calc(5% + $banner-height);
+  }*/
 }
-.app-content h3, .app-content.souhaits h3, .app-content.cm-pe h3 {
+.app-content h3 {
   font-size: 1.9rem;
   letter-spacing: 4px;
   margin-bottom: 20px;
@@ -508,7 +514,7 @@ button {
   margin-bottom: 20px;
 }
 @media (max-width: 999px) {
-  .app-content, .app-content.souhaits, .app-content.cm-pe {
+  .app-content {
     margin-left: 0;
   }
 }
@@ -656,6 +662,10 @@ button {
     border-color: white;
   }
 }
+.cm-pe .container {
+  width: 100%;
+}
+
 .liste-salles {
   width: 100%;
   margin-top: 30px;
@@ -844,7 +854,7 @@ button {
   background: #737373;
 }
 
-.gestion-sa .container {
+.gestion-sa .container, .tableau-de-bord .container {
   width: 100%;
   padding: 20px;
 }
@@ -964,6 +974,169 @@ button {
 }
 .return-arrow:hover {
   transform: scale(1.2);
+}
+
+.tableau-de-bord {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.widget-heure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #272727;
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+  margin-bottom: 30px;
+}
+.widget-heure .infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-right: 50px;
+}
+.widget-heure h4 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.widget-heure h5 {
+  color: #BABABA;
+  font-size: 1.2rem;
+}
+
+.container.widget-dg {
+  margin-bottom: 30px;
+  width: fit-content;
+  padding: 30px;
+}
+.container.widget-dg .donnees {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.container.widget-dg .donnees .donnee {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 0 0 auto; /* Empêche les éléments de se comprimer */
+  background: #5D5D5D;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin-right: 20px;
+}
+.container.widget-dg .donnees .donnee:last-child {
+  margin-right: 0;
+}
+.container.widget-dg .donnees h4 {
+  font-size: 1.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+.container.widget-dg .donnees p {
+  color: #BABABA;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.container.widget-salles {
+  padding: 30px;
+}
+.container.widget-salles .salles {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.container.widget-salles .salles .salle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 300px;
+  background: #737373;
+  margin: 0 15px 15px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+.container.widget-salles .salles p, .container.widget-salles .salles h5 {
+  margin: 0;
+}
+.container.widget-salles .voir-detail-bouton {
+  transition: 0.3s;
+}
+.container.widget-salles .voir-detail-bouton:hover {
+  transform: scale(1.1);
+}
+.container.widget-salles .voir-tout-bouton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.liste-exp .container {
+  width: 100%;
+}
+.liste-exp .salle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 15px 0;
+  padding: 10px;
+}
+.liste-exp .salle .salle-titre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+}
+.liste-exp .salle .salle-donnees {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.liste-exp .salle .salle-donnees h6 {
+  width: 180px;
+}
+.liste-exp .salle .divider {
+  height: 70px;
+  width: 1px;
+  background: #BABABA;
+}
+.liste-exp .salle h5, .liste-exp .salle h6 {
+  margin: 0;
+}
+.liste-exp .salle h5 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  justify-self: flex-start;
+}
+.liste-exp .salle h6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.liste-exp .salle a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=style.css.map */

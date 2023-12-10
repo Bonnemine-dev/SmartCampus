@@ -1,0 +1,52 @@
+.liste-exp{
+  .container{
+    width: 100%;
+  }
+
+  .salle{
+    @include flex($justify: space-between);
+    margin: 0 0 15px 0;
+    padding: 10px;
+
+    .salle-titre{
+      @include flex($justify: space-between);
+      width: 150px;
+    }
+
+    .salle-donnees{
+      @include flex($justify: space-between);
+
+      h6{
+        width:180px;
+      }
+    }
+
+    .divider{
+      height: 70px;
+      width: 1px;
+      background: $grey-5;
+    }
+
+    h5, h6{
+      margin: 0;
+    }
+
+    h5{
+      font-size: 1.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      justify-self: flex-start;
+    }
+
+    h6{
+      @include flex();
+      font-size: 1.7rem;
+      font-weight: 500;
+    }
+
+    a{
+      @include flex();
+    }
+  }
+}

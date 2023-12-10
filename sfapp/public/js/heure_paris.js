@@ -1,9 +1,9 @@
 function mettreAJourHeureParis() {
-    var maintenant = new Date();
-    var options = { timeZone: 'Europe/Paris', hour12: false };
-    var heureParis = maintenant.toLocaleTimeString('fr-FR', options);
-    document.getElementById('heureParis').innerHTML = heureParis;
+    let maintenant = new Date();
+    let options = { timeZone: 'Europe/Paris', hour12: false, hour: '2-digit', minute: '2-digit' };
+    document.getElementById('heureParis').innerHTML = maintenant.toLocaleTimeString('fr-FR', options);
 }
 
-setInterval(mettreAJourHeureParis, 1000); // Mettre à jour chaque seconde
-mettreAJourHeureParis(); // Mettre à jour immédiatement
+setInterval(mettreAJourHeureParis, 60000);
+mettreAJourHeureParis();
+

@@ -1,0 +1,118 @@
+.tableau-de-bord{
+  @extend .gestion-sa;
+  @include flex-column($justify: flex-start, $align: flex-start);
+}
+
+
+// Widget HEURE
+.widget-heure{
+  @include flex($justify: space-between);
+  background: $grey-1;
+  padding: 20px;
+  border-radius : 15px;
+  width: 300px;
+  margin-bottom: 30px;
+
+  .infos{
+    @include flex-column($justify: space-between, $align: flex-start);
+    margin-right: 50px;
+  }
+
+  h4{
+    font-size: 1.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  h5{
+    color: $grey-5;
+    font-size: 1.2rem;
+  }
+}
+
+//----------------------------------------------
+
+// Widget Données Principales
+.container.widget-dg{
+  margin-bottom: 30px;
+  width: fit-content;
+  padding: 30px;
+
+  .donnees{
+    @include flex($justify: flex-start);
+    flex-wrap: wrap;
+
+    .donnee{
+      @include flex-column($justify: space-between, $align: center);
+      flex: 0 0 auto; /* Empêche les éléments de se comprimer */
+      background: $grey-3;
+      padding: 10px 20px;
+      border-radius : 15px;
+      margin-right: 20px;
+    }
+
+    .donnee:last-child{
+      margin-right: 0;
+    }
+
+    h4{
+      font-size: 1.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0;
+    }
+
+    p{
+      color: $grey-5;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+  }
+}
+
+//----------------------------------------------
+
+// Widget Liste de quelques salles
+.container.widget-salles{
+  padding: 30px;
+
+  .salles{
+    @include flex($justify: flex-start);
+    flex-wrap: wrap;
+    width: 100%;
+
+    .salle{
+      @include flex($justify: space-between);
+      flex: 0 0 auto;
+      width: 300px;
+      background: $grey-4;
+      margin: 0 15px 15px 0;
+      padding: 10px;
+      border-radius : 8px;
+    }
+
+    p, h5{
+      margin: 0;
+    }
+
+  }
+
+  .voir-detail-bouton{
+    transition: 0.3s;
+
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
+
+  .voir-tout-bouton{
+    @extend .little-gradient-button;
+    @include flex();
+    margin-top: 10px;
+    font-size: 1.2rem;
+  }
+
+
+}
