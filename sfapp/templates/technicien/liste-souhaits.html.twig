@@ -12,29 +12,174 @@
 
 {% block appcontent %}
 <div class="app-content souhaits">
+
+    {# Affichage des messages de succès #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# Affichage des messages d'erreur #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# --------------------------------------------- #}
+
     <h3 class="">PLAN D'EXPÉRIMENTATION</h3>
 
-    <div class="container">
-        <h4>Systèmes d'acquisitions à installer</h4>
-        <p>Liste des systèmes d'acquisitions à installer à la demande du chargé de mission.</p>
-        {% if experimentations|length == 0 %}
-        <div class="souhait" style="justify-content: center;">
-            <p>Aucune expérimentation pour le moment...</p>
+    {# Si il n'y a aucune experimentation dans la table#}
+    {% if experimentations|length == 0 %}
+        <div class="container">
+            <h4>Systèmes d'acquisitions à installer</h4>
+            <p>Liste des systèmes d'acquisitions à installer à la demande du chargé de mission.</p>
+            <div class="souhait" style="justify-content: center;">
+                <p>Aucune expérimentations pour le moment...</p>
+            </div>
         </div>
-        {% else %}
-            {% for exp in experimentations %}
-                {% if exp.etat == 0 %}
-                    <div class="souhait">
-                        <p class="date">Date de la demande : {{exp.datedemande|date('d-m-Y H:i')}}</p>
-                        <div class="souhait-info">
-                            <h5>{{exp.nom_salle}}</h5>
-                            <h5>{{exp.nom_sa}}</h5>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+    {% endif %}
 
+    {# Popup de validation et overlay #}
+    <div id="overlay" class="overlay" style="display: none">
+        <div id="popup" class="popup">
+            <h5 id="cardInfo"></h5>
+            <div>
+                <button id="cancelButton">Annuler</button>
+                <a id="modifyLink" href="#">Confirmer</a>
+            </div>
+        </div>
     </div>
+
+    {# Si il y a des experimentations dans la table#}
+    {% if experimentations|length > 0 %}
+        {# Liste des experimentations à installées ou installées #}
+        <div class="container-experimentations installations">
+            <h4 class="container-title">Demandes d'installations</h4>
+            <p>Faites glisser l'expérimentation pour confirmer l'installation du SA dans une salle.</p>
+            <div class="flex-container">
+                <div class="column-container">
+                    <h4>À installer</h4>
+                    <div id="demandeInstallation" class="liste-experimentations">
+                        {% set count = 0 %}
+                        {% for exp in experimentations %}
+                            {% if exp.etat == 0 %}
+                                {% set count = count + 1 %}
+                                <div id="{{ exp.nom_salle }}" class="souhait" draggable="true">
+                                    <p class="date">Date de la demande : {{ exp.datedemande|date('d-m-Y H:i') }}</p>
+                                    <div class="souhait-info">
+                                        <h5 id="nomsalle">{{ exp.nom_salle }}</h5>
+                                        <h5>{{ exp.nom_sa }}</h5>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if count == 0 %}
+                            <p>Aucune expérimentation en demande d'installation.</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="arrow-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="47" height="42" viewBox="0 0 47 42">
+                        <path d="M25.9847 6.42039C26.5723 5.89547 27.3692 5.60059 28.2 5.60059C29.0309 5.60059 29.8277 5.89547 30.4153 6.42039L44.5153 19.0204C45.1027 19.5455 45.4327 20.2575 45.4327 21C45.4327 21.7424 45.1027 22.4545 44.5153 22.9796L30.4153 35.5796C29.8243 36.0896 29.0328 36.3719 28.2113 36.3655C27.3897 36.3591 26.6039 36.0646 26.0229 35.5455C25.442 35.0263 25.1124 34.3241 25.1053 33.5899C25.0982 32.8558 25.414 32.1485 25.9847 31.6204L34.4667 23.8H4.70001C3.869 23.8 3.07203 23.505 2.48441 22.9799C1.8968 22.4548 1.56668 21.7426 1.56668 21C1.56668 20.2574 1.8968 19.5452 2.48441 19.0201C3.07203 18.495 3.869 18.2 4.70001 18.2H34.4667L25.9847 10.3796C25.3973 9.85451 25.0674 9.14245 25.0674 8.39999C25.0674 7.65753 25.3973 6.94547 25.9847 6.42039Z" fill="#737373"/>
+                    </svg>
+                </div>
+
+                <div class="column-container">
+                    <h4>Installées</h4>
+                    <div id="installees" class="liste-experimentations">
+                        {% set count = 0 %}
+                        {% for exp in experimentations %}
+                            {% if exp.etat == 1 %}
+                                {% set count = count + 1 %}
+                                <div id="{{ exp.nom_salle }}" class="souhait">
+                                    <p class="date">Date de l'installation : {{exp.dateinstallation|date('d-m-Y H:i')}}</p>
+                                    <div class="souhait-info">
+                                        <h5 id="nomsalle">{{exp.nom_salle}}</h5>
+                                        <h5>{{exp.nom_sa}}</h5>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if count == 0 %}
+                            <p>Aucune expérimentation installées.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Liste des experimentations à retirer ou retirées #}
+        <div class="container-experimentations retraits">
+            <h4 class="container-title">Demandes de retrait</h4>
+            <p>Faites glisser l'expérimentation pour confirmer le retrait d'un SA dans une salle.</p>
+            <div class="flex-container">
+                <div class="column-container">
+                    <h4>À retirer</h4>
+                    <div id="demandeRetrait" class="liste-experimentations">
+                        {% set count = 0 %}
+                        {% for exp in experimentations %}
+                            {% if exp.etat == 2 %}
+                                {% set count = count + 1 %}
+                                <div id="{{ exp.nom_salle }}" class="souhait" draggable="true">
+                                    <p class="date">Date de la demande : {{ exp.datedemande|date('d-m-Y H:i') }}</p>
+                                    <div class="souhait-info">
+                                        <h5 id="nomsalle">{{ exp.nom_salle }}</h5>
+                                        <h5>{{ exp.nom_sa }}</h5>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if count == 0 %}
+                            <p>Aucune expérimentation en demande de retrait.</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="arrow-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="47" height="42" viewBox="0 0 47 42">
+                        <path d="M25.9847 6.42039C26.5723 5.89547 27.3692 5.60059 28.2 5.60059C29.0309 5.60059 29.8277 5.89547 30.4153 6.42039L44.5153 19.0204C45.1027 19.5455 45.4327 20.2575 45.4327 21C45.4327 21.7424 45.1027 22.4545 44.5153 22.9796L30.4153 35.5796C29.8243 36.0896 29.0328 36.3719 28.2113 36.3655C27.3897 36.3591 26.6039 36.0646 26.0229 35.5455C25.442 35.0263 25.1124 34.3241 25.1053 33.5899C25.0982 32.8558 25.414 32.1485 25.9847 31.6204L34.4667 23.8H4.70001C3.869 23.8 3.07203 23.505 2.48441 22.9799C1.8968 22.4548 1.56668 21.7426 1.56668 21C1.56668 20.2574 1.8968 19.5452 2.48441 19.0201C3.07203 18.495 3.869 18.2 4.70001 18.2H34.4667L25.9847 10.3796C25.3973 9.85451 25.0674 9.14245 25.0674 8.39999C25.0674 7.65753 25.3973 6.94547 25.9847 6.42039Z" fill="#737373"/>
+                    </svg>
+                </div>
+
+                <div class="column-container">
+                    <h4>Retirées</h4>
+                    <div id="retirees" class="liste-experimentations">
+                        {% set count = 0 %}
+                        {% for exp in experimentations %}
+                            {% if exp.etat == 4 %}
+                                {% set count = count + 1 %}
+                                <div id="{{ exp.nom_salle }}" class="souhait">
+                                    <p class="date">Date du retrait : {{exp.dateinstallation|date('d-m-Y H:i')}}</p>
+                                    <div class="souhait-info">
+                                        <h5 id="nomsalle">{{exp.nom_salle}}</h5>
+                                        <h5>{{exp.nom_sa}}</h5>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if count == 0 %}
+                            <p>Aucune expérimentation retirées.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/dragAndDrop.js') }}"></script>
+    <script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

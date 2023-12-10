@@ -87,31 +87,32 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Vérifie si il existe des experimentation à installer
      */
-    public function trouveExperimentationsSansDateInstallation()
+    public function trouveExperimentations()
     {
-        $queryBuilder = $this->createQueryBuilder('experimentation')
-            ->select('sa.nom as nom_sa, salle.nom as nom_salle, experimentation.datedemande, experimentation.dateinstallation,
-                CASE
-                    WHEN experimentation.etat = :etat_demande_installation THEN 0
-                    WHEN experimentation.etat = :etat_installee THEN 1
-                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                    WHEN experimentation.etat = :etat_retiree THEN 4
-                    ELSE 4
-                END AS etat')
-            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
-            ->leftJoin('App\Entity\Salle', 'salle', 'WITH', 'salle.id = experimentation.Salles')
-            ->where('experimentation.etat = 0')
-            ->orderBy('experimentation.datedemande', 'ASC');
+        $dql = '
+        SELECT salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, experimentation.dateinstallation,
+               CASE
+                   WHEN experimentation.etat = :etat_demande_installation THEN 0
+                   WHEN experimentation.etat = :etat_installee THEN 1
+                   WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                   WHEN experimentation.etat = :etat_retiree THEN 4
+                   ELSE 4
+               END AS etat
+        FROM App\Entity\Salle salle
+        JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
+        JOIN App\Entity\SA sa WITH sa.id = experimentation.SA
+        ORDER BY salle.nom , etat ASC
+    ';
+        $query = $this->getEntityManager()->createQuery($dql);
 
-        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation);
-        $queryBuilder->setParameter('etat_installee', EtatExperimentation::installee);
-        $queryBuilder->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait);
-        $queryBuilder->setParameter('etat_retiree', EtatExperimentation::retiree);
+        $query->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat_installee', EtatExperimentation::installee)
+            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+            ->setParameter('etat_retiree', EtatExperimentation::retiree);
 
-
-        // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
+        return $query->getResult();
     }
+
 
     /*
      * Supprime une experimentation pour la salle de nom $salle
@@ -119,9 +120,54 @@ class ExperimentationRepository extends ServiceEntityRepository
     public function supprimerExperimentation($salle)
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->findOneBy(['Salles' => $idSalle]);
-        $Exp->setEtat(EtatExperimentation::demandeRetrait);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        $Exp = $Exp[0];
+        $listeEtat = [$Exp->getEtat(),null];
 
+        if($Exp->getEtat() == EtatExperimentation::demandeInstallation){
+            $this->saRepository->suppressionExp($Exp->getSA());
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($Exp);
+            $entityManager->flush();
+            $queryBuilder = $this->createQueryBuilder('experimentation');
+            $queryBuilder
+                ->delete()
+                ->where('experimentation.etat != 3 and experimentation.Salles = '.$idSalle->getId())
+                ->getQuery()
+                ->execute();
+
+        }
+        elseif($Exp->getEtat() == EtatExperimentation::installee){
+            $Exp->setEtat(EtatExperimentation::demandeRetrait);
+            $Exp->setDateinstallation(null);
+            $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+            $Exp->setDatedemande($dateDemande);
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($Exp);
+            $entityManager->flush();
+        }
+        $listeEtat[1] = $Exp->getEtat();
+        return $listeEtat;
+    }
+
+    /*
+     * Modifie l'etat du experimentation à $etat pour la salle de nom $salle
+     */
+    public function modifierEtat($etat, $salle) : void
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        $Exp = $Exp[0];
+        $Exp->setEtat($etat);
+        if($etat == EtatExperimentation::retiree){
+            $Exp->getSA()->setDisponible(1);
+        }
         $entityManager = $this->getEntityManager();
         $entityManager->persist($Exp);
         $entityManager->flush();
@@ -150,5 +196,39 @@ class ExperimentationRepository extends ServiceEntityRepository
 
         // Exécutez la requête et retournez les résultats.
         return $queryBuilder->getQuery()->getResult();
+    /*
+     * Récupère l'état d'une experimentation pour la salle de nom $salle
+     */
+    }
+    public function etatExperimentation($salle) : EtatExperimentation
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        $Exp = $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles ='.$idSalle->getId())
+            ->getQuery()
+            ->getResult();
+        if(count($Exp)==0){
+            return EtatExperimentation::retiree;
+        }
+        $Exp = $Exp[0];
+        return $Exp->getEtat();
+    }
+
+    public function triexperimentation($exp)
+    {
+        $len = count($exp);
+        if(count($exp)>2){
+            $salle = $exp[0]['nom_salle'];
+            for($i = 0 ; $i < $len-1 ; $i ++)
+            {
+                if($salle == $exp[$i+1]['nom_salle'])
+                {
+                    unset($exp[$i+1]);
+                }else{
+                    $salle = $exp[$i+1]['nom_salle'];
+                }
+            }
+        }
+        return $exp;
     }
 }

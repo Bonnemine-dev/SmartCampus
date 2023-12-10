@@ -59,6 +59,10 @@ a {
   color: #FFF;
 }
 
+button {
+  font-family: "Montserrat", "Roboto", Tahoma, Verdana, sans-serif;
+}
+
 .gradient-button {
   font-size: 1.4rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -90,7 +94,7 @@ a {
   }
 }
 
-.little-gradient-button, .sa-form .cancel, .sa-form button, .sa .sa-boutons a, .filtre form button, .salle .salle-bouton, .little-unclickable-button, .salle .salle-bouton-unclickable {
+.little-gradient-button, .sa-form .cancel, .sa-form button, .sa .sa-boutons a, .filtre form button, .salle .salle-bouton, .souhaits .popup a, .souhaits .popup button, #overlay .connexion-form button, .little-unclickable-button, .salle .salle-bouton-unclickable {
   color: #FFF;
   font-size: 1rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -100,7 +104,7 @@ a {
   margin-right: 15px;
   transition: 0.2s;
 }
-.little-gradient-button:hover, .sa-form .cancel:hover, .sa-form button:hover, .sa .sa-boutons a:hover, .filtre form button:hover, .salle .salle-bouton:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
+.little-gradient-button:hover, .sa-form .cancel:hover, .sa-form button:hover, .sa .sa-boutons a:hover, .filtre form button:hover, .salle .salle-bouton:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, #overlay .connexion-form button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
   border: 1px solid #FFF;
   cursor: pointer;
 }
@@ -112,6 +116,44 @@ a {
 .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover {
   cursor: not-allowed;
   border: 1px solid transparent;
+}
+
+/* Messages d'alerte */
+@keyframes slideDown {
+  0% {
+    top: 50px;
+  }
+  100% {
+    top: 100px;
+  }
+}
+/* Messages d'alerte */
+@keyframes slideDownConnexion {
+  0% {
+    top: -100px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: calc(100% - 320px);
+  top: 50px;
+  left: 320px;
+  height: 50px;
+  box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.15);
+  z-index: 25;
+  animation: slideDown 0.5s ease-in-out 0.5s forwards;
+}
+.alert.alert-success {
+  background-color: #00B292;
+}
+.alert.alert-error {
+  background-color: #ff5050;
 }
 
 .connexion-container {
@@ -129,6 +171,16 @@ a {
   font-weight: 500;
   color: #BABABA;
   margin-bottom: 30px;
+}
+.connexion-container button {
+  color: #FFF;
+  font-weight: 500;
+}
+.connexion-container .alert {
+  width: 100%;
+  top: -100px;
+  left: 0px;
+  animation: slideDownConnexion 0.5s ease-in-out 0.5s forwards;
 }
 
 .mouse-trail {
@@ -193,6 +245,53 @@ a {
   .connexion .logo {
     width: 50px;
   }
+}
+
+#overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+#overlay .connexion-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #444444;
+  border-radius: 20px;
+  padding: 20px 80px;
+}
+#overlay .connexion-form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#overlay .connexion-form form input {
+  border: none;
+  padding: 10px 30px;
+  margin: 20px 0;
+  width: 300px;
+  border-radius: 30px;
+  font-size: 1.3rem;
+}
+#overlay .connexion-form h1 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+#overlay .connexion-form h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #BABABA;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
 }
 
 .banner {
@@ -414,6 +513,74 @@ a {
   }
 }
 
+@keyframes moveArrow {
+  0%, 60% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.container-experimentations {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #272727;
+  position: relative;
+  border-radius: 20px;
+  width: 100%;
+  height: fit-content;
+  padding: 30px 50px;
+  margin-bottom: 50px;
+}
+.container-experimentations p {
+  color: #BABABA;
+  margin-bottom: 20px;
+}
+.container-experimentations h4 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.container-experimentations .container-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-left: 0px;
+}
+.container-experimentations .flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+.container-experimentations .column-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 45%;
+}
+.container-experimentations .arrow-icon {
+  align-self: center;
+}
+.container-experimentations .arrow-icon svg {
+  animation: moveArrow 4s infinite;
+}
+.container-experimentations .liste-experimentations {
+  background-color: #444444;
+  height: 400px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
 .souhaits .souhait {
   display: flex;
   flex-direction: column;
@@ -424,10 +591,48 @@ a {
   margin-bottom: 15px;
   border-radius: 5px;
   padding: 10px 20px;
+  cursor: move;
+  border: 2px solid transparent;
 }
-.souhaits .souhait .date {
+.souhaits .souhait.blink-border {
+  animation: blinkBorder 1s linear 3;
+}
+.souhaits .date {
   margin-bottom: 0;
   color: #F1F1F1;
+}
+.souhaits #overlay {
+  top: -100px;
+  left: -320px;
+  width: calc(100% + 320px);
+  height: calc(100% + 100px);
+}
+.souhaits .popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: calc(50% - 75px);
+  left: calc(50% - 250px);
+  background-color: #5D5D5D;
+  border-radius: 15px;
+  padding: 40px 20px;
+  width: 500px;
+  height: 150px;
+}
+.souhaits .popup h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.souhaits .popup a, .souhaits .popup button {
+  font-size: 1rem;
+  margin: 0px 30px;
+}
+.souhaits .popup #cancelButton {
+  background: #737373;
 }
 
 .souhait-info {
@@ -555,6 +760,15 @@ a {
   }
   100% {
     top: 100px;
+  }
+}
+/* Messages d'alerte */
+@keyframes slideDownConnexion {
+  0% {
+    top: -100px;
+  }
+  100% {
+    top: 0px;
   }
 }
 .alert {

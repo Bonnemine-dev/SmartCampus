@@ -13,6 +13,18 @@
         color: $grey-5;
         margin-bottom: 30px;
     }
+
+    button{
+        color: #FFF;
+        font-weight: 500;
+    }
+
+    .alert{
+        width: 100%;
+        top: -100px;
+        left: 0px;
+        animation: slideDownConnexion 0.5s ease-in-out 0.5s forwards;
+    }
 }
 
 .mouse-trail {
@@ -76,6 +88,48 @@
 
         .logo{
             width: 50px;
+        }
+    }
+}
+
+#overlay {
+    @include overlay-base;
+
+    .connexion-form{
+        @include flex-column();
+        background: $grey-2;
+        border-radius: 20px;
+        padding: 20px 80px;
+
+        form{
+            @include flex-column();
+
+            input{
+                border: none;
+                padding: 10px 30px;
+                margin: 20px 0;
+                width: 300px;
+                border-radius: 30px;
+                font-size: 1.3rem;
+            }
+        }
+
+        button{
+            @extend .little-gradient-button;
+        }
+
+        h1{
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        h2{
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: $grey-5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
         }
     }
 }

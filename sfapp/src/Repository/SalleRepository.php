@@ -34,7 +34,7 @@ class SalleRepository extends ServiceEntityRepository
                    WHEN experimentation.etat = :etat_demande_installation THEN 0
                    WHEN experimentation.etat = :etat_installee THEN 1
                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                   WHEN experimentation.etat = :etat_retiree THEN 4
+                   WHEN experimentation.etat = :etat_retiree THEN 3
                    ELSE 4
                END AS etat
         FROM App\Entity\Salle salle
@@ -162,5 +162,23 @@ class SalleRepository extends ServiceEntityRepository
     public function nomSalleId($salle): ?Salle
     {
         return $this->findOneBy(['nom' => $salle]);
+    }
+
+    public function triListeSalle($salle)
+    {
+        $len = count($salle);
+        if(count($salle)>2){
+            $nom_salle = $salle[0]['nom_salle'];
+            for($i = 0 ; $i < $len-1 ; $i ++)
+            {
+                if($nom_salle == $salle[$i+1]['nom_salle'])
+                {
+                    unset($salle[$i]);
+                }else{
+                    $nom_salle = $salle[$i+1]['nom_salle'];
+                }
+            }
+        }
+        return $salle;
     }
 }

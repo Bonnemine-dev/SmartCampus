@@ -33,7 +33,7 @@
 
 	<button type="submit">Valider</button>
 	<button type="button" id="resetButton">Réinitialiser</button>
-
+	{{ form_row(filtreSalleForm._token) }}
 	{{ form_end(filtreSalleForm, {'render_rest': false}) }}
 </div>
 {% endblock %}
@@ -83,7 +83,7 @@
 				{{ form_widget(rechercheSalleForm.salle) }}
 
 				<button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
-
+				{{ form_row(rechercheSalleForm._token) }}
 				{{ form_end(rechercheSalleForm, {'render_rest': false}) }}
 			</div>
 
@@ -95,7 +95,7 @@
 			
 			{% for salle in liste_salles %}
 				{% if salle.etat == 4 %}
-					<div class="salle">
+					<div id="{{ salle.nom_salle }}" class="salle">
 						<div class="salle-infos">
 							<p>Pas encore de demande de SA</p>
 							<h5>{{ salle.nom_salle }}</h5>
@@ -116,9 +116,9 @@
 						{% endif %}
 					</div>
 				{% elseif salle.etat == 0 %}
-					<div class="salle darker">
+					<div id="{{ salle.nom_salle }}" class="salle darker">
 						<div class="salle-infos">
-							<p>Date de demande : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+							<p>Date de demande d'installation : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
 							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : à installer |
@@ -131,9 +131,9 @@
 						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton">Retirer</a>
 					</div>
 				{% elseif salle.etat == 1 %}
-					<div class="salle darker">
+					<div id="{{ salle.nom_salle }}" class="salle darker">
 						<div class="salle-infos">
-							<p>Date d'installation : {{ salle.dateinstallation|date('Y-m-d H:i:s') }}</p>
+							<p>Date d'installation : <strong>{{ salle.dateinstallation|date('Y-m-d H:i:s') }}</strong></p>
 							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : installé |
@@ -146,9 +146,9 @@
 						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton">Retirer</a>
 					</div>
 				{% elseif salle.etat == 2 %}
-					<div class="salle darker">
+					<div id="{{ salle.nom_salle }}" class="salle darker">
 						<div class="salle-infos">
-							<p>Date d'installation : {{ salle.dateinstallation|date('Y-m-d H:i:s') }}</p>
+							<p>Date de demande de retrait : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
 							<h5>{{ salle.nom_salle }}</h5>
 							<p>
 								Système d'acquisition : à retirer |
@@ -158,7 +158,7 @@
 							</p>
 						</div>
 
-						<a href="plan-experimentation/supprimer-salle/{{salle.nom_salle}}" class="salle-bouton-unclickable">Retirer</a>
+						<a class="salle-bouton-unclickable">Retirer</a>
 					</div>
 				{% endif %}
 			{% endfor %} 

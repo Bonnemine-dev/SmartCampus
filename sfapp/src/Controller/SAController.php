@@ -63,7 +63,7 @@ class SAController extends AbstractController
         }
     }
 
-    #[Route('/charge-de-mission/plan-experimentation/suppression-sa/{nomsa}', name: 'valid_supprimer_sa')]
+    #[Route('/technicien/gestion-sa/suppression-sa/{nomsa}', name: 'valid_supprimer_sa')]
     public function valid_supprimer_sa(SARepository $saRepository, $nomsa): Response
     {
         // Recherchez l'objet en fonction du nom de la salle entre dans la condition si le sa n'existe pas

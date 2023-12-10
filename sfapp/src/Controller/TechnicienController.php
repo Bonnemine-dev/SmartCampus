@@ -19,8 +19,10 @@ class TechnicienController extends AbstractController
     #[Route('/technicien/liste-souhaits', name: 'app_technicien')]
     public function index(ExperimentationRepository $repository): Response
     {
-        // Récupère les expérimentations sans date d'installation du repository.
-        $experimentations = $repository->trouveExperimentationsSansDateInstallation();
+
+        // Récupère les expérimentations du repository.
+        $experimentations = $repository->trouveExperimentations();
+        $experimentations = $repository->triexperimentation($experimentations);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/liste-souhaits.html.twig', [
