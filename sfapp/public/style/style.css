@@ -157,6 +157,19 @@ button {
   background-color: #ff5050;
 }
 
+.notif-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ff5050;
+  color: #FFF;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
 .connexion-container {
   display: flex;
   justify-content: center;
@@ -531,10 +544,7 @@ button {
   }
 }
 .container-experimentations {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  display: none;
   background-color: #272727;
   position: relative;
   border-radius: 20px;
@@ -542,6 +552,12 @@ button {
   height: fit-content;
   padding: 30px 50px;
   margin-bottom: 50px;
+}
+.container-experimentations.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .container-experimentations p {
   color: #BABABA;
@@ -652,6 +668,42 @@ button {
   font-size: 30px;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.switch-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  background: #444444;
+  border-radius: 10px;
+}
+.switch-buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #F1F1F1;
+  background: #5D5D5D;
+  width: 45%;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 10px 0px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.switch-buttons button .notif-badge {
+  margin-left: 10px;
+}
+.switch-buttons button:hover {
+  background: #737373;
+  border: 2px solid #F1F1F1;
+}
+.switch-buttons button.active {
+  background: #737373;
+  border: 2px solid #F1F1F1;
 }
 
 @keyframes blinkBorder {
@@ -799,6 +851,19 @@ button {
 }
 .alert.alert-error {
   background-color: #ff5050;
+}
+
+.notif-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ff5050;
+  color: #FFF;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 @keyframes voyant {

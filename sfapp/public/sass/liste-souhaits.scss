@@ -11,7 +11,8 @@
 }
 
 .container-experimentations{
-    @include flex-column($align: flex-start, $justify: flex-start);
+    display: none;
+    //@include flex-column($align: flex-start, $justify: flex-start);
     background-color: $grey-1;
     position: relative;
     border-radius: 20px ;
@@ -19,6 +20,10 @@
     height: fit-content;
     padding: 30px 50px;
     margin-bottom: 50px;
+
+    &.active{
+        @include flex-column($align: flex-start, $justify: flex-start);
+    }
 
     p{
         color: $grey-5;
@@ -134,5 +139,45 @@
         font-size: 30px;
         text-transform: uppercase;
         font-weight: 700;
+    }
+}
+
+//------------------------------------------
+
+// Boutons de switch entre les installation et les retraits
+.switch-buttons{
+    @include flex($justify: space-between);
+    width: 100%;
+    margin-bottom: 20px;
+    //padding: 20px 30px;
+    background: $grey-2;
+    border-radius: 10px;
+
+    button{
+        @include flex();
+        color: $other-white;
+        background: $grey-3;
+        width: 45%;
+        font-size: 1.2rem;
+        font-weight: 500;
+        padding: 10px 0px;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        .notif-badge{
+            margin-left: 10px;
+        }
+
+        &:hover{
+            background: $grey-4;
+            border: 2px solid $other-white;
+        }
+
+        &.active{
+            background: $grey-4;
+            border: 2px solid $other-white;
+        }
     }
 }
