@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Config\EtatSA;
+use App\Entity\Experimentation;
 use App\Entity\SA;
 use App\Repository\ExperimentationRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -148,4 +149,28 @@ class SARepository extends ServiceEntityRepository
             return false;
         }
     }
+
+    public function changerEtatSA($nomsalle, $etat) : void
+    {
+        $entityManager = $this->getEntityManager();
+        $experimentationsRepository = $entityManager->getRepository(Experimentation::class);
+
+        // Rechercher toutes les expérimentations liées à la salle avec le nom donné
+        $experimentations = $experimentationsRepository->trouveExperimentationsParNomSalle($nomsalle);
+
+        foreach ($experimentations as $experimentation) {
+            $sa = $experimentation->getSA();
+
+            if ($sa !== null) {
+                $sa->setEtat($etat);
+                $entityManager->persist($sa);
+            }
+        }
+
+        // Appliquer les changements dans la base de données
+        $entityManager->flush();
+    }
+
+
+
 }
