@@ -46,6 +46,21 @@
 
 {% block appcontent %}
     <div class="app-content liste-exp">
+        {# Affichage des messages de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# Affichage des messages d'erreur #}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# --------------------------------------------- #}
 
         {# Titre #}
         <h3>Salles en cours d'analyse</h3>
@@ -56,9 +71,22 @@
         <div class="container">
             <h4>Liste des salles</h4>
 
-            {# Barre de recherche (à faire) #}
+            {# -------------------------------------------- #}
 
-            {# ---------------------------------------------- #}
+            {# Partie Recherche #}
+
+            <div class="search-and-filter">
+
+                {{ form_start(rechercheSalleForm) }}
+                {{ form_widget(rechercheSalleForm.batiment) }}
+                {{ form_widget(rechercheSalleForm.salle) }}
+
+                <button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
+                {{ form_row(rechercheSalleForm._token) }}
+                {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+            </div>
+
+            {# ------------------------------------------------------------- #}
 
             {# Liste des salles #}
 

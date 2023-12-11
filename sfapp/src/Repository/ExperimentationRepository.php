@@ -233,6 +233,48 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $exp;
     }
 
+    public function rechercheextraireLesExperimentations($batiment = null, $salle = null)
+    {
+        // Requête pour filtrer les salles selon les critères spécifiés.
+        $queryBuilder = $this->salleRepository->createQueryBuilder('salle')
+            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation, experimentation.etat, sa.etat as sa_etat,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->orderBy('salle.nom', 'ASC');
+
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat_installee', EtatExperimentation::installee)
+            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+
+        if ($batiment !== null) {
+            $queryBuilder->andWhere('salle.batiment = :batiment')
+                ->setParameter('batiment', $batiment);
+        }
+
+        if (!empty($salle)) {
+            $queryBuilder->andWhere('salle.nom LIKE :salle')
+                ->setParameter('salle', '%' . $salle . '%');
+        }
+
+        // Exécutez la requête et retournez les résultats.
+        $exp = $queryBuilder->getQuery()->getResult();
+        $len = count($exp);
+        for ($i = 0; $i < $len; $i++) {
+            if ($exp[$i]['sa_etat'] == null) {
+                unset($exp[$i]);
+            }
+        }
+        return $exp;
+    }
+
     public function listerSallesAvecDonnees(array $dataArray, array $verif): array
     {
         // Initialiser le tableau résultat

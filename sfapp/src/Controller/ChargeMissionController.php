@@ -114,8 +114,11 @@ class ChargeMissionController extends AbstractController
                 $dataRecherche['batiment'] ?? null,
                 $dataRecherche['salle'] ?? null
             );
+            $liste_experimentations = $experimentationRepository->rechercheextraireLesExperimentations(
+                $dataRecherche['batiment'] ?? null,
+                $dataRecherche['salle'] ?? null
+            );
         }
-
         // Logique métier supplémentaire
         $batiments = $batimentRepository->findAll();
 
@@ -125,6 +128,10 @@ class ChargeMissionController extends AbstractController
         $jsonContent = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonContent, true);
         $listsalles = $experimentationRepository->listerSallesAvecDonnees($dataArray,$salles);
+        if(empty($liste_experimentations)){
+            $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
+        }
+
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
             'listeDerniereValeur' => $listsalles,
