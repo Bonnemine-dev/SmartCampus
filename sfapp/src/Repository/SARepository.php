@@ -175,6 +175,26 @@ class SARepository extends ServiceEntityRepository
                 $un_sa['salle_nom'] = null;
             }
         }
+
+        $len = count($sa);
+        if($len>2){
+            $nom_sa = $sa[0]['sa_nom'];
+            for($i = 0 ; $i < $len-1 ; $i ++)
+            {
+                if($nom_sa == $sa[$i+1]['sa_nom'])
+                {
+                    if ($sa[$i]['salle_nom'] == null) {
+                        unset($sa[$i]);
+                    }
+                    else {
+                        unset($sa[$i+1]);
+                    }
+                }else{
+                    $nom_sa = $sa[$i+1]['sa_nom'];
+                }
+            }
+        }
+
         return $sa;
 
     }
