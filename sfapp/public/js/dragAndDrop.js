@@ -1,5 +1,14 @@
 let originalColumnId = null;
 
+// Sélection des boutons
+const installationsButton = document.getElementById('installations-bouton');
+const retraitsButton = document.getElementById('retraits-bouton');
+
+// Sélection des divs à modifier
+const installationsDiv = document.querySelector('.installations');
+const retraitsDiv = document.querySelector('.retraits');
+
+
 // Sélectionner toutes les cartes "souhait" et ajouter l'événement dragstart
 document.querySelectorAll('.souhait').forEach(item => {
     item.addEventListener('dragstart', dragStart);
@@ -64,6 +73,15 @@ function scrollToRoom(scrollId) {
     if (elementCible) {
          // Ajustez si nécessaire
         let conteneur = elementCible.closest('.liste-experimentations');
+        let autreConteneur = elementCible.closest('.retraits') || elementCible.closest('.installations');
+        console.log(autreConteneur.classList)
+
+        if (autreConteneur.classList.contains('retraits')) {
+            retraitsDiv.classList.add('active');
+            installationsDiv.classList.remove('active');
+            retraitsButton.classList.add('active');
+            installationsButton.classList.remove('active');
+        }
 
         let offsetPosition =  conteneur.getBoundingClientRect().top + window.pageYOffset - 300;
         // Faire défiler vers la position du conteneur
@@ -85,6 +103,26 @@ function scrollToRoom(scrollId) {
     }
 }
 
+// Gérer le clic sur les boutons de switch
+function switchButton() {
+
+    // Gestion de l'événement de clic sur le bouton installations
+    installationsButton.addEventListener('click', function() {
+        installationsDiv.classList.add('active');
+        retraitsDiv.classList.remove('active');
+        installationsButton.classList.add('active');
+        retraitsButton.classList.remove('active');
+    });
+
+    // Gestion de l'événement de clic sur le bouton retraits
+    retraitsButton.addEventListener('click', function() {
+        retraitsDiv.classList.add('active');
+        installationsDiv.classList.remove('active');
+        retraitsButton.classList.add('active');
+        installationsButton.classList.remove('active');
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     function getQueryParam(name) {
         const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -99,4 +137,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (scrollToId && document.getElementById(scrollToId)) {
         scrollToRoom(scrollToId);
     }
+
+    switchButton();
 });

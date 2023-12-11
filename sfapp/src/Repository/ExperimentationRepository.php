@@ -363,10 +363,12 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getResult();
         $Exp = $Exp[0];
         $Exp->setEtat($etat);
+        $entityManager = $this->getEntityManager();
         if($etat == EtatExperimentation::retiree){
             $Exp->getSA()->setDisponible(1);
+            $Exp->setSA(null);
         }
-        $entityManager = $this->getEntityManager();
+
         $entityManager->persist($Exp);
         $entityManager->flush();
     }
@@ -429,5 +431,27 @@ class ExperimentationRepository extends ServiceEntityRepository
             }
         }
         return $exp;
+    }
+
+
+    /*
+     * Fonctions qui retourne une liste des experimentations qui ont eu lieu dans une salle de nom $nomSalle
+     */
+    public function trouveExperimentationsParNomSalle($nomsalle)
+    {
+        $entityManager = $this->getEntityManager();
+
+        // Requête pour trouver les expérimentations liées à une salle avec le nom donné
+        $query = $entityManager->createQuery('
+        SELECT exp
+        FROM App\Entity\Experimentation exp
+        JOIN exp.Salles salle
+        WHERE salle.nom = :nomsalle
+    ');
+
+        $query->setParameter('nomsalle', $nomsalle);
+
+        // Exécutez la requête et retournez la liste des expérimentations
+        return $query->getResult();
     }
 }
