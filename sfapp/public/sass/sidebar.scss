@@ -32,9 +32,14 @@
 
     a{
         transition: 0.3s;
+        color: $grey-5;
 
         &:hover{
-            color: $grey-5;
+            color: #FFF;
+        }
+
+        &.current-page{
+            color: #FFF;
         }
     }
 

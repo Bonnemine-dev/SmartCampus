@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use App\Entity\Batiment;
+use App\Entity\Donnees;
 use App\Entity\Salle;
 use App\Entity\SA;
 use App\Entity\Experimentation;
@@ -62,33 +63,42 @@ class AppFixtures extends Fixture
         // Affichage du nombre total de salles générées.
         $salles = $manager->getRepository(Salle::class)->findAll();
         echo "Nombre total de salles : " . count($salles) . PHP_EOL;
+
         // Sélection aléatoire de 10 salles et 10 SA pour créer des expérimentations.
-        $dixsalles = array_rand($salles,10);
+        $quatresalles = ['D102', 'D201', 'D106', 'D304'];
 
         $sas = $manager->getRepository(Sa::class)->findAll();
-        $dixsas = array_rand($sas,10);
+        $quatresas = array_rand($sas,4);
 
         // Création de 10 expérimentations avec des dates de demande et d'installation aléatoires.
-        /*for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 4; $i++) {
             $exp = new Experimentation();
             $dateTimeNow = new DateTime($dateTime = 'now');
             $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
-            $exp->setDateinstallation($this->faker->randomElement([true,false])?null:$dateTimeNow);
-            $sas[$dixsas[$i]]->setDisponible(false);//Rend le sa indisponible
+            $exp->setDateinstallation($dateTimeNow);
+            $sas[$quatresas[$i]]->setDisponible(false);//Rend le sa indisponible
             if($exp->getDateinstallation() != null)
             {   
                 $exp->setEtat($this->faker->randomElement([EtatExperimentation::installee,EtatExperimentation::demandeRetrait,EtatExperimentation::retiree]));//met l'etat de façon aléatoire sur les 3 autres etats possible
-                if($exp->getEtat() == EtatExperimentation::retiree)$sas[$dixsas[$i]]->setDisponible(true);
-                else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)$sas[$dixsas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
+                if($exp->getEtat() == EtatExperimentation::retiree)
+                {
+                    $sas[$quatresas[$i]]->setDisponible(true);
+                }
+                else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)
+                {
+                    $sas[$quatresas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
+                }
             }
             else
             {
                 $exp->setEtat(EtatExperimentation::demandeInstallation);//met l'etat sur demmande
             }
-            $exp->setSalle($salles[$dixsalles[$i]]);
-            $exp->setSA($sas[$dixsas[$i]]);
+            $exp->setSalles($manager->getRepository(Salle::class)->findOneBy(['nom'=>$quatresalles[0]]));
+            unset($quatresalles[0]);
+            $quatresalles = array_values($quatresalles);
+            $exp->setSA($sas[$quatresas[$i]]);
             $manager->persist($exp);
-        }*/
+        }
 
         // Exécution des opérations d'écriture dans la base de données.
         $manager->flush();
