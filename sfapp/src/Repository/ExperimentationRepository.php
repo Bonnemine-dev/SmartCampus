@@ -169,7 +169,71 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function listerSallesAvecDonnees(array $dataArray): array
+    public function filtrerextraireLesExperimentations($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
+    {
+        // Requête pour filtrer les salles selon les critères spécifiés.
+        $queryBuilder = $this->salleRepository->createQueryBuilder('salle')
+            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation, experimentation.etat, sa.etat as sa_etat,
+                CASE
+                    WHEN experimentation.etat = :etat_demande_installation THEN 0
+                    WHEN experimentation.etat = :etat_installee THEN 1
+                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                    WHEN experimentation.etat = :etat_retiree THEN 4
+                    ELSE 4
+                END AS etat')
+            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->orderBy('salle.nom', 'ASC');
+
+        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+            ->setParameter('etat_installee', EtatExperimentation::installee)
+            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+
+        if (!empty($etages) && $etages !== null) {
+            $queryBuilder->andWhere($queryBuilder->expr()->in('salle.etage', ':etages'))
+                ->setParameter('etages', $etages);
+        }
+
+        if (!empty($orientation) && $orientation !== null) {
+            $queryBuilder->andWhere($queryBuilder->expr()->in('salle.orientation', ':orientation'))
+                ->setParameter('orientation', $orientation);
+        }
+
+        if ($ordinateurs !== null) {
+            if ($ordinateurs === 0) {
+                $queryBuilder->andWhere('salle.nb_ordis = 0');
+            } elseif ($ordinateurs === 1) {
+                $queryBuilder->andWhere('salle.nb_ordis > 0');
+            }
+        }
+
+        if ($sa !== null) {
+            switch ($sa) {
+                case 0:
+                    $queryBuilder->andWhere('experimentation.datedemande IS NULL AND experimentation.dateinstallation IS NULL');
+                    break;
+                case 1:
+                    $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NOT NULL');
+                    break;
+                case 2:
+                    $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NULL');
+                    break;
+            }
+        }
+
+        // Exécutez la requête et retournez les résultats.
+        $exp = $queryBuilder->getQuery()->getResult();
+        $len = count($exp);
+        for ($i = 0; $i < $len; $i++) {
+            if ($exp[$i]['sa_etat'] == null) {
+                unset($exp[$i]);
+            }
+        }
+        return $exp;
+    }
+
+    public function listerSallesAvecDonnees(array $dataArray, array $verif): array
     {
         // Initialiser le tableau résultat
         $salles = [];
@@ -177,36 +241,43 @@ class ExperimentationRepository extends ServiceEntityRepository
         // Parcourir les données
         foreach ($dataArray as $item) {
             $salle = $item['localisation'];
-
-            // Trouver la salle dans le tableau
-            $index = array_search($salle, array_column($salles, 'localisation'));
-
-            // Si la salle n'est pas déjà dans le tableau, l'ajouter
-            if ($index === false or $item['dateCapture'] >= $salles[$index]['dateCapture']) {
-                if ($index === false) {
-                    $salles[] = [
-                        'localisation' => $salle,
-                        'co2' => null,
-                        'hum' => null,
-                        'temp' => null,
-                        'dateCapture' => null,
-                    ];
-                    $index = count($salles) - 1; // L'index de la nouvelle salle
+            $test = 0;
+            foreach ($verif as $veri){
+                if($veri['nom_salle'] == $salle){
+                    $test = 1;
                 }
+            }
+            if($test == 1 ){
+                // Trouver la salle dans le tableau
+                $index = array_search($salle, array_column($salles, 'localisation'));
 
-                // Remplir les valeurs correspondantes avec les dernières données
-                switch ($item['nom']) {
-                    case 'co2':
-                        $salles[$index]['co2'] = $item['valeur'];
-                        break;
-                    case 'hum':
-                        $salles[$index]['hum'] = $item['valeur'];
-                        break;
-                    case 'temp':
-                        $salles[$index]['temp'] = $item['valeur'];
-                        break;
+                // Si la salle n'est pas déjà dans le tableau, l'ajouter
+                if ($index === false or $item['dateCapture'] >= $salles[$index]['dateCapture']) {
+                    if ($index === false) {
+                        $salles[] = [
+                            'localisation' => $salle,
+                            'co2' => null,
+                            'hum' => null,
+                            'temp' => null,
+                            'dateCapture' => null,
+                        ];
+                        $index = count($salles) - 1; // L'index de la nouvelle salle
+                    }
+
+                    // Remplir les valeurs correspondantes avec les dernières données
+                    switch ($item['nom']) {
+                        case 'co2':
+                            $salles[$index]['co2'] = $item['valeur'];
+                            break;
+                        case 'hum':
+                            $salles[$index]['hum'] = $item['valeur'];
+                            break;
+                        case 'temp':
+                            $salles[$index]['temp'] = $item['valeur'];
+                            break;
+                    }
+                    $salles[$index]['dateCapture'] = $item['dateCapture'];
                 }
-                $salles[$index]['dateCapture'] = $item['dateCapture'];
             }
         }
 
@@ -215,7 +286,8 @@ class ExperimentationRepository extends ServiceEntityRepository
 
     public function moyennesDonnees(array $dataArray): array
     {
-        $salles = $this->listerSallesAvecDonnees($dataArray);
+        $listsalle = $this->salleRepository->listerSalles();
+        $salles = $this->listerSallesAvecDonnees($dataArray,$listsalle);
         // Initialiser les tableaux pour stocker les valeurs de chaque type de mesure
         $tempValues = [];
         $humValues = [];

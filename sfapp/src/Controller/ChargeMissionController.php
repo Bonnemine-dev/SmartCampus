@@ -72,25 +72,70 @@ class ChargeMissionController extends AbstractController
     }
     
     #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
-    public function liste_experimentation(ExperimentationRepository $experimentationRepository): Response
+    public function liste_experimentation(Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository): Response
     {
+        // Création des instances de formulaire
+        $filtreSalleForm = $this->createForm(FiltreSalleFormType::class);
+        $rechercheSalleForm = $this->createForm(RechercheSalleFormType::class, null, [
+            'liste_batiments' => $batimentRepository->tableauBatimentsNomID(),
+        ]);
+
+        // Soumission des formulaires à la requête
+        $filtreSalleForm->handleRequest($request);
+        $rechercheSalleForm->handleRequest($request);
+
+        // Initialisation des résultats de la salle
+        $salles = $salleRepository->filtrerSallePlanExp();
+        $liste_experimentations = $experimentationRepository->extraireLesExperimentations();
+
+        // Filtrage des salles en fonction du formulaire de filtre
+        if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
+            $dataFiltre = $filtreSalleForm->getData();
+            // Extraire les données et les utiliser pour filtrer les salles
+            $salles = $salleRepository->filtrerSallePlanExp(
+                $dataFiltre['etage'] ?? null,
+                $dataFiltre['orientation'] ?? null,
+                $dataFiltre['ordinateurs'] ?? null,
+                $dataFiltre['sa'] ?? null
+            );
+            $liste_experimentations = $experimentationRepository->filtrerextraireLesExperimentations(
+                $dataFiltre['etage'] ?? null,
+                $dataFiltre['orientation'] ?? null,
+                $dataFiltre['ordinateurs'] ?? null,
+                $dataFiltre['sa'] ?? null
+            );
+        }
+
+        // Recherche des salles en fonction du formulaire de recherche
+        if ($rechercheSalleForm->isSubmitted() && $rechercheSalleForm->isValid()) {
+            $dataRecherche = $rechercheSalleForm->getData();
+            // Extraire les données et les utiliser pour rechercher les salles
+            $salles = $salleRepository->rechercheSallePlanExp(
+                $dataRecherche['batiment'] ?? null,
+                $dataRecherche['salle'] ?? null
+            );
+        }
+
+        // Logique métier supplémentaire
+        $batiments = $batimentRepository->findAll();
+
         // Afficher la vue d'ajout de salle avec le résultat de l'existence
         // 1. Lire le fichier JSON
         $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
         $jsonContent = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonContent, true);
-
-        $liste_experimentations = $experimentationRepository->extraireLesExperimentations();
-
-        $salles = $experimentationRepository->listerSallesAvecDonnees($dataArray);
+        $listsalles = $experimentationRepository->listerSallesAvecDonnees($dataArray,$salles);
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
-            'listeDerniereValeur' => $salles
+            'listeDerniereValeur' => $listsalles,
+            'liste_batiments' => $batiments,
+            'filtreSalleForm' => $filtreSalleForm->createView(),
+            'rechercheSalleForm' => $rechercheSalleForm->createView(),
         ]);
     }
 
     #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
-    public function cm_tableau_de_bord(ExperimentationRepository $experimentationRepository): Response
+    public function cm_tableau_de_bord(SalleRepository $salleRepository,ExperimentationRepository $experimentationRepository): Response
     {
         //récuperer la température exterireur
         $apiKey = 'fb96e1802894f03c5c50e5408b058bce';
@@ -130,7 +175,8 @@ class ChargeMissionController extends AbstractController
         $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
         $jsonContent = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonContent, true);
-        $salles = $experimentationRepository->listerSallesAvecDonnees($dataArray);
+        $listsalle = $salleRepository->listerSalles();
+        $salles = $experimentationRepository->listerSallesAvecDonnees($dataArray,$listsalle);
         $moyDonnees = $experimentationRepository->moyennesDonnees($dataArray);
 
         return $this->render('chargemission/tableau-de-bord.html.twig', [
