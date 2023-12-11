@@ -80,13 +80,13 @@ class SARepository extends ServiceEntityRepository
             ->from('App\Entity\SA', 'sa')
             ->leftJoin('sa.experimentations', 'experimentation')
             ->leftJoin('experimentation.Salles', 'salle');
+
+            $exp = $queryBuilder->getQuery()->getResult();
        
             if (!empty($etat) && $etat !== null) {
                 $queryBuilder->andWhere($queryBuilder->expr()->in('sa.etat', ':etat'))
                     ->setParameter('etat', $etat);
             }
-
-            $exp = [];
 
             if (count($localisation) === 1 && $localisation !== null) {
                 if ($localisation[0] === 'salle') {
