@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
-use App\Repository\ExperimentationRepository;
-use App\Repository\SalleRepository;
+use App\Entity\Experimentation;
 use App\Repository\SARepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\JsonDataHandling;
+use App\Repository\SalleRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\ExperimentationRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SalleController extends AbstractController
 {
@@ -53,6 +57,69 @@ class SalleController extends AbstractController
         return $this->render('chargemission/supprimer-salle.html.twig', [
             'nomsalle' => $nomsalle,
             'existedeja' => $existeDeja,
+        ]);
+    }
+
+    #[Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')]
+    public function details_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,Request $request,$nomsalle): Response
+    {
+        //lecture du fichier JSON
+        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
+        $jsonContent = file_get_contents($jsonFilePath);
+        $dataArray = json_decode($jsonContent, true);
+
+        //extraction des dernière donnée d'une salle si il y en a pas alors est null
+        $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nomsalle);
+
+        //Obtention via BD de la date de début de l'expérimentation en cours
+        $dateInstallExpActuelle = $experimentationRepository->extraireDateInstallExpActuelle($nomsalle);
+
+        //Si il existe une expérimentation en cours alors créer le tableau
+        if ($dateInstallExpActuelle != null and $dateInstallExpActuelle['date_install'] != null) {
+            $liste_donnee_historique = $paginator->paginate(
+            $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($dataArray,$nomsalle,$dateInstallExpActuelle),
+            $request->query->getInt('pageH',1),
+            18,[
+                'pageParameterName' => 'pageH', // Spécifiez le nom du paramètre de page pour la première entité
+            ]
+            );
+        }
+
+        //Obtention via BD de toutes les intervalles des expérimentation qui son terminées
+        $liste_intervalles = $experimentationRepository->listerLesIntervallesArchives($nomsalle);
+        
+        //Initialisation du tableau qui sera envoié à la twig
+        $liste_de_liste_donnee_archive = [];
+        $i = 1;
+        
+        //parcours tous les intervalles et pour chaque intervalla extrait les données du json qui 
+        //sont dans cet intervalle et dont la salle à le nom voulue
+        foreach ($liste_intervalles as $intervalle) {
+            $donneesPagine = $paginator->paginate(
+                $JsonDataHandling_service->extraireDonneeSurIntervalle($dataArray,$nomsalle,$intervalle['date_install'],$intervalle['date_desinstall']),
+                $request->query->getInt('pageA'.$i,1),
+                10,[
+                    'pageParameterName' => 'pageA'.$i, // Spécifiez le nom du paramètre de page pour la première entité
+                ]
+            );
+            
+            array_push($liste_de_liste_donnee_archive, [
+                'date_install' => $intervalle['date_install'],
+                'date_desinstall' => $intervalle['date_desinstall'],
+                'donnees' => $donneesPagine]);
+            $i++;    
+            }
+
+        // Afficher la vue de salle details avec le résultat de l'existence
+        return $this->render('salle/details-salle.html.twig', [
+            //dernière données de la salle, null si inexistantes
+            'dernieres_donnees' => $dernieres_donnees ?? null,
+            //liste de toutes les données de l'expérimentation en cours, null si inexistantes
+            'liste_donnee_historique' => $liste_donnee_historique ?? null,
+            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
+            'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
+            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
+            'recommandation' => $experimentationRepository->aUneExperimentation($nomsalle)
         ]);
     }
 }

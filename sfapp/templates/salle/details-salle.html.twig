@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SmartCampus. - Chargé de mission
+{% endblock %}
+
+
+{% block username %}Chargé de mission
+{% endblock %}
+
+{% block navlink %}
+    <li>
+        <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+    </li>
+{% endblock %}
+
+{% block appcontent %}
+<div class="app-content cm-pe">
+        <h1 class="">D306 - Historique - Archive</h1>
+        
+        <div class="">
+        {# Carte d'information sur le sa #}
+            <div class="">
+            {# partie gauche de la carte #}
+                <h1 class="">nom du saa</h1>
+                <p class="">etat du sa</p>
+            </div>
+            {# image de droite de la carte #}
+            <img src="" alt="" class="">
+        </div>
+        
+        <div class="">
+        {# conteneur données #}
+            <div class="">
+            {# conteneur pour titre et temps #}
+                <h1 class="">donnée instantanées</h1>
+                <p class="">il y a 3 minutes</p>
+            </div>
+            <div class="">
+            {# conteneur pour les carte de données #}
+                <div class="">
+                {# humidite #}
+                    <img src="" alt="" class="">
+                    <h1 class="">{{ dernieres_donnees.hum }}%</h1>
+                    <p class="">Humidité</p>
+                </div>
+                <div class="">
+                {# température #}
+                    <img src="" alt="" class="">
+                    <h1 class="">{{ dernieres_donnees.temp }}°C</h1>
+                    <p class="">Température</p>
+                </div>
+                <div class="">
+                {# co2 #}
+                    <img src="" alt="" class="">
+                    <h1 class="">{{ dernieres_donnees.co2 }}ppm</h1>
+                    <p class="">Taux de carbone</p>
+                </div>
+            </div>
+        </div>
+
+        {% if liste_donnee_historique != null %}
+        <h1 class="">Historique</h1>
+
+        <div class="">
+        {# container historique #}
+            <h1 class="">Dernières données reçus</h1>
+            <table class="table table-hover">
+                <thead class="">
+                    <tr>
+                        <th>Date et Heure</th>
+                        <th>Humidité</th>
+                        <th>Température</th>
+                        <th>Taux de carbone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for donnees in liste_donnee_historique %}
+                    <tr class="table-primary">
+                        <td scope="row">{{ donnees.date }}</td>
+                        <td>{{ donnees.hum }}</td>
+                        <td>{{ donnees.temp }}</td>
+                        <td>{{ donnees.co2 }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="">
+            {# container gestion des pages #}
+                <div class="">
+                {# information sur les pages #}
+                    <p class="">Nombre total de lignes : {{ liste_donnee_historique.getTotalItemCount() }}</p>
+                </div>
+                <div class="">
+                    {# controle des pages #}
+                    {{ knp_pagination_render(liste_donnee_historique) }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <h1 class="">Archives</h1>
+
+        {% for archive in liste_de_liste_donnee_archive %}
+            <div class="">
+            {# container d'une archive #}
+                <h1 class="">Expérimentation du {{ archive.date_install|date('Y-m-d') }} au {{ archive.date_desinstall|date('Y-m-d') }}</h1>
+                <table>
+                    <thead class="">
+                    <tr>
+                        <th>Date et Heure</th>
+                        <th>Humidité</th>
+                        <th>Température</th>
+                        <th>Taux de carbone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for donnees in archive.donnees %}
+                    <tr class="table-primary">
+                        <td scope="row">{{ donnees.date|default('YYYY-MM-DD') }}</td>
+                        <td>{{ donnees.hum|default('--') }}</td>
+                        <td>{{ donnees.temp|default('--,-') }}</td>
+                        <td>{{ donnees.co2|default('---') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                <div class="">
+                {# container gestion des pages #}
+                    <div class="">
+                    {# information sur les pages #}
+                        <p class="">Nombre total de lignes : {{ archive.donnees.getTotalItemCount() }}</p>
+                    </div>
+                    <div class="">
+                        {# controle des pages #}
+                        {{ knp_pagination_render(archive.donnees) }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if recommandation %}
+            <a href="" class="">Faire la demande de retrait de l'expérimentation</a>
+        {% else %}
+            <a href="" class="">Ajouter cette salle au plan d'expérimentation</a>
+        {% endif %}
+        
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

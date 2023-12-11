@@ -31,6 +31,11 @@ class Experimentation
     #[Assert\DateTime]
     private ?\DateTimeInterface $dateinstallation = null;
 
+    // Date de desinstallation de l'expérimentation (nullable).
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\DateTime]
+    private ?\DateTimeInterface $datedesinstallation = null;
+
     #[ORM\Column]
     private ?EtatExperimentation $etat = null;
 
@@ -77,6 +82,18 @@ class Experimentation
     public function setDateinstallation(?\DateTimeInterface $dateinstallation): static
     {
         $this->dateinstallation = $dateinstallation;
+
+        return $this;
+    }
+
+    public function getDatedesinstallation(): ?\DateTimeInterface
+    {
+        return $this->datedesinstallation;
+    }
+
+    public function setDatedesinstallation(?\DateTimeInterface $datedesinstallation): static
+    {
+        $this->datedesinstallation = $datedesinstallation;
 
         return $this;
     }
