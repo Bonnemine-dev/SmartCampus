@@ -64,6 +64,9 @@ class TechnicienController extends AbstractController
             if(empty($liste_sa))$this->addFlash('error', "Votre recherche " . $dataRecherche['sa_nom'] . " ne correspond ni a un système d'acquisition ni a une salle");
         }
         else $liste_sa = $saRepository->toutLesSA();
+
+        $liste_sa = $saRepository->trisa($liste_sa);
+
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/gestion-sa.html.twig', [
             'liste_sa' => $liste_sa ,

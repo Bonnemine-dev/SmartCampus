@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use App\Entity\SA;
 use App\Repository\ExperimentationRepository;
@@ -56,10 +57,11 @@ class SARepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery('
-            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat
+            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat, experimentation.etat as exp_etat
             FROM App\Entity\SA sa
             LEFT JOIN App\Entity\Experimentation experimentation WITH sa.id = experimentation.SA
             LEFT JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
+            ORDER BY sa_nom
         ');
         // Exécuter la requête
         $resultat = $query->getResult();
@@ -74,7 +76,7 @@ class SARepository extends ServiceEntityRepository
         $queryBuilder = $entityManager->createQueryBuilder();
 
         $queryBuilder
-            ->select('sa.nom as sa_nom', 'salle.nom as salle_nom', 'sa.etat as sa_etat')
+            ->select('sa.nom as sa_nom', 'salle.nom as salle_nom', 'sa.etat as sa_etat', 'experimentation.etat as exp_etat')
             ->from('App\Entity\SA', 'sa')
             ->leftJoin('sa.experimentations', 'experimentation')
             ->leftJoin('experimentation.Salles', 'salle');
@@ -83,24 +85,40 @@ class SARepository extends ServiceEntityRepository
                 $queryBuilder->andWhere($queryBuilder->expr()->in('sa.etat', ':etat'))
                     ->setParameter('etat', $etat);
             }
-    
+
+            $exp = [];
+
             if (count($localisation) === 1 && $localisation !== null) {
                 if ($localisation[0] === 'salle') {
                     // Si $localisation est true, ajouter la condition pour salle.nom IS NOT NULL
                     $queryBuilder->andWhere($queryBuilder->expr()->isNotNull('salle.nom'));
+                    $exp = $queryBuilder->getQuery()->getResult();
+                    $len = count($exp);
+                    for($i = 0;$i<$len;$i++){
+                        if($exp[$i]['exp_etat'] == EtatExperimentation::retiree){
+                            unset($exp[$i]);
+                        }
+                    }
                 } elseif ($localisation[0] === 'stock') {
                     // Si $localisation est false, ajouter la condition pour salle.nom IS NULL
-                    $queryBuilder->andWhere($queryBuilder->expr()->isNull('salle.nom'));
+                    $exp = $queryBuilder->getQuery()->getResult();
+                    $len = count($exp);
+                    for($i = 0;$i<$len;$i++){
+                        if($exp[$i]['exp_etat'] == EtatExperimentation::installee or $exp[$i]['exp_etat'] == EtatExperimentation::demandeInstallation or $exp[$i]['exp_etat'] == EtatExperimentation::demandeRetrait){
+                            unset($exp[$i]);
+                        }
+                    }
                 }                
             }
-        return $queryBuilder->getQuery()->getResult();;
+
+        return $exp;
     }
     public function rechercheSA($contient_ce_string = null)
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery('
-            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat
+            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat, experimentation.etat as exp_etat
             FROM App\Entity\SA sa
             LEFT JOIN App\Entity\Experimentation experimentation WITH sa.id = experimentation.SA
             LEFT JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
@@ -147,5 +165,17 @@ class SARepository extends ServiceEntityRepository
         } else {
             return false;
         }
+    }
+
+    public function trisa($sa)
+    {
+        foreach ($sa as &$un_sa)
+        {
+            if ($un_sa['exp_etat'] == EtatExperimentation::retiree) {
+                $un_sa['salle_nom'] = null;
+            }
+        }
+        return $sa;
+
     }
 }
