@@ -53,8 +53,30 @@
 
     {# Si il y a des experimentations dans la table#}
     {% if experimentations|length > 0 %}
+
+        {# Boutons de switch entre les installations et les retraits #}
+        <div class="switch-buttons">
+            {% set demandesInstallationsCount = 0 %}
+            {% set demandesRetraitsCount = 0 %}
+            {% for exp in experimentations %}
+                {% if exp.etat == 0 %}
+                    {% set demandesInstallationsCount = demandesInstallationsCount + 1 %}
+                {% elseif exp.etat == 2 %}
+                    {% set demandesRetraitsCount = demandesRetraitsCount + 1 %}
+                {% endif %}
+            {% endfor %}
+            <button id="installations-bouton" class="switch-button active">
+                Installations
+                <span class="notif-badge">{{ demandesInstallationsCount }}</span>
+            </button>
+            <button id="retraits-bouton" class="switch-button">
+                Retraits
+                <span class="notif-badge">{{ demandesRetraitsCount }}</span>
+            </button>
+        </div>
+
         {# Liste des experimentations à installées ou installées #}
-        <div class="container-experimentations installations">
+        <div class="container-experimentations installations active">
             <h4 class="container-title">Demandes d'installations</h4>
             <p>Faites glisser l'expérimentation pour confirmer l'installation du SA dans une salle.</p>
             <div class="flex-container">
