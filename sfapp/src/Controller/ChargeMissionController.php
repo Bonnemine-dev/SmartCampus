@@ -86,7 +86,7 @@ class ChargeMissionController extends AbstractController
 
         // Initialisation des résultats de la salle
         $salles = $salleRepository->filtrerSallePlanExp();
-        $liste_experimentations = $experimentationRepository->extraireLesExperimentations();
+        $liste_experimentations = $experimentationRepository->filtrerextraireLesExperimentations();
 
         // Filtrage des salles en fonction du formulaire de filtre
         if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
