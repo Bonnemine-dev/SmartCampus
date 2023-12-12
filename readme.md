@@ -1,100 +1,82 @@
-<h1>Stack de développement Symfony de la SAE3</h1>
+> ANCIEN Arthur - FREITAS DE SOUSA Rafael - BERGER Valentin - RENAUD Axel - DEMOUGE Colin <br>
+> BUT2 - Groupe L22 <br>
+> Projet SAE3.1 - Smart Campus. <br>
 
---- 
-Contenu : 
-- [Prérequis](#prérequis)
-- [Démarrage](#démarrage)
-  - [1. Forker le modèle de stack](#1-forker-le-modèle-de-stack)
-  - [2. Cloner la stack du projet](#2-cloner-la-stack-du-projet)
-  - [3. Démarrer la stack du projet](#3-démarrer-la-stack-du-projet)
-- [Initialiser le service `sfapp`](#initialiser-le-service-sfapp)
-- [Partager le projet](#partager-le-projet)
+<div align="left">
+  <img src="./readme-images/logo.jpg" width="200">
+</div>
 
---- 
+## Présentation du projet - Smart Campus
 
-## Prérequis
+Le projet Smart Campus a pour but d'améliorer la consommation et l'efficacité énergétique des bâtiments du campus universitaire de La Rochelle. Pour cela, nous mettons en place une application web reliée à des systèmes d'acquisition dans les salles afin de récupérer différentes données sur les salles de cours (dans un premier temps du bâtiment Informatique de l'IUT).
 
-Sur votre machine Linux ou Mac :
+### Installation du projet en local
 
-- Docker 24 
-- Docker Engine sous Linux (ne pas installer Docker Desktop sous Linux)
-- Docker Desktop sous Mac
-- PHPStorm  
-  _Votre email étudiant vous permet de bénéficier d'une licence complète de 12 mois pour tous les produits JetBrains_  
+Pour installer le projet en local, il faut tout d'abord cloner le projet sur votre machine. Pour cela, il faut se rendre dans le dossier où vous souhaitez cloner le projet et exécuter la commande suivante :
 
-De manière optionnelle, mais fortement recommandée :
-
-- Une [clé SSH](https://forge.iut-larochelle.fr/help/ssh/index#generate-an-ssh-key-pair) active sur votre machine
-  (perso) et [ajoutée dans votre compte gitlab](https://forge.iut-larochelle.fr/help/ssh/index#add-an-ssh-key-to-your-gitlab-account) :  
-  elle vous permettra de ne pas taper votre mot de passe en permanence.
-
-## Démarrage
-
-### 1. Forker le modèle de stack
-
-**UN.E SEUL.E** des développeuses/développeurs de votre équipe va **fork** le présent dépôt, pour en créer un nouveau, 
-dans le groupe correspondant à votre équipe :  
-_Par exemple pour l'équipe 1 du groupe de TP K1, le groupe est :_ `2023-2024-BUT-INFO2-A-SAE34/K1/K11`
-
-**Remarque** : 
->Il n'est pas nécessaire de conserver le lien avec le modèle de stack, vous pouvez donc aller dans  
-> Settings > General > Advanced (dans Gitlab) pour supprimer le "Fork relationship" de votre projet
-
-
-### 2. Cloner la stack du projet 
-
-Le membre de l'équipe qui a réalisé le fork, doit cloner ce dépôt sur son poste de travail 
-
-⚠️ **Si vous êtes sous Linux**  
-> Avant de démarrer la stack, il faut renseigner les variables qui se trouvent dans le fichier `.env` à la racine du dépôt     
-> Vous pouvez obtenir l'id de votre user (et de son groupe) en lançant la commande `id -u ${USER}` dans un terminal
-
-### 3. Démarrer la stack du projet 
-
-Dans un terminal positionné dans le dossier de la stack du projet : 
-
-- Créer le dossier `sfapp`
-```
-mkdir sfapp
+```bash
+git clone https://forge.iut-larochelle.fr/2023-2024-but-info2-a-sae34/l2/l22/sae3-l22.git
 ```
 
-- démarrer la stack    
-```
+---
+
+### Lancement du projet
+
+Une fois le projet cloné, vous aurez besoin de docker afin de lancer la stack de développement avec la commande :
+```bash
 docker compose up --build
 ```
 
-- inspecter l'état des services 
-```
-docker compose ps
-```
-
-## Initialiser le service `sfapp`
-
-Dans un terminal positionné dans le dossier de la stack du projet : 
- 
- - on se connecte au conteneur associé su service `sfapp` 
+Il est possible que vous ayez besoin de mettre à jour les bundles de Symfony. Pour cela, il faut exécuter les commandes suivante :
 ```bash
-docker compose exec sfapp bash
-```
-- après connexion, on doit être dans `/app`, vérifier 
-```
-pwd 
-```
-- créer le projet `sfapp`
-```
-composer create-project symfony/skeleton:"6.3.*" sfapp
+docker exec -it  but-info2-a-sae3-sfapp bash  
+cd sfapp
+composer update
+composer install
 ```
 
-- vérifier l'exécution du service `sfapp`
+Pour mener à bien votre développement, vous pourrez également avoir besoin d'insérer des éléments dans la base de données, pour cela, il faudra exécuter les commandes suivantes (toujours dans le bash du conteneur `but-info2-a-sae3-sfapp`) :
+```bash
+php bin/console doctrine:migrations:migrate # Pour créer les tables dans la base de données si ce n'est pas déjà fait
+php bin/console doctrine:fixtures:load # Pour insérer le jeu de données dans la base de données
 ```
-localhost:8000
-```
+- Vous pouvez maintenant vous rendre sur l'adresse `localhost:8000` pour accéder à l'application web.
 
-## Partager le projet
+---
 
-À ce stade, les services `sfapp`, `database` et `nginx` sont créés et démarrés, autrement dit fonctionnels, alors : 
-- on fait `commit` et `push` pour partager avec les autres membres de l'équipe
-- on déclare tout les membres de l'équipe dans le dépôt du projet avec le rôle `Developer` (si ce n'est pas déjà fait :-))
-- chaque membre de l'équipe peut alors 
-  - cloner ce nouveau dépôt sur son poste de travail 
-  - démarrer toute la stack docker du projet 
+### Brève présentation des fonctionnalités
+
+**Page de connexion**
+
+En arrivant sur `localhost:8000`, vous arrivez sur la page de connexion de l'application web. Vous pouvez choisir le profil de votre choix et entrer les identifiants données.
+
+<div align="center">
+  <img src="./readme-images/screen-connexion.png" width="700">
+</div>
+
+---
+
+**Profil Chargé de Mission**
+
+Le *Chargé de mission* à accès à trois pages différentes :
+- Le tableau de bord sur lequel il peut voir une vision globale de ses expérimentations en cours et des salles de l'IUT.
+- La page de gestion des expérimentations sur laquelle il peut ajouter et supprimer des salles au plan d'expérimentation.
+- La page de gestion des salles sur laquelle il voit les salles en cours d'analyse et peut accéder aux données liées à ces salles.
+
+<div align="center">
+  <img src="./readme-images/screen-cm.png" width="700">
+</div>
+
+---
+
+**Profil Technicien**
+
+Le *Technicien* à accès à deux pages différentes :
+- Le plan d'expérimentation, sur lequel il peut voir les demandes d'installations ou de retrait d'un système d'acquisition dans une salle et les valider lorsque la demande est traitée.
+- La page de gestion des SA sur laquelle il voit les SA de son stock et dans les salles et peut accéder aux données remontées si il y en a par le SA.
+
+<div align="center">
+  <img src="./readme-images/screen-technicien.png" width="700">
+</div>
+
+---
