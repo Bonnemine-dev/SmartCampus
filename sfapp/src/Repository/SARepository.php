@@ -145,11 +145,11 @@ class SARepository extends ServiceEntityRepository
             }
         }
 
+        $exp = array_values($exp);
+
             if (count($localisation) === 1 && $localisation !== null) {
                 if ($localisation[0] === 'salle') {
                     // Si $localisation est true, ajouter la condition pour salle.nom IS NOT NULL
-                    $queryBuilder->andWhere($queryBuilder->expr()->isNotNull('salle.nom'));
-                    $exp = $queryBuilder->getQuery()->getResult();
                     $len = count($exp);
                     for($i = 0;$i<$len;$i++){
                         if($exp[$i]['exp_etat'] == EtatExperimentation::retiree or $exp[$i]['salle_nom'] == null){
@@ -158,7 +158,6 @@ class SARepository extends ServiceEntityRepository
                     }
                 } elseif ($localisation[0] === 'stock') {
                     // Si $localisation est false, ajouter la condition pour salle.nom IS NULL
-                    $exp = $queryBuilder->getQuery()->getResult();
                     $len = count($exp);
                     for($i = 0;$i<$len;$i++){
                         if($exp[$i]['exp_etat'] == EtatExperimentation::installee or $exp[$i]['exp_etat'] == EtatExperimentation::demandeInstallation or $exp[$i]['exp_etat'] == EtatExperimentation::demandeRetrait or $exp[$i]['sa_etat'] != EtatSA::eteint){
