@@ -150,14 +150,13 @@ class SalleController extends AbstractController
                 if ($exp['etat_exp'] = EtatExperimentation::demandeInstallation ) {
                     $recommandation = 'demande_installation_en_cours';
                 } elseif ($exp['etat_exp'] = EtatExperimentation::installee) {
-                    $retrecommandation = 'installee';
+                    $recommandation = 'installee';
                 } elseif ($exp['etat_exp'] = EtatExperimentation::demandeRetrait) {
                     $recommandation = 'demande_retrait_en_cours';
                 } 
             }
             if (!isset($recommandation))$recommandation = 'pas_de_exp';
 
-            dump($etatExp);
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/details-salle.html.twig', [
             //nom de la salle

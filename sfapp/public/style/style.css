@@ -1048,7 +1048,7 @@ button {
   align-items: flex-start;
 }
 
-.widget-heure {
+.widget-heure, .infos-sa {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1058,20 +1058,20 @@ button {
   width: 300px;
   margin-bottom: 30px;
 }
-.widget-heure .infos {
+.widget-heure .infos, .infos-sa .infos {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   margin-right: 50px;
 }
-.widget-heure h4 {
+.widget-heure h4, .infos-sa h4 {
   font-size: 1.9rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-.widget-heure h5 {
+.widget-heure h5, .infos-sa h5 {
   color: #BABABA;
   font-size: 1.2rem;
 }
@@ -1202,6 +1202,122 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.details-salle .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.details-salle .title h3 {
+  margin-bottom: 0;
+}
+.details-salle .title a {
+  margin-right: 10px;
+}
+.details-salle .donnee {
+  width: 200px;
+}
+
+.infos-sa {
+  width: fit-content;
+}
+.infos-sa svg {
+  margin-left: 30px;
+}
+.infos-sa .sa-etat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.infos-sa h5 {
+  margin-right: 10px;
+}
+.infos-sa h5 span {
+  font-weight: 600;
+}
+
+.container.widget-dg .title {
+  margin-bottom: 20px;
+}
+.container.widget-dg .title h4 {
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+.container.widget-dg .title p {
+  margin-bottom: 0;
+}
+
+.container.data-history {
+  padding: 30px 40px;
+  margin-bottom: 40px;
+}
+.container.data-history table {
+  width: 100%;
+}
+.container.data-history table thead {
+  background: #5D5D5D;
+}
+.container.data-history table th {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  text-align: left;
+  border: 1px solid #737373;
+}
+.container.data-history table td {
+  font-size: 1.2rem;
+  padding: 3px 10px;
+  border: 1px solid #737373;
+}
+.container.data-history .pagination-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: #5D5D5D;
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 8px 20px;
+}
+.container.data-history .pagination-div .pages-boutons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container.data-history .pagination-div p {
+  margin-bottom: 0;
+}
+.container.data-history .pagination-div .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+.container.data-history .pagination-div .pagination span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid #F1F1F1;
+  margin-right: 10px;
+  transition: 0.2s;
+  width: 23px;
+  height: 23px;
+}
+.container.data-history .pagination-div .pagination span:hover {
+  transform: scale(1.1);
+  background: #D7D7D7;
+  color: #5D5D5D;
+}
+.container.data-history .pagination-div .pagination .current {
+  background: #D7D7D7;
+  color: #5D5D5D;
+}
+
+.proposition {
+  margin-bottom: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */

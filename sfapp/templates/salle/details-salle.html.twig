@@ -9,74 +9,137 @@
 
 {% block navlink %}
     <li>
+        <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
+    </li>
+    <li>
+        <a class="nav-link current-page">Salles</a>
+    </li>
+    <li>
         <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
     </li>
 {% endblock %}
 
 {% block appcontent %}
-<div class="app-content cm-pe">
-        <h1 class="">{{ nomsalle }}</h1>
+<div class="app-content tableau-de-bord details-salle">
+        <div class="title">
+            <a class="return-arrow" href="../../liste-salles">
+                <svg xmlns="http://www.w3.org/2000/svg" width="47" height="40" viewBox="0 0 47 40" fill="none">
+                    <path d="M9.63677 21.6039H6.64587L8.74729 23.7322L20.8538 35.9933C21.151 36.2943 21.3207 36.706 21.3207 37.1385C21.3207 37.571 21.151 37.9826 20.8538 38.2836C20.5572 38.5841 20.1584 38.7499 19.746 38.7499C19.3336 38.7499 18.9347 38.5841 18.6381 38.2836L1.71895 21.145L1.71742 21.1435C1.57029 20.9949 1.4527 20.8176 1.37219 20.6212C1.29166 20.4247 1.25 20.2135 1.25 19.9999C1.25 19.7862 1.29166 19.575 1.37219 19.3786C1.45271 19.1821 1.57029 19.0048 1.71742 18.8563L1.71894 18.8547L18.6381 1.71612L17.7538 0.843108L18.6381 1.71612C18.7851 1.56724 18.9587 1.45001 19.1486 1.37033C19.3385 1.29066 19.5414 1.24987 19.746 1.24987C19.9505 1.24987 20.1535 1.29066 20.3433 1.37033C20.5332 1.45001 20.7069 1.56724 20.8538 1.71612L21.7412 0.840088L20.8538 1.71612C21.0008 1.86504 21.1183 2.0427 21.1987 2.23937C21.2792 2.43606 21.3207 2.64743 21.3207 2.86126C21.3207 3.07509 21.2792 3.28646 21.1987 3.48316C21.1183 3.67982 21.0008 3.85748 20.8538 4.00639L8.74746 16.2626L6.64506 18.3911H9.63677H44.1801C44.5913 18.3911 44.9888 18.5563 45.2845 18.8559C45.5807 19.1559 45.75 19.5663 45.75 19.9975C45.75 20.4287 45.5807 20.8391 45.2845 21.1391C44.9888 21.4386 44.5913 21.6039 44.1801 21.6039H9.63677Z" fill="white" stroke="white" stroke-width="2.5"/>
+                </svg>
+            </a>
+            <h3>{{ nomsalle }}</h3>
+        </div>
+
         
-        <div class="">
+        <div class="infos-sa">
+        {% if etat_sa != null %}
         {# Carte d'information sur le sa #}
             <div class="">
             {# partie gauche de la carte #}
-                <h1 class="">{{ etat_sa.nom_sa|default('erreur') }}</h1>
-                <p class="">{{ etat_sa.etat_sa.name|default('aucune donnée') }}</p>
+                <h4>{{ etat_sa.nom_sa }}</h4>
+                <div class="sa-etat">
+                {% if etat_sa.etat_sa.value == 0 %}
+                    <h5>État : <span>Éteint</span> </h5>
+                    <div class="voyant voyant-rouge"></div>
+                {% elseif etat_sa.etat_sa.value == 1 %}
+                <h5>État : <span>En marche</span></h5>
+                    <div class="voyant voyant-vert"></div>
+                {% elseif etat_sa.etat_sa.value == 2 %}
+                <h5>État : <span>Défaillance</span> </h5>
+                    <div class="voyant voyant-orange"></div>
+                {% endif %}
+                </div>
             </div>
             {# image de droite de la carte #}
-            <img src="" alt="" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="85" height="61" viewBox="0 0 85 61" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M42.1667 18.3234C44.8806 18.3219 47.5075 19.2803 49.5829 21.029C51.6583 22.7777 53.0484 25.204 53.5073 27.8789C53.9662 30.5537 53.4643 33.3046 52.0904 35.6451C50.7165 37.9855 48.5592 39.7647 46 40.6679V60.4862H38.3333V40.6679C35.7759 39.7626 33.6207 37.9827 32.2484 35.6425C30.8761 33.3023 30.3751 30.5524 30.8337 27.8785C31.2923 25.2047 32.6812 22.779 34.7549 21.0299C36.8286 19.2807 39.4538 18.3208 42.1667 18.3195V18.3234ZM42.1667 25.99C43.1833 25.99 44.1583 26.3939 44.8772 27.1128C45.5961 27.8317 46 28.8067 46 29.8234C46 30.84 45.5961 31.815 44.8772 32.5339C44.1583 33.2528 43.1833 33.6567 42.1667 33.6567C41.15 33.6567 40.175 33.2528 39.4561 32.5339C38.7372 31.815 38.3333 30.84 38.3333 29.8234C38.3333 28.8067 38.7372 27.8317 39.4561 27.1128C40.175 26.3939 41.15 25.99 42.1667 25.99Z" fill="white"/>
+                <path d="M23.1917 10.8483C20.6963 13.3374 18.7175 16.2952 17.3689 19.5516C16.0203 22.8079 15.3285 26.2987 15.3334 29.8233C15.3334 38.1685 19.1437 45.6243 25.1237 50.5463L30.5786 45.0876C28.2219 43.3018 26.3112 40.9941 24.9963 38.3457C23.6814 35.6973 22.9981 32.7802 23.0001 29.8233C23.0001 24.5333 25.1467 19.7416 28.6121 16.2725L23.1917 10.8483ZM55.7214 16.2648C57.5041 18.0435 58.9176 20.1571 59.8807 22.4839C60.8438 24.8108 61.3375 27.305 61.3334 29.8233C61.3334 36.0563 58.3587 41.5916 53.7549 45.0915L59.2097 50.5502C62.2744 48.0349 64.7424 44.8705 66.4355 41.2855C68.1286 37.7004 69.0045 33.7842 69.0001 29.8195C69.0049 26.2949 68.3132 22.8041 66.9646 19.5477C65.616 16.2914 63.6371 13.3336 61.1417 10.8445L55.7214 16.2648Z" fill="white"/>
+                <path d="M3.46334e-05 29.8233C-0.00707467 24.2838 1.08039 18.7974 3.19997 13.6794C5.31954 8.56134 8.42945 3.91253 12.351 0L17.7714 5.42417C14.5625 8.62474 12.0179 12.428 10.2838 16.6152C8.54971 20.8025 7.6603 25.2912 7.6667 29.8233C7.6608 34.3548 8.55046 38.8428 10.2846 43.0294C12.0187 47.2159 14.563 51.0185 17.7714 54.2187L12.351 59.639C8.42968 55.7279 5.31986 51.0804 3.20026 45.9637C1.08067 40.8469 -0.00690413 35.3617 3.46334e-05 29.8233ZM71.9824 59.6352C75.9034 55.7246 79.0131 51.0778 81.1327 45.9617C83.2523 40.8456 84.34 35.3611 84.3334 29.8233C84.3334 18.1777 79.6145 7.636 71.9824 0.00766611L66.562 5.428C69.7704 8.62812 72.3147 12.4307 74.0488 16.6173C75.7829 20.8039 76.6726 25.2918 76.6667 29.8233C76.6726 34.3548 75.7829 38.8428 74.0488 43.0294C72.3147 47.2159 69.7704 51.0185 66.562 54.2187L71.9824 59.6352Z" fill="white"/>
+            </svg>
+        {% endif %}
         </div>
-        
-        <div class="">
-        {# conteneur données #}
-            <div class="">
-            {# conteneur pour titre et temps #}
-                <h1 class="">donnée instantanées</h1>
-                {% if elapsed < 100 %}<p class="">il y a {{elapsed}}</p>{% endif %}
+
+    {# -------------------------------------------------- #}
+
+
+    {# CONTAINER (données générales) #}
+    <div class="container widget-dg">
+        <div class="title">
+            <h4>Données instantanées</h4>
+            {% if elapsed < 100 %}<p>il y a {{elapsed}}</p>{% endif %}
+        </div>
+        <div class="donnees">
+            <div class="donnee">
+                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
+                    <path d="M38.5 70.5833C31.1743 70.5833 25.0646 68.0701 20.1708 63.0437C15.277 58.0173 12.8312 51.7611 12.8333 44.275C12.8333 40.9597 13.5819 37.6444 15.0792 34.3291C16.5764 31.0139 18.4479 27.8323 20.6937 24.7844C22.9396 21.7364 25.3726 18.8757 27.9927 16.2021C30.6128 13.5285 33.0458 11.2024 35.2917 9.22394C35.7194 8.79616 36.2146 8.48923 36.7771 8.30315C37.3396 8.11706 37.9139 8.02295 38.5 8.02081C39.0882 8.02081 39.6625 8.11492 40.2229 8.30315C40.7833 8.49137 41.2784 8.7983 41.7083 9.22394C43.9542 11.2024 46.3871 13.5285 49.0073 16.2021C51.6274 18.8757 54.0604 21.7364 56.3062 24.7844C58.5521 27.8323 60.4236 31.0139 61.9208 34.3291C63.418 37.6444 64.1667 40.9597 64.1667 44.275C64.1667 51.7611 61.7198 58.0173 56.826 63.0437C51.9322 68.0701 45.8235 70.5833 38.5 70.5833ZM46.5208 57.75C47.8576 57.75 48.9945 57.2816 49.9313 56.3447C50.8681 55.4079 51.3355 54.2721 51.3333 52.9375C51.3333 51.6007 50.8649 50.4639 49.9281 49.527C48.9912 48.5902 47.8555 48.1228 46.5208 48.125C45.184 48.125 44.0472 48.5934 43.1104 49.5302C42.1735 50.4671 41.7062 51.6028 41.7083 52.9375C41.7083 54.2743 42.1767 55.4111 43.1136 56.3479C44.0504 57.2848 45.1862 57.7521 46.5208 57.75ZM28.0729 55.3437C28.7146 55.9854 29.4632 56.3062 30.3187 56.3062C31.1743 56.3062 31.9229 55.9854 32.5646 55.3437L48.9271 38.9812C49.5687 38.3396 49.8896 37.591 49.8896 36.7354C49.8896 35.8798 49.5687 35.1312 48.9271 34.4896C48.2854 33.8479 47.5229 33.5271 46.6395 33.5271C45.7562 33.5271 44.9947 33.8479 44.3552 34.4896L28.0729 50.7719C27.4312 51.4135 27.1104 52.176 27.1104 53.0594C27.1104 53.9428 27.4312 54.7042 28.0729 55.3437ZM30.4792 41.7083C31.816 41.7083 32.9528 41.2399 33.8896 40.3031C34.8265 39.3662 35.2938 38.2305 35.2917 36.8958C35.2917 35.559 34.8232 34.4222 33.8864 33.4854C32.9496 32.5485 31.8138 32.0812 30.4792 32.0833C29.1424 32.0833 28.0055 32.5517 27.0687 33.4886C26.1319 34.4254 25.6645 35.5611 25.6667 36.8958C25.6667 38.2326 26.1351 39.3694 27.0719 40.3063C28.0087 41.2431 29.1445 41.7105 30.4792 41.7083Z" fill="#BABABA"/>
+                </svg>
+                <h4>
+                    {{ dernieres_donnees.hum | default('--') }}%
+                </h4>
+                <p>Humidité</p>
             </div>
-            <div class="">
-            {# conteneur pour les carte de données #}
-                <div class="">
-                {# humidite #}
-                    <img src="" alt="" class="">
-                    <h1 class="">{{ dernieres_donnees.hum|default('--') }}%</h1>
-                    <p class="">Humidité</p>
-                </div>
-                <div class="">
-                {# température #}
-                    <img src="" alt="" class="">
-                    <h1 class="">{{ dernieres_donnees.temp|default('--,-') }}°C</h1>
-                    <p class="">Température</p>
-                </div>
-                <div class="">
-                {# co2 #}
-                    <img src="" alt="" class="">
-                    <h1 class="">{{ dernieres_donnees.co2|default('---') }}ppm</h1>
-                    <p class="">Taux de carbone</p>
-                </div>
+
+            <div class="donnee">
+                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
+                    <path d="M48.125 41.7084V16.0417C48.125 13.489 47.1109 11.0408 45.3059 9.23578C43.5008 7.43075 41.0527 6.41669 38.5 6.41669C35.9473 6.41669 33.4991 7.43075 31.6941 9.23578C29.889 11.0408 28.875 13.489 28.875 16.0417V41.7084C26.1815 43.7285 24.1919 46.5449 23.188 49.7586C22.1841 52.9723 22.2168 56.4204 23.2815 59.6145C24.3462 62.8086 26.3889 65.5867 29.1203 67.5554C31.8516 69.524 35.1331 70.5834 38.5 70.5834C41.8668 70.5834 45.1484 69.524 47.8797 67.5554C50.611 65.5867 52.6537 62.8086 53.7184 59.6145C54.7831 56.4204 54.8159 52.9723 53.812 49.7586C52.8081 46.5449 50.8185 43.7285 48.125 41.7084ZM38.5 12.8334C39.3509 12.8334 40.1669 13.1714 40.7686 13.7731C41.3703 14.3747 41.7083 15.1908 41.7083 16.0417V25.6667H35.2916V16.0417C35.2916 15.1908 35.6297 14.3747 36.2313 13.7731C36.833 13.1714 37.6491 12.8334 38.5 12.8334Z" fill="#BABABA"/>
+                </svg>
+                <h4>
+                    {{ dernieres_donnees.temp | default('--') }}°C
+                </h4>
+                <p>Température</p>
+            </div>
+
+            <div class="donnee">
+                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
+                    <path d="M42.35 26.95C51.8402 26.95 57.2225 33.0099 58.0041 40.3249H58.2428C64.3489 40.3249 69.3 45.0874 69.3 50.9625C69.3 56.8376 64.3489 61.6 58.2428 61.6H26.4572C20.3511 61.6 15.4 56.8376 15.4 50.9625C15.4 45.0874 20.3511 40.3249 26.4572 40.3249H26.6959C27.4851 32.9599 32.8597 26.95 42.35 26.95ZM32.3092 15.4C37.9148 15.4 42.8043 18.5878 45.2182 23.2733C44.2666 23.1566 43.3087 23.0987 42.35 23.1C33.1485 23.1 26.4418 28.132 24.0471 35.7511L23.8084 36.575L23.6313 37.295L22.996 37.4105C20.6711 37.884 18.4994 38.9257 16.6749 40.4426C14.8503 41.9595 13.4296 43.9044 12.5394 46.1038C10.7053 44.9863 9.27543 43.313 8.45758 41.3272C7.63972 39.3413 7.47655 37.1463 7.99179 35.0613C8.50702 32.9763 9.6738 31.11 11.3225 29.7337C12.9712 28.3573 15.016 27.5427 17.1594 27.4082L18.0141 27.3889C18.6078 24.0291 20.3661 20.9859 22.9803 18.7934C25.5944 16.601 28.8974 15.3996 32.3092 15.4Z" fill="#BABABA"/>
+                </svg>
+                <h4>
+                    {{ dernieres_donnees.co2 | default('---') }}ppm
+                </h4>
+                <p>Taux de carbone</p>
             </div>
         </div>
+    </div>
+
+    {# -------------------------------------------------- #}
+
+    {# Proposition si on ajoute la salle au PE ou pas #}
+    <div class="container proposition">
+        {% if recommandation == 'demande_installation_en_cours' %}
+            <p>Demande d'installation en cours pour cette salle...</p>
+        {% elseif recommandation == 'demande_retrait_en_cours' %}
+            <p>Demande de retrait en cours pour cette salle...</p>
+        {% elseif recommandation == 'installee' %}
+            <p>Retire cette salle du plan d'experimentation ? </p>
+            <a href="/charge-de-mission/plan-experimentation/supprimer-salle/{{ nomsalle }}" class="little-gradient-button">Retirer</a>
+        {% elseif recommandation == 'pas_de_exp' %}
+            <p>Ajouter cette salle au plan d'expérimentation ? </p>
+            <a href="/charge-de-mission/plan-experimentation/ajouter-salle/{{ nomsalle }}" class="little-gradient-button">Ajouter</a>
+        {% endif %}
+    </div>
+
+    {# -------------------------------------------------- #}
+
 
         {% if liste_donnee_historique != null %}
-        <h1 class="">Historique</h1>
+        <h3 class="">Historique</h3>
 
-        <div class="">
+        <div class="container data-history">
         {# container historique #}
-            <h1 class="">Dernières données reçus</h1>
+            <h4>Dernières données reçus</h4>
             <table class="table table-hover">
-                <thead class="">
+                <thead>
                     <tr>
                         <th>Date et Heure</th>
-                        <th>Humidité</th>
-                        <th>Température</th>
-                        <th>Taux de carbone</th>
+                        <th>Humidité (%)</th>
+                        <th>Température (°C)</th>
+                        <th>Taux de carbone (ppm)</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for donnees in liste_donnee_historique %}
                     <tr class="table-primary">
-                        <td scope="row">{{ donnees.date }}</td>
+                        <td>{{ donnees.date }}</td>
                         <td>{{ donnees.hum }}</td>
                         <td>{{ donnees.temp }}</td>
                         <td>{{ donnees.co2 }}</td>
@@ -84,29 +147,26 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="">
+            <div class="pagination-div">
             {# container gestion des pages #}
-                <div class="">
-                {# information sur les pages #}
-                    <p class="">Nombre total de lignes : {{ liste_donnee_historique.getTotalItemCount() }}</p>
-                </div>
-                <div class="">
+                <div class="pages-boutons">
                     {# controle des pages #}
                     {{ knp_pagination_render(liste_donnee_historique) }}
                 </div>
+                <p>Nombre total de lignes : {{ liste_donnee_historique.getTotalItemCount() }}</p>
             </div>
         </div>
         {% endif %}
 
 
-        <h1 class="">Archives</h1>
+        <h3>Archives</h3>
 
         {% for archive in liste_de_liste_donnee_archive %}
-            <div class="">
+            <div class="container data-history">
             {# container d'une archive #}
-                <h1 class="">Expérimentation du {{ archive.date_install|date('Y-m-d') }} au {{ archive.date_desinstall|date('Y-m-d') }}</h1>
-                <table>
-                    <thead class="">
+                <h4>Expérimentation du {{ archive.date_install|date('Y-m-d') }} au {{ archive.date_desinstall|date('Y-m-d') }}</h4>
+                <table class="table table-hover">
+                    <thead class>
                     <tr>
                         <th>Date et Heure</th>
                         <th>Humidité</th>
@@ -117,7 +177,7 @@
                 <tbody>
                 {% for donnees in archive.donnees %}
                     <tr class="table-primary">
-                        <td scope="row">{{ donnees.date|default('YYYY-MM-DD') }}</td>
+                        <td>{{ donnees.date|default('YYYY-MM-DD') }}</td>
                         <td>{{ donnees.hum|default('--') }}</td>
                         <td>{{ donnees.temp|default('--,-') }}</td>
                         <td>{{ donnees.co2|default('---') }}</td>
@@ -125,25 +185,17 @@
                 {% endfor %}
                 </tbody>
                 </table>
-                <div class="">
+                <div class="pagination-div">
                 {# container gestion des pages #}
-                    <div class="">
-                    {# information sur les pages #}
-                        <p class="">Nombre total de lignes : {{ archive.donnees.getTotalItemCount() }}</p>
-                    </div>
-                    <div class="">
+                    <div class="pages-boutons">
                         {# controle des pages #}
                         {{ knp_pagination_render(archive.donnees) }}
                     </div>
+                    <p>Nombre total de lignes : {{ archive.donnees.getTotalItemCount() }}</p>
                 </div>
             </div>
         {% endfor %}
 
-        {% if recommandation %}
-            <a href="/charge-de-mission/plan-experimentation/supprimer-salle/{{ nomsalle }}" class="">Faire la demande de retrait de l'expérimentation</a>
-        {% else %}
-            <a href="/charge-de-mission/plan-experimentation/ajouter-salle/{{ nomsalle }}" class="">Ajouter cette salle au plan d'expérimentation</a>
-        {% endif %}
         
 </div>
 {% endblock %}
