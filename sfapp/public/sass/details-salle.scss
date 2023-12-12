@@ -34,6 +34,11 @@
       font-weight: 600;
     }
   }
+  #svg2, #svg3 {
+    opacity: 0; /* Commence avec une opacité de 0 (complètement transparent) */
+    transition: opacity 0.5s ease-in-out; /* Transition d'opacité sur 0.5 seconde */
+  }
+
 }
 
 //----------------------------------

@@ -1237,6 +1237,10 @@ button {
 .infos-sa h5 span {
   font-weight: 600;
 }
+.infos-sa #svg2, .infos-sa #svg3 {
+  opacity: 0; /* Commence avec une opacité de 0 (complètement transparent) */
+  transition: opacity 0.5s ease-in-out; /* Transition d'opacité sur 0.5 seconde */
+}
 
 .container.widget-dg .title {
   margin-bottom: 20px;
