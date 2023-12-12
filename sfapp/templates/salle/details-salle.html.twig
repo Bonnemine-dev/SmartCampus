@@ -15,47 +15,44 @@
 
 {% block appcontent %}
 <div class="app-content cm-pe">
-        <h1 class="">D306</h1>
+        <h1 class="">{{ nomsalle }}</h1>
         
         <div class="">
-        {% if etat_sa != null %}
         {# Carte d'information sur le sa #}
             <div class="">
             {# partie gauche de la carte #}
-                <h1 class="">{{ etat_sa.nom_sa }}</h1>
-                <p class="">{{ etat_sa.etat_sa.name }}</p>
+                <h1 class="">{{ etat_sa.nom_sa|default('erreur') }}</h1>
+                <p class="">{{ etat_sa.etat_sa.name|default('aucune donnée') }}</p>
             </div>
             {# image de droite de la carte #}
             <img src="" alt="" class="">
         </div>
-        {% endif %}
-
         
         <div class="">
         {# conteneur données #}
             <div class="">
             {# conteneur pour titre et temps #}
                 <h1 class="">donnée instantanées</h1>
-                <p class="">il y a {{elapsed}}</p>
+                {% if elapsed < 100 %}<p class="">il y a {{elapsed}}</p>{% endif %}
             </div>
             <div class="">
             {# conteneur pour les carte de données #}
                 <div class="">
                 {# humidite #}
                     <img src="" alt="" class="">
-                    <h1 class="">{{ dernieres_donnees.hum }}%</h1>
+                    <h1 class="">{{ dernieres_donnees.hum|default('--') }}%</h1>
                     <p class="">Humidité</p>
                 </div>
                 <div class="">
                 {# température #}
                     <img src="" alt="" class="">
-                    <h1 class="">{{ dernieres_donnees.temp }}°C</h1>
+                    <h1 class="">{{ dernieres_donnees.temp|default('--,-') }}°C</h1>
                     <p class="">Température</p>
                 </div>
                 <div class="">
                 {# co2 #}
                     <img src="" alt="" class="">
-                    <h1 class="">{{ dernieres_donnees.co2 }}ppm</h1>
+                    <h1 class="">{{ dernieres_donnees.co2|default('---') }}ppm</h1>
                     <p class="">Taux de carbone</p>
                 </div>
             </div>
@@ -143,9 +140,9 @@
         {% endfor %}
 
         {% if recommandation %}
-            <a href="" class="">Faire la demande de retrait de l'expérimentation</a>
+            <a href="/charge-de-mission/plan-experimentation/supprimer-salle/{{ nomsalle }}" class="">Faire la demande de retrait de l'expérimentation</a>
         {% else %}
-            <a href="" class="">Ajouter cette salle au plan d'expérimentation</a>
+            <a href="/charge-de-mission/plan-experimentation/ajouter-salle/{{ nomsalle }}" class="">Ajouter cette salle au plan d'expérimentation</a>
         {% endif %}
         
 </div>

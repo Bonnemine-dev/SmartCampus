@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Config\EtatExperimentation;
+use App\Config\EtatSA;
 use App\Entity\Experimentation;
 use App\Repository\SARepository;
 use App\Service\JsonDataHandling;
@@ -140,8 +142,27 @@ class SalleController extends AbstractController
                 'donnees' => $donneesPagine]);
             $i++;    
             }
+            
+            //determine quel recommandation faire
+            $etatExp = $experimentationRepository->etatExp($nomsalle) ?? null;
+            foreach ($etatExp as $exp) 
+            {
+                if ($exp['etat_exp'] = EtatExperimentation::demandeInstallation ) {
+                    $recommandation = 'demande_installation_en_cours';
+                } elseif ($exp['etat_exp'] = EtatExperimentation::installee) {
+                    $retrecommandation = 'installee';
+                } elseif ($exp['etat_exp'] = EtatExperimentation::demandeRetrait) {
+                    $recommandation = 'demande_retrait_en_cours';
+                } 
+            }
+            if (!isset($recommandation))$recommandation = 'pas_de_exp';
+
+            dump($etatExp);
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/details-salle.html.twig', [
+            //nom de la salle
+            'nomsalle' => $nomsalle,
+            //Infoemration sur le sa présent dans la salle si il existe
             'etat_sa' => $etat_sa ?? null,
             //dernière données de la salle, null si inexistantes
             'dernieres_donnees' => $dernieres_donnees ?? null,
@@ -152,7 +173,7 @@ class SalleController extends AbstractController
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
             'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'recommandation' => $experimentationRepository->aUneExperimentation($nomsalle)
+            'recommandation' => $recommandation ?? null
         ]);
     }
 }

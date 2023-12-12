@@ -472,43 +472,21 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function aUneExperimentation($nomsalle)
-        {
-            $entityManager = $this->getEntityManager();
+    public function etatExp($nomsalle)
+    {
+    $dql = '
+    SELECT experimentation.etat as etat_exp
+    FROM App\Entity\Experimentation experimentation
+    JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
+    WHERE salle.nom = :nomsalle
+    ';
 
-            $query = $entityManager->createQuery('
-                SELECT COUNT(exp.id)
-                FROM App\Entity\Experimentation exp
-                JOIN App\Entity\Salle salle WITH exp.Salles = salle.id
-                WHERE salle.nom = :nomsalle
-                AND exp.id = :experimentationId
-                AND exp.etat IN (1, 2)
-            ');
-
-            $query->setParameter('nomsalle', $nomsalle);
-            $query->setParameter('experimentationId', 1);
-
-            // Exécutez la requête et récupérez le nombre de résultats
-            $count = $query->getSingleScalarResult();
-
-            // Si le nombre de résultats est supérieur à 0, cela signifie qu'une expérimentation existe
-            return $count > 0;
-
-            $dql = '
-        SELECT COUNT(experimentation.dateinstallation) as nb_exp
-        FROM App\Entity\Experimentation experimentation
-        JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
-        WHERE salle.nom = :nomsalle
-        AND experimentation.etat IN (:etat_installee,:etat_demandeRetrait)
-        ';
-            return $this
-                ->getEntityManager()
-                ->createQuery($dql)
-                ->setParameter('nomsalle', $nomsalle)
-                ->setParameter('etat_installee', EtatExperimentation::installee)
-                ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
-                ->getOneOrNullResult() != 0;
-        }
+        return $this
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('nomsalle', $nomsalle)
+            ->getResult();
+    }
 
     /*
      * Fonctions qui retourne une liste des experimentations qui ont eu lieu dans une salle de nom $nomSalle

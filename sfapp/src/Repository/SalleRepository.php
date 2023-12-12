@@ -173,7 +173,7 @@ class SalleRepository extends ServiceEntityRepository
             {
                 if($nom_salle == $salle[$i+1]['nom_salle'])
                 {
-                    unset($salle[$i]);
+                    unset($salle[$i+1]);
                 }else{
                     $nom_salle = $salle[$i+1]['nom_salle'];
                 }
