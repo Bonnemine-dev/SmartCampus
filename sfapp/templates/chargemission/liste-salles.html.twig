@@ -16,8 +16,48 @@
     </li>
 {% endblock %}
 
+{% block sidebar %}
+    <div class="filtre">
+        <h3>FILTRES</h3>
+
+        <!--Le popup lui même-->
+        {{ form_start(filtreSalleForm, {'attr': {'class': 'popup-filtre-salles'}}) }}
+        {{ form_label(filtreSalleForm.etage) }}
+        {{ form_widget(filtreSalleForm.etage) }}
+
+        {{ form_label(filtreSalleForm.orientation) }}
+        {{ form_widget(filtreSalleForm.orientation) }}
+
+        {{ form_label(filtreSalleForm.ordinateurs) }}
+        {{ form_widget(filtreSalleForm.ordinateurs) }}
+
+        {{ form_label(filtreSalleForm.sa) }}
+        {{ form_widget(filtreSalleForm.sa) }}
+
+        <button type="submit">Valider</button>
+        <button type="button" id="resetButton">Réinitialiser</button>
+        {{ form_row(filtreSalleForm._token) }}
+        {{ form_end(filtreSalleForm, {'render_rest': false}) }}
+    </div>
+{% endblock %}
+
 {% block appcontent %}
     <div class="app-content liste-exp">
+        {# Affichage des messages de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# Affichage des messages d'erreur #}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# --------------------------------------------- #}
 
         {# Titre #}
         <h3>Salles en cours d'analyse</h3>
@@ -28,30 +68,43 @@
         <div class="container">
             <h4>Liste des salles</h4>
 
-            {# Barre de recherche (à faire) #}
+            {# -------------------------------------------- #}
 
-            {# ---------------------------------------------- #}
+            {# Partie Recherche #}
+
+            <div class="search-and-filter">
+
+                {{ form_start(rechercheSalleForm) }}
+                {{ form_widget(rechercheSalleForm.batiment) }}
+                {{ form_widget(rechercheSalleForm.salle) }}
+
+                <button type='submit'><img src="{{ asset('img/search.svg') }}" alt="Rechercher"></button>
+                {{ form_row(rechercheSalleForm._token) }}
+                {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+            </div>
+
+            {# ------------------------------------------------------------- #}
 
             {# Liste des salles #}
 
             <div class="liste-salles">
-            {% for i in 0..liste_experimentations|length-1 %}
+            {% for exp in liste_experimentations %}
                 <div class="salle">
                     <div class="salle-titre">
-                        {% if liste_experimentations[i].sa_etat.value == 0 %} {# eteint #}
+                        {% if exp.sa_etat.value == 0 %} {# eteint #}
                             <span class="voyant voyant-rouge"></span>
-                        {% elseif liste_experimentations[i].sa_etat.value == 1 %} {# marche #}
+                        {% elseif exp.sa_etat.value == 1 %} {# marche #}
                             <span class="voyant voyant-vert"></span>
-                        {% elseif liste_experimentations[i].sa_etat.value == 2 %} {# probleme #}
+                        {% elseif exp.sa_etat.value == 2 %} {# probleme #}
                             <span class="voyant voyant-orange"></span>
                         {% endif %}
-                        <h5>{{ liste_experimentations[i].nom }}</h5>
+                        <h5>{{ exp.nom }}</h5>
                         <div class="divider"> </div>
                     </div>
 
 
                     {% for j in 0..listeDerniereValeur|length-1 %}
-                        {% if liste_experimentations[i].nom == listeDerniereValeur[j].localisation %}
+                        {% if exp.nom == listeDerniereValeur[j].localisation %}
                             <div class="salle-donnees">
                             <h6>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
@@ -74,7 +127,7 @@
                             </h6>
                             </div>
 
-                            <a href="/charge-de-mission/liste-salles/details-salle/{{liste_experimentations[i].nom}}" class="salle-bouton">
+                            <a href="/charge-de-mission/liste-salles/details-salle/{{exp.nom}}" class="salle-bouton">
                                 Détails
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                     <path d="M15.68 5.7925C15.5912 5.57869 15.4213 5.40879 15.2075 5.32C15.1023 5.27516 14.9894 5.25138 14.875 5.25H6.12501C5.89294 5.25 5.67038 5.34219 5.50629 5.50628C5.3422 5.67038 5.25001 5.89294 5.25001 6.125C5.25001 6.35706 5.3422 6.57962 5.50629 6.74372C5.67038 6.90781 5.89294 7 6.12501 7H12.7663L5.50376 14.2538C5.42175 14.3351 5.35665 14.4319 5.31223 14.5385C5.26781 14.6451 5.24493 14.7595 5.24493 14.875C5.24493 14.9905 5.26781 15.1049 5.31223 15.2115C5.35665 15.3181 5.42175 15.4149 5.50376 15.4962C5.5851 15.5783 5.68188 15.6434 5.7885 15.6878C5.89513 15.7322 6.0095 15.7551 6.12501 15.7551C6.24052 15.7551 6.35489 15.7322 6.46151 15.6878C6.56814 15.6434 6.66492 15.5783 6.74626 15.4962L14 8.23375V14.875C14 15.1071 14.0922 15.3296 14.2563 15.4937C14.4204 15.6578 14.6429 15.75 14.875 15.75C15.1071 15.75 15.3296 15.6578 15.4937 15.4937C15.6578 15.3296 15.75 15.1071 15.75 14.875V6.125C15.7486 6.01066 15.7248 5.89769 15.68 5.7925Z" fill="white"/>

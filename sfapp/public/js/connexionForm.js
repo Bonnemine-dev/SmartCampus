@@ -12,7 +12,7 @@ function afficherFormTechnicien() {
 function afficherFormChargeMission() {
     document.getElementById('username').value = 'chargemission';
     document.querySelector('.connexion-form h2').innerHTML = 'charge de mission';
-    document.getElementById('target-path').value = '/charge-de-mission/plan-experimentation';
+    document.getElementById('target-path').value = '/charge-de-mission/tableau-de-bord';
     // Afficher le pop-up
     formOverlay.style.display = 'flex';
 }

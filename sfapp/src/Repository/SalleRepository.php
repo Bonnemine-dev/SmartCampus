@@ -181,4 +181,21 @@ class SalleRepository extends ServiceEntityRepository
         }
         return $salle;
     }
+
+    public function SAAssocie($nomsalle) {
+        $dql = '
+        SELECT sa.nom as nom_sa, sa.etat as etat_sa
+        FROM App\Entity\Salle salle
+        JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
+        JOIN App\Entity\SA sa WITH experimentation.SA = sa.id
+        WHERE salle.nom = :nomsalle 
+        AND experimentation.etat IN (1,2)
+    ';
+
+        $query = $this->getEntityManager()->createQuery($dql);
+
+        $query->setParameter('nomsalle', $nomsalle);
+
+        return $query->getOneOrNullResult();
+    }
 }

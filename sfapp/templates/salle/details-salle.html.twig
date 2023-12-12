@@ -15,18 +15,21 @@
 
 {% block appcontent %}
 <div class="app-content cm-pe">
-        <h1 class="">D306 - Historique - Archive</h1>
+        <h1 class="">D306</h1>
         
         <div class="">
+        {% if etat_sa != null %}
         {# Carte d'information sur le sa #}
             <div class="">
             {# partie gauche de la carte #}
-                <h1 class="">nom du saa</h1>
-                <p class="">etat du sa</p>
+                <h1 class="">{{ etat_sa.nom_sa }}</h1>
+                <p class="">{{ etat_sa.etat_sa.name }}</p>
             </div>
             {# image de droite de la carte #}
             <img src="" alt="" class="">
         </div>
+        {% endif %}
+
         
         <div class="">
         {# conteneur données #}

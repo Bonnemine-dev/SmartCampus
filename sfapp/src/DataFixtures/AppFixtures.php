@@ -9,6 +9,8 @@ use App\Entity\Donnees;
 use App\Entity\Salle;
 use App\Entity\SA;
 use App\Entity\Experimentation;
+use App\Repository\SalleRepository;
+use App\Repository\SARepository;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -17,13 +19,16 @@ use Faker\Generator;
 
 class AppFixtures extends Fixture
 {
-
     private Generator $faker;
+    private $salleRepository;
+    private $saRepository;
 
     // Initialisation du générateur Faker dans le constructeur.
-    public function __construct()
+    public function __construct(SalleRepository $salleRepository, SARepository $saRepository)
     {
         $this->faker = Factory::create('fr_FR');
+        $this->salleRepository = $salleRepository;
+        $this->saRepository = $saRepository;
     }
     // Méthode principale pour charger les données de test dans la base de données.
     public function load(ObjectManager $manager): void
@@ -71,36 +76,81 @@ class AppFixtures extends Fixture
         $quatresas = array_rand($sas,4);
 
         // Création de 10 expérimentations avec des dates de demande et d'installation aléatoires.
-        for ($i=0; $i < 4; $i++) {
-            $exp = new Experimentation();
-            $dateTimeNow = new DateTime($dateTime = 'now');
-            $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
-            $exp->setDateinstallation($dateTimeNow);
-            $sas[$quatresas[$i]]->setDisponible(false);//Rend le sa indisponible
-            if($exp->getDateinstallation() != null)
-            {   
-                $exp->setEtat($this->faker->randomElement([EtatExperimentation::installee,EtatExperimentation::demandeRetrait,EtatExperimentation::retiree]));//met l'etat de façon aléatoire sur les 3 autres etats possible
-                if($exp->getEtat() == EtatExperimentation::retiree)
-                {
-                    $sas[$quatresas[$i]]->setDisponible(true);
-                }
-                else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)
-                {
-                    $sas[$quatresas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
-                }
-            }
-            else
-            {
-                $exp->setEtat(EtatExperimentation::demandeInstallation);//met l'etat sur demmande
-            }
-            $exp->setSalles($manager->getRepository(Salle::class)->findOneBy(['nom'=>$quatresalles[0]]));
-            unset($quatresalles[0]);
-            $quatresalles = array_values($quatresalles);
-            $exp->setSA($sas[$quatresas[$i]]);
-            $manager->persist($exp);
-        }
+        // for ($i=0; $i < 4; $i++) {
+        //     $exp = new Experimentation();
+        //     $dateTimeNow = new DateTime($dateTime = 'now');
+        //     $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
+        //     $exp->setDateinstallation($dateTimeNow);
+        //     $sas[$quatresas[$i]]->setDisponible(false);//Rend le sa indisponible
+        //     if($exp->getDateinstallation() != null)
+        //     {   
+        //         $exp->setEtat($this->faker->randomElement([EtatExperimentation::installee,EtatExperimentation::demandeRetrait,EtatExperimentation::retiree]));//met l'etat de façon aléatoire sur les 3 autres etats possible
+        //         if($exp->getEtat() == EtatExperimentation::retiree)
+        //         {
+        //             $sas[$quatresas[$i]]->setDisponible(true);
+        //         }
+        //         else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)
+        //         {
+        //             $sas[$quatresas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         $exp->setEtat(EtatExperimentation::demandeInstallation);//met l'etat sur demmande
+        //     }
+        //     $exp->setSalles($manager->getRepository(Salle::class)->findOneBy(['nom'=>$quatresalles[0]]));
+        //     unset($quatresalles[0]);
+        //     $quatresalles = array_values($quatresalles);
+        //     $exp->setSA($sas[$quatresas[$i]]);
+        //     $manager->persist($exp);
+        // }
 
         // Exécution des opérations d'écriture dans la base de données.
+        $manager->flush();
+
+        $sa = new SA();
+        $sa->setEtat(EtatSA::eteint);
+        $sa->setDisponible(true);
+        $number = $this->faker->bothify('####');
+        $sa->setNumero($number);
+        $sa->setNom('fixture');
+        $manager->persist($sa);
+        $manager->flush();
+
+        $experimentation = new Experimentation();
+
+        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
+        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
+        $experimentation->setEtat(EtatExperimentation::installee);
+        $experimentation->setDatedemande(new \DateTime('2021-01-01 00:00:00'));
+        $experimentation->setDateinstallation(new \DateTime('2021-01-02 00:00:00'));
+        $experimentation->setDatedesinstallation(null);
+
+        $manager->persist($experimentation);
+        $manager->flush();
+
+        $experimentation = new Experimentation();
+
+        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
+        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
+        $experimentation->setEtat(EtatExperimentation::retiree);
+        $experimentation->setDatedemande(new \DateTime('2020-01-01 00:00:00'));
+        $experimentation->setDateinstallation(new \DateTime('2020-01-02 00:00:00'));
+        $experimentation->setDatedesinstallation(new \DateTime('2020-02-01 00:00:00'));
+
+        $manager->persist($experimentation);
+        $manager->flush();
+
+        $experimentation = new Experimentation();
+
+        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
+        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
+        $experimentation->setEtat(EtatExperimentation::retiree);
+        $experimentation->setDatedemande(new \DateTime('2020-03-01 00:00:00'));
+        $experimentation->setDateinstallation(new \DateTime('2020-03-02 00:00:00'));
+        $experimentation->setDatedesinstallation(new \DateTime('2020-04-01 00:00:00'));
+    
+        $manager->persist($experimentation);
         $manager->flush();
     }
 }

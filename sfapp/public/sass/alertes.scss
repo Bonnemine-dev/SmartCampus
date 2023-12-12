@@ -31,3 +31,15 @@ $sidebar-width: 320px;
         background-color: #ff5050;
     }
 }
+
+// Badge de notifications
+.notif-badge{
+    @include flex();
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff5050;
+    color: #FFF;
+    font-size: 0.8rem;
+    font-weight: 500;
+}

@@ -61,8 +61,15 @@ class SalleController extends AbstractController
     }
 
     #[Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')]
-    public function details_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,Request $request,$nomsalle): Response
+    public function details_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
+        //salle inexistante ?
+        if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
+            return $this->redirectToRoute('liste_salles');
+        } 
+
+        $etat_sa = $salleRepository->SAAssocie($nomsalle);
+
         //lecture du fichier JSON
         $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
         $jsonContent = file_get_contents($jsonFilePath);
@@ -109,9 +116,9 @@ class SalleController extends AbstractController
                 'donnees' => $donneesPagine]);
             $i++;    
             }
-
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/details-salle.html.twig', [
+            'etat_sa' => $etat_sa ?? null,
             //dernière données de la salle, null si inexistantes
             'dernieres_donnees' => $dernieres_donnees ?? null,
             //liste de toutes les données de l'expérimentation en cours, null si inexistantes
