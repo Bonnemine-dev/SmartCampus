@@ -109,24 +109,12 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         $sa = new SA();
-        $sa->setEtat(EtatSA::eteint);
-        $sa->setDisponible(true);
+        $sa->setEtat(EtatSA::marche);
+        $sa->setDisponible(false);
         $number = $this->faker->bothify('####');
         $sa->setNumero($number);
         $sa->setNom('fixture');
         $manager->persist($sa);
-        $manager->flush();
-
-        $experimentation = new Experimentation();
-
-        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
-        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
-        $experimentation->setEtat(EtatExperimentation::installee);
-        $experimentation->setDatedemande(new \DateTime('2021-01-01 00:00:00'));
-        $experimentation->setDateinstallation(new \DateTime('2021-01-02 00:00:00'));
-        $experimentation->setDatedesinstallation(null);
-
-        $manager->persist($experimentation);
         $manager->flush();
 
         $experimentation = new Experimentation();
@@ -149,7 +137,19 @@ class AppFixtures extends Fixture
         $experimentation->setDatedemande(new \DateTime('2020-03-01 00:00:00'));
         $experimentation->setDateinstallation(new \DateTime('2020-03-02 00:00:00'));
         $experimentation->setDatedesinstallation(new \DateTime('2020-04-01 00:00:00'));
-    
+
+        $manager->persist($experimentation);
+        $manager->flush();
+
+        $experimentation = new Experimentation();
+
+        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
+        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
+        $experimentation->setEtat(EtatExperimentation::installee);
+        $experimentation->setDatedemande(new \DateTime('2021-01-01 00:00:00'));
+        $experimentation->setDateinstallation(new \DateTime('2021-01-02 00:00:00'));
+        $experimentation->setDatedesinstallation(null);
+
         $manager->persist($experimentation);
         $manager->flush();
     }

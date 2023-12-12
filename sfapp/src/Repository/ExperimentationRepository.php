@@ -361,6 +361,7 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getResult();
         $Exp = $Exp[0];
         $Exp->setEtat($etat);
+        $entityManager = $this->getEntityManager();
         if ($etat == EtatExperimentation::retiree) {
             $Exp->getSA()->setDisponible(1);
         }
