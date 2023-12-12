@@ -228,6 +228,19 @@ class ExperimentationRepository extends ServiceEntityRepository
                 unset($exp[$i]);
             }
         }
+
+        $exp = array_values($exp);
+        $len = count($exp);
+        if (count($exp) > 2) {
+            $salle = $exp[0]['nom'];
+            for ($i = 0; $i < $len - 1; $i++) {
+                if ($salle == $exp[$i + 1]['nom']) {
+                    unset($exp[$i + 1]);
+                } else {
+                    $salle = $exp[$i + 1]['nom'];
+                }
+            }
+        }
         return $exp;
     }
 
@@ -304,23 +317,23 @@ class ExperimentationRepository extends ServiceEntityRepository
                         $index = count($salles) - 1; // L'index de la nouvelle salle
                     }
 
-                    // Remplir les valeurs correspondantes avec les dernières données
-                    switch ($item['nom']) {
-                        case 'co2':
-                            $salles[$index]['co2'] = $item['valeur'];
-                            break;
-                        case 'hum':
-                            $salles[$index]['hum'] = $item['valeur'];
-                            break;
-                        case 'temp':
-                            $salles[$index]['temp'] = $item['valeur'];
-                            break;
-                    }
-                    $salles[$index]['dateCapture'] = $item['dateCapture'];
+                        // Remplir les valeurs correspondantes avec les dernières données
+                        switch ($item['nom']) {
+                            case 'co2':
+                                $salles[$index]['co2'] = $item['valeur'];
+                                break;
+                            case 'hum':
+                                $salles[$index]['hum'] = $item['valeur'];
+                                break;
+                            case 'temp':
+                                $salles[$index]['temp'] = $item['valeur'];
+                                break;
+                        }
+                        $salles[$index]['dateCapture'] = $item['dateCapture'];
+
                 }
             }
         }
-
         return $salles;
     }
 
@@ -410,22 +423,6 @@ class ExperimentationRepository extends ServiceEntityRepository
         }
         $Exp = $Exp[0];
         return $Exp->getEtat();
-    }
-
-    public function triexperimentation($exp)
-    {
-        $len = count($exp);
-        if (count($exp) > 2) {
-            $salle = $exp[0]['nom_salle'];
-            for ($i = 0; $i < $len - 1; $i++) {
-                if ($salle == $exp[$i + 1]['nom_salle']) {
-                    unset($exp[$i + 1]);
-                } else {
-                    $salle = $exp[$i + 1]['nom_salle'];
-                }
-            }
-        }
-        return $exp;
     }
 
     public function listerLesIntervallesArchives($nomsalle)
