@@ -1083,20 +1083,19 @@ button {
 }
 .container.widget-dg .donnees {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
 }
 .container.widget-dg .donnees .donnee {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  flex: 0 0 auto; /* Empêche les éléments de se comprimer */
   background: #5D5D5D;
   padding: 10px 20px;
   border-radius: 15px;
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 .container.widget-dg .donnees .donnee:last-child {
   margin-right: 0;
@@ -1112,6 +1111,7 @@ button {
   color: #BABABA;
   font-size: 1.1rem;
   margin-bottom: 0;
+  text-align: center;
 }
 
 .container.widget-salles {

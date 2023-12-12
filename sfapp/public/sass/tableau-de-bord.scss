@@ -40,16 +40,16 @@
   padding: 30px;
 
   .donnees{
-    @include flex($justify: flex-start);
-    flex-wrap: wrap;
+    @include flex($justify: space-between);
+    //flex-wrap: wrap;
 
     .donnee{
       @include flex-column($justify: space-between, $align: center);
-      flex: 0 0 auto; /* Empêche les éléments de se comprimer */
       background: $grey-3;
       padding: 10px 20px;
       border-radius : 15px;
       margin-right: 20px;
+      margin-bottom: 20px;
     }
 
     .donnee:last-child{
@@ -68,6 +68,7 @@
       color: $grey-5;
       font-size: 1.1rem;
       margin-bottom: 0;
+      text-align: center;
     }
   }
 }
