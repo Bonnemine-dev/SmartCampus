@@ -224,7 +224,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         $exp = $queryBuilder->getQuery()->getResult();
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
-            if ($exp[$i]['sa_etat'] == null) {
+            if ($exp[$i]['sa_etat'] == null or $exp[$i]['etat'] == 4 or $exp[$i]['etat'] == EtatExperimentation::retiree or $exp[$i]['etat'] == EtatExperimentation::demandeInstallation) {
                 unset($exp[$i]);
             }
         }
@@ -279,7 +279,7 @@ class ExperimentationRepository extends ServiceEntityRepository
         $exp = $queryBuilder->getQuery()->getResult();
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
-            if ($exp[$i]['sa_etat'] == null) {
+            if ($exp[$i]['sa_etat'] == null or $exp[$i]['etat'] == 4 or $exp[$i]['etat'] == EtatExperimentation::retiree or $exp[$i]['etat'] == EtatExperimentation::demandeInstallation) {
                 unset($exp[$i]);
             }
         }
