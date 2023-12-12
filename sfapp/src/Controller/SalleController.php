@@ -80,23 +80,25 @@ class SalleController extends AbstractController
         //extraction des dernière donnée d'une salle si il y en a pas alors est null
         $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nomsalle);
 
-        $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);
-        $now = new \DateTime();
-        $interval = $date_de_capture->diff($now);
-
-        // Format l'intervalle de temps de manière lisible
-        if ($interval->y > 0) {
-            $elapsed = $interval->y . ' années';
-        } elseif ($interval->m > 0) {
-            $elapsed = $interval->m . ' mois';
-        } elseif ($interval->d > 0) {
-            $elapsed = $interval->d . ' jours';
-        } elseif ($interval->h > 0) {
-            $elapsed = $interval->h . ' heures';
-        } elseif ($interval->i > 0) {
-            $elapsed = $interval->i . ' minutes';
-        } else {
-            $elapsed = $interval->s . ' secondes';
+        if($dernieres_donnees['date_de_capture'] != null){
+            $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);
+            $now = new \DateTime();
+            $interval = $date_de_capture->diff($now);
+    
+            // Format l'intervalle de temps de manière lisible
+            if ($interval->y > 0) {
+                $elapsed = $interval->y . ' années';
+            } elseif ($interval->m > 0) {
+                $elapsed = $interval->m . ' mois';
+            } elseif ($interval->d > 0) {
+                $elapsed = $interval->d . ' jours';
+            } elseif ($interval->h > 0) {
+                $elapsed = $interval->h . ' heures';
+            } elseif ($interval->i > 0) {
+                $elapsed = $interval->i . ' minutes';
+            } else {
+                $elapsed = $interval->s . ' secondes';
+            }
         }
 
         // Envoie cette chaîne à Twig
@@ -164,7 +166,7 @@ class SalleController extends AbstractController
             //dernière données de la salle, null si inexistantes
             'dernieres_donnees' => $dernieres_donnees ?? null,
             //temps écoulé depuis la dernière remonté de données
-            'elapsed' => $elapsed,
+            'elapsed' => $elapsed ?? null,
             //liste de toutes les données de l'expérimentation en cours, null si inexistantes
             'liste_donnee_historique' => $liste_donnee_historique ?? null,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes

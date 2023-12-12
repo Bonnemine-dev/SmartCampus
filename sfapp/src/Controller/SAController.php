@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Form\AjoutSAFormType;
 use App\Repository\SARepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\JsonDataHandling;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SAController extends AbstractController
 {
@@ -79,5 +80,58 @@ class SAController extends AbstractController
         $this->addFlash('success', "Le système d'acquisition " . $nomsa . " à été supprimé avec succès.");
         // Redirection
         return $this->redirectToRoute('gestion_sa');
+    }
+
+    #[Route('/technicien/gestion-sa/details-sa/{nomsa}', name: 'details_sa')]
+    public function details_sa(JsonDataHandling $JsonDataHandling_service, SARepository $saRepository,$nomsa): Response
+    {
+        //salle inexistante ?
+        if ($saRepository->findOneBy(['nom' => $nomsa]) === null) {
+            return $this->redirectToRoute('gestion_sa');
+        } 
+
+        $etat_sa = $saRepository->findOneBy(['nom' => $nomsa]);
+
+        //lecture du fichier JSON
+        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
+        $jsonContent = file_get_contents($jsonFilePath);
+        $dataArray = json_decode($jsonContent, true);
+
+        //Recherche le nom de la salle dans laquelle se trouve le SA
+        $nom_salle_associe_sa = $saRepository->salle_associe_sa($nomsa);
+        //Récupère les dernières données remonté par le SA
+        if($nom_salle_associe_sa != null)$dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nom_salle_associe_sa['nom']);
+
+        if($nom_salle_associe_sa != null and $dernieres_donnees['date_de_capture'] != null){
+        $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);
+        $now = new \DateTime();
+        $interval = $date_de_capture->diff($now);
+
+        // Format l'intervalle de temps de manière lisible
+        if ($interval->y > 0) {
+            $elapsed = $interval->y . ' années';
+        } elseif ($interval->m > 0) {
+            $elapsed = $interval->m . ' mois';
+        } elseif ($interval->d > 0) {
+            $elapsed = $interval->d . ' jours';
+        } elseif ($interval->h > 0) {
+            $elapsed = $interval->h . ' heures';
+        } elseif ($interval->i > 0) {
+            $elapsed = $interval->i . ' minutes';
+        } else {
+            $elapsed = $interval->s . ' secondes';
+        }
+    }
+        // Afficher la vue de salle details avec le résultat de l'existence
+        return $this->render('sa/details-sa.html.twig', [
+            //nom du SA
+            'nomsa' => $nomsa,
+            //Informations sur le SA
+            'etat_sa' => $etat_sa ?? null,
+            //dernière données de la salle, null si inexistantes
+            'dernieres_donnees' => $dernieres_donnees ?? null,
+            //temps écoulé depuis la dernière remonté de données
+            'elapsed' => $elapsed ?? null,            
+        ]);
     }
 }

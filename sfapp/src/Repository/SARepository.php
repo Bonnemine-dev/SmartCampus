@@ -260,4 +260,20 @@ class SARepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    public function salle_associe_sa($nomsa){
+        $dql = '
+        SELECT salle.nom
+        FROM App\Entity\Salle salle
+        JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
+        JOIN App\Entity\SA sa WITH experimentation.SA = sa.id
+        WHERE sa.nom = :nomsa 
+        AND experimentation.etat IN (1,2)
+    ';
+
+        $query = $this->getEntityManager()->createQuery($dql);
+
+        $query->setParameter('nomsa', $nomsa);
+
+        return $query->getOneOrNullResult();
+    }
 }
