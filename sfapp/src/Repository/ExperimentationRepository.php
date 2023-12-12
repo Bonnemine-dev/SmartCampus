@@ -383,6 +383,23 @@ class ExperimentationRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    public function triexperimentation($exp)
+    {
+        $len = count($exp);
+        if (count($exp) > 2) {
+            $salle = $exp[0]['nom_salle'];
+            for ($i = 0; $i < $len - 1; $i++) {
+                if ($salle == $exp[$i + 1]['nom_salle']) {
+                    unset($exp[$i + 1]);
+                } else {
+                    $salle = $exp[$i + 1]['nom_salle'];
+                }
+            }
+        }
+        return $exp;
+    }
+
+
     public function trouveExperimentationsNonRetirer()
     {
         $queryBuilder = $this->createQueryBuilder('experimentation')
