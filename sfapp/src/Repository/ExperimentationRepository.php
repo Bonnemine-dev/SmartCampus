@@ -221,9 +221,10 @@ class ExperimentationRepository extends ServiceEntityRepository
                     break;
             }
         }
-
         // Exécutez la requête et retournez les résultats.
+        $queryBuilder->andWhere('experimentation.etat = 1 OR experimentation.etat = 2');
         $exp = $queryBuilder->getQuery()->getResult();
+
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
             if ($exp[$i]['sa_etat'] == null) {
@@ -366,7 +367,6 @@ class ExperimentationRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         if($etat == EtatExperimentation::retiree){
             $Exp->getSA()->setDisponible(1);
-            $Exp->setSA(null);
         }
 
         $entityManager->persist($Exp);

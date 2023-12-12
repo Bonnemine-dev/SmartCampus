@@ -66,6 +66,26 @@ class SARepository extends ServiceEntityRepository
         ');
         // Exécuter la requête
         $resultat = $query->getResult();
+        foreach ($resultat as &$exp) {
+            if ($exp['exp_etat'] == EtatExperimentation::retiree) {
+                $exp['salle_nom'] = null;
+            }
+        }
+
+        $len = count($resultat);
+        for($i = 0;$i<$len;$i++){
+            $nom_sa = $resultat[$i]['sa_nom'];
+            $nombre_occurrences = 0;
+            foreach ($resultat as $element) {
+                if ($element['sa_nom'] === $nom_sa) {
+                    $nombre_occurrences++;
+                }
+            }
+
+            if($resultat[$i]['exp_etat'] == EtatExperimentation::retiree and $resultat[$i]['salle_nom'] == null and $nombre_occurrences >= 2){
+                unset($resultat[$i]);
+            }
+        }
 
         // Retourner true si une expérimentation est trouvée, sinon false
         return $resultat;
@@ -82,12 +102,48 @@ class SARepository extends ServiceEntityRepository
             ->leftJoin('sa.experimentations', 'experimentation')
             ->leftJoin('experimentation.Salles', 'salle');
 
-            $exp = $queryBuilder->getQuery()->getResult();
        
             if (!empty($etat) && $etat !== null) {
-                $queryBuilder->andWhere($queryBuilder->expr()->in('sa.etat', ':etat'))
-                    ->setParameter('etat', $etat);
+                foreach ($etat as $one) {
+                    $queryBuilder->andWhere($queryBuilder->expr()->in('sa.etat', ':etat'));
+                    switch ($one) {
+                        case 0:
+                            $queryBuilder->setParameter('etat', EtatSA::eteint);
+                            break;
+                        case 1:
+                            $queryBuilder->setParameter('etat', EtatSA::marche);
+                            break;
+                        case 2:
+                            $queryBuilder->setParameter('etat', EtatSA::probleme);
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
+
+        $exp = $queryBuilder->getQuery()->getResult();
+        // Exécuter la requête
+        foreach ($exp as &$one_exp) {
+            if ($one_exp['exp_etat'] == EtatExperimentation::retiree) {
+                $one_exp['salle_nom'] = null;
+            }
+        }
+
+        $len = count($exp);
+        for($i = 0;$i<$len;$i++){
+            $nom_sa = $exp[$i]['sa_nom'];
+            $nombre_occurrences = 0;
+            foreach ($exp as $element) {
+                if ($element['sa_nom'] === $nom_sa) {
+                    $nombre_occurrences++;
+                }
+            }
+
+            if($exp[$i]['exp_etat'] == EtatExperimentation::retiree and $exp[$i]['salle_nom'] == null and $nombre_occurrences >= 2){
+                unset($exp[$i]);
+            }
+        }
 
             if (count($localisation) === 1 && $localisation !== null) {
                 if ($localisation[0] === 'salle') {
@@ -96,7 +152,7 @@ class SARepository extends ServiceEntityRepository
                     $exp = $queryBuilder->getQuery()->getResult();
                     $len = count($exp);
                     for($i = 0;$i<$len;$i++){
-                        if($exp[$i]['exp_etat'] == EtatExperimentation::retiree){
+                        if($exp[$i]['exp_etat'] == EtatExperimentation::retiree or $exp[$i]['salle_nom'] == null){
                             unset($exp[$i]);
                         }
                     }
@@ -105,11 +161,14 @@ class SARepository extends ServiceEntityRepository
                     $exp = $queryBuilder->getQuery()->getResult();
                     $len = count($exp);
                     for($i = 0;$i<$len;$i++){
-                        if($exp[$i]['exp_etat'] == EtatExperimentation::installee or $exp[$i]['exp_etat'] == EtatExperimentation::demandeInstallation or $exp[$i]['exp_etat'] == EtatExperimentation::demandeRetrait){
+                        if($exp[$i]['exp_etat'] == EtatExperimentation::installee or $exp[$i]['exp_etat'] == EtatExperimentation::demandeInstallation or $exp[$i]['exp_etat'] == EtatExperimentation::demandeRetrait or $exp[$i]['sa_etat'] != EtatSA::eteint){
                             unset($exp[$i]);
                         }
                     }
-                }                
+                }
+            }
+            if ($localisation == null and $etat == null) {
+                $exp = $this->toutLesSA();
             }
 
         return $exp;
@@ -174,25 +233,6 @@ class SARepository extends ServiceEntityRepository
         {
             if ($un_sa['exp_etat'] == EtatExperimentation::retiree) {
                 $un_sa['salle_nom'] = null;
-            }
-        }
-
-        $len = count($sa);
-        if($len>2){
-            $nom_sa = $sa[0]['sa_nom'];
-            for($i = 0 ; $i < $len-1 ; $i ++)
-            {
-                if($nom_sa == $sa[$i+1]['sa_nom'])
-                {
-                    if ($sa[$i]['salle_nom'] == null) {
-                        unset($sa[$i]);
-                    }
-                    else {
-                        unset($sa[$i+1]);
-                    }
-                }else{
-                    $nom_sa = $sa[$i+1]['sa_nom'];
-                }
             }
         }
 

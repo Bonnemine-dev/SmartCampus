@@ -56,6 +56,7 @@ class ExperimentationController extends AbstractController
         // Utilisez la méthode du repository pour modifier l'état de l'expérimentation
         if ($etat == "installee") {
             $nouvelEtat = EtatExperimentation::installee;
+            $SARepository->changerEtatSA($nomsalle, EtatSA::marche);
         } else if ($etat == "retiree") {
             $nouvelEtat = EtatExperimentation::retiree;
             $SARepository->changerEtatSA($nomsalle, EtatSA::eteint);
