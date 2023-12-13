@@ -283,6 +283,19 @@ class ExperimentationRepository extends ServiceEntityRepository
                 unset($exp[$i]);
             }
         }
+
+        $exp = array_values($exp);
+        $len = count($exp);
+        if (count($exp) > 2) {
+            $salle = $exp[0]['nom'];
+            for ($i = 0; $i < $len - 1; $i++) {
+                if ($salle == $exp[$i + 1]['nom']) {
+                    unset($exp[$i + 1]);
+                } else {
+                    $salle = $exp[$i + 1]['nom'];
+                }
+            }
+        }
         return $exp;
     }
 

@@ -177,7 +177,7 @@ class SARepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery('
-            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat, experimentation.etat as exp_etat
+            SELECT sa.nom as sa_nom, salle.nom as salle_nom, sa.etat as sa_etat, experimentation.etat as exp_etat 
             FROM App\Entity\SA sa
             LEFT JOIN App\Entity\Experimentation experimentation WITH sa.id = experimentation.SA
             LEFT JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
@@ -187,7 +187,17 @@ class SARepository extends ServiceEntityRepository
         // Exécuter la requête
         $query->setParameter('contient_ce_string', $contient_ce_string);
         $resultat = $query->getResult();
-
+        $len = count($resultat);
+        if (count($resultat) > 2) {
+            $sa = $resultat[0]['sa_nom'];
+            for ($i = 0; $i < $len - 1; $i++) {
+                if ($sa == $resultat[$i + 1]['sa_nom']) {
+                    unset($resultat[$i]);
+                } else {
+                    $sa = $resultat[$i + 1]['sa_nom'];
+                }
+            }
+        }
         return $resultat;
     }
 

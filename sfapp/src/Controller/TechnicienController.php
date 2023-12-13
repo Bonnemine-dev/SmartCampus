@@ -53,14 +53,7 @@ class TechnicienController extends AbstractController
         else if ($rechercheSAForm->isSubmitted() && $rechercheSAForm->isValid()) {
             $dataRecherche = $rechercheSAForm->getData();
             // Extraire les données et les utiliser pour rechercher les salles
-            if($dataRecherche['sa_nom'] == '')
-            {
-                $liste_sa = $saRepository->toutLesSA();
-            }
-            else
-            {
-                $liste_sa = $saRepository->rechercheSA($dataRecherche['sa_nom']);
-            }
+            $liste_sa = $saRepository->rechercheSA($dataRecherche['sa_nom']);
             if(empty($liste_sa))$this->addFlash('error', "Votre recherche " . $dataRecherche['sa_nom'] . " ne correspond ni a un système d'acquisition ni a une salle");
         }
         else $liste_sa = $saRepository->toutLesSA();
