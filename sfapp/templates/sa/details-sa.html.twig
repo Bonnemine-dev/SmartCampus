@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SmartCampus. - Chargé de mission
+{% block title %}Detail SA: {{ nomsa }} - Chargé de mission
 {% endblock %}
 
 
@@ -8,15 +8,8 @@
 {% endblock %}
 
 {% block navlink %}
-    <li>
-        <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
-    </li>
-    <li>
-        <a class="nav-link current-page">Salles</a>
-    </li>
-    <li>
-        <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
-    </li>
+    <li><a class="nav-link current-page" href="liste-souhaits">Plan d'expérimentation</a></li>
+    <li><a class="nav-link" href="gestion-sa">Gestion des SA</a></li>
 {% endblock %}
 
 {% block appcontent %}
