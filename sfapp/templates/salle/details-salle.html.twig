@@ -107,23 +107,6 @@
 
     {# -------------------------------------------------- #}
 
-    {# Proposition si on ajoute la salle au PE ou pas #}
-    <div class="container proposition">
-        {% if recommandation == 'demande_installation_en_cours' %}
-            <p>Demande d'installation en cours pour cette salle...</p>
-        {% elseif recommandation == 'demande_retrait_en_cours' %}
-            <p>Demande de retrait en cours pour cette salle...</p>
-        {% elseif recommandation == 'installee' %}
-            <p>Retirer cette salle du plan d'experimentation ? </p>
-            <a href="/charge-de-mission/plan-experimentation/supprimer-salle/{{ nomsalle }}" class="little-gradient-button">Retirer</a>
-        {% elseif recommandation == 'pas_de_exp' %}
-            <p>Ajouter cette salle au plan d'expérimentation ? </p>
-            <a href="/charge-de-mission/plan-experimentation/ajouter-salle/{{ nomsalle }}" class="little-gradient-button">Ajouter</a>
-        {% endif %}
-    </div>
-
-    {# -------------------------------------------------- #}
-
 
         {% if liste_donnee_historique != null %}
         <h3 class="">Historique</h3>
