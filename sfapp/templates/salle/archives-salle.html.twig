@@ -33,28 +33,28 @@
             <h3>{{ nomsalle }}</h3>
         </div>
 
-        {% if liste_donnee_historique != null %}
-            <h3 class="">Historique</h3>
+        <h3>Archives</h3>
 
+        {% for archive in liste_de_liste_donnee_archive %}
             <div class="container data-history">
-                {# container historique #}
-                <h4>Dernières données reçus</h4>
+                {# container d'une archive #}
+                <h4>Expérimentation du {{ archive.date_install|date('Y-m-d') }} au {{ archive.date_desinstall|date('Y-m-d') }}</h4>
                 <table class="table table-hover">
-                    <thead>
+                    <thead class>
                     <tr>
                         <th>Date et Heure</th>
-                        <th>Humidité (%)</th>
-                        <th>Température (°C)</th>
-                        <th>Taux de carbone (ppm)</th>
+                        <th>Humidité</th>
+                        <th>Température</th>
+                        <th>Taux de carbone</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for donnees in liste_donnee_historique %}
+                    {% for donnees in archive.donnees %}
                         <tr class="table-primary">
-                            <td>{{ donnees.date }}</td>
-                            <td>{{ donnees.hum }}</td>
-                            <td>{{ donnees.temp }}</td>
-                            <td>{{ donnees.co2 }}</td>
+                            <td>{{ donnees.date|default('YYYY-MM-DD') }}</td>
+                            <td>{{ donnees.hum|default('--') }}</td>
+                            <td>{{ donnees.temp|default('--,-') }}</td>
+                            <td>{{ donnees.co2|default('---') }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -63,12 +63,14 @@
                     {# container gestion des pages #}
                     <div class="pages-boutons">
                         {# controle des pages #}
-                        {{ knp_pagination_render(liste_donnee_historique) }}
+                        {{ knp_pagination_render(archive.donnees) }}
                     </div>
-                    <p>Nombre total de lignes : {{ liste_donnee_historique.getTotalItemCount() }}</p>
+                    <p>Nombre total de lignes : {{ archive.donnees.getTotalItemCount() }}</p>
                 </div>
             </div>
-        {% endif %}
+        {% endfor %}
+
+
     </div>
 {% endblock %}
 

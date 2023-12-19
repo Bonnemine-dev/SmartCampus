@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TechnicienController extends AbstractController
@@ -73,7 +74,7 @@ class TechnicienController extends AbstractController
     }
 
     #[Route('/technicien/modifier', name: 'app_modifier')]
-    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager ): Response
+    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager , UserPasswordHasherInterface $hasher ): Response
     {
         $user = $repository->rechercheUser('technicien');
         $userForm = $this->createForm(UserType::class);
@@ -82,16 +83,11 @@ class TechnicienController extends AbstractController
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             $data = $userForm->getData();
-            $userVerif = new User();
-            $userVerif->setUsername('verif');
-            $userVerif->setRoles(['ROLE_VERIF']);
-            $userVerif->setPlainPassword($data['MDP']);
-            $manager->persist($userVerif);
 
             if($data['PlainPassword'] != $data['verif']){
                 $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
             }
-            else if($userVerif->getPassword() != $user->getPassword()){
+            else if(!$hasher->isPasswordValid($user,$data['MDP'])){
                 $this->addFlash('error', "mot de passe actuel incorrects");
             }
             else if(strlen($data['PlainPassword']) < 8 )
@@ -111,6 +107,7 @@ class TechnicienController extends AbstractController
                 $user->setPlainPassword($data['PlainPassword']);
                 $manager->persist($user);
                 $manager->flush();
+                $this->addFlash('success', "mot de passe modifier !");
             }
 
         }

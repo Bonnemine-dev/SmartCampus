@@ -199,7 +199,7 @@ class ChargeMissionController extends AbstractController
     #[Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')]
     public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
-        $user = $repository->rechercheUser('technicien');
+        $user = $repository->rechercheUser('chargemission');
         $userForm = $this->createForm(UserType::class);
         $userForm->handleRequest($request);
         $erreur = null;
@@ -210,7 +210,7 @@ class ChargeMissionController extends AbstractController
             if($data['PlainPassword'] != $data['verif']){
                 $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
             }
-            else if($hasher->isPasswordValid($user,$data['MDP'])){
+            else if(!$hasher->isPasswordValid($user,$data['MDP'])){
                 $this->addFlash('error', "mot de passe actuel incorrects");
             }
             else if(strlen($data['PlainPassword']) < 8 )
@@ -230,6 +230,7 @@ class ChargeMissionController extends AbstractController
                 $user->setPlainPassword($data['PlainPassword']);
                 $manager->persist($user);
                 $manager->flush();
+                $this->addFlash('success', "mot de passe modifier !");
             }
 
         }

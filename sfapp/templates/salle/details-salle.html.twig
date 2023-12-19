@@ -101,48 +101,22 @@
     <div class="container widget-dg ">
         <h3 class="">Historique</h3>
         {% if liste_donnee_historique != null %}
-            <a href="historique/{{ nomsalle }}" class="little-gradient-button">Aller Voir</a>
+            <a href="../historique/{{ nomsalle }}" class="little-gradient-button">Aller Voir</a>
         {% else %}
             <a href=# class="little-unclickable-button">Aller Voir</a>
         {% endif %}
     </div>
 
         <h3>Archives</h3>
+    <div class="container widget-dg ">
+        <h3 class="">Archives</h3>
+        {% if liste_de_liste_donnee_archive != null %}
+            <a href="../archives/{{ nomsalle }}" class="little-gradient-button">Aller Voir</a>
+        {% else %}
+            <a href=# class="little-unclickable-button">Aller Voir</a>
+        {% endif %}
+    </div>
 
-        {% for archive in liste_de_liste_donnee_archive %}
-            <div class="container data-history">
-            {# container d'une archive #}
-                <h4>Expérimentation du {{ archive.date_install|date('Y-m-d') }} au {{ archive.date_desinstall|date('Y-m-d') }}</h4>
-                <table class="table table-hover">
-                    <thead class>
-                    <tr>
-                        <th>Date et Heure</th>
-                        <th>Humidité</th>
-                        <th>Température</th>
-                        <th>Taux de carbone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for donnees in archive.donnees %}
-                    <tr class="table-primary">
-                        <td>{{ donnees.date|default('YYYY-MM-DD') }}</td>
-                        <td>{{ donnees.hum|default('--') }}</td>
-                        <td>{{ donnees.temp|default('--,-') }}</td>
-                        <td>{{ donnees.co2|default('---') }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                </table>
-                <div class="pagination-div">
-                {# container gestion des pages #}
-                    <div class="pages-boutons">
-                        {# controle des pages #}
-                        {{ knp_pagination_render(archive.donnees) }}
-                    </div>
-                    <p>Nombre total de lignes : {{ archive.donnees.getTotalItemCount() }}</p>
-                </div>
-            </div>
-        {% endfor %}
 
         
 </div>

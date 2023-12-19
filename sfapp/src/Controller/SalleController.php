@@ -65,10 +65,11 @@ class SalleController extends AbstractController
     #[Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')]
     public function details_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
+        $liste_donnee_historique = null;
         //salle inexistante ?
-        if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
+        if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null or !$experimentationRepository->estExistante($nomsalle)) {
             return $this->redirectToRoute('liste_salles');
-        } 
+        }
 
         $etat_sa = $salleRepository->SAAssocie($nomsalle);
 
@@ -157,6 +158,15 @@ class SalleController extends AbstractController
                 }
             }
             if(!isset($recommandation))$recommandation = 'pas_de_exp';
+
+        if($liste_donnee_historique != null)
+        {
+            if($liste_donnee_historique->getTotalItemCount() == 0){
+                $liste_donnee_historique = null;
+            }
+        }
+
+
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/details-salle.html.twig', [
             //nom de la salle
@@ -176,7 +186,7 @@ class SalleController extends AbstractController
         ]);
     }
 
-    #[Route('/charge-de-mission/liste-salles/details-salle/historique/{nomsalle}', name: 'historique_salle')]
+    #[Route('/charge-de-mission/liste-salles/historique/{nomsalle}', name: 'historique_salle')]
     public function historique_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
         $liste_donnee_historique = null;
@@ -205,16 +215,72 @@ class SalleController extends AbstractController
             );
         }
 
-        if($liste_donnee_historique  == null){
+        if($liste_donnee_historique  == null or $liste_donnee_historique->getTotalItemCount() == 0){
             return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
         }
-
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/historique-salle.html.twig', [
             //nom de la salle
             'nomsalle' => $nomsalle,
             //liste de toutes les données de l'expérimentation en cours, null si inexistantes
             'liste_donnee_historique' => $liste_donnee_historique ?? null,
+        ]);
+    }
+
+    #[Route('/charge-de-mission/liste-salles/archives/{nomsalle}', name: 'archives_salle')]
+    public function archives_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    {
+        //salle inexistante ?
+        if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
+            return $this->redirectToRoute('liste_salles');
+        }
+
+        $etat_sa = $salleRepository->SAAssocie($nomsalle);
+
+        //lecture du fichier JSON
+        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
+        $jsonContent = file_get_contents($jsonFilePath);
+        $dataArray = json_decode($jsonContent, true);
+
+        //Obtention via BD de toutes les intervalles des expérimentation qui son terminées
+        $liste_intervalles = $experimentationRepository->listerLesIntervallesArchives($nomsalle);
+
+        //Initialisation du tableau qui sera envoié à la twig
+        $liste_de_liste_donnee_archive = [];
+        $i = 1;
+
+        //parcours tous les intervalles et pour chaque intervalla extrait les données du json qui
+        //sont dans cet intervalle et dont la salle à le nom voulue
+        foreach ($liste_intervalles as $intervalle) {
+            $donneesPagine = $paginator->paginate(
+                $JsonDataHandling_service->extraireDonneeSurIntervalle($dataArray,$nomsalle,$intervalle['date_install'],$intervalle['date_desinstall']),
+                $request->query->getInt('pageA'.$i,1),
+                10,[
+                    'pageParameterName' => 'pageA'.$i, // Spécifiez le nom du paramètre de page pour la première entité
+                ]
+            );
+
+            array_push($liste_de_liste_donnee_archive, [
+                'date_install' => $intervalle['date_install'],
+                'date_desinstall' => $intervalle['date_desinstall'],
+                'donnees' => $donneesPagine]);
+            $i++;
+        }
+
+        if($liste_de_liste_donnee_archive  == null){
+            return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
+        }
+
+        // Afficher la vue de salle details avec le résultat de l'existence
+        return $this->render('salle/archives-salle.html.twig', [
+            //nom de la salle
+            'nomsalle' => $nomsalle,
+            //Infoemration sur le sa présent dans la salle si il existe
+            'etat_sa' => $etat_sa ?? null,
+            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
+            'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
+            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
+            'recommandation' => $recommandation ?? null
         ]);
     }
 }
