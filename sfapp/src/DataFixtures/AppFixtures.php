@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use App\Entity\Batiment;
-use App\Entity\Donnees;
+use App\Entity\User;
 use App\Entity\Salle;
 use App\Entity\SA;
 use App\Entity\Experimentation;
@@ -16,6 +16,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -151,6 +152,23 @@ class AppFixtures extends Fixture
         $experimentation->setDatedesinstallation(null);
 
         $manager->persist($experimentation);
+
+        $manager->flush();
+
+        $user = new User();
+        $user->setUsername('technicien');
+        $user->setRoles(['technicien']);
+        $user->setPlainPassword('technicien');
+
+        $manager->persist($user);
+        $manager->flush();
+
+        $user = new User();
+        $user->setUsername('chargemission');
+        $user->setRoles(['chargemission']);
+        $user->setPlainPassword('chargemission');
+
+        $manager->persist($user);
         $manager->flush();
     }
 }
