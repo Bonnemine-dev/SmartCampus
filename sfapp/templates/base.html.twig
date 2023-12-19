@@ -30,20 +30,25 @@
     <div class="left-content">
         <!-- Affichage du nom d'utilisateur -->
         <p>
-            {% if app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
+            {% if app.user == null %}
+
+            {% elseif app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
                 Chargé de mission
+                <!-- Icône utilisateur -->
+                <img  src="{{ asset('img/user.png') }}" alt="Icone user">
             {% elseif app.user.roles[0] == 'ROLE_TECHNICIEN' %}
                 Technicien
+                <!-- Icône utilisateur -->
+                <img  src="{{ asset('img/user.png') }}" alt="Icone user">
             {% endif %}
         </p>
-
-        <!-- Icône utilisateur -->
-        <img  src="{{ asset('img/user.png') }}" alt="Icone user">
     </div>
 </div>
 
+
 <!-- Contenu de l'application avec barre latérale -->
 <div class="app-container">
+    {% if app.user != null %}
     <div class="sidebar">
         <div class="menu">
             <h3>Menu</h3>
@@ -56,7 +61,7 @@
         {% block sidebar %}
         {% endblock %}
     </div>
-
+    {% endif %}
     <!-- Contenu principal à définir dans les vues enfants -->
     {% block appcontent %}
 
