@@ -50,6 +50,24 @@
             <ul>
                 <!-- Liens du menu à personnaliser dans les vues enfants -->
                 {% block navlink %}
+                    {% if app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
+                        <li>
+                            <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
+                        </li>
+                        <li>
+                            <a class="nav-link current-page">Salles</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/charge-de-mission/modifier">Modifier le mot de passe</a>
+                        </li>
+                    {% elseif app.user.roles[0] == 'ROLE_TECHNICIEN' %}
+                        <li><a class="nav-link current-page" href="/technicien/liste-souhaits">Plan d'expérimentation</a></li>
+                        <li><a class="nav-link" href="/technicien/gestion-sa">Gestion des SA</a></li>
+                        <li><a class="nav-link" href="/technicien/modifier">Modifier le mot de passe</a></li>
+                    {% endif %}
                 {% endblock %}
             </ul>
         </div>
