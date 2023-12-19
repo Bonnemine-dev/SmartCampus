@@ -20,12 +20,12 @@ final class Version20231219100407 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE experimentation CHANGE sa_id sa_id INT DEFAULT NULL, CHANGE datedemande datedemande DATETIME DEFAULT NULL');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, plain_password VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE experimentation CHANGE sa_id sa_id INT NOT NULL, CHANGE datedemande datedemande DATETIME NOT NULL');
+        $this->addSql('DROP TABLE user');
     }
 }
