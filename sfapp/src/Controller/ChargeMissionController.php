@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExperimentationRepository;
 
@@ -200,29 +201,34 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')]
-    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager ): Response
+    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
         $user = $repository->rechercheUser('technicien');
         $userForm = $this->createForm(UserType::class);
         $userForm->handleRequest($request);
+        $erreur = null;
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             $data = $userForm->getData();
-            $userVerif = new User();
-            $userVerif->setUsername('verif');
-            $userVerif->setRoles(['ROLE_VERIF']);
-            $userVerif->setPlainPassword($data['MDP']);
-            $manager->persist($userVerif);
 
             if($data['PlainPassword'] != $data['verif']){
                 $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
             }
-            else if(strlen($data['PlainPassword']) < 1 )
-            {
-                $this->addFlash('error', "Veuillez entrer un mot de passe (le champ ne peut pas être vide).");
+            else if($hasher->isPasswordValid($user,$data['MDP'])){
+                $this->addFlash('error', "mot de passe actuel incorrects");
             }
-            else if($userVerif->getPassword() != $user->getPassword()){
-                $this->addFlash('error', "mot de passe incorrects");
+            else if(strlen($data['PlainPassword']) < 8 )
+            {
+                $erreur = "Le mot de passe doit contenir au moins 8 caractère";
+            }
+            else if(preg_match('/[a-z]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins une minuscule";
+            }
+            else if(preg_match('/[A-Z]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins une majuscule";
+            }
+            else if(preg_match('/[^a-zA-Z0-9]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins un un caractère spécial";
             }
             else{
                 $user->setPlainPassword($data['PlainPassword']);
@@ -234,6 +240,7 @@ class ChargeMissionController extends AbstractController
         // Rend la vue avec la liste des expérimentations.
         return $this->render('connexion/modifier.html.twig', [
             'userForm' => $userForm->createView() ,
+            'erreur' => $erreur ,
         ]);
     }
 }
