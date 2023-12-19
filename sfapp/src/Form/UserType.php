@@ -14,10 +14,24 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('MDP', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Mot de passe actuel'
+                ],
+                'label' => false,
+            ])
             ->add('PlainPassword', TextType::class, [
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Mot de passe'
+                ],
+                'label' => false,
+            ])
+            ->add('verif', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Confirmer votre mot de passe'
                 ],
                 'label' => false,
             ])

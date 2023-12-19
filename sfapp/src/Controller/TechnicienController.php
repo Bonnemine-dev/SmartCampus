@@ -78,16 +78,37 @@ class TechnicienController extends AbstractController
         $user = $repository->rechercheUser('technicien');
         $userForm = $this->createForm(UserType::class);
         $userForm->handleRequest($request);
+        $erreur = null;
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             $data = $userForm->getData();
-            $user->setPlainPassword($data['PlainPassword']);
-            $manager->persist($user);
-            $manager->flush();
+            $userVerif = new User();
+            $userVerif->setUsername('verif');
+            $userVerif->setRoles(['ROLE_VERIF']);
+            $userVerif->setPlainPassword($data['MDP']);
+            $manager->persist($userVerif);
+
+            if($data['PlainPassword'] != $data['verif']){
+                $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
+            }
+            else if(strlen($data['PlainPassword']) < 1 )
+            {
+                $this->addFlash('error', "Veuillez entrer un mot de passe (le champ ne peut pas être vide).");
+            }
+            else if($userVerif->getPassword() != $user->getPassword()){
+                $this->addFlash('error', "mot de passe incorrects");
+            }
+            else{
+                $user->setPlainPassword($data['PlainPassword']);
+                $manager->persist($user);
+                $manager->flush();
+            }
+
         }
         // Rend la vue avec la liste des expérimentations.
         return $this->render('connexion/modifier.html.twig', [
             'userForm' => $userForm->createView() ,
+            'erreur' => $erreur
         ]);
     }
 }

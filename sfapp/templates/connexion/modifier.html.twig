@@ -23,10 +23,13 @@
         {# --------------------------------------------- #}
 
         <h3 class="">Modifier son mot de passe</h3>
-        <div class="search-and-filter">
+        <div class="sa-form">
 
             {{ form_start(userForm) }}
+            {{ form_widget(userForm.MDP) }}
             {{ form_widget(userForm.PlainPassword) }}
+            {{ form_widget(userForm.verif) }}
+            <p class="erreur-form">{{ erreur }}</p>
 
             <button type='submit'>Modifier</button>
             {{ form_row(userForm._token) }}

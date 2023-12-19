@@ -18,7 +18,7 @@ class ConnexionController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
 
         if ($error){
-            $this->addFlash('error', 'Connexion impossible : Identifiants ou mot de passe incorrects');
+            $this->addFlash('error', 'Connexion impossible : mot de passe incorrects');
         }
 
         // last username entered by the user
