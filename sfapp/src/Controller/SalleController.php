@@ -179,49 +179,16 @@ class SalleController extends AbstractController
     #[Route('/charge-de-mission/liste-salles/details-salle/historique/{nomsalle}', name: 'historique_salle')]
     public function historique_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
+        $liste_donnee_historique = null;
         //salle inexistante ?
         if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
             return $this->redirectToRoute('liste_salles');
         }
 
-        if(!$experimentationRepository->verifierExperimentation($nomsalle)){
-            return $this->redirectToRoute('details_salle');
-        }
-
-        $etat_sa = $salleRepository->SAAssocie($nomsalle);
-
         //lecture du fichier JSON
         $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
         $jsonContent = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonContent, true);
-
-        //extraction des dernière donnée d'une salle si il y en a pas alors est null
-        $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nomsalle);
-
-        if($dernieres_donnees['date_de_capture'] != null){
-            $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);
-            $now = new \DateTime();
-            $interval = $date_de_capture->diff($now);
-
-            // Format l'intervalle de temps de manière lisible
-            if ($interval->y > 0) {
-                $elapsed = $interval->y . ' années';
-            } elseif ($interval->m > 0) {
-                $elapsed = $interval->m . ' mois';
-            } elseif ($interval->d > 0) {
-                $elapsed = $interval->d . ' jours';
-            } elseif ($interval->h > 0) {
-                $elapsed = $interval->h . ' heures';
-            } elseif ($interval->i > 0) {
-                $elapsed = $interval->i . ' minutes';
-            } else {
-                $elapsed = $interval->s . ' secondes';
-            }
-        }
-
-        // Envoie cette chaîne à Twig
-        // par exemple, en utilisant quelque chose comme
-        // $twig->render('mon_template.twig', ['elapsed' => $elapsed]);
 
 
         //Obtention via BD de la date de début de l'expérimentation en cours
@@ -237,34 +204,17 @@ class SalleController extends AbstractController
                 ]
             );
         }
-        //determine quel recommandation faire
-        $etatExp = $experimentationRepository->etatExp($nomsalle) ?? null;
-        foreach ($etatExp as $exp) {
-            if ($exp['etat_exp'] == EtatExperimentation::demandeInstallation ) {
-                $recommandation = 'demande_installation_en_cours';
-            } elseif ($exp['etat_exp'] == EtatExperimentation::installee) {
-                $recommandation = 'installee';
-            } elseif ($exp['etat_exp'] == EtatExperimentation::demandeRetrait) {
-                $recommandation = 'demande_retrait_en_cours';
-            }
+
+        if($liste_donnee_historique  == null){
+            return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
         }
-        if(!isset($recommandation))$recommandation = 'pas_de_exp';
+
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/historique-salle.html.twig', [
             //nom de la salle
             'nomsalle' => $nomsalle,
-            //Infoemration sur le sa présent dans la salle si il existe
-            'etat_sa' => $etat_sa ?? null,
-            //dernière données de la salle, null si inexistantes
-            'dernieres_donnees' => $dernieres_donnees ?? null,
-            //temps écoulé depuis la dernière remonté de données
-            'elapsed' => $elapsed ?? null,
             //liste de toutes les données de l'expérimentation en cours, null si inexistantes
             'liste_donnee_historique' => $liste_donnee_historique ?? null,
-            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
-            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'recommandation' => $recommandation ?? null
         ]);
     }
 }
