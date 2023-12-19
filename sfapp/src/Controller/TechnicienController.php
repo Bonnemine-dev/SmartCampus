@@ -78,7 +78,6 @@ class TechnicienController extends AbstractController
         $user = $repository->rechercheUser('technicien');
         $userForm = $this->createForm(UserType::class);
         $userForm->handleRequest($request);
-        $erreur = null;
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             $data = $userForm->getData();
@@ -108,7 +107,6 @@ class TechnicienController extends AbstractController
         // Rend la vue avec la liste des expérimentations.
         return $this->render('connexion/modifier.html.twig', [
             'userForm' => $userForm->createView() ,
-            'erreur' => $erreur
         ]);
     }
 }
