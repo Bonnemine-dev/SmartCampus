@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Config\EtatExperimentation;
-use App\Entity\Experimentation;
 use App\Form\FiltreSalleFormType;
 use App\Form\RechercheSalleFormType;
 use App\Repository\SalleRepository;
@@ -43,6 +41,7 @@ class ChargeMissionController extends AbstractController
                 $dataFiltre['ordinateurs'] ?? null,
                 $dataFiltre['sa'] ?? null
             );
+
         }
 
         // Recherche des salles en fonction du formulaire de recherche
@@ -56,10 +55,8 @@ class ChargeMissionController extends AbstractController
         }
 
         // Logique métier supplémentaire
-        $salles = $salleRepository->triListeSalle($salles);
         $nb_sa = $saRepository->compteSASansExperimentation();
         $batiments = $batimentRepository->findAll();
-
 
         // Passer les instances de formulaire au template
         return $this->render('chargemission/plan-experimentation.html.twig', [
@@ -86,7 +83,7 @@ class ChargeMissionController extends AbstractController
 
         // Initialisation des résultats de la salle
         $salles = $salleRepository->filtrerSallePlanExp();
-        $liste_experimentations = $experimentationRepository->filtrerextraireLesExperimentations();
+        $liste_experimentations = $experimentationRepository->filtreExperimentationAnalyse();
 
         // Filtrage des salles en fonction du formulaire de filtre
         if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
@@ -98,7 +95,7 @@ class ChargeMissionController extends AbstractController
                 $dataFiltre['ordinateurs'] ?? null,
                 $dataFiltre['sa'] ?? null
             );
-            $liste_experimentations = $experimentationRepository->filtrerextraireLesExperimentations(
+            $liste_experimentations = $experimentationRepository->filtreExperimentationAnalyse(
                 $dataFiltre['etage'] ?? null,
                 $dataFiltre['orientation'] ?? null,
                 $dataFiltre['ordinateurs'] ?? null,
@@ -114,7 +111,7 @@ class ChargeMissionController extends AbstractController
                 $dataRecherche['batiment'] ?? null,
                 $dataRecherche['salle'] ?? null
             );
-            $liste_experimentations = $experimentationRepository->rechercheextraireLesExperimentations(
+            $liste_experimentations = $experimentationRepository->rechercheExperimentationAnalyse(
                 $dataRecherche['batiment'] ?? null,
                 $dataRecherche['salle'] ?? null
             );
@@ -187,9 +184,9 @@ class ChargeMissionController extends AbstractController
         $moyDonnees = $experimentationRepository->moyennesDonnees($dataArray);
 
         return $this->render('chargemission/tableau-de-bord.html.twig', [
-             'temp_moy' => $moyDonnees[0],
-             'hum_moy' => $moyDonnees[1],
-             'taux_carbone_moy' => $moyDonnees[2],
+             'temp_moy' => $moyDonnees['temp_moy'],
+             'hum_moy' => $moyDonnees['hum_moy'],
+             'taux_carbone_moy' => $moyDonnees['co2_moy'],
              'salles' => $salles,
             'temperature_ext' => $temperature_ext
         ]);

@@ -27,7 +27,7 @@ class SalleController extends AbstractController
         }
         $existeDeja = 0;
         $SADispo = $saRepository->compteSASansExperimentation();
-        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+        if($experimentationRepository->estExistante($nomsalle)) {
             $existeDeja = 1;
         }
 
@@ -48,7 +48,7 @@ class SalleController extends AbstractController
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
         }
 
-        if($experimentationRepository->verifierExperimentation($nomsalle)) {
+        if($experimentationRepository->estExistante($nomsalle)) {
             $existeDeja = 1;
         }
         else{

@@ -21,8 +21,8 @@ class TechnicienController extends AbstractController
     {
 
         // Récupère les expérimentations du repository.
-        $experimentations = $repository->trouveExperimentations();
-        $experimentations = $repository->triexperimentation($experimentations);
+        $experimentations = $repository->trouveExperimentationDemandeInstallation();
+        $experimentations = $repository->triExperimentation($experimentations);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/liste-souhaits.html.twig', [
@@ -58,7 +58,7 @@ class TechnicienController extends AbstractController
         }
         else $liste_sa = $saRepository->toutLesSA();
 
-        $liste_sa = $saRepository->trisa($liste_sa);
+        //$liste_sa = $saRepository->trierSA($liste_sa);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/gestion-sa.html.twig', [

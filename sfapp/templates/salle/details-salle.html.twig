@@ -38,16 +38,8 @@
             {# partie gauche de la carte #}
                 <h4>{{ etat_sa.nom_sa }}</h4>
                 <div class="sa-etat">
-                {% if etat_sa.etat_sa.value == 0 %}
-                    <h5>État : <span>Éteint</span> </h5>
-                    <div class="voyant voyant-rouge"></div>
-                {% elseif etat_sa.etat_sa.value == 1 %}
-                <h5>État : <span>En marche</span></h5>
-                    <div class="voyant voyant-vert"></div>
-                {% elseif etat_sa.etat_sa.value == 2 %}
-                <h5>État : <span>Défaillance</span> </h5>
-                    <div class="voyant voyant-orange"></div>
-                {% endif %}
+                    <h5>État : <span>{{ etat_sa.etat_sa.value == 0 ? 'Éteint' : (etat_sa.etat_sa.value == 1 ? 'En marche' : 'Défaillance') }}</span></h5>
+                    <div class="voyant {{ etat_sa.etat_sa.value == 0 ? 'voyant-rouge' : (etat_sa.etat_sa.value == 1 ? 'voyant-vert' : 'voyant-orange') }}"></div>
                 </div>
             </div>
             {# image de droite de la carte #}
@@ -66,11 +58,7 @@
     <div class="container widget-dg">
         <div class="title">
             <h4>Données instantanées</h4>
-            {% if elapsed != null %}
-            <p>il y a {{elapsed}}</p>
-            {% else %}
-            <p>Aucunes données reçues pour le moment...</p>
-            {% endif %}
+            <p>{{ elapsed != null ? 'il y a ' ~ elapsed : 'Aucunes données reçues pour le moment...' }}</p>
         </div>
         <div class="donnees">
             <div class="donnee">

@@ -89,10 +89,7 @@
 
             <div class="liste-salles">
             {% for exp in liste_experimentations %}
-                {% set hum = '--' %}
-                {% set temp = '--' %}
-                {% set co2 = '--' %}
-                {% if exp.etat == 1 or exp.etat == 2 %}
+                {% if exp.etat.value == 1 or exp.etat.value == 2 %}
                 <div class="salle">
                     <div class="salle-titre">
                         {% if exp.sa_etat.value == 0 %} {# eteint #}
@@ -107,6 +104,9 @@
                     </div>
 
 
+                    {% set hum = '--' %}
+                    {% set temp = '--' %}
+                    {% set co2 = '--' %}
                     {% for listeValeur in listeDerniereValeur %}
                         {% if exp.nom == listeValeur.localisation %}
 
