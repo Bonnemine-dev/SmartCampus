@@ -7,6 +7,20 @@
 {% block username %}Chargé de mission
 {% endblock %}
 
+{% block navlink %}
+        <li>
+            <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/liste-salles">Salles</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/modifier">Modifier le mot de passe</a>
+        </li>
+{% endblock %}
 
 {% block appcontent %}
 <div class="app-content tableau-de-bord details-salle">
@@ -96,44 +110,14 @@
 
     {# -------------------------------------------------- #}
 
-
-        {% if liste_donnee_historique != null %}
+    <div class="container widget-dg ">
         <h3 class="">Historique</h3>
-
-        <div class="container data-history">
-        {# container historique #}
-            <h4>Dernières données reçus</h4>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Date et Heure</th>
-                        <th>Humidité (%)</th>
-                        <th>Température (°C)</th>
-                        <th>Taux de carbone (ppm)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for donnees in liste_donnee_historique %}
-                    <tr class="table-primary">
-                        <td>{{ donnees.date }}</td>
-                        <td>{{ donnees.hum }}</td>
-                        <td>{{ donnees.temp }}</td>
-                        <td>{{ donnees.co2 }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <div class="pagination-div">
-            {# container gestion des pages #}
-                <div class="pages-boutons">
-                    {# controle des pages #}
-                    {{ knp_pagination_render(liste_donnee_historique) }}
-                </div>
-                <p>Nombre total de lignes : {{ liste_donnee_historique.getTotalItemCount() }}</p>
-            </div>
-        </div>
+        {% if liste_donnee_historique != null %}
+            <a href="historique/{{ nomsalle }}" class="little-gradient-button">Aller Voir</a>
+        {% else %}
+            <a href=# class="little-unclickable-button">Aller Voir</a>
         {% endif %}
-
+    </div>
 
         <h3>Archives</h3>
 

@@ -115,7 +115,7 @@ class TechnicienController extends AbstractController
 
         }
         // Rend la vue avec la liste des expérimentations.
-        return $this->render('connexion/modifier.html.twig', [
+        return $this->render('technicien/modifier.html.twig', [
             'userForm' => $userForm->createView() ,
             'erreur' => $erreur ,
         ]);

@@ -31,6 +31,8 @@ security:
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
+  # Contrôle d'accès basé sur les rôles
   access_control:
-  # - { path: ^/admin, roles: ROLE_ADMIN }
-  # - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/charge-de-mission, roles: ROLE_CHARGEMISSION }
+    - { path: ^/technicien, roles: ROLE_TECHNICIEN }
+    - { path: ^/connexion$, roles: ACCES_PUBLIC }
