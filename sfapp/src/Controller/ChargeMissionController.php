@@ -6,9 +6,12 @@ use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
 use App\Form\FiltreSalleFormType;
 use App\Form\RechercheSalleFormType;
+use App\Form\UserType;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
 use App\Repository\BatimentRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -192,6 +195,25 @@ class ChargeMissionController extends AbstractController
              'taux_carbone_moy' => $moyDonnees[2],
              'salles' => $salles,
             'temperature_ext' => $temperature_ext
+        ]);
+    }
+
+    #[Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')]
+    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager ): Response
+    {
+        $user = $repository->rechercheUser('chargemission');
+        $userForm = $this->createForm(UserType::class);
+        $userForm->handleRequest($request);
+
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $data = $userForm->getData();
+            $user->setPlainPassword($data['PlainPassword']);
+            $manager->persist($user);
+            $manager->flush();
+        }
+        // Rend la vue avec la liste des expérimentations.
+        return $this->render('connexion/modifier.html.twig', [
+            'userForm' => $userForm->createView() ,
         ]);
     }
 }

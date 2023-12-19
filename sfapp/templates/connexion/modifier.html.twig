@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mot de passe- Technicien{% endblock %}
+
+{% block navlink %}
+    <li><a class="nav-link current-page" href="liste-souhaits">Plan d'expérimentation</a></li>
+    <li><a class="nav-link" href="gestion-sa">Gestion des SA</a></li>
+
+{% endblock %}
+
+{% block appcontent %}
+    <div class="app-content souhaits">
+
+        {# Affichage des messages de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# Affichage des messages d'erreur #}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# --------------------------------------------- #}
+
+        <h3 class="">Modifier son mot de passe</h3>
+        <div class="search-and-filter">
+
+            {{ form_start(userForm) }}
+            {{ form_widget(userForm.PlainPassword) }}
+
+            <button type='submit'>Modifier</button>
+            {{ form_row(userForm._token) }}
+            {{ form_end(userForm, {'render_rest': false}) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/dragAndDrop.js') }}"></script>
+    <script src="{{ asset('js/flashMessage.js') }}"></script>
+{% endblock %}

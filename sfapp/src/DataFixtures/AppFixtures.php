@@ -157,7 +157,7 @@ class AppFixtures extends Fixture
 
         $user = new User();
         $user->setUsername('technicien');
-        $user->setRoles(['technicien']);
+        $user->setRoles(['ROLE_TECHNICIEN']);
         $user->setPlainPassword('technicien');
 
         $manager->persist($user);
@@ -165,7 +165,7 @@ class AppFixtures extends Fixture
 
         $user = new User();
         $user->setUsername('chargemission');
-        $user->setRoles(['chargemission']);
+        $user->setRoles(['ROLE_CHARGEMISSION']);
         $user->setPlainPassword('chargemission');
 
         $manager->persist($user);
