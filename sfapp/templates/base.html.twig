@@ -31,7 +31,7 @@
         <!-- Affichage du nom d'utilisateur -->
         <p>
             {% if app.user == null %}
-
+                <button class="gradient-button btn-technicien" href="/">Se connecter</button>
             {% elseif app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
                 Chargé de mission
                 <!-- Icône utilisateur -->
