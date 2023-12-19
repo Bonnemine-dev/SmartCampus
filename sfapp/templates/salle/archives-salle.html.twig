@@ -52,9 +52,29 @@
                     {% for donnees in archive.donnees %}
                         <tr class="table-primary">
                             <td>{{ donnees.date|default('YYYY-MM-DD') }}</td>
-                            <td>{{ donnees.hum|default('--') }}</td>
-                            <td>{{ donnees.temp|default('--,-') }}</td>
-                            <td>{{ donnees.co2|default('---') }}</td>
+                            {% if donnees.hum >= 40 and  donnees.hum <= 70 %}
+                                <td>{{ donnees.hum }}</td>
+                            {% elseif donnees.hum == 0 or donnees.hum == 100 %}
+                                <td style="color: red">{{ donnees.hum }}</td>
+                            {% else %}
+                                <td style="color: orange">{{ donnees.hum }}</td>
+                            {% endif %}
+
+                            {% if donnees.temp >= 17 and  donnees.temp <= 21 %}
+                                <td>{{ donnees.temp }}</td>
+                            {% elseif donnees.temp < 14 or donnees.temp > 30%}
+                                <td style="color: red">{{ donnees.temp }}</td>
+                            {% else %}
+                                <td style="color: orange">{{ donnees.temp }}</td>
+                            {% endif %}
+
+                            {% if donnees.co2 >= 1500 %}
+                                <td style="color: red">{{ donnees.co2 }}</td>
+                            {% elseif donnees.co2 >= 1000 %}
+                                <td style="color: orange">{{ donnees.co2 }}</td>
+                            {% else %}
+                                <td>{{ donnees.co2 }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
