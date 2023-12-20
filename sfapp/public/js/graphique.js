@@ -267,7 +267,7 @@ async function updateGraph(){
 
 
     // Récupération des données
-    url = 'http://localhost:8000/api/captures/' + nomSalle + '/' + typeDonneesAffichee;
+    url = '/api/captures/' + nomSalle + '/' + typeDonneesAffichee;
     donneesRecuperees = await chargerDonnees(url);
     donneesTransformees = transformerDonnees(donneesRecuperees);
     if(donneesAffichees.length == 0){
