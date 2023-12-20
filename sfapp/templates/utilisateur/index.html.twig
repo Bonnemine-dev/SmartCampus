@@ -4,7 +4,7 @@
 
 {% block navlink %}
         <li><a class="nav-link" href="/connexion">Connexion</a></li>
-        <a class="nav-link" href="/">Accueil</a>
+        <li><a class="nav-link" href="/">Accueil</a></li>
 {% endblock %}
 
 {% block appcontent %}
@@ -22,11 +22,19 @@
                                 {{ message }}
                         </div>
                 {% endfor %}
-                <div class="">
-                        <div class="">
-                                <img src="{{ asset('img/img-accueil.png') }}">
+                <div class="accueil">
+                        <div class="img-accueil">
+                                <!-- Lien de déconnexion avec icônes -->
+                                <a class="link" href="{{ path('app_deconnexion') }}">
+                                        <div class="circle_icon">
+                                                <img src="{{ asset('img/leave_left.png') }}" alt="leave_left" class="leave_left">
+                                                <img src="{{ asset('img/leave_right.png') }}" alt="leave_right" class="leave_right">
+                                        </div>
+                                </a>
+                                <!-- Titre -->
+                                <h1>SmartCampus</h1>
                         </div>
-                        <div class="">
+                        <div class="info-accueil">
                                 <h3>Comment avoir des informations sur ma salle ?</h3>
                                 <p>
                                         Vous êtes curieux de connaître l'ambiance environnementale de votre salle, comme la température,
@@ -35,29 +43,31 @@
                                         gratuitement. Voici comment faire :
                                 </p>
                         </div>
-                        <div>
+                        <div class="bloc-acceuil">
                                 <div>
-                                        <p>
-                                                À l'entrée de votre salle, vous trouverez une affiche Smart Campus. Cette affiche vous donne des conseils pour améliorer l’efficacité énergétique et le confort de la salle. Un QR code est également visible en bas de celle-ci. Scannez-le avec votre smartphone, et vous aurez accès aux dernières données remontées par les capteurs installés dans votre salle, s'il y en a.
-                                        </p>
-                                </div>
-                                <div>
-                                        <p>
-                                                Si le cours a déjà commencé et que vous ne n’avez pas envie de vous lever et déranger, pas de problème ! Utilisez la barre de recherche ci-dessous en y entrant le nom de la salle et accéder aux informations.
+                                        <div class="accueil-form">
+                                                <p>
+                                                        À l'entrée de votre salle, vous trouverez une affiche Smart Campus. Cette affiche vous donne des conseils pour améliorer l’efficacité énergétique et le confort de la salle. Un QR code est également visible en bas de celle-ci. Scannez-le avec votre smartphone, et vous aurez accès aux dernières données remontées par les capteurs installés dans votre salle, s'il y en a.
+                                                </p>
+                                        </div>
+                                        <div class="accueil-form">
+                                                <p>
+                                                        Si le cours a déjà commencé et que vous ne n’avez pas envie de vous lever et déranger, pas de problème ! Utilisez la barre de recherche ci-dessous en y entrant le nom de la salle et accéder aux informations.
 
-                                        </p>
-                                        <div class="search-and-filter">
+                                                </p>
+                                                <div>
 
-                                                {{ form_start(rechercheSalleForm) }}
-                                                {{ form_widget(rechercheSalleForm.salle) }}
+                                                        {{ form_start(rechercheSalleForm) }}
+                                                        {{ form_widget(rechercheSalleForm.salle) }}
 
-                                                <button type='submit'>Valider</button>
-                                                {{ form_row(rechercheSalleForm._token) }}
-                                                {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+                                                        <button type='submit'>Valider</button>
+                                                        {{ form_row(rechercheSalleForm._token) }}
+                                                        {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+                                                </div>
                                         </div>
                                 </div>
                                 <div>
-
+                                        <img src="{{ asset('img/affiche.png') }}" alt="leave_left" class="leave_left">
                                 </div>
                         </div>
                 </div>

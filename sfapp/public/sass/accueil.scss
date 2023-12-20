@@ -1,0 +1,68 @@
+.accueil{
+  @include flex-column($align: center, $justify: center);
+}
+
+.img-accueil{
+  @include flex-column($align: center, $justify: center);
+  width: 100%;
+  background-size: 100%;
+  background-image: url("../img/img-accueil.png");
+  margin: 5%;
+  padding: 9.5%;
+
+  h1{
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+    text-align: center;
+  }
+
+}
+
+.info-accueil{
+  background-color: #5D5D5D;
+  margin: 5%;
+  border-radius: 8px ;
+  padding: 2% 5% 2% 5%;
+}
+
+.accueil-form{
+  @include flex-column($justify: flex-start, $align: flex-start);
+  width: 75%;
+  background: $grey-6;
+  padding: 30px;
+  border-radius: 15px;
+  margin: 4%;
+
+  p{
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: black;
+  }
+
+  .erreur-form{
+    color: #FF3A3A;
+  }
+
+  input{
+    font-size: 1.3rem;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+  }
+
+  button{
+    @extend .little-gradient-button;
+    font-size: 1.3rem;
+    font-family: $font;
+  }
+}
+
+.bloc-acceuil{
+  @include flex($justify: center, $align: center);
+
+  img{
+    width: 100%;
+  }
+}

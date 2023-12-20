@@ -75,7 +75,7 @@ button {
       font-size: 1rem;
       padding: 10px 30px; } }
 
-.little-gradient-button, .little-unclickable-button, .salle .salle-bouton-unclickable, #overlay .connexion-form button, .souhaits .popup a, .souhaits .popup button, .salle .salle-bouton, .filtre form button, .sa .sa-boutons a, .sa-form button, .sa-form .cancel, .container.widget-salles .voir-tout-bouton {
+.little-gradient-button, .little-unclickable-button, .salle .salle-bouton-unclickable, #overlay .connexion-form button, .souhaits .popup a, .souhaits .popup button, .salle .salle-bouton, .filtre form button, .sa .sa-boutons a, .sa-form button, .sa-form .cancel, .container.widget-salles .voir-tout-bouton, .accueil-form button {
   color: #FFF;
   font-size: 1rem;
   background: linear-gradient(90deg, #00B292, #7ED957);
@@ -84,7 +84,7 @@ button {
   border: 1px solid transparent;
   margin-right: 15px;
   transition: 0.2s; }
-  .little-gradient-button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover, #overlay .connexion-form button:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, .salle .salle-bouton:hover, .filtre form button:hover, .sa .sa-boutons a:hover, .sa-form button:hover, .sa-form .cancel:hover, .container.widget-salles .voir-tout-bouton:hover {
+  .little-gradient-button:hover, .little-unclickable-button:hover, .salle .salle-bouton-unclickable:hover, #overlay .connexion-form button:hover, .souhaits .popup a:hover, .souhaits .popup button:hover, .salle .salle-bouton:hover, .filtre form button:hover, .sa .sa-boutons a:hover, .sa-form button:hover, .sa-form .cancel:hover, .container.widget-salles .voir-tout-bouton:hover, .accueil-form button:hover {
     border: 1px solid #FFF;
     cursor: pointer; }
 
@@ -1094,5 +1094,66 @@ button {
     justify-content: space-between;
     align-items: center;
     height: 400px; }
+
+.accueil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.img-accueil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-size: 100%;
+  background-image: url("../img/img-accueil.png");
+  margin: 5%;
+  padding: 9.5%; }
+  .img-accueil h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+    text-align: center; }
+
+.info-accueil {
+  background-color: #5D5D5D;
+  margin: 5%;
+  border-radius: 8px;
+  padding: 2% 5% 2% 5%; }
+
+.accueil-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 75%;
+  background: #D7D7D7;
+  padding: 30px;
+  border-radius: 15px;
+  margin: 4%; }
+  .accueil-form p {
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: black; }
+  .accueil-form .erreur-form {
+    color: #FF3A3A; }
+  .accueil-form input {
+    font-size: 1.3rem;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none; }
+  .accueil-form button {
+    font-size: 1.3rem;
+    font-family: "Montserrat", "Roboto", Tahoma, Verdana, sans-serif; }
+
+.bloc-acceuil {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .bloc-acceuil img {
+    width: 100%; }
 
 /*# sourceMappingURL=style.css.map */
