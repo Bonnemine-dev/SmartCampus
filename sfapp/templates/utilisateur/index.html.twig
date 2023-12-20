@@ -21,6 +21,12 @@
                         <div class="alert alert-error">
                                 {{ message }}
                         </div>
+                        <script>
+                        // Code JavaScript pour faire défiler la page vers le bas au chargement
+                        window.onload = function() {
+                                window.scrollTo(0, document.body.scrollHeight);
+                        };
+                        </script>
                 {% endfor %}
                 <div class="accueil">
                         <div class="img-accueil">
@@ -71,5 +77,5 @@
                                 </div>
                         </div>
                 </div>
-        </div>S
+        </div>
 {% endblock %}
