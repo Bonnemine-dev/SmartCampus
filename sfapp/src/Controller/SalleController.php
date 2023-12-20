@@ -79,7 +79,7 @@ class SalleController extends AbstractController
         $dataArray = json_decode($jsonContent, true);
 
         //extraction des dernière donnée d'une salle si il y en a pas alors est null
-        $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nomsalle);
+        $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nomsalle);
 
         if($dernieres_donnees['date_de_capture'] != null){
             $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);
@@ -113,7 +113,7 @@ class SalleController extends AbstractController
         //Si il existe une expérimentation en cours alors créer le tableau
         if ($dateInstallExpActuelle != null and $dateInstallExpActuelle['date_install'] != null) {
             $liste_donnee_historique = $paginator->paginate(
-            $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($dataArray,$nomsalle,$dateInstallExpActuelle),
+            $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($nomsalle,$dateInstallExpActuelle),
             $request->query->getInt('pageH',1),
             18,[
                 'pageParameterName' => 'pageH', // Spécifiez le nom du paramètre de page pour la première entité
@@ -207,7 +207,7 @@ class SalleController extends AbstractController
         //Si il existe une expérimentation en cours alors créer le tableau
         if ($dateInstallExpActuelle != null and $dateInstallExpActuelle['date_install'] != null) {
             $liste_donnee_historique = $paginator->paginate(
-                $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($dataArray,$nomsalle,$dateInstallExpActuelle),
+                $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($nomsalle,$dateInstallExpActuelle),
                 $request->query->getInt('pageH',1),
                 18,[
                     'pageParameterName' => 'pageH', // Spécifiez le nom du paramètre de page pour la première entité
