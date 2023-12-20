@@ -3,21 +3,16 @@
 {% block title %}detail salle {{ nomsalle }} - Chargé de mission
 {% endblock %}
 
+{% block navlink %}
+    <li><a class="nav-link" href="/connexion">Connexion</a></li>
+    <a class="nav-link" href="/">Accueil</a>
+{% endblock %}
 
 {% block username %}Chargé de mission
 {% endblock %}
 
 
-{% block appcontent %}
-    <div class="sidebar">
-        <div class="menu">
-            <h3>Menu</h3>
-            <ul>
-                <!-- Liens du menu à personnaliser dans les vues enfants -->
-                <a class="nav-link" href="/">Accueil</a>
-            </ul>
-        </div>
-    </div>
+{% block appcontent %} <a class="nav-link" href="/">Accueil</a>
 
     <div class="app-content tableau-de-bord details-salle">
         <div class="title">

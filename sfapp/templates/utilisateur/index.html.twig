@@ -2,57 +2,63 @@
 
 {% block title %}Hello UtilisateurController!{% endblock %}
 
-{% block appcontent %}
-        {# Affichage des messages de succès #}
-        {% for message in app.flashes('success') %}
-                <div class="alert alert-success">
-                        {{ message }}
-                </div>
-        {% endfor %}
+{% block navlink %}
+        <li><a class="nav-link" href="/connexion">Connexion</a></li>
+{% endblock %}
 
-        {# Affichage des messages d'erreur #}
-        {% for message in app.flashes('error') %}
-                <div class="alert alert-error">
-                        {{ message }}
-                </div>
-        {% endfor %}
-        <div class="">
+{% block appcontent %}
+        <div class="app-content">
+                {# Affichage des messages de succès #}
+                {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                                {{ message }}
+                        </div>
+                {% endfor %}
+
+                {# Affichage des messages d'erreur #}
+                {% for message in app.flashes('error') %}
+                        <div class="alert alert-error">
+                                {{ message }}
+                        </div>
+                {% endfor %}
                 <div class="">
-                        <img src="{{ asset('img/img-accueil.png') }}">
-                </div>
-                <div class="">
-                        <h3>Comment avoir des informations sur ma salle ?</h3>
-                        <p>
-                                Vous êtes curieux de connaître l'ambiance environnementale de votre salle, comme la température,
-                                l'humidité, ou encore le taux de CO2 ? Bonne nouvelle ! Nous avons installé des capteurs dans
-                                certaines salles du département informatique. Vous pouvez consulter ces données facilement et
-                                gratuitement. Voici comment faire :
-                        </p>
-                </div>
-                <div>
-                        <div>
+                        <div class="">
+                                <img src="{{ asset('img/img-accueil.png') }}">
+                        </div>
+                        <div class="">
+                                <h3>Comment avoir des informations sur ma salle ?</h3>
                                 <p>
-                                        À l'entrée de votre salle, vous trouverez une affiche Smart Campus. Cette affiche vous donne des conseils pour améliorer l’efficacité énergétique et le confort de la salle. Un QR code est également visible en bas de celle-ci. Scannez-le avec votre smartphone, et vous aurez accès aux dernières données remontées par les capteurs installés dans votre salle, s'il y en a.
+                                        Vous êtes curieux de connaître l'ambiance environnementale de votre salle, comme la température,
+                                        l'humidité, ou encore le taux de CO2 ? Bonne nouvelle ! Nous avons installé des capteurs dans
+                                        certaines salles du département informatique. Vous pouvez consulter ces données facilement et
+                                        gratuitement. Voici comment faire :
                                 </p>
                         </div>
                         <div>
-                                <p>
-                                        Si le cours a déjà commencé et que vous ne n’avez pas envie de vous lever et déranger, pas de problème ! Utilisez la barre de recherche ci-dessous en y entrant le nom de la salle et accéder aux informations.
+                                <div>
+                                        <p>
+                                                À l'entrée de votre salle, vous trouverez une affiche Smart Campus. Cette affiche vous donne des conseils pour améliorer l’efficacité énergétique et le confort de la salle. Un QR code est également visible en bas de celle-ci. Scannez-le avec votre smartphone, et vous aurez accès aux dernières données remontées par les capteurs installés dans votre salle, s'il y en a.
+                                        </p>
+                                </div>
+                                <div>
+                                        <p>
+                                                Si le cours a déjà commencé et que vous ne n’avez pas envie de vous lever et déranger, pas de problème ! Utilisez la barre de recherche ci-dessous en y entrant le nom de la salle et accéder aux informations.
 
-                                </p>
-                                <div class="search-and-filter">
+                                        </p>
+                                        <div class="search-and-filter">
 
-                                        {{ form_start(rechercheSalleForm) }}
-                                        {{ form_widget(rechercheSalleForm.salle) }}
+                                                {{ form_start(rechercheSalleForm) }}
+                                                {{ form_widget(rechercheSalleForm.salle) }}
 
-                                        <button type='submit'>Valider</button>
-                                        {{ form_row(rechercheSalleForm._token) }}
-                                        {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+                                                <button type='submit'>Valider</button>
+                                                {{ form_row(rechercheSalleForm._token) }}
+                                                {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+                                        </div>
+                                </div>
+                                <div>
+
                                 </div>
                         </div>
-                        <div>
-
-                        </div>
                 </div>
-        </div>
+        </div>S
 {% endblock %}

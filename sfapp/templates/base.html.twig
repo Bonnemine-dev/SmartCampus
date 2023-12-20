@@ -29,26 +29,25 @@
 
     <div class="left-content">
         <!-- Affichage du nom d'utilisateur -->
-        <p>
+
             {% if app.user == null %}
-                <button class="gradient-button btn-technicien" href="/">Se connecter</button>
+                <a class="little-gradient-button" href="/connexion">Se connecter</a>
             {% elseif app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
-                Chargé de mission
+                <p> Chargé de mission</p>
                 <!-- Icône utilisateur -->
                 <img  src="{{ asset('img/user.png') }}" alt="Icone user">
             {% elseif app.user.roles[0] == 'ROLE_TECHNICIEN' %}
-                Technicien
+                <p> Technicien</p>
                 <!-- Icône utilisateur -->
                 <img  src="{{ asset('img/user.png') }}" alt="Icone user">
             {% endif %}
-        </p>
+
     </div>
 </div>
 
 
 <!-- Contenu de l'application avec barre latérale -->
 <div class="app-container">
-    {% if app.user != null %}
     <div class="sidebar">
         <div class="menu">
             <h3>Menu</h3>
@@ -61,7 +60,6 @@
         {% block sidebar %}
         {% endblock %}
     </div>
-    {% endif %}
     <!-- Contenu principal à définir dans les vues enfants -->
     {% block appcontent %}
 
