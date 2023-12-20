@@ -52,8 +52,13 @@ class UtilisateurController extends AbstractController
     public function utilisateur_donnees(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
         //salle inexistante ?
-        if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null or !$experimentationRepository->estExistante($nomsalle)) {
-            $this->addFlash('error', "La salle ".$nomsalle." n'existe pas ou n'est pas dans le plan d'experimenattion");
+        if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
+            $this->addFlash('error', "La salle ".$nomsalle." n'existe pas");
+            return $this->redirectToRoute('app_accueil');
+        }
+
+        if (!$experimentationRepository->estExistante($nomsalle)) {
+            $this->addFlash('error', "La salle ".$nomsalle." n'est pas dans le plan d'experimenattion");
             return $this->redirectToRoute('app_accueil');
         }
 
