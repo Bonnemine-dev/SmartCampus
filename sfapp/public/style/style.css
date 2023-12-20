@@ -1173,8 +1173,8 @@ button {
   justify-content: space-between;
   align-items: center;
 }
-.liste-exp .salle .salle-donnees h6 {
-  width: 180px;
+.liste-exp .salle .salle-donnees h4 {
+  margin-right: 15px;
 }
 .liste-exp .salle .divider {
   height: 70px;
@@ -1324,6 +1324,32 @@ button {
   margin-bottom: 30px;
 }
 
+.pages-boutons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+.pages-boutons .page-bouton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: 2px solid transparent;
+  background: #444444;
+  transition: 0.2s;
+  font-size: 1.4rem;
+}
+.pages-boutons .page-bouton svg {
+  margin-left: 15px;
+}
+.pages-boutons .page-bouton:hover {
+  transform: scale(1.1);
+  border: 2px solid #F1F1F1;
+}
+
 /* Formulaire de modification du mot de passe */
 .mdp-form {
   width: fit-content;
@@ -1334,6 +1360,61 @@ button {
   justify-content: space-between;
   align-items: center;
   height: 400px;
+}
+
+.chart-container {
+  width: 100%;
+  border-radius: 15px;
+  background: #202020;
+  height: fit-content;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.type-buttons {
+  margin: 20px 0 10px;
+  color: #FFF;
+}
+
+.type-buttons button {
+  background: #222;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  color: #FFF;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.type-buttons button:hover, .type-buttons button.active {
+  border-color: #FFF;
+  transform: scale(1.1);
+}
+
+#groupage-buttons {
+  display: none;
+  margin: 10px 0 10px 20px;
+}
+
+#groupage-buttons button {
+  margin-right: 10px;
+  color: #FFF;
+  background: #737373;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: all 0.2s ease-in-out;
+}
+#groupage-buttons button:hover {
+  border-color: #FFF;
+  background: #BABABA;
+}
+
+#chart-container {
+  display: none;
+  height: fit-content;
 }
 
 /*# sourceMappingURL=style.css.map */

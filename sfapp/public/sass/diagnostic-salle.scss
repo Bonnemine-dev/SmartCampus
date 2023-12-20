@@ -1,0 +1,55 @@
+.chart-container {
+  width: 100%;
+  border-radius: 15px;
+  background: #202020;
+  height: fit-content;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.type-buttons {
+  margin: 20px 0 10px;
+  color: #FFF;
+}
+
+.type-buttons button{
+  background: #222;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  color: #FFF;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.type-buttons button:hover, .type-buttons button.active {
+  border-color: #FFF;
+  transform: scale(1.1);
+}
+
+#groupage-buttons {
+  display: none;
+  margin: 10px 0 10px 20px;
+}
+
+#groupage-buttons button {
+    margin-right: 10px;
+    color: #FFF;
+    background: $grey-4;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border-color: #FFF;
+      background: $grey-5;
+    }
+}
+
+#chart-container {
+  display: none;
+  height: fit-content;
+}
