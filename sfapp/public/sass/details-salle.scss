@@ -131,3 +131,28 @@
 .proposition{
   margin-bottom: 30px;
 }
+
+.pages-boutons{
+  @include flex();
+  width: fit-content;
+
+  .page-bouton{
+    @include flex();
+    margin-right: 30px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    background: $grey-2;
+    transition: 0.2s;
+    font-size: 1.4rem;
+
+    svg{
+      margin-left: 15px;
+    }
+
+    &:hover{
+      transform: scale(1.1);
+      border: 2px solid $other-white;
+    }
+  }
+}

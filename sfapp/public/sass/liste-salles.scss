@@ -16,8 +16,8 @@
     .salle-donnees{
       @include flex($justify: space-between);
 
-      h6{
-        width:180px;
+      h4{
+        margin-right: 15px;
       }
     }
 

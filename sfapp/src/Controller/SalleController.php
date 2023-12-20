@@ -275,7 +275,7 @@ class SalleController extends AbstractController
         return $this->render('salle/archives-salle.html.twig', [
             //nom de la salle
             'nomsalle' => $nomsalle,
-            //Infoemration sur le sa présent dans la salle si il existe
+            //Information sur le sa présent dans la salle si il existe
             'etat_sa' => $etat_sa ?? null,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
             'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
@@ -283,4 +283,15 @@ class SalleController extends AbstractController
             'recommandation' => $recommandation ?? null
         ]);
     }
+
+    #[Route('/charge-de-mission/liste-salles/diagnostic/{nomsalle?}', name: 'diagnostic_salle')]
+    public function diagnostic_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    {
+        // Afficher la vue de salle details avec le résultat de l'existence
+        return $this->render('salle/diagnostic-salle.html.twig', [
+            //nom de la salle
+            'nomsalle' => $nomsalle,
+        ]);
+    }
+
 }
