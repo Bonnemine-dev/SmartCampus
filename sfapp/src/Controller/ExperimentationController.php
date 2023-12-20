@@ -19,7 +19,7 @@ class ExperimentationController extends AbstractController
         $experimentationRepository->ajouterExperimentation($nomsalle);
 
         // Vérifiez le résultat et ajoutez un message flash approprié
-        if ($experimentationRepository->verifierExperimentation($nomsalle)) {
+        if ($experimentationRepository->estExistante($nomsalle)) {
             $this->addFlash('success', "La salle " . $nomsalle . " a été ajoutée au plan d'expérimentation avec succès.");
         } else {
             $this->addFlash('error', "La salle " . $nomsalle . " n'a pas pu être ajoutée au plan d'expérimentation.");

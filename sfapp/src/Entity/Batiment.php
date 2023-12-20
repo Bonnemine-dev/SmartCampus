@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\BatimentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Twig\Node\Expression\Binary\LessBinary;
 
 
 #[ORM\Entity(repositoryClass: BatimentRepository::class)]

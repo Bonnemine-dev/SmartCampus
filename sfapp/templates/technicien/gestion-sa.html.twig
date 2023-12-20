@@ -2,14 +2,10 @@
 
 {% block title %}Gestion des sa - Technicien{% endblock %}
 
-
 {% block navlink %}
-	<li>
-		<a class="nav-link" href="liste-souhaits">Plan d'expérimentation</a>
-	</li>
-	<li>
-		<a class="nav-link current-page" href="gestion-sa">Gestion des SA</a>
-	</li>
+	<li><a class="nav-link" href="/technicien/liste-souhaits">Plan d'expérimentation</a></li>
+	<li><a class="nav-link current-page">Gestion des SA</a></li>
+	<li><a class="nav-link" href="/technicien/modifier">Modifier le mot de passe</a></li>
 {% endblock %}
 
 {% block sidebar %}
@@ -35,17 +31,12 @@
 {% block appcontent %}
 	<div class="app-content gestion-sa">
 	{# Affichage des messages de succès #}
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{% endfor %}
-
-		{# Affichage des messages d'erreur #}
-		{% for message in app.flashes('error') %}
-			<div class="alert alert-error">
-				{{ message }}
-			</div>
+		{% for type, messages in {'success': app.flashes('success'), 'error': app.flashes('error')} %}
+			{% for message in messages %}
+				<div class="alert alert-{{ type }}">
+					{{ message }}
+				</div>
+			{% endfor %}
 		{% endfor %}
 
 		{# --------------------------------------------- #}
@@ -80,29 +71,11 @@
 				<div id="{{ sa.sa_nom | default('erreur')}}"class="sa">
 					<div class="sa-infos">
 						<div class="sa-name">
-							{% if sa.sa_etat.value == 0 %}
-								<div class="voyant voyant-rouge"></div>
-							{% elseif sa.sa_etat.value == 1 %}
-								<div class="voyant voyant-vert"></div>
-							{% elseif sa.sa_etat.value == 2 %}
-								<div class="voyant voyant-orange"></div>
-							{% else %}
-								<div class="voyant voyant-rouge"></div>
-							{% endif %}
-
+							<div class="voyant voyant-{{ sa.sa_etat.value == 0 ? 'rouge' : (sa.sa_etat.value == 1 ? 'vert' : 'orange') }}"></div>
 							<h5 class="">{{ sa.sa_nom | default('erreur')}}</h5>
 						</div>
-
 						<p class="infos">Localisation : <strong>{{ sa.salle_nom | default('Stock')}}</strong> | État :
-							{% if sa.sa_etat.value == 0 %}
-								<strong>Éteint</strong>
-							{% elseif sa.sa_etat.value == 1 %}
-								<strong>En marche</strong>
-							{% elseif sa.sa_etat.value == 2 %}
-								<strong>Défaillance technique</strong>
-							{% else %}
-								<strong>Aucune données</strong>
-							{% endif %}
+							<strong>{{ sa.sa_etat.value == 0 ? 'Éteint' : (sa.sa_etat.value == 1 ? 'En marche' : (sa.sa_etat.value == 2 ? 'Défaillance technique' : 'Aucune données')) }}</strong>
 						</p>
 					</div>
 

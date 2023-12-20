@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ExperimentationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,8 +19,7 @@ class Experimentation
     private ?int $id = null;
 
     // Date de demande de l'expérimentation.
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\DateTime]
     private ?\DateTimeInterface $datedemande = null;
 
@@ -67,7 +64,7 @@ class Experimentation
         return $this->datedemande;
     }
 
-    public function setDatedemande(\DateTimeInterface $datedemande): static
+    public function setDatedemande(?\DateTimeInterface $datedemande): static
     {
         $this->datedemande = $datedemande;
 

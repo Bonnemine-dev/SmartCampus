@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
-use App\Config\EtatExperimentation;
-use App\Entity\Experimentation;
 use App\Form\FiltreSalleFormType;
 use App\Form\RechercheSalleFormType;
+use App\Form\UserType;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
 use App\Repository\BatimentRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExperimentationRepository;
 
@@ -43,6 +45,7 @@ class ChargeMissionController extends AbstractController
                 $dataFiltre['ordinateurs'] ?? null,
                 $dataFiltre['sa'] ?? null
             );
+
         }
 
         // Recherche des salles en fonction du formulaire de recherche
@@ -56,10 +59,8 @@ class ChargeMissionController extends AbstractController
         }
 
         // Logique métier supplémentaire
-        $salles = $salleRepository->triListeSalle($salles);
         $nb_sa = $saRepository->compteSASansExperimentation();
         $batiments = $batimentRepository->findAll();
-
 
         // Passer les instances de formulaire au template
         return $this->render('chargemission/plan-experimentation.html.twig', [
@@ -86,7 +87,7 @@ class ChargeMissionController extends AbstractController
 
         // Initialisation des résultats de la salle
         $salles = $salleRepository->filtrerSallePlanExp();
-        $liste_experimentations = $experimentationRepository->filtrerextraireLesExperimentations();
+        $liste_experimentations = $experimentationRepository->filtreExperimentationAnalyse();
 
         // Filtrage des salles en fonction du formulaire de filtre
         if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
@@ -98,7 +99,7 @@ class ChargeMissionController extends AbstractController
                 $dataFiltre['ordinateurs'] ?? null,
                 $dataFiltre['sa'] ?? null
             );
-            $liste_experimentations = $experimentationRepository->filtrerextraireLesExperimentations(
+            $liste_experimentations = $experimentationRepository->filtreExperimentationAnalyse(
                 $dataFiltre['etage'] ?? null,
                 $dataFiltre['orientation'] ?? null,
                 $dataFiltre['ordinateurs'] ?? null,
@@ -114,7 +115,7 @@ class ChargeMissionController extends AbstractController
                 $dataRecherche['batiment'] ?? null,
                 $dataRecherche['salle'] ?? null
             );
-            $liste_experimentations = $experimentationRepository->rechercheextraireLesExperimentations(
+            $liste_experimentations = $experimentationRepository->rechercheExperimentationAnalyse(
                 $dataRecherche['batiment'] ?? null,
                 $dataRecherche['salle'] ?? null
             );
@@ -187,11 +188,56 @@ class ChargeMissionController extends AbstractController
         $moyDonnees = $experimentationRepository->moyennesDonnees($dataArray);
 
         return $this->render('chargemission/tableau-de-bord.html.twig', [
-             'temp_moy' => $moyDonnees[0],
-             'hum_moy' => $moyDonnees[1],
-             'taux_carbone_moy' => $moyDonnees[2],
+             'temp_moy' => $moyDonnees['temp_moy'],
+             'hum_moy' => $moyDonnees['hum_moy'],
+             'taux_carbone_moy' => $moyDonnees['co2_moy'],
              'salles' => $salles,
             'temperature_ext' => $temperature_ext
+        ]);
+    }
+
+    #[Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')]
+    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
+    {
+        $user = $repository->rechercheUser('chargemission');
+        $userForm = $this->createForm(UserType::class);
+        $userForm->handleRequest($request);
+        $erreur = null;
+
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $data = $userForm->getData();
+
+            if($data['PlainPassword'] != $data['verif']){
+                $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
+            }
+            else if(!$hasher->isPasswordValid($user,$data['MDP'])){
+                $this->addFlash('error', "mot de passe actuel incorrects");
+            }
+            else if(strlen($data['PlainPassword']) < 8 )
+            {
+                $erreur = "Le mot de passe doit contenir au moins 8 caractère";
+            }
+            else if(preg_match('/[a-z]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins une minuscule";
+            }
+            else if(preg_match('/[A-Z]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins une majuscule";
+            }
+            else if(preg_match('/[^a-zA-Z0-9]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins un un caractère spécial";
+            }
+            else{
+                $user->setPlainPassword($data['PlainPassword']);
+                $manager->persist($user);
+                $manager->flush();
+                $this->addFlash('success', "mot de passe modifier !");
+            }
+
+        }
+        // Rend la vue avec la liste des expérimentations.
+        return $this->render('chargemission/modifier.html.twig', [
+            'userForm' => $userForm->createView() ,
+            'erreur' => $erreur ,
         ]);
     }
 }

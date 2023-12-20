@@ -8,15 +8,18 @@
 {% endblock %}
 
 {% block navlink %}
-    <li>
-        <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
-    </li>
-    <li>
-        <a class="nav-link current-page">Salles</a>
-    </li>
-    <li>
-        <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
-    </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/liste-salles">Salles</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
+        </li>
+        <li>
+            <a class="nav-link" href="/charge-de-mission/modifier">Modifier le mot de passe</a>
+        </li>
 {% endblock %}
 
 {% block appcontent %}
@@ -38,16 +41,8 @@
             {# partie gauche de la carte #}
                 <h4>{{ etat_sa.nom_sa }}</h4>
                 <div class="sa-etat">
-                {% if etat_sa.etat_sa.value == 0 %}
-                    <h5>État : <span>Éteint</span> </h5>
-                    <div class="voyant voyant-rouge"></div>
-                {% elseif etat_sa.etat_sa.value == 1 %}
-                <h5>État : <span>En marche</span></h5>
-                    <div class="voyant voyant-vert"></div>
-                {% elseif etat_sa.etat_sa.value == 2 %}
-                <h5>État : <span>Défaillance</span> </h5>
-                    <div class="voyant voyant-orange"></div>
-                {% endif %}
+                    <h5>État : <span>{{ etat_sa.etat_sa.value == 0 ? 'Éteint' : (etat_sa.etat_sa.value == 1 ? 'En marche' : 'Défaillance') }}</span></h5>
+                    <div class="voyant {{ etat_sa.etat_sa.value == 0 ? 'voyant-rouge' : (etat_sa.etat_sa.value == 1 ? 'voyant-vert' : 'voyant-orange') }}"></div>
                 </div>
             </div>
             {# image de droite de la carte #}
@@ -66,20 +61,26 @@
     <div class="container widget-dg">
         <div class="title">
             <h4>Données instantanées</h4>
-            {% if elapsed != null %}
-            <p>il y a {{elapsed}}</p>
-            {% else %}
-            <p>Aucunes données reçues pour le moment...</p>
-            {% endif %}
+            <p>{{ elapsed != null ? 'il y a ' ~ elapsed : 'Aucunes données reçues pour le moment...' }}</p>
         </div>
         <div class="donnees">
             <div class="donnee">
                 <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
                     <path d="M38.5 70.5833C31.1743 70.5833 25.0646 68.0701 20.1708 63.0437C15.277 58.0173 12.8312 51.7611 12.8333 44.275C12.8333 40.9597 13.5819 37.6444 15.0792 34.3291C16.5764 31.0139 18.4479 27.8323 20.6937 24.7844C22.9396 21.7364 25.3726 18.8757 27.9927 16.2021C30.6128 13.5285 33.0458 11.2024 35.2917 9.22394C35.7194 8.79616 36.2146 8.48923 36.7771 8.30315C37.3396 8.11706 37.9139 8.02295 38.5 8.02081C39.0882 8.02081 39.6625 8.11492 40.2229 8.30315C40.7833 8.49137 41.2784 8.7983 41.7083 9.22394C43.9542 11.2024 46.3871 13.5285 49.0073 16.2021C51.6274 18.8757 54.0604 21.7364 56.3062 24.7844C58.5521 27.8323 60.4236 31.0139 61.9208 34.3291C63.418 37.6444 64.1667 40.9597 64.1667 44.275C64.1667 51.7611 61.7198 58.0173 56.826 63.0437C51.9322 68.0701 45.8235 70.5833 38.5 70.5833ZM46.5208 57.75C47.8576 57.75 48.9945 57.2816 49.9313 56.3447C50.8681 55.4079 51.3355 54.2721 51.3333 52.9375C51.3333 51.6007 50.8649 50.4639 49.9281 49.527C48.9912 48.5902 47.8555 48.1228 46.5208 48.125C45.184 48.125 44.0472 48.5934 43.1104 49.5302C42.1735 50.4671 41.7062 51.6028 41.7083 52.9375C41.7083 54.2743 42.1767 55.4111 43.1136 56.3479C44.0504 57.2848 45.1862 57.7521 46.5208 57.75ZM28.0729 55.3437C28.7146 55.9854 29.4632 56.3062 30.3187 56.3062C31.1743 56.3062 31.9229 55.9854 32.5646 55.3437L48.9271 38.9812C49.5687 38.3396 49.8896 37.591 49.8896 36.7354C49.8896 35.8798 49.5687 35.1312 48.9271 34.4896C48.2854 33.8479 47.5229 33.5271 46.6395 33.5271C45.7562 33.5271 44.9947 33.8479 44.3552 34.4896L28.0729 50.7719C27.4312 51.4135 27.1104 52.176 27.1104 53.0594C27.1104 53.9428 27.4312 54.7042 28.0729 55.3437ZM30.4792 41.7083C31.816 41.7083 32.9528 41.2399 33.8896 40.3031C34.8265 39.3662 35.2938 38.2305 35.2917 36.8958C35.2917 35.559 34.8232 34.4222 33.8864 33.4854C32.9496 32.5485 31.8138 32.0812 30.4792 32.0833C29.1424 32.0833 28.0055 32.5517 27.0687 33.4886C26.1319 34.4254 25.6645 35.5611 25.6667 36.8958C25.6667 38.2326 26.1351 39.3694 27.0719 40.3063C28.0087 41.2431 29.1445 41.7105 30.4792 41.7083Z" fill="#BABABA"/>
                 </svg>
-                <h4>
-                    {{ dernieres_donnees.hum | default('--') }}%
-                </h4>
+                {% if dernieres_donnees.hum < 40 and  dernieres_donnees.hum > 70 %}
+                    <h4 style="color: orange">
+                        {{ dernieres_donnees.hum | default('--') }}%
+                    </h4>
+                {% elseif dernieres_donnees.hum == 0 or dernieres_donnees.hum == 100 %}
+                    <h4 style="color: red">
+                        {{ dernieres_donnees.hum | default('--') }}%
+                    </h4>
+                {% else %}
+                    <h4>
+                        {{ dernieres_donnees.hum | default('--') }}%
+                    </h4>
+                {% endif %}
                 <p>Humidité</p>
             </div>
 
@@ -87,9 +88,20 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
                     <path d="M48.125 41.7084V16.0417C48.125 13.489 47.1109 11.0408 45.3059 9.23578C43.5008 7.43075 41.0527 6.41669 38.5 6.41669C35.9473 6.41669 33.4991 7.43075 31.6941 9.23578C29.889 11.0408 28.875 13.489 28.875 16.0417V41.7084C26.1815 43.7285 24.1919 46.5449 23.188 49.7586C22.1841 52.9723 22.2168 56.4204 23.2815 59.6145C24.3462 62.8086 26.3889 65.5867 29.1203 67.5554C31.8516 69.524 35.1331 70.5834 38.5 70.5834C41.8668 70.5834 45.1484 69.524 47.8797 67.5554C50.611 65.5867 52.6537 62.8086 53.7184 59.6145C54.7831 56.4204 54.8159 52.9723 53.812 49.7586C52.8081 46.5449 50.8185 43.7285 48.125 41.7084ZM38.5 12.8334C39.3509 12.8334 40.1669 13.1714 40.7686 13.7731C41.3703 14.3747 41.7083 15.1908 41.7083 16.0417V25.6667H35.2916V16.0417C35.2916 15.1908 35.6297 14.3747 36.2313 13.7731C36.833 13.1714 37.6491 12.8334 38.5 12.8334Z" fill="#BABABA"/>
                 </svg>
-                <h4>
-                    {{ dernieres_donnees.temp | default('--') }}°C
-                </h4>
+                {% if dernieres_donnees.temp < 14 and  dernieres_donnees.temp > 30 %}
+                    <h4 style="color: red">
+                        {{ dernieres_donnees.temp | default('--') }}°C
+                    </h4>
+                {% elseif dernieres_donnees.temp < 17 or dernieres_donnees.temp > 21 %}
+                    <h4 style="color: orange">
+                        {{ dernieres_donnees.temp | default('--') }}°C
+                    </h4>
+                {% else %}
+                    <h4>
+                        {{ dernieres_donnees.temp | default('--') }}°C
+                    </h4>
+                {% endif %}
+
                 <p>Température</p>
             </div>
 
@@ -97,9 +109,19 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77" fill="none">
                     <path d="M42.35 26.95C51.8402 26.95 57.2225 33.0099 58.0041 40.3249H58.2428C64.3489 40.3249 69.3 45.0874 69.3 50.9625C69.3 56.8376 64.3489 61.6 58.2428 61.6H26.4572C20.3511 61.6 15.4 56.8376 15.4 50.9625C15.4 45.0874 20.3511 40.3249 26.4572 40.3249H26.6959C27.4851 32.9599 32.8597 26.95 42.35 26.95ZM32.3092 15.4C37.9148 15.4 42.8043 18.5878 45.2182 23.2733C44.2666 23.1566 43.3087 23.0987 42.35 23.1C33.1485 23.1 26.4418 28.132 24.0471 35.7511L23.8084 36.575L23.6313 37.295L22.996 37.4105C20.6711 37.884 18.4994 38.9257 16.6749 40.4426C14.8503 41.9595 13.4296 43.9044 12.5394 46.1038C10.7053 44.9863 9.27543 43.313 8.45758 41.3272C7.63972 39.3413 7.47655 37.1463 7.99179 35.0613C8.50702 32.9763 9.6738 31.11 11.3225 29.7337C12.9712 28.3573 15.016 27.5427 17.1594 27.4082L18.0141 27.3889C18.6078 24.0291 20.3661 20.9859 22.9803 18.7934C25.5944 16.601 28.8974 15.3996 32.3092 15.4Z" fill="#BABABA"/>
                 </svg>
-                <h4>
-                    {{ dernieres_donnees.co2 | default('---') }}ppm
-                </h4>
+                {% if dernieres_donnees.co2 > 1500 %}
+                    <h4 style="color: red">
+                        {{ dernieres_donnees.co2 | default('---') }}ppm
+                    </h4>
+                {% elseif dernieres_donnees.co2 >= 1000 %}
+                    <h4 style="color: orange">
+                        {{ dernieres_donnees.co2 | default('---') }}ppm
+                    </h4>
+                {% else %}
+                    <h4>
+                        {{ dernieres_donnees.co2 | default('---') }}ppm
+                    </h4>
+                {% endif %}
                 <p>Taux de carbone</p>
             </div>
         </div>
@@ -107,81 +129,25 @@
 
     {# -------------------------------------------------- #}
 
-
-        {% if liste_donnee_historique != null %}
+    <div class="container widget-dg ">
         <h3 class="">Historique</h3>
-
-        <div class="container data-history">
-        {# container historique #}
-            <h4>Dernières données reçus</h4>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Date et Heure</th>
-                        <th>Humidité (%)</th>
-                        <th>Température (°C)</th>
-                        <th>Taux de carbone (ppm)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for donnees in liste_donnee_historique %}
-                    <tr class="table-primary">
-                        <td>{{ donnees.date }}</td>
-                        <td>{{ donnees.hum }}</td>
-                        <td>{{ donnees.temp }}</td>
-                        <td>{{ donnees.co2 }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <div class="pagination-div">
-            {# container gestion des pages #}
-                <div class="pages-boutons">
-                    {# controle des pages #}
-                    {{ knp_pagination_render(liste_donnee_historique) }}
-                </div>
-                <p>Nombre total de lignes : {{ liste_donnee_historique.getTotalItemCount() }}</p>
-            </div>
-        </div>
+        {% if liste_donnee_historique != null %}
+            <a href="../historique/{{ nomsalle }}" class="little-gradient-button">Aller Voir</a>
+        {% else %}
+            <a href=# class="little-unclickable-button">Aller Voir</a>
         {% endif %}
-
+    </div>
 
         <h3>Archives</h3>
+    <div class="container widget-dg ">
+        <h3 class="">Archives</h3>
+        {% if liste_de_liste_donnee_archive != null %}
+            <a href="../archives/{{ nomsalle }}" class="little-gradient-button">Aller Voir</a>
+        {% else %}
+            <a href=# class="little-unclickable-button">Aller Voir</a>
+        {% endif %}
+    </div>
 
-        {% for archive in liste_de_liste_donnee_archive %}
-            <div class="container data-history">
-            {# container d'une archive #}
-                <h4>Expérimentation du {{ archive.date_install|date('Y-m-d') }} au {{ archive.date_desinstall|date('Y-m-d') }}</h4>
-                <table class="table table-hover">
-                    <thead class>
-                    <tr>
-                        <th>Date et Heure</th>
-                        <th>Humidité</th>
-                        <th>Température</th>
-                        <th>Taux de carbone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for donnees in archive.donnees %}
-                    <tr class="table-primary">
-                        <td>{{ donnees.date|default('YYYY-MM-DD') }}</td>
-                        <td>{{ donnees.hum|default('--') }}</td>
-                        <td>{{ donnees.temp|default('--,-') }}</td>
-                        <td>{{ donnees.co2|default('---') }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                </table>
-                <div class="pagination-div">
-                {# container gestion des pages #}
-                    <div class="pages-boutons">
-                        {# controle des pages #}
-                        {{ knp_pagination_render(archive.donnees) }}
-                    </div>
-                    <p>Nombre total de lignes : {{ archive.donnees.getTotalItemCount() }}</p>
-                </div>
-            </div>
-        {% endfor %}
 
         
 </div>

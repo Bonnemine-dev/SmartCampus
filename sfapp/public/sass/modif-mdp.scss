@@ -1,0 +1,8 @@
+/* Formulaire de modification du mot de passe */
+.mdp-form{
+  width: fit-content;
+  form{
+    @include flex-column($justify: space-between);
+    height: 400px;
+  }
+}

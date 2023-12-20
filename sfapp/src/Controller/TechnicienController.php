@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\FiltreSAFormType;
 use App\Form\RechercheSAFormType;
+use App\Form\UserType;
 use App\Repository\ExperimentationRepository;
 use App\Repository\SARepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TechnicienController extends AbstractController
@@ -21,8 +26,8 @@ class TechnicienController extends AbstractController
     {
 
         // Récupère les expérimentations du repository.
-        $experimentations = $repository->trouveExperimentations();
-        $experimentations = $repository->triexperimentation($experimentations);
+        $experimentations = $repository->trouveExperimentationDemandeInstallation();
+        $experimentations = $repository->triExperimentation($experimentations);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/liste-souhaits.html.twig', [
@@ -58,13 +63,58 @@ class TechnicienController extends AbstractController
         }
         else $liste_sa = $saRepository->toutLesSA();
 
-        $liste_sa = $saRepository->trisa($liste_sa);
+        //$liste_sa = $saRepository->trierSA($liste_sa);
 
         // Rend la vue avec la liste des expérimentations.
         return $this->render('technicien/gestion-sa.html.twig', [
             'liste_sa' => $liste_sa ,
             'rechercheSAForm' => $rechercheSAForm->createView() ,
             'filtreSAForm' => $filtreSAForm->createView(),
+        ]);
+    }
+
+    #[Route('/technicien/modifier', name: 'app_modifier')]
+    public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager , UserPasswordHasherInterface $hasher ): Response
+    {
+        $user = $repository->rechercheUser('technicien');
+        $userForm = $this->createForm(UserType::class);
+        $userForm->handleRequest($request);
+        $erreur = null;
+
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $data = $userForm->getData();
+
+            if($data['PlainPassword'] != $data['verif']){
+                $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
+            }
+            else if(!$hasher->isPasswordValid($user,$data['MDP'])){
+                $this->addFlash('error', "mot de passe actuel incorrects");
+            }
+            else if(strlen($data['PlainPassword']) < 8 )
+            {
+                $erreur = "Le mot de passe doit contenir au moins 8 caractère";
+            }
+            else if(preg_match('/[a-z]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins une minuscule";
+            }
+            else if(preg_match('/[A-Z]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins une majuscule";
+            }
+            else if(preg_match('/[^a-zA-Z0-9]/', $data['PlainPassword']) !== 1){
+                $erreur = "Le mot de passe doit contenir au moins un un caractère spécial";
+            }
+            else{
+                $user->setPlainPassword($data['PlainPassword']);
+                $manager->persist($user);
+                $manager->flush();
+                $this->addFlash('success', "mot de passe modifier !");
+            }
+
+        }
+        // Rend la vue avec la liste des expérimentations.
+        return $this->render('technicien/modifier.html.twig', [
+            'userForm' => $userForm->createView() ,
+            'erreur' => $erreur ,
         ]);
     }
 }

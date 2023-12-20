@@ -4,9 +4,7 @@ namespace App\Repository;
 
 use App\Config\EtatExperimentation;
 use App\Entity\Experimentation;
-use App\Entity\Salle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Types\SimpleArrayType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -35,193 +33,237 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Ajoute une experimentation pour la salle de nom $salle
      */
-    public function ajouterExperimentation($salle)
+    public function ajouterExperimentation($salle): void
     {
-        // Définir le fuseau horaire sur Paris
-        date_default_timezone_set('Europe/Paris');
-
-        // Créez une nouvelle instance de l'entité Experimentation
+        // Créer une nouvelle instance de l'entité Experimentation
         $experimentation = new Experimentation();
+
+        // Récupérer l'ID de la salle et définir les salles de l'expérimentation
         $id = $this->salleRepository->nomSalleId($salle);
         $experimentation->setSalles($id);
 
+        // Définir la date de demande avec le fuseau horaire de Paris
         $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $experimentation->setDatedemande($dateDemande);
+
+        // Définir l'état et le SA de l'expérimentation
         $experimentation->setEtat(EtatExperimentation::demandeInstallation);
+        $experimentation->setSA($this->saRepository->saNonUtiliser());
 
-        $sa = $this->saRepository->saNonUtiliser();
-        $experimentation->setSA($sa);
-
-
-        // Obtenez le gestionnaire d'entités et persistez l'entité
-        $entityManager = $this->getEntityManager();
-        $entityManager->persist($experimentation);
-        $entityManager->flush();
+        // Persister et flush l'entité
+        $this->getEntityManager()->persist($experimentation);
+        $this->getEntityManager()->flush();
     }
+
 
     /*
      * Vérifie si une experimentation pour la salle nomSalle existe ou non
      */
-    public function verifierExperimentation($nomSalle): bool
+    public function estExistante($nomSalle): bool
     {
-        // Récupérer le gestionnaire d'entités
-        $entityManager = $this->getEntityManager();
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->select('count(e.id)')
+            ->join('e.Salles', 's')
+            ->where('s.nom = :nomSalle')
+            ->andWhere('e.etat BETWEEN :etat1 AND :etat2')
+            ->setParameters([
+                'nomSalle' => $nomSalle,
+                'etat1' => EtatExperimentation::demandeInstallation,
+                'etat2' => EtatExperimentation::demandeRetrait
+            ]);
 
-        // Créer une requête pour vérifier l'existence d'une expérimentation avec la salle donnée
-        $query = $entityManager->createQuery(
-            'SELECT e
-            FROM App\Entity\Experimentation e
-            JOIN e.Salles s
-            WHERE s.nom = :nomSalle
-            AND e.etat BETWEEN :etat1 AND :etat2'
-        )->setParameter('nomSalle', $nomSalle)
-            ->setParameter('etat1', EtatExperimentation::demandeInstallation)
-            ->setParameter('etat2', EtatExperimentation::demandeRetrait);
-
-        // Exécuter la requête
-        $resultat = $query->getResult();
-
-        // Retourner true si une expérimentation est trouvée, sinon false
-        return !empty($resultat);
+        return $queryBuilder->getQuery()->getSingleScalarResult() > 0;
     }
+
 
     /*
      * Vérifie si il existe des experimentation à installer
      */
-    public function trouveExperimentations()
+    public function trouveExperimentationDemandeInstallation()
     {
-        $dql = '
-        SELECT salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, experimentation.dateinstallation,
-               CASE
-                   WHEN experimentation.etat = :etat_demande_installation THEN 0
-                   WHEN experimentation.etat = :etat_installee THEN 1
-                   WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                   WHEN experimentation.etat = :etat_retiree THEN 4
-                   ELSE 4
-               END AS etat
-        FROM App\Entity\Salle salle
-        JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
-        JOIN App\Entity\SA sa WITH sa.id = experimentation.SA
-        ORDER BY salle.nom , etat ASC
-    ';
-        $query = $this->getEntityManager()->createQuery($dql);
+        $queryBuilder = $this->createQueryBuilder('experimentation')
+            ->select([
+                'salle.nom AS nom_salle',
+                'sa.nom AS nom_sa',
+                'experimentation.datedemande',
+                'experimentation.dateinstallation',
+                'CASE WHEN experimentation.etat = :etat_demande_installation THEN 0
+                  WHEN experimentation.etat = :etat_installee THEN 1
+                  WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                  WHEN experimentation.etat = :etat_retiree THEN 4
+                  ELSE 4 END AS etat'
+            ])
+            ->join('experimentation.Salles', 'salle')
+            ->join('experimentation.SA', 'sa')
+            ->orderBy('salle.nom', 'ASC')
+            ->setParameters([
+                'etat_demande_installation' => EtatExperimentation::demandeInstallation,
+                'etat_installee' => EtatExperimentation::installee,
+                'etat_demandeRetrait' => EtatExperimentation::demandeRetrait,
+                'etat_retiree' => EtatExperimentation::retiree
+            ]);
 
-        $query->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
-            ->setParameter('etat_installee', EtatExperimentation::installee)
-            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
-            ->setParameter('etat_retiree', EtatExperimentation::retiree);
-
-        return $query->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
+    /*
+     * Cherche les expérimentations qui ne sont pas retirées
+     */
+    public function findOneByPasRetiree($salle)
+    {
+        $idSalle = $this->salleRepository->nomSalleId($salle);
+        return $this->createQueryBuilder('experimentation')
+            ->where('experimentation.etat != 3 and experimentation.Salles =' . $idSalle->getId())
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
      * Supprime une experimentation pour la salle de nom $salle
      */
-    public function supprimerExperimentation($salle)
+    public function supprimerExperimentation($salle): array
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->createQueryBuilder('experimentation')
-            ->where('experimentation.etat != 3 and experimentation.Salles =' . $idSalle->getId())
-            ->getQuery()
-            ->getResult();
-        $Exp = $Exp[0];
-        $listeEtat = [$Exp->getEtat(), null];
+        $exp = $this->findOneByPasRetiree($salle);
+        $exp = $exp[0];
+        $listeEtat = [$exp->getEtat(), null];
 
-        if ($Exp->getEtat() == EtatExperimentation::demandeInstallation) {
-            $this->saRepository->suppressionExp($Exp->getSA());
-            $entityManager = $this->getEntityManager();
-            $entityManager->persist($Exp);
-            $entityManager->flush();
-            $queryBuilder = $this->createQueryBuilder('experimentation');
-            $queryBuilder
-                ->delete()
-                ->where('experimentation.etat != 3 and experimentation.Salles = ' . $idSalle->getId())
-                ->getQuery()
-                ->execute();
-        } elseif ($Exp->getEtat() == EtatExperimentation::installee) {
-            $Exp->setEtat(EtatExperimentation::demandeRetrait);
-            $Exp->setDateinstallation(null);
-            $dateDemande = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-            $Exp->setDatedemande($dateDemande);
-            $entityManager = $this->getEntityManager();
-            $entityManager->persist($Exp);
-            $entityManager->flush();
+        $exp = $this->findOneBy(['Salles' => $idSalle, 'etat' => EtatExperimentation::demandeInstallation]);
+
+        if ($exp) {
+            $this->supprimerExperimentationDemandeInstallation($exp, $idSalle);
+        } else {
+            $exp = $this->findOneBy(['Salles' => $idSalle, 'etat' => EtatExperimentation::installee]);
+            if ($exp) {
+                $this->retireExperimentationInstallee($exp);
+            }
         }
-        $listeEtat[1] = $Exp->getEtat();
+
+        $listeEtat[1] = $exp->getEtat();
         return $listeEtat;
     }
 
-    public function extraireLesExperimentations()
+    /*
+     * Retire une expérimentation qui était en demande d'installation
+     */
+    private function supprimerExperimentationDemandeInstallation($exp, $idSalle): void
     {
-        $entityManager = $this->getEntityManager();
-        
-        $query = $entityManager->createQuery('
-            SELECT salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation, experimentation.etat, sa.etat as sa_etat
-            FROM App\Entity\Salle salle JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles JOIN App\Entity\SA sa WITH experimentation.SA = sa.id
-            WHERE experimentation.etat = 1 OR experimentation.etat = 2
-        ');
-    
-        // Exécuter la requête
-        // Retourner true si une expérimentation est trouvée, sinon false
-        return $query->getResult();
+        $this->saRepository->suppressionExp($exp->getSA());
+        $this->supprimerEtVide($exp);
+        $this->createQueryBuilder('experimentation')
+            ->delete()
+            ->where('experimentation.etat != 3 and experimentation.Salles = :idSalle')
+            ->setParameter('idSalle', $idSalle->getId())
+            ->getQuery()
+            ->execute();
     }
 
-    public function filtrerextraireLesExperimentations($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
+    /*
+     * Modifie une expérimentation qui était installée en demande de retrait
+     */
+    private function retireExperimentationInstallee($exp): void
     {
-        // Requête pour filtrer les salles selon les critères spécifiés.
-        $queryBuilder = $this->salleRepository->createQueryBuilder('salle')
-            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation, experimentation.etat, sa.etat as sa_etat,
-                CASE
-                    WHEN experimentation.etat = :etat_demande_installation THEN 0
-                    WHEN experimentation.etat = :etat_installee THEN 1
-                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                    WHEN experimentation.etat = :etat_retiree THEN 4
-                    ELSE 4
-                END AS etat')
-            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
-            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
-            ->orderBy('salle.nom', 'ASC');
+        $exp->setEtat(EtatExperimentation::demandeRetrait);
+        $exp->setDatedemande(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+        $this->persisteEtVide($exp);
+    }
 
-        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
-            ->setParameter('etat_installee', EtatExperimentation::installee)
-            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
-            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+    /*
+     * Supprime du repository
+     */
+    private function supprimerEtVide($entity): void
+    {
+        $em = $this->getEntityManager();
+        $em->remove($entity);
+        $em->flush();
+    }
+
+    /*
+     * Persiste dans le repository
+     */
+    private function persisteEtVide($entity): void
+    {
+        $em = $this->getEntityManager();
+        $em->persist($entity);
+        $em->flush();
+    }
+
+    /*
+     * Fonction de filtrage pour la liste des salles en cours d'analyse
+     */
+    public function filtreExperimentationAnalyse($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
+    {
+        $queryBuilder = $this->requeteCommune();
 
         if (!empty($etages) && $etages !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('salle.etage', ':etages'))
+            $queryBuilder->andWhere('salle.etage IN (:etages)')
                 ->setParameter('etages', $etages);
         }
 
         if (!empty($orientation) && $orientation !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('salle.orientation', ':orientation'))
+            $queryBuilder->andWhere('salle.orientation IN (:orientation)')
                 ->setParameter('orientation', $orientation);
         }
 
         if ($ordinateurs !== null) {
-            if ($ordinateurs === 0) {
-                $queryBuilder->andWhere('salle.nb_ordis = 0');
-            } elseif ($ordinateurs === 1) {
-                $queryBuilder->andWhere('salle.nb_ordis > 0');
-            }
+            $ordinateursCondition = $ordinateurs === 0 ? 'salle.nb_ordis = 0' : 'salle.nb_ordis > 0';
+            $queryBuilder->andWhere($ordinateursCondition);
         }
 
         if ($sa !== null) {
-            switch ($sa) {
-                case 0:
-                    $queryBuilder->andWhere('experimentation.datedemande IS NULL AND experimentation.dateinstallation IS NULL');
-                    break;
-                case 1:
-                    $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NOT NULL');
-                    break;
-                case 2:
-                    $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NULL');
-                    break;
-            }
+            $saCondition = $this->conditionsSA($sa);
+            $queryBuilder->andWhere($saCondition);
         }
 
-        // Exécutez la requête et retournez les résultats.
-        $exp = $queryBuilder->getQuery()->getResult();
+        return $this->enleveExperimentationsInutiles($queryBuilder->getQuery()->getResult());
+    }
+
+    /*
+     * Requête commune à la fonction de filtrage et de recherche (fonction qui récupère tout)
+     */
+    private function requeteCommune(): \Doctrine\ORM\QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('experimentation')
+            ->select([
+                'salle.nom',
+                'salle.etage',
+                'salle.numero',
+                'salle.orientation',
+                'salle.nb_fenetres',
+                'salle.nb_ordis',
+                'experimentation.datedemande',
+                'experimentation.dateinstallation',
+                'experimentation.etat',
+                'sa.etat AS sa_etat'
+            ])
+            ->join('experimentation.Salles', 'salle')
+            ->join('experimentation.SA', 'sa')
+            ->where('experimentation.etat IN (:etats)')
+            ->setParameter('etats', [EtatExperimentation::installee, EtatExperimentation::demandeRetrait]);
+
+        return $queryBuilder;
+    }
+
+    /*
+     * Selon le numéro de filtre pour les SA, ajoute une condition à la requête
+     */
+    private function conditionsSA($sa)
+    {
+        switch ($sa) {
+            case 0:
+                return 'experimentation.datedemande IS NULL AND experimentation.dateinstallation IS NULL';
+            case 1:
+                return 'experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NOT NULL';
+            case 2:
+                return 'experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NULL';
+        }
+    }
+
+    /*
+     * Supprime les expérimentations inutiles
+     */
+    private function enleveExperimentationsInutiles($exp)
+    {
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
             if ($exp[$i]['sa_etat'] == null or $exp[$i]['etat'] == 4 or $exp[$i]['etat'] == EtatExperimentation::retiree or $exp[$i]['etat'] == EtatExperimentation::demandeInstallation) {
@@ -229,175 +271,188 @@ class ExperimentationRepository extends ServiceEntityRepository
             }
         }
 
-        $exp = array_values($exp);
-        $len = count($exp);
-        if (count($exp) > 2) {
-            $salle = $exp[0]['nom'];
-            for ($i = 0; $i < $len - 1; $i++) {
-                if ($salle == $exp[$i + 1]['nom']) {
-                    unset($exp[$i + 1]);
-                } else {
-                    $salle = $exp[$i + 1]['nom'];
-                }
-            }
-        }
         return $exp;
     }
 
-    public function rechercheextraireLesExperimentations($batiment = null, $salle = null)
+    /*
+     * Fonction de recherche
+     */
+    public function rechercheExperimentationAnalyse($batiment = null, $salle = null)
     {
-        // Requête pour filtrer les salles selon les critères spécifiés.
-        $queryBuilder = $this->salleRepository->createQueryBuilder('salle')
-            ->select('salle.nom, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.datedemande, experimentation.dateinstallation, experimentation.etat, sa.etat as sa_etat,
-                CASE
-                    WHEN experimentation.etat = :etat_demande_installation THEN 0
-                    WHEN experimentation.etat = :etat_installee THEN 1
-                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                    WHEN experimentation.etat = :etat_retiree THEN 4
-                    ELSE 4
-                END AS etat')
-            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
-            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
-            ->orderBy('salle.nom', 'ASC');
-
-        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
-            ->setParameter('etat_installee', EtatExperimentation::installee)
-            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
-            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+        $queryBuilder = $this->requeteCommune();
 
         if ($batiment !== null) {
             $queryBuilder->andWhere('salle.batiment = :batiment')
                 ->setParameter('batiment', $batiment);
         }
 
-        if (!empty($salle)) {
+        if ($salle !== null) {
             $queryBuilder->andWhere('salle.nom LIKE :salle')
                 ->setParameter('salle', '%' . $salle . '%');
         }
 
-        // Exécutez la requête et retournez les résultats.
-        $exp = $queryBuilder->getQuery()->getResult();
-        $len = count($exp);
-        for ($i = 0; $i < $len; $i++) {
-            if ($exp[$i]['sa_etat'] == null or $exp[$i]['etat'] == 4 or $exp[$i]['etat'] == EtatExperimentation::retiree or $exp[$i]['etat'] == EtatExperimentation::demandeInstallation) {
-                unset($exp[$i]);
-            }
-        }
-
-        $exp = array_values($exp);
-        $len = count($exp);
-        if (count($exp) > 2) {
-            $salle = $exp[0]['nom'];
-            for ($i = 0; $i < $len - 1; $i++) {
-                if ($salle == $exp[$i + 1]['nom']) {
-                    unset($exp[$i + 1]);
-                } else {
-                    $salle = $exp[$i + 1]['nom'];
-                }
-            }
-        }
-        return $exp;
+        return $this->enleveExperimentationsInutiles($queryBuilder->getQuery()->getResult());
     }
 
+    /*
+     * Liste les salles avec leurs dernières données
+     */
     public function listerSallesAvecDonnees(array $dataArray, array $verif): array
     {
-        // Initialiser le tableau résultat
         $salles = [];
 
-        // Parcourir les données
         foreach ($dataArray as $item) {
             $salle = $item['localisation'];
-            $test = 0;
-            foreach ($verif as $veri){
-                if($veri['nom_salle'] == $salle){
-                    $test = 1;
-                }
-            }
-            if($test == 1 ){
-                // Trouver la salle dans le tableau
-                $index = array_search($salle, array_column($salles, 'localisation'));
-
-                // Si la salle n'est pas déjà dans le tableau, l'ajouter
-                if ($index === false or $item['dateCapture'] >= $salles[$index]['dateCapture']) {
-                    if ($index === false) {
-                        $salles[] = [
-                            'localisation' => $salle,
-                            'co2' => null,
-                            'hum' => null,
-                            'temp' => null,
-                            'dateCapture' => null,
-                        ];
-                        $index = count($salles) - 1; // L'index de la nouvelle salle
-                    }
-
-                        // Remplir les valeurs correspondantes avec les dernières données
-                        switch ($item['nom']) {
-                            case 'co2':
-                                $salles[$index]['co2'] = $item['valeur'];
-                                break;
-                            case 'hum':
-                                $salles[$index]['hum'] = $item['valeur'];
-                                break;
-                            case 'temp':
-                                $salles[$index]['temp'] = $item['valeur'];
-                                break;
-                        }
-                        $salles[$index]['dateCapture'] = $item['dateCapture'];
-
-                }
+            if ($this->existeSalle($salle, $verif)) {
+                $this->majDonneesSalle($salles, $item, $salle);
             }
         }
+
         return $salles;
     }
 
+    /*
+     * Vérifie si une salle existe
+     */
+    private function existeSalle($salle, $verif): bool
+    {
+        foreach ($verif as $veri){
+            if ($veri['nom_salle'] === $salle) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Mets à jour le tableau de données pour mettre les dernières récupérées
+     */
+    private function majDonneesSalle(&$salles, $item, $salle): void
+    {
+        $index = array_search($salle, array_column($salles, 'localisation'));
+
+        if ($index === false || $item['dateCapture'] >= $salles[$index]['dateCapture']) {
+            $this->ajouteOuMajDonnees($salles, $index, $item, $salle);
+        }
+    }
+
+    /*
+     * Ajoute si la salle n'existe pas dans les données et mets à jouer
+     */
+    private function ajouteOuMajDonnees(&$salles, $index, $item, $salle): void
+    {
+        if ($index === false) {
+            $salles[] = [
+                'localisation' => $salle,
+                'co2' => null,
+                'hum' => null,
+                'temp' => null,
+                'dateCapture' => null,
+            ];
+            $index = count($salles) - 1; // L'index de la nouvelle salle
+        }
+
+        // Remplir les valeurs correspondantes avec les dernières données
+        switch ($item['nom']) {
+            case 'co2':
+                $salles[$index]['co2'] = $item['valeur'];
+                break;
+            case 'hum':
+                $salles[$index]['hum'] = $item['valeur'];
+                break;
+            case 'temp':
+                $salles[$index]['temp'] = $item['valeur'];
+                break;
+        }
+        $salles[$index]['dateCapture'] = $item['dateCapture'];
+    }
+
+    /*
+     * Fait la moyenne de toutes les dernières valeurs des salles
+     */
     public function moyennesDonnees(array $dataArray): array
     {
-        $listsalle = $this->salleRepository->listerSalles();
-        $salles = $this->listerSallesAvecDonnees($dataArray,$listsalle);
-        // Initialiser les tableaux pour stocker les valeurs de chaque type de mesure
-        $tempValues = [];
-        $humValues = [];
-        $co2Values = [];
+        $salles = $this->listerSallesAvecDonnees($dataArray, $this->salleRepository->listerSalles());
+        return $this->calculsMoyennes($salles);
+    }
 
-        // 2. Organiser les données par salle
+    /*
+     * Fait les calculs des moyennes
+     */
+    private function calculsMoyennes($salles): array
+    {
+        $tempValues = $humValues = $co2Values = [];
+
         foreach ($salles as $data) {
-            // 3. Stocker les valeurs dans les tableaux correspondants
             $tempValues[] = $data['temp'];
             $humValues[] = $data['hum'];
             $co2Values[] = $data['co2'];
         }
 
-        // 4. Calculer la moyenne pour chaque type de mesure
-        $temp_moy = count($tempValues) > 0 ? array_sum($tempValues) / count($tempValues) : null;
-        $hum_moy = count($humValues) > 0 ? array_sum($humValues) / count($humValues) : null;
-        $taux_carbone_moy = count($co2Values) > 0 ? array_sum($co2Values) / count($co2Values) : null;
-
-        return [$temp_moy, $hum_moy, $taux_carbone_moy];
+        return [
+            'temp_moy' => $this->moyenne($tempValues),
+            'hum_moy' => $this->moyenne($humValues),
+            'co2_moy' => $this->moyenne($co2Values)
+        ];
     }
+
+    /*
+     * Fait le calcul général pour une moyenne
+     */
+    private function moyenne($values): float|int|null
+    {
+        return count($values) > 0 ? array_sum($values) / count($values) : null;
+    }
+
 
     /*
      * Modifie l'etat du experimentation à $etat pour la salle de nom $salle
      */
     public function modifierEtat($etat, $salle): void
     {
-        $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->createQueryBuilder('experimentation')
-            ->where('experimentation.etat != 3 and experimentation.Salles =' . $idSalle->getId())
-            ->getQuery()
-            ->getResult();
-        $Exp = $Exp[0];
-        $Exp->setEtat($etat);
-        $entityManager = $this->getEntityManager();
-        if ($etat == EtatExperimentation::retiree) {
-            $Exp->getSA()->setDisponible(1);
-        }
+        $exp = $this->findOneByPasRetiree($salle);
+        $exp = $exp[0];
 
-        $entityManager->persist($Exp);
-        $entityManager->flush();
+        if ($exp) {
+            $this->MajEtatEtPersist($exp, $etat);
+        }
     }
 
-    public function triexperimentation($exp)
+    /*
+     * Mets à jour l'état et persiste dans le repository
+     */
+    private function MajEtatEtPersist($exp, $etat): void
     {
+        $exp->setEtat($etat);
+        if ($etat == EtatExperimentation::installee) {
+            $exp->setDateinstallation(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+        }
+        else if ($etat == EtatExperimentation::retiree) {
+            $exp->setDatedesinstallation(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+        }
+        if ($etat === EtatExperimentation::retiree) {
+            $exp->getSA()->setDisponible(1);
+        }
+
+        $this->getEntityManager()->persist($exp);
+        $this->getEntityManager()->flush();
+    }
+
+    /*
+     * Tri les expérimentations par salle et par date de capture dans l'ordre décroissant et supprime les doublons
+     */
+    public function triExperimentation($exp)
+    {
+        usort($exp, function($a, $b) {
+            // Tri par nom_salle
+            if ($a['nom_salle'] != $b['nom_salle']) {
+                return $a['nom_salle'] <=> $b['nom_salle'];
+            }
+
+            // Si nom_salle est identique, tri par datedemande en ordre décroissant
+            return $b['datedemande'] <=> $a['datedemande'];
+        });
+
         $len = count($exp);
         if (count($exp) > 2) {
             $salle = $exp[0]['nom_salle'];
@@ -412,113 +467,76 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $exp;
     }
 
-
-    public function trouveExperimentationsNonRetirer()
-    {
-        $queryBuilder = $this->createQueryBuilder('experimentation')
-            ->select('sa.nom as nom_sa, salle.nom as nom_salle,
-                CASE
-                    WHEN experimentation.etat = :etat_demande_installation THEN 0
-                    WHEN experimentation.etat = :etat_installee THEN 1
-                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                    WHEN experimentation.etat = :etat_retiree THEN 4
-                    ELSE 4
-                END AS etat')
-            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
-            ->leftJoin('App\Entity\Salle', 'salle', 'WITH', 'salle.id = experimentation.Salles')
-            ->where('experimentation.etat != 3');
-
-        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation);
-        $queryBuilder->setParameter('etat_installee', EtatExperimentation::installee);
-        $queryBuilder->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait);
-        $queryBuilder->setParameter('etat_retiree', EtatExperimentation::retiree);
-
-
-        // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
-    }
-
     /*
      * Récupère l'état d'une experimentation pour la salle de nom $salle
      */
     public function etatExperimentation($salle) : EtatExperimentation
     {
-        $idSalle = $this->salleRepository->nomSalleId($salle);
-        $Exp = $this->createQueryBuilder('experimentation')
-            ->where('experimentation.etat != 3 and experimentation.Salles =' . $idSalle->getId())
-            ->getQuery()
-            ->getResult();
-        if (count($Exp) == 0) {
+        $exp = $this->findOneByPasRetiree($salle);
+        if (count($exp) == 0) {
             return EtatExperimentation::retiree;
         }
-        $Exp = $Exp[0];
+        $Exp = $exp[0];
         return $Exp->getEtat();
     }
 
-    public function listerLesIntervallesArchives($nomsalle)
+    /*
+     * Liste les expérimentations passées d'une salle
+     */
+    public function listerLesIntervallesArchives($nomSalle)
     {
-        $dql = '
-        SELECT experimentation.dateinstallation as date_install, experimentation.datedesinstallation as date_desinstall
-        FROM App\Entity\Experimentation experimentation
-        JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
-        WHERE experimentation.datedesinstallation IS NOT NULL
-        AND salle.nom = :nomsalle
-        ';
-        return $this->getEntityManager()->createQuery($dql)->setParameter('nomsalle', $nomsalle)->getResult();
+        $queryBuilder = $this->createQueryBuilder('experimentation')
+            ->select(['experimentation.dateinstallation AS date_install', 'experimentation.datedesinstallation AS date_desinstall'])
+            ->join('experimentation.Salles', 'salle')
+            ->where('salle.nom = :nomSalle')
+            ->andWhere('experimentation.datedesinstallation IS NOT NULL')
+            ->setParameter('nomSalle', $nomSalle);
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
-    public function extraireDateInstallExpActuelle($nomsalle)
+    /*
+     * Récupère l'expérimentation en cours d'une salle
+     */
+    public function extraireDateInstallExpActuelle($nomSalle)
     {
-        $dql = '
-        SELECT experimentation.dateinstallation as date_install
-        FROM App\Entity\Experimentation experimentation
-        JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
-        WHERE salle.nom = :nomsalle
-        AND experimentation.etat IN (:etat_installee,:etat_demandeRetrait)
-        ';
-        return $this
-            ->getEntityManager()
-            ->createQuery($dql)
-            ->setParameter('nomsalle', $nomsalle)
-            ->setParameter('etat_installee', EtatExperimentation::installee)
-            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
+        return $this->createQueryBuilder('experimentation')
+            ->select('experimentation.dateinstallation AS date_install')
+            ->join('experimentation.Salles', 'salle')
+            ->where('salle.nom = :nomSalle')
+            ->andWhere('experimentation.etat IN (:etats)')
+            ->setParameter('nomSalle', $nomSalle)
+            ->setParameter('etats', [EtatExperimentation::installee, EtatExperimentation::demandeRetrait])
+            ->getQuery()
             ->getOneOrNullResult();
     }
 
-    public function etatExp($nomsalle)
+    /*
+     * Récupère l'état d'une expérimentation d'une salle
+     */
+    public function etatExp($nomSalle)
     {
-    $dql = '
-    SELECT experimentation.etat as etat_exp
-    FROM App\Entity\Experimentation experimentation
-    JOIN App\Entity\Salle salle WITH experimentation.Salles = salle.id
-    WHERE salle.nom = :nomsalle
-    ';
-
-        return $this
-            ->getEntityManager()
-            ->createQuery($dql)
-            ->setParameter('nomsalle', $nomsalle)
+        return $this->createQueryBuilder('experimentation')
+            ->select('experimentation.etat AS etat_exp')
+            ->join('experimentation.Salles', 'salle')
+            ->where('salle.nom = :nomSalle')
+            ->setParameter('nomSalle', $nomSalle)
+            ->getQuery()
             ->getResult();
     }
+
 
     /*
      * Fonctions qui retourne une liste des experimentations qui ont eu lieu dans une salle de nom $nomSalle
      */
-    public function trouveExperimentationsParNomSalle($nomsalle)
+    public function trouveExperimentationsParNomSalle($nomSalle)
     {
-        $entityManager = $this->getEntityManager();
+        $queryBuilder = $this->createQueryBuilder('exp')
+            ->join('exp.Salles', 'salle')
+            ->where('salle.nom = :nomSalle')
+            ->setParameter('nomSalle', $nomSalle);
 
-        // Requête pour trouver les expérimentations liées à une salle avec le nom donné
-        $query = $entityManager->createQuery('
-        SELECT exp
-        FROM App\Entity\Experimentation exp
-        JOIN exp.Salles salle
-        WHERE salle.nom = :nomsalle
-    ');
-
-        $query->setParameter('nomsalle', $nomsalle);
-
-        // Exécutez la requête et retournez la liste des expérimentations
-        return $query->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
+
 }

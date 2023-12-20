@@ -5,13 +5,12 @@ namespace App\DataFixtures;
 use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use App\Entity\Batiment;
-use App\Entity\Donnees;
+use App\Entity\User;
 use App\Entity\Salle;
 use App\Entity\SA;
 use App\Entity\Experimentation;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
-use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -151,6 +150,23 @@ class AppFixtures extends Fixture
         $experimentation->setDatedesinstallation(null);
 
         $manager->persist($experimentation);
+
+        $manager->flush();
+
+        $user = new User();
+        $user->setUsername('technicien');
+        $user->setRoles(['ROLE_TECHNICIEN']);
+        $user->setPlainPassword('technicien');
+
+        $manager->persist($user);
+        $manager->flush();
+
+        $user = new User();
+        $user->setUsername('chargemission');
+        $user->setRoles(['ROLE_CHARGEMISSION']);
+        $user->setPlainPassword('chargemission');
+
+        $manager->persist($user);
         $manager->flush();
     }
 }

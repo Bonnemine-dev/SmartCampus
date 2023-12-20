@@ -3,26 +3,21 @@
 {% block title %}Plan d'expérimentation - Technicien{% endblock %}
 
 {% block navlink %}
-    <li><a class="nav-link current-page" href="liste-souhaits">Plan d'expérimentation</a></li>
-    <li><a class="nav-link" href="gestion-sa">Gestion des SA</a></li>
-
+    <li><a class="nav-link current-page">Plan d'expérimentation</a></li>
+    <li><a class="nav-link" href="/technicien/gestion-sa">Gestion des SA</a></li>
+    <li><a class="nav-link" href="/technicien/modifier">Modifier le mot de passe</a></li>
 {% endblock %}
 
 {% block appcontent %}
 <div class="app-content souhaits">
 
-    {# Affichage des messages de succès #}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-
-    {# Affichage des messages d'erreur #}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-error">
-            {{ message }}
-        </div>
+    {# Affichage des messages de succès et d'erreur #}
+    {% for type in ['success', 'error'] %}
+        {% for message in app.flashes(type) %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
 
     {# --------------------------------------------- #}

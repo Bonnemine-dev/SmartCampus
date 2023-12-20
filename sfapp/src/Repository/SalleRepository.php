@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Config\EtatExperimentation;
-use App\Entity\Experimentation;
 use App\Entity\Salle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,67 +23,62 @@ class SalleRepository extends ServiceEntityRepository
         parent::__construct($registry, Salle::class);
     }
 
-    public function listerSalles()
-    {
-        // Requête pour sélectionner les salles avec des informations supplémentaires de l'expérimentation.
-        $dql = '
-        SELECT salle.nom as nom_salle, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis,
-               experimentation.datedemande, experimentation.dateinstallation,
-               CASE
-                   WHEN experimentation.etat = :etat_demande_installation THEN 0
-                   WHEN experimentation.etat = :etat_installee THEN 1
-                   WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                   WHEN experimentation.etat = :etat_retiree THEN 3
-                   ELSE 4
-               END AS etat
-        FROM App\Entity\Salle salle
-        LEFT JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
-        ORDER BY salle.nom ASC
-    ';
-
-        $query = $this->getEntityManager()->createQuery($dql);
-
-        $query->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
+    /*
+     * Requête commune pour le repository
+     */
+    public function requeteCommune() {
+        return $this->createQueryBuilder('salle')
+            ->select('salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation, experimentation.datedesinstallation,
+            CASE
+                WHEN experimentation.etat = :etat_demande_installation THEN 0
+                WHEN experimentation.etat = :etat_installee THEN 1
+                WHEN experimentation.etat = :etat_demandeRetrait THEN 2
+                WHEN experimentation.etat = :etat_retiree THEN 3
+                ELSE 4
+            END AS etat')
+            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
+            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->orderBy('salle.nom', 'ASC')
+            ->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
             ->setParameter('etat_installee', EtatExperimentation::installee)
             ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
             ->setParameter('etat_retiree', EtatExperimentation::retiree);
-
-        return $query->getResult();
     }
 
+    /*
+     * Liste toutes les salles
+     */
+    public function listerSalles()
+    {
+        $queryBuilder = $this->requeteCommune();
+        $resultat = $this->triListeSalle($queryBuilder->getQuery()->getResult());
+
+        return $resultat;
+    }
+
+    /*
+     * Fonction de recherche pour les expérimentations
+     */
     public function rechercheSallePlanExp($batiment = null, $salle = null)
     {
         // Requête pour filtrer les salles selon les critères spécifiés.
-        $queryBuilder = $this->createQueryBuilder('salle')
-            ->select('salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation,
-                CASE
-                    WHEN experimentation.etat = :etat_demande_installation THEN 0
-                    WHEN experimentation.etat = :etat_installee THEN 1
-                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                    WHEN experimentation.etat = :etat_retiree THEN 4
-                    ELSE 4
-                END AS etat')
-            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
-            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
-            ->orderBy('salle.nom', 'ASC');
-
-        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
-            ->setParameter('etat_installee', EtatExperimentation::installee)
-            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
-            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+        $queryBuilder = $this->requeteCommune();
+        $resultat = $this->triListeSalle($queryBuilder->getQuery()->getResult());
 
         if ($batiment !== null) {
-            $queryBuilder->andWhere('salle.batiment = :batiment')
-                ->setParameter('batiment', $batiment);
+            $resultat = array_filter($resultat, function ($item) use ($batiment) {
+                return $item['batiment'] == $batiment;
+            });
         }
 
         if (!empty($salle)) {
-            $queryBuilder->andWhere('salle.nom LIKE :salle')
-                ->setParameter('salle', '%' . $salle . '%');
+            $resultat = array_filter($resultat, function ($item) use ($salle) {
+                return stripos($item['nom_salle'], $salle) !== false;
+            });
         }
 
         // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
+        return $resultat;
     }
 
     /**
@@ -99,58 +93,52 @@ class SalleRepository extends ServiceEntityRepository
     public function filtrerSallePlanExp($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
     {
         // Requête pour filtrer les salles selon les critères spécifiés.
-        $queryBuilder = $this->createQueryBuilder('salle')
-            ->select('salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation,
-                CASE
-                    WHEN experimentation.etat = :etat_demande_installation THEN 0
-                    WHEN experimentation.etat = :etat_installee THEN 1
-                    WHEN experimentation.etat = :etat_demandeRetrait THEN 2
-                    WHEN experimentation.etat = :etat_retiree THEN 4
-                    ELSE 4
-                END AS etat')
-            ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
-            ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
-            ->orderBy('salle.nom', 'ASC');
+        $queryBuilder = $this->requeteCommune();
 
-        $queryBuilder->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
-            ->setParameter('etat_installee', EtatExperimentation::installee)
-            ->setParameter('etat_demandeRetrait', EtatExperimentation::demandeRetrait)
-            ->setParameter('etat_retiree', EtatExperimentation::retiree);
+        $resultat = $this->triListeSalle($queryBuilder->getQuery()->getResult());
 
-        if (!empty($etages) && $etages !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('salle.etage', ':etages'))
-                ->setParameter('etages', $etages);
+        if (!empty($etages)) {
+            $resultat = array_filter($resultat, function ($item) use ($etages) {
+                return in_array($item['etage'], $etages);
+            });
         }
 
-        if (!empty($orientation) && $orientation !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('salle.orientation', ':orientation'))
-                ->setParameter('orientation', $orientation);
+        // Filtrage par orientation
+        if (!empty($orientation)) {
+            $resultat = array_filter($resultat, function ($item) use ($orientation) {
+                return in_array($item['orientation'], $orientation);
+            });
         }
 
         if ($ordinateurs !== null) {
-            if ($ordinateurs === 0) {
-                $queryBuilder->andWhere('salle.nb_ordis = 0');
-            } elseif ($ordinateurs === 1) {
-                $queryBuilder->andWhere('salle.nb_ordis > 0');
-            }
+            $resultat = array_filter($resultat, function ($item) use ($ordinateurs) {
+                if ($ordinateurs === 0) {
+                    return $item['nb_ordis'] == 0;
+                } elseif ($ordinateurs === 1) {
+                    return $item['nb_ordis'] > 0;
+                }
+                return true;
+            });
         }
 
         if ($sa !== null) {
-            switch ($sa) {
-                case 0:
-                    $queryBuilder->andWhere('experimentation.datedemande IS NULL AND experimentation.dateinstallation IS NULL');
-                    break;
-                case 1:
-                    $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NOT NULL');
-                    break;
-                case 2:
-                    $queryBuilder->andWhere('experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NULL');
-                    break;
-            }
+            $resultat = array_filter($resultat, function ($item) use ($sa) {
+                switch ($sa) {
+                    case 0:
+                        return $item['etat'] == 3 || $item['etat'] == 4;
+                    case 1:
+                        return $item['etat'] == 1 || $item['etat'] == 2;
+                    case 2:
+                        return $item['etat'] == 0;
+                    default:
+                        return true;
+                }
+            });
         }
 
+
         // Exécutez la requête et retournez les résultats.
-        return $queryBuilder->getQuery()->getResult();
+        return $resultat;
     }
 
     /**
@@ -164,8 +152,22 @@ class SalleRepository extends ServiceEntityRepository
         return $this->findOneBy(['nom' => $salle]);
     }
 
+    /*
+     * Tris des salles pour enlever les expérimentations inutiles
+     */
     public function triListeSalle($salle)
     {
+        usort($salle, function($a, $b) {
+            // Tri par nom_salle
+            if ($a['nom_salle'] != $b['nom_salle']) {
+                return $a['nom_salle'] <=> $b['nom_salle'];
+            }
+
+            // Si nom_salle est identique, tri par datedemande en ordre décroissant
+            return $b['datedemande'] <=> $a['datedemande'];
+        });
+
+
         $len = count($salle);
         if(count($salle)>2){
             $nom_salle = $salle[0]['nom_salle'];
@@ -173,7 +175,7 @@ class SalleRepository extends ServiceEntityRepository
             {
                 if($nom_salle == $salle[$i+1]['nom_salle'])
                 {
-                    unset($salle[$i]);
+                    unset($salle[$i+1]);
                 }else{
                     $nom_salle = $salle[$i+1]['nom_salle'];
                 }
@@ -182,20 +184,19 @@ class SalleRepository extends ServiceEntityRepository
         return $salle;
     }
 
+    /*
+     * Recherche les SA associés à une salle
+     */
     public function SAAssocie($nomsalle) {
-        $dql = '
-        SELECT sa.nom as nom_sa, sa.etat as etat_sa
-        FROM App\Entity\Salle salle
-        JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
-        JOIN App\Entity\SA sa WITH experimentation.SA = sa.id
-        WHERE salle.nom = :nomsalle 
-        AND experimentation.etat IN (1,2)
-    ';
+        $queryBuilder = $this->createQueryBuilder('salle')
+            ->select('sa.nom as nom_sa, sa.etat as etat_sa')
+            ->join('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
+            ->join('App\Entity\SA', 'sa', 'WITH', 'experimentation.SA = sa.id')
+            ->where('salle.nom = :nomSalle')
+            ->andWhere('experimentation.etat IN (:etats)')
+            ->setParameter('nomSalle', $nomsalle)
+            ->setParameter('etats', [1, 2]);
 
-        $query = $this->getEntityManager()->createQuery($dql);
-
-        $query->setParameter('nomsalle', $nomsalle);
-
-        return $query->getOneOrNullResult();
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }
