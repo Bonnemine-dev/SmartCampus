@@ -1109,6 +1109,7 @@ button {
   width: 100%;
   background-size: 100%;
   background-image: url("../img/img-accueil.png");
+  background-repeat: no-repeat;
   margin: 5%;
   padding: 9.5%; }
   .img-accueil h1 {
@@ -1155,5 +1156,8 @@ button {
   align-items: center; }
   .bloc-acceuil img {
     width: 100%; }
+
+#konami-audio {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

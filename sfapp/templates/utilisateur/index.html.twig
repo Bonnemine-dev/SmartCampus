@@ -78,5 +78,13 @@
                         </div>
                 </div>
         </div>
+
+        //code konami lance un audio
+        <audio id="konami-audio">
+                <source src="{{ asset('audio/presentation.mp3') }}" type="audio/mp3">
+                Votre navigateur ne prend pas en charge l'élément audio.
+        </audio>
+
+        <script src="{{ asset('js/konami.js') }}"></script>
         <script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}
