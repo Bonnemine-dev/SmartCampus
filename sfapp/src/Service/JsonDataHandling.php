@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use GuzzleHttp\Client;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\SARepository;
@@ -10,112 +11,23 @@ use App\Repository\SARepository;
 class JsonDataHandling
 {
 
+    private $saRepository;
 
-    /*public function extraireToutesLesDonneeActuellesSalle($dataArray, $nomsalle, $date_install)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $groupedData = [];
-
-        foreach ($dataArray as $data) {
-            if ($data['localisation'] == $nomsalle) {
-                $date = $data['dateCapture'];
-
-                // Convertir les dates en objets DateTime
-                $dateCapture = new \DateTime($date);
-                // Vérifier si la date est après la date d'installation
-                if ($dateCapture > $date_install['date_install']) {
-
-                    if (!isset($groupedData[$date])) {
-                        $groupedData[$date] = [
-                            'date' => $date,
-                            'temp' => null,
-                            'hum' => null,
-                            'co2' => null,
-                        ];
-                    }
-
-                    switch ($data['nom']) {
-                        case 'temp':
-                            $groupedData[$date]['temp'] = $data['valeur'];
-                            break;
-                        case 'hum':
-                            $groupedData[$date]['hum'] = $data['valeur'];
-                            break;
-                        case 'co2':
-                            $groupedData[$date]['co2'] = $data['valeur'];
-                            break;
-                    }
-                }
-            }
-        }
-
-        // Retirer les clés pour obtenir un tableau indexé
-
-        // Fonction de comparaison pour trier les données par date décroissante
-        uasort($groupedData, function ($a, $b) {
-            $dateA = new \DateTime($a['date']);
-            $dateB = new \DateTime($b['date']);
-            return $dateB <=> $dateA; // Utilise l'opérateur 'spaceship' pour la comparaison
-        });
-
-        return array_values($groupedData);
-    }*/
-
-    public function extraireDonneeSurIntervalle($dataArray, $nomsalle, $date_install, $date_desinstall)
-    {
-        $groupedData = [];
-
-        foreach ($dataArray as $data) {
-            if ($data['localisation'] == $nomsalle) {
-                $date = $data['dateCapture'];
-
-                // Convertir les dates en objets DateTime
-                $dateCapture = new \DateTime($date);
-
-
-                // Vérifier si la date est dans l'intervalle spécifié
-                if ($dateCapture >= $date_install && $dateCapture <= $date_desinstall) {
-                    if (!isset($groupedData[$date])) {
-                        $groupedData[$date] = [
-                            'date' => $date,
-                            'temp' => null,
-                            'hum' => null,
-                            'co2' => null,
-                        ];
-                    }
-
-                    switch ($data['nom']) {
-                        case 'temp':
-                            $groupedData[$date]['temp'] = $data['valeur'];
-                            break;
-                        case 'hum':
-                            $groupedData[$date]['hum'] = $data['valeur'];
-                            break;
-                        case 'co2':
-                            $groupedData[$date]['co2'] = $data['valeur'];
-                            break;
-                    }
-                }
-            }
-        }
-
-        // Retirer les clés pour obtenir un tableau indexé
-        uasort($groupedData, function ($a, $b) {
-            $dateA = new \DateTime($a['date']);
-            $dateB = new \DateTime($b['date']);
-            return $dateB <=> $dateA; // Utilise l'opérateur 'spaceship' pour la comparaison
-        });
-
-        return array_values($groupedData);
+        $this->saRepository = new SARepository($managerRegistry);
     }
-
 
     public function getCaptureData($nomsalle, $type)
     {
+
+        $nomsa = $this->saRepository->sa_associe_salle($nomsalle);
+
         $client = new Client();
         $response = $client->request('GET', 'https://sae34.k8s.iut-larochelle.fr/api/captures', [
             'query' => [
                 'nom' => $type,
-                'nomsa' => $nomsalle,
+                'nomsa' => $nomsa,
                 'page' => 1
             ],
             'headers' => [
@@ -131,11 +43,13 @@ class JsonDataHandling
 
     public function getCaptureDataLimited($nomsalle, $type, $count)
     {
+        $nomsa = $this->saRepository->sa_associe_salle($nomsalle);
+
         $client = new Client();
         $response = $client->request('GET', 'https://sae34.k8s.iut-larochelle.fr/api/captures/last', [
             'query' => [
                 'nom' => $type,
-                'nomsa' => $nomsalle,
+                'nomsa' => $nomsa,
                 'limit' => $count,
                 'page' => 1
             ],
@@ -205,59 +119,96 @@ class JsonDataHandling
     /**
      * @throws \Exception
      */
-    public function extraireToutesLesDonneeActuellesSalle($nomsalle, $date_install_array)
+    public function extraireToutesLesDonneeActuellesSalle($date_install)
     {
-        // Vérifier si la date d'installation est une chaîne de caractères et la convertir en DateTime
-        $date_install = is_string($date_install_array['date_install'])
-            ? new \DateTime($date_install_array['date_install'])
-            : $date_install_array['date_install'];
+        $dateInstallString = $date_install['date_install']->format('Y-m-d');
+        $dateActuelle = new \DateTime();
+        $dateActuelleString = $dateActuelle->format('Y-m-d');
 
-        // Obtenez la date actuelle
-        $dateFin = new \DateTime();
-
-        // Appeler getCaptureDataInterval pour obtenir les données
-        $donneesInterval = $this->getCaptureDataInterval($nomsalle, $date_install->format('Y-m-d'), $dateFin->format('Y-m-d'));
-
+        $types = ['hum', 'temp', 'co2'];
         $groupedData = [];
 
-        foreach ($donneesInterval as $data) {
-            $date = $data['dateCapture'];
+        foreach ($types as $type) {
+            $data = $this->getCaptureDataInterval($type, $dateInstallString, $dateActuelleString);
 
-            // Convertir les dates en objets DateTime
-            $dateCapture = new \DateTime($date);
-
-            if (!isset($groupedData[$date])) {
-                $groupedData[$date] = [
-                    'date' => $date,
-                    'temp' => null,
-                    'hum' => null,
-                    'co2' => null,
-                ];
-            }
-
-            switch ($data['nom']) {
-                case 'temp':
-                    $groupedData[$date]['temp'] = $data['valeur'];
-                    break;
-                case 'hum':
-                    $groupedData[$date]['hum'] = $data['valeur'];
-                    break;
-                case 'co2':
-                    $groupedData[$date]['co2'] = $data['valeur'];
-                    break;
+            foreach ($data as $entry) {
+                $date = $entry['dateCapture'];
+                if (!isset($groupedData[$date])) {
+                    $groupedData[$date] = [
+                        'date' => $date,
+                        'temp' => null,
+                        'hum' => null,
+                        'co2' => null,
+                    ];
+                }
+                $groupedData[$date][$type] = $entry['valeur'];
             }
         }
 
-        // Tri par date décroissante
+        // Tri par date et conversion en tableau indexé
         uasort($groupedData, function ($a, $b) {
-            $dateA = new \DateTime($a['date']);
-            $dateB = new \DateTime($b['date']);
-            return $dateB <=> $dateA;
+            return new \DateTime($b['date']) <=> new \DateTime($a['date']);
         });
 
         return array_values($groupedData);
     }
 
+    public function extraireDonneeSurIntervalle($date_install, $date_desinstall)
+    {
+        $dateInstallString = $date_install->format('Y-m-d');
+        $dateDesinstallString = $date_desinstall->format('Y-m-d');
 
+        $types = ['hum', 'temp', 'co2']; // Types de données à récupérer
+        $groupedData = [];
+
+        foreach ($types as $type) {
+            // Remplacez cette partie par l'appel à votre API
+            $data = $this->getCaptureDataInterval($type, $dateInstallString, $dateDesinstallString);
+
+            foreach ($data as $entry) {
+                $date = $entry['dateCapture'];
+                if (!isset($groupedData[$date])) {
+                    $groupedData[$date] = [
+                        'date' => $date,
+                        'temp' => null,
+                        'hum' => null,
+                        'co2' => null,
+                    ];
+                }
+                $groupedData[$date][$type] = $entry['valeur'];
+            }
+        }
+
+        // Tri par date et conversion en tableau indexé
+        uasort($groupedData, function ($a, $b) {
+            return new \DateTime($b['date']) <=> new \DateTime($a['date']);
+        });
+
+        return array_values($groupedData);
+    }
+
+    public function extraireDernieresDonneesDesSalles($experimentations)
+    {
+        $resultats = [];
+
+        foreach ($experimentations as $experimentation) {
+            $nomsalle = $experimentation['nom'];
+
+            $derniereDonnee = $this->extraireDerniereDonneeSalle($nomsalle);
+
+            // Si des données ont été trouvées pour la salle
+            if ($derniereDonnee['date_de_capture'] !== null) {
+                $resultats[] = [
+                    'localisation' => $nomsalle,
+                    'co2' => $derniereDonnee['co2'],
+                    'hum' => $derniereDonnee['hum'],
+                    'temp' => $derniereDonnee['temp'],
+                    'dateCapture' => $derniereDonnee['date_de_capture']
+                ];
+            }
+        }
+
+        return $resultats;
+    }
 
 }
