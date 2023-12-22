@@ -62,13 +62,7 @@ class UtilisateurController extends AbstractController
             return $this->redirectToRoute('app_accueil');
         }
 
-        //lecture du fichier JSON
-        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
-        $jsonContent = file_get_contents($jsonFilePath);
-        $dataArray = json_decode($jsonContent, true);
-
-        //extraction des dernière donnée d'une salle si il y en a pas alors est null
-        $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nomsalle);
+        $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nomsalle);
 
         if($dernieres_donnees['date_de_capture'] != null){
             $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);
