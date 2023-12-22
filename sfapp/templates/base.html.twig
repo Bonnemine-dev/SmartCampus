@@ -29,7 +29,9 @@
 
     <div class="left-content">
         <!-- Affichage du nom d'utilisateur -->
-            {% if app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
+            {% if app.user == null %}
+                <a class="little-gradient-button" href="/connexion">Se connecter</a>
+            {% elseif app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
                 <p>Chargé de mission</p>
                 <!-- Icône utilisateur -->
                 <img  src="{{ asset('img/user.png') }}" alt="Icone user">
@@ -47,6 +49,7 @@
     </div>
 </div>
 
+
 <!-- Contenu de l'application avec barre latérale -->
 <div class="app-container">
     <div class="sidebar">
@@ -61,7 +64,6 @@
         {% block sidebar %}
         {% endblock %}
     </div>
-
     <!-- Contenu principal à définir dans les vues enfants -->
     {% block appcontent %}
 

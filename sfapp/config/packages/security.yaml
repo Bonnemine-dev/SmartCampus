@@ -35,4 +35,3 @@ security:
   access_control:
     - { path: ^/charge-de-mission, roles: ROLE_CHARGEMISSION }
     - { path: ^/technicien, roles: ROLE_TECHNICIEN }
-    - { path: ^/connexion$, roles: ACCES_PUBLIC }

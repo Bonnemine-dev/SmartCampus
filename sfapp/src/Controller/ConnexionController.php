@@ -11,7 +11,7 @@ class ConnexionController extends AbstractController
 {
     // La fonction index représente la page d'accueil de l'application.
     // Elle rend une vue Twig spécifique avec le nom du contrôleur en tant que paramètre.
-    #[Route('/', name: 'app_connexion')]
+    #[Route('/connexion', name: 'app_connexion')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
@@ -36,5 +36,6 @@ class ConnexionController extends AbstractController
     {
         // The code is never executed, Symfony redirects before reaching this method
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
+        return $this->render('app_connexion');
     }
 }
