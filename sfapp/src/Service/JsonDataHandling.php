@@ -8,31 +8,55 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\SARepository;
 
+
+
 class JsonDataHandling
 {
 
     private $saRepository;
 
+    private $salles;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         $this->saRepository = new SARepository($managerRegistry);
+        $this->salles = [
+            "D205" => ["nomSA" => "ESP-001", "idSA" => 1, "dbname" => "sae34bdk1eq1", "username" => "k1eq1"],
+            "D206" => ["nomSA" => "ESP-002", "idSA" => 2, "dbname" => "sae34bdk1eq2", "username" => "k1eq2"],
+            "D207" => ["nomSA" => "ESP-003", "idSA" => 3, "dbname" => "sae34bdk1eq3", "username" => "k1eq3"],
+            "D204" => ["nomSA" => "ESP-004", "idSA" => 4, "dbname" => "sae34bdk2eq1", "username" => "k2eq1"],
+            "D203" => ["nomSA" => "ESP-005", "idSA" => 5, "dbname" => "sae34bdk2eq2", "username" => "k2eq2"],
+            "D303" => ["nomSA" => "ESP-006", "idSA" => 6, "dbname" => "sae34bdk2eq3", "username" => "k2eq3"],
+            "D304" => ["nomSA" => "ESP-007", "idSA" => 7, "dbname" => "sae34bdl1eq1", "username" => "l1eq1"],
+            "C101" => ["nomSA" => "ESP-008", "idSA" => 8, "dbname" => "sae34bdl1eq2", "username" => "l1eq2"],
+            "D109" => ["nomSA" => "ESP-009", "idSA" => 9, "dbname" => "sae34bdl1eq3", "username" => "l1eq3"],
+            "D106" => ["nomSA" => "ESP-010", "idSA" => 10, "dbname" => "sae34bdl2eq1", "username" => "l2eq1"],
+            "D001" => ["nomSA" => "ESP-011", "idSA" => 11, "dbname" => "sae34bdl2eq2", "username" => "l2eq2"],
+            "D002" => ["nomSA" => "ESP-012", "idSA" => 12, "dbname" => "sae34bdl2eq3", "username" => "l2eq3"],
+            "D004" => ["nomSA" => "ESP-013", "idSA" => 13, "dbname" => "sae34bdm1eq1", "username" => "m1eq1"],
+            "C004" => ["nomSA" => "ESP-014", "idSA" => 14, "dbname" => "sae34bdm1eq2", "username" => "m1eq2"],
+            "C007" => ["nomSA" => "ESP-015", "idSA" => 15, "dbname" => "sae34bdm1eq3", "username" => "m1eq3"],
+            "D201" => ["nomSA" => "ESP-016", "idSA" => 16, "dbname" => "sae34bdm2eq1", "username" => "m2eq1"],
+            "D307" => ["nomSA" => "ESP-017", "idSA" => 17, "dbname" => "sae34bdm2eq2", "username" => "m2eq2"],
+            "C005" => ["nomSA" => "ESP-018", "idSA" => 18, "dbname" => "sae34bdm2eq3", "username" => "m2eq3"]
+        ];
     }
 
     public function getCaptureData($nomsalle, $type)
     {
-
-        $nomsa = $this->saRepository->sa_associe_salle($nomsalle);
+        $nomSA = $this->salles[$nomsalle]['nomSA'];
+        $dbname = $this->salles[$nomsalle]['dbname'];
 
         $client = new Client();
         $response = $client->request('GET', 'https://sae34.k8s.iut-larochelle.fr/api/captures', [
             'query' => [
                 'nom' => $type,
-                'nomsa' => $nomsa,
+                'nomsa' => $nomSA,
                 'page' => 1
             ],
             'headers' => [
                 'accept' => 'application/json',
-                'dbname' => 'sae34bdl2eq2',
+                'dbname' => $dbname,
                 'username' => 'l2eq2',
                 'userpass' => 'wiqnyt-fuqgyc-7vUhby'
             ]
@@ -43,19 +67,20 @@ class JsonDataHandling
 
     public function getCaptureDataLimited($nomsalle, $type, $count)
     {
-        $nomsa = $this->saRepository->sa_associe_salle($nomsalle);
+        $nomSA = $this->salles[$nomsalle]['nomSA'];
+        $dbname = $this->salles[$nomsalle]['dbname'];
 
         $client = new Client();
         $response = $client->request('GET', 'https://sae34.k8s.iut-larochelle.fr/api/captures/last', [
             'query' => [
                 'nom' => $type,
-                'nomsa' => $nomsa,
+                'nomsa' => $nomSA,
                 'limit' => $count,
                 'page' => 1
             ],
             'headers' => [
                 'accept' => 'application/json',
-                'dbname' => 'sae34bdl2eq2',
+                'dbname' => $dbname,
                 'username' => 'l2eq2',
                 'userpass' => 'wiqnyt-fuqgyc-7vUhby'
             ]
@@ -106,7 +131,9 @@ class JsonDataHandling
 
             if (!empty($donnees)) {
                 $derniereDonnee[$type] = $donnees[0]['valeur'];
+                //dump($donnees[0]['dateCapture']);
                 $dateCapture = new \DateTime($donnees[0]['dateCapture']);
+
                 if ($derniereDonnee['date_de_capture'] === null || $dateCapture > new \DateTime($derniereDonnee['date_de_capture'])) {
                     $derniereDonnee['date_de_capture'] = $dateCapture->format('Y-m-d H:i:s');
                 }
