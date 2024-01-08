@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}detail salle {{ nomsalle }} - Chargé de mission
+{% block title %}detail salle {{ nomsalle }}
 {% endblock %}
 
 
@@ -57,15 +57,15 @@
                                 <td style="color: orange">{{ donnees.hum }}</td>
                             {% endif %}
 
-                            {% if donnees.temp >= 17 and  donnees.temp <= 21 %}
-                            <td>{{ donnees.temp }}</td>
-                            {% elseif donnees.temp < 14 or donnees.temp > 30%}
+                            {% if donnees.temp < intervalleTempSaison[0] or  donnees.temp > intervalleTempSaison[3] %}
                                 <td style="color: red">{{ donnees.temp }}</td>
-                            {% else %}
+                            {% elseif donnees.temp < intervalleTempSaison[1] or donnees.temp > intervalleTempSaison[2] %}
                                 <td style="color: orange">{{ donnees.temp }}</td>
+                            {% else %}
+                                <td>{{ donnees.temp }}</td>
                             {% endif %}
 
-                            {% if donnees.co2 >= 1500 %}
+                            {% if donnees.co2 >= 1500 or donnees.co2 < 400 %}
                                 <td style="color: red">{{ donnees.co2 }}</td>
                             {% elseif donnees.co2 >= 1000 %}
                                 <td style="color: orange">{{ donnees.co2 }}</td>

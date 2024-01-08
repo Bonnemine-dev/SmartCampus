@@ -28,7 +28,7 @@ class SalleRepository extends ServiceEntityRepository
      */
     public function requeteCommune() {
         return $this->createQueryBuilder('salle')
-            ->select('salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation, experimentation.datedesinstallation,
+            ->select('batiment.id as id_batiment, salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation, experimentation.datedesinstallation,
             CASE
                 WHEN experimentation.etat = :etat_demande_installation THEN 0
                 WHEN experimentation.etat = :etat_installee THEN 1
@@ -38,6 +38,7 @@ class SalleRepository extends ServiceEntityRepository
             END AS etat')
             ->leftJoin('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')
             ->leftJoin('App\Entity\SA', 'sa', 'WITH', 'sa.id = experimentation.SA')
+            ->leftJoin('App\Entity\Batiment', 'batiment', 'WITH', 'salle.batiment = batiment.id')
             ->orderBy('salle.nom', 'ASC')
             ->setParameter('etat_demande_installation', EtatExperimentation::demandeInstallation)
             ->setParameter('etat_installee', EtatExperimentation::installee)
@@ -67,7 +68,7 @@ class SalleRepository extends ServiceEntityRepository
 
         if ($batiment !== null) {
             $resultat = array_filter($resultat, function ($item) use ($batiment) {
-                return $item['batiment'] == $batiment;
+                return $item['id_batiment'] == $batiment;
             });
         }
 
