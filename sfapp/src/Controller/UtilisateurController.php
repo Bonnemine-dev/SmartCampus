@@ -9,6 +9,7 @@ use App\Repository\BatimentRepository;
 use App\Repository\ExperimentationRepository;
 use App\Repository\SalleRepository;
 use App\Repository\SARepository;
+use App\Repository\UserRepository;
 use App\Service\JsonDataHandling;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/utilisateur/{nomsalle}', name: 'utilisateur_donnees')]
-    public function utilisateur_donnees(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function utilisateur_donnees(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
         //salle inexistante ?
         if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
@@ -85,6 +86,9 @@ class UtilisateurController extends AbstractController
             }
         }
 
+        $intervalleTempSaison = $userRepository->intervallesTempSaison($dernieres_donnees['date_de_capture']);
+        $recommandations = $userRepository->recommandationsSalles($dernieres_donnees, $dernieres_donnees['date_de_capture']);
+
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('utilisateur/utilisateur-donnees.html.twig', [
             //nom de la salle
@@ -93,6 +97,10 @@ class UtilisateurController extends AbstractController
             'dernieres_donnees' => $dernieres_donnees ?? null,
             //temps écoulé depuis la dernière remonté de données
             'elapsed' => $elapsed ?? null,
+            //intervalle de température de la saison
+            'intervalleTempSaison' => $intervalleTempSaison,
+            //recommandations
+            'recommandations' => $recommandations,
         ]);
     }
 }
