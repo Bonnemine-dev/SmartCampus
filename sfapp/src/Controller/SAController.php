@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\AjoutSAFormType;
 use App\Repository\SARepository;
+use App\Repository\UserRepository;
 use App\Service\JsonDataHandling;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,7 +84,7 @@ class SAController extends AbstractController
     }
 
     #[Route('/technicien/gestion-sa/details-sa/{nomsa}', name: 'details_sa')]
-    public function details_sa(JsonDataHandling $JsonDataHandling_service, SARepository $saRepository,$nomsa): Response
+    public function details_sa(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, SARepository $saRepository,$nomsa): Response
     {
         //salle inexistante ?
         if ($saRepository->findOneBy(['nom' => $nomsa]) === null) {
@@ -122,6 +123,9 @@ class SAController extends AbstractController
             $elapsed = $interval->s . ' secondes';
         }
     }
+
+        $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
+
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('sa/details-sa.html.twig', [
             //nom du SA
@@ -131,7 +135,9 @@ class SAController extends AbstractController
             //dernière données de la salle, null si inexistantes
             'dernieres_donnees' => $dernieres_donnees ?? null,
             //temps écoulé depuis la dernière remonté de données
-            'elapsed' => $elapsed ?? null,            
+            'elapsed' => $elapsed ?? null,
+            //intervalle de température de la saison actuelle
+            'intervalleTempSaison' => $intervalleTempSaison ?? null,
         ]);
     }
 }

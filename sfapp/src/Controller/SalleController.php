@@ -6,6 +6,7 @@ use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use App\Entity\Experimentation;
 use App\Repository\SARepository;
+use App\Repository\UserRepository;
 use App\Service\JsonDataHandling;
 use App\Repository\SalleRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -63,7 +64,7 @@ class SalleController extends AbstractController
     }
 
     #[Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')]
-    public function details_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function details_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
         $liste_donnee_historique = null;
         //salle inexistante ?
@@ -166,6 +167,7 @@ class SalleController extends AbstractController
             }
         }
 
+        $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
 
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/details-salle.html.twig', [
@@ -182,12 +184,14 @@ class SalleController extends AbstractController
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
             'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'recommandation' => $recommandation ?? null
+            'recommandation' => $recommandation ?? null,
+
+            'intervalleTempSaison' => $intervalleTempSaison ?? null,
         ]);
     }
 
     #[Route('/charge-de-mission/liste-salles/historique/{nomsalle}', name: 'historique_salle')]
-    public function historique_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function historique_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
         $liste_donnee_historique = null;
         //salle inexistante ?
@@ -218,17 +222,21 @@ class SalleController extends AbstractController
         if($liste_donnee_historique  == null or $liste_donnee_historique->getTotalItemCount() == 0){
             return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
         }
+
+        $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
+
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/historique-salle.html.twig', [
             //nom de la salle
             'nomsalle' => $nomsalle,
             //liste de toutes les données de l'expérimentation en cours, null si inexistantes
             'liste_donnee_historique' => $liste_donnee_historique ?? null,
+            'intervalleTempSaison' => $intervalleTempSaison ?? null,
         ]);
     }
 
     #[Route('/charge-de-mission/liste-salles/archives/{nomsalle}', name: 'archives_salle')]
-    public function archives_salle(JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function archives_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
     {
         //salle inexistante ?
         if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
@@ -271,6 +279,8 @@ class SalleController extends AbstractController
             return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
         }
 
+        $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
+
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/archives-salle.html.twig', [
             //nom de la salle
@@ -280,7 +290,8 @@ class SalleController extends AbstractController
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
             'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'recommandation' => $recommandation ?? null
+            'recommandation' => $recommandation ?? null,
+            'intervalleTempSaison' => $intervalleTempSaison ?? null,
         ]);
     }
 
