@@ -153,7 +153,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         if ($co2_inf) {
             return ["Le taux de CO2 est trop faible.", $actions12];
         }
-        return [];
+        return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
     public function recommandationsAutomne($donnees): array
@@ -256,7 +256,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         if ($co2_inf) {
             return ["Le taux de CO2 est trop faible.", $actions10];
         }
-        return [];
+        return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
     public function recommandationsHiver($donnees): array
@@ -265,8 +265,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $co2_sup = $donnees['co2'] > 1000;
         $temp_inf = $donnees['temp'] < 19;
         $temp_sup = $donnees['temp'] > 22;
-        $hum_inf = $donnees['hum'] < 30;
-        $hum_sup = $donnees['hum'] > 60;
+        $hum_inf = $donnees['hum'] < 40;
+        $hum_sup = $donnees['hum'] > 70;
 
         $actions1 = [$this->OUVRIR_PORTES_FENETRES, $this->ETEINDRE_CHAUFFAGE, $this->ALLUMER_VENTILATEURS];
         $actions2 = [$this->OUVRIR_PORTES_FENETRES, $this->ALLUMER_VENTILATEURS];
@@ -361,7 +361,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             return ["CO2 est inférieur au seuil.", $actions12];
         }
 
-        return [];
+        return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
     public function recommandationsPrintemps($donnees): array
@@ -464,7 +464,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             return ["CO2 est trop faible.", $actions10];
         }
 
-        return [];
+        return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
     public function rechercheUser($username): ?User
@@ -474,7 +474,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function recommandationsSalles($donnees, $date) {
         $anneeActuelle = date("Y");
-        if ($date >= $anneeActuelle . '-12-22 00:00:00' and $date < $anneeActuelle . '-03-20 00:00:00') {
+        if (($date >= ($anneeActuelle - 1) . '-12-22 00:00:00' and $date < $anneeActuelle . '-03-20 00:00:00') ||
+            ($date >= $anneeActuelle . '-12-22 00:00:00' and $date <= $anneeActuelle . '-12-31 23:59:59')) {
             return $this->recommandationsHiver($donnees);
         }
         else if ($date >= $anneeActuelle . '-03-20 00:00:00' and $date < $anneeActuelle . '-06-20 00:00:00') {

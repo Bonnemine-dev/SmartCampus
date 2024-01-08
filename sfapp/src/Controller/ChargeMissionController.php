@@ -130,7 +130,7 @@ class ChargeMissionController extends AbstractController
             $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
         }
 
-        $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
+        $intervalleTempSaison = $userRepository->intervallesTempSaison($listeSallesAvecDonnees[0]['dateCapture']);
 
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 

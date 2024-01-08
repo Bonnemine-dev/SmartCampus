@@ -124,7 +124,7 @@ class SAController extends AbstractController
         }
     }
 
-        $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
+        $intervalleTempSaison = $userRepository->intervallesTempSaison($dernieres_donnees['date_de_capture']);
 
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('sa/details-sa.html.twig', [
