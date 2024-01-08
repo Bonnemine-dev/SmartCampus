@@ -17,9 +17,6 @@
         <li>
             <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>
         </li>
-        <li>
-            <a class="nav-link" href="/charge-de-mission/modifier">Modifier le mot de passe</a>
-        </li>
 {% endblock %}
 
 {% block appcontent %}
@@ -130,7 +127,6 @@
     {# -------------------------------------------------- #}
 
     <div class="pages-boutons">
-        {% if liste_donnee_historique != null %}
             <a href="../historique/{{ nomsalle }}" class="page-bouton">
                 Historique
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -145,7 +141,6 @@
                     </defs>
                 </svg>
             </a>
-        {% endif %}
 
         <a href="../diagnostic/{{ nomsalle }}" class="page-bouton">
             Diagnostic
@@ -154,14 +149,12 @@
             </svg>
         </a>
 
-        {% if liste_de_liste_donnee_archive != null %}
             <a href="../archives/{{ nomsalle }}" class="page-bouton">
                 Archives
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="29" viewBox="0 0 36 29" fill="none">
                     <path d="M13.536 6.27677e-09C14.0208 -2.70751e-05 14.5005 0.0875786 14.9466 0.257563C15.3926 0.427548 15.7957 0.676409 16.1316 0.989222L16.3476 1.20994L18.864 4.02778H32.4C33.3082 4.02752 34.183 4.33454 34.849 4.8873C35.515 5.44006 35.9229 6.19769 35.991 7.00833L36 7.25V25.7778C36.0003 26.5907 35.6573 27.3737 35.0397 27.9698C34.4221 28.5659 33.5757 28.931 32.67 28.9919L32.4 29H3.6C2.69176 29.0003 1.81698 28.6932 1.15101 28.1405C0.485047 27.5877 0.0771182 26.8301 0.00900039 26.0194L1.80482e-07 25.7778V3.22222C-0.000287243 2.40929 0.342732 1.62631 0.960295 1.03023C1.57786 0.434147 2.42432 0.0690254 3.33 0.00805575L3.6 6.27677e-09H13.536ZM32.4 12.8889H3.6V25.7778H32.4V12.8889ZM13.536 3.22222H3.6V9.66667H32.4V7.25H18.864C18.3792 7.25003 17.8995 7.16242 17.4534 6.99244C17.0074 6.82245 16.6043 6.57359 16.2684 6.26078L16.0524 6.04006L13.536 3.22222Z" fill="white"/>
                 </svg>
             </a>
-        {% endif %}
     </div>
 
 

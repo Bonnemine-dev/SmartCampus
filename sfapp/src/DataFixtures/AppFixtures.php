@@ -15,6 +15,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use DateTime;
 
 class AppFixtures extends Fixture
 {
@@ -52,105 +53,79 @@ class AppFixtures extends Fixture
             }
         }
 
-        // Création de 15 systèmes d'acquisitions (SA) avec des numéros générés aléatoirement.
-        for ($i=0; $i < 15; $i++){
+        // Ajout de la salle D109
+        $salle = new Salle();
+        $salle->setEtage(1);
+        $salle->setNumero(9);
+        $salle->setOrientation('sud');
+        $salle->setNbFenetres(2);
+        $salle->setNbOrdis(0);
+        $salle->setBatiment($batiment);
+        $salle->setNom($batiment->getNom().$salle->getEtage().'0'.$salle->getNumero());
+        $manager->persist($salle);
+
+        // Création du batiment C et de ses salles associées
+        $batiment = new Batiment();
+        $batiment->setNom('C');
+        $batiment->setDescription('Bâtiment C - Département réseaux télécoms');
+        $manager->persist($batiment);
+
+        for ($etage=0; $etage < 4; $etage++) {
+            for ($numero=1; $numero < 8; $numero++) {
+                $salle = new Salle();
+                $salle->setEtage($etage);
+                $salle->setNumero($numero);
+                $salle->setOrientation($numero%2==0?'sud':'nord');
+                $salle->setNbFenetres($this->faker->numberBetween(2,6));
+                $salle->setNbOrdis($this->faker->randomElement([true,false])?0:$this->faker->numberBetween(10,20));
+                $salle->setBatiment($batiment);
+                $salle->setNom($batiment->getNom().$salle->getEtage().'0'.$salle->getNumero());
+                $manager->persist($salle);
+            }
+        }
+
+        // Création de 18 systèmes d'acquisitions (SA) avec des numéros générés aléatoirement.
+        for ($i=1; $i <= 18; $i++){
             $sa = new SA();
             $sa->setEtat(EtatSA::eteint);
             $sa->setDisponible(true);
-            $number = $this->faker->bothify('####');
+            $number = sprintf('%03d', $i);
             $sa->setNumero($number);
-            $sa->setNom('SA-'. $number);
+            $sa->setNom('ESP-'. $number);
             $manager->persist($sa);
         }
         // Exécution des opérations d'écriture dans la base de données.
         $manager->flush();
+
         // Affichage du nombre total de salles générées.
         $salles = $manager->getRepository(Salle::class)->findAll();
         echo "Nombre total de salles : " . count($salles) . PHP_EOL;
 
-        // Sélection aléatoire de 10 salles et 10 SA pour créer des expérimentations.
-        $quatresalles = ['D102', 'D201', 'D106', 'D304'];
+        // Affichage du nombre total de SA générées.
+        $sas = $manager->getRepository(SA::class)->findAll();
+        echo "Nombre total de SA : " . count($sas) . PHP_EOL;
 
-        $sas = $manager->getRepository(Sa::class)->findAll();
-        $quatresas = array_rand($sas,4);
+        // Création des 17 expérimentations avec des dates de demande et d'installation aléatoires.
+        $expArray = [ ["D205", "ESP-001"], ["D206", "ESP-002"], ["D207", "ESP-003"], ["D204", "ESP-004"], ["D203", "ESP-005"], ["D303", "ESP-006"], ["D304", "ESP-007"], ["C101", "ESP-008"], ["D109", "ESP-009"], ["D106", "ESP-010"], ["D001", "ESP-011"], ["D002", "ESP-012"], ["D004", "ESP-013"], ["C004", "ESP-014"], ["C007", "ESP-015"], ["D201", "ESP-016"], ["D307", "ESP-017"], ["C005", "ESP-018"] ];
 
-        // Création de 10 expérimentations avec des dates de demande et d'installation aléatoires.
-        // for ($i=0; $i < 4; $i++) {
-        //     $exp = new Experimentation();
-        //     $dateTimeNow = new DateTime($dateTime = 'now');
-        //     $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
-        //     $exp->setDateinstallation($dateTimeNow);
-        //     $sas[$quatresas[$i]]->setDisponible(false);//Rend le sa indisponible
-        //     if($exp->getDateinstallation() != null)
-        //     {   
-        //         $exp->setEtat($this->faker->randomElement([EtatExperimentation::installee,EtatExperimentation::demandeRetrait,EtatExperimentation::retiree]));//met l'etat de façon aléatoire sur les 3 autres etats possible
-        //         if($exp->getEtat() == EtatExperimentation::retiree)
-        //         {
-        //             $sas[$quatresas[$i]]->setDisponible(true);
-        //         }
-        //         else if($exp->getEtat() == EtatExperimentation::installee || $exp->getEtat() == EtatExperimentation::demandeRetrait)
-        //         {
-        //             $sas[$quatresas[$i]]->setEtat($this->faker->randomElement([true,false])?EtatSA::marche:EtatSA::probleme);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         $exp->setEtat(EtatExperimentation::demandeInstallation);//met l'etat sur demmande
-        //     }
-        //     $exp->setSalles($manager->getRepository(Salle::class)->findOneBy(['nom'=>$quatresalles[0]]));
-        //     unset($quatresalles[0]);
-        //     $quatresalles = array_values($quatresalles);
-        //     $exp->setSA($sas[$quatresas[$i]]);
-        //     $manager->persist($exp);
-        // }
+        foreach ($expArray as $experimentation) {
+            $salle = $this->salleRepository->findOneBy(['nom' => $experimentation[0]]);
+            $sa = $this->saRepository->findOneBy(['nom' => $experimentation[1]]);
+            $sa->setEtat(EtatSA::marche);
+            $sa->setDisponible(false);
+
+            echo "Salle : " . $salle->getNom() . " - SA : " . $sa->getNom() . PHP_EOL;
+
+            $exp = new Experimentation();
+            $exp->setDatedemande($this->faker->dateTimeBetween('-7 week', '-1 week'));
+            $exp->setDateinstallation($this->faker->dateTimeBetween('-7 week', '-1 week'));
+            $exp->setEtat(EtatExperimentation::installee);
+            $exp->setSalles($salle);
+            $exp->setSA($sa);
+            $manager->persist($exp);
+        }
 
         // Exécution des opérations d'écriture dans la base de données.
-        $manager->flush();
-
-        $sa = new SA();
-        $sa->setEtat(EtatSA::marche);
-        $sa->setDisponible(false);
-        $number = $this->faker->bothify('####');
-        $sa->setNumero($number);
-        $sa->setNom('fixture');
-        $manager->persist($sa);
-        $manager->flush();
-
-        $experimentation = new Experimentation();
-
-        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
-        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
-        $experimentation->setEtat(EtatExperimentation::retiree);
-        $experimentation->setDatedemande(new \DateTime('2020-01-01 00:00:00'));
-        $experimentation->setDateinstallation(new \DateTime('2020-01-02 00:00:00'));
-        $experimentation->setDatedesinstallation(new \DateTime('2020-02-01 00:00:00'));
-
-        $manager->persist($experimentation);
-        $manager->flush();
-
-        $experimentation = new Experimentation();
-
-        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
-        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
-        $experimentation->setEtat(EtatExperimentation::retiree);
-        $experimentation->setDatedemande(new \DateTime('2020-03-01 00:00:00'));
-        $experimentation->setDateinstallation(new \DateTime('2020-03-02 00:00:00'));
-        $experimentation->setDatedesinstallation(new \DateTime('2020-04-01 00:00:00'));
-
-        $manager->persist($experimentation);
-        $manager->flush();
-
-        $experimentation = new Experimentation();
-
-        $experimentation->setSalles($this->salleRepository->findOneBy(['nom' => 'D003']));
-        $experimentation->setSA($this->saRepository->findOneBy(['nom' => 'fixture']));
-        $experimentation->setEtat(EtatExperimentation::installee);
-        $experimentation->setDatedemande(new \DateTime('2021-01-01 00:00:00'));
-        $experimentation->setDateinstallation(new \DateTime('2021-01-02 00:00:00'));
-        $experimentation->setDatedesinstallation(null);
-
-        $manager->persist($experimentation);
-
         $manager->flush();
 
         $user = new User();
@@ -170,5 +145,6 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 }
+
 //0->eteint;1->marche;2->probleme                                etatSA
 //0->demandeInstallation;1->installe;2demandeRetrait;3->retiree  etatExperimentation

@@ -101,7 +101,7 @@ class SAController extends AbstractController
         //Recherche le nom de la salle dans laquelle se trouve le SA
         $nom_salle_associe_sa = $saRepository->salle_associe_sa($nomsa);
         //Récupère les dernières données remonté par le SA
-        if($nom_salle_associe_sa != null)$dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($dataArray,$nom_salle_associe_sa['nom']);
+        if($nom_salle_associe_sa != null)$dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nom_salle_associe_sa['nom']);
 
         if($nom_salle_associe_sa != null and $dernieres_donnees['date_de_capture'] != null){
         $date_de_capture = new \DateTime($dernieres_donnees['date_de_capture']);

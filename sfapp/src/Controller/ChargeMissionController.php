@@ -9,6 +9,7 @@ use App\Repository\SalleRepository;
 use App\Repository\SARepository;
 use App\Repository\BatimentRepository;
 use App\Repository\UserRepository;
+use App\Service\JsonDataHandling;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,7 +74,7 @@ class ChargeMissionController extends AbstractController
     }
     
     #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
-    public function liste_experimentation(UserRepository $userRepository, Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository): Response
+    public function liste_experimentation(UserRepository $userRepository, Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
     {
         // Création des instances de formulaire
         $filtreSalleForm = $this->createForm(FiltreSalleFormType::class);
@@ -124,11 +125,7 @@ class ChargeMissionController extends AbstractController
         $batiments = $batimentRepository->findAll();
 
         // Afficher la vue d'ajout de salle avec le résultat de l'existence
-        // 1. Lire le fichier JSON
-        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
-        $jsonContent = file_get_contents($jsonFilePath);
-        $dataArray = json_decode($jsonContent, true);
-        $listsalles = $experimentationRepository->listerSallesAvecDonnees($dataArray,$salles);
+        $listeSallesAvecDonnees = $jsonDataHandling->extraireDernieresDonneesDesSalles($liste_experimentations);
         if(empty($liste_experimentations)){
             $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
         }
@@ -137,7 +134,7 @@ class ChargeMissionController extends AbstractController
 
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
-            'listeDerniereValeur' => $listsalles,
+            'listeDerniereValeur' => $listeSallesAvecDonnees,
             'liste_batiments' => $batiments,
             'filtreSalleForm' => $filtreSalleForm->createView(),
             'rechercheSalleForm' => $rechercheSalleForm->createView(),
