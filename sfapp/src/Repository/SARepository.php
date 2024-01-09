@@ -7,6 +7,7 @@ use App\Config\EtatSA;
 use App\Entity\Experimentation;
 use App\Entity\SA;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,7 +29,7 @@ class SARepository extends ServiceEntityRepository
     /*
      * Compte le nombre de SA sans expérimentation
      */
-    public function compteSASansExperimentation()
+    public function compteSASansExperimentation(): int
     {
         // Requête pour compter les SA sans expérimentation.
         return $this->createQueryBuilder('sa')
@@ -43,21 +44,36 @@ class SARepository extends ServiceEntityRepository
     {
         // Requête pour sélectionner un SA disponible.
         $sa = $this->findOneBy(['disponible' => 1]);
-        $sa->setDisponible(0);
+        $sa->setDisponible(false);
         return $sa;
     }
 
     //Fonction qui change l'etat du SA a disponible (si le sa est enlever de l'experimentation par exemple)
-    public function suppressionExp($sa)
+    public function suppressionExp(SA $sa): void
     {
         // Mettre à jour l'état du SA.
-        $sa->setDisponible(1);
+        $sa->setDisponible(true);
     }
 
     /*
      * Enlève les SA inutiles
      */
-    public function trierSA($resultat) {
+    /**
+     * @param array<int, array{
+     * sa_nom: string,
+     * salle_nom: string,
+     * sa_etat: EtatSA,
+     * exp_etat: EtatExperimentation
+     * }> $resultat
+     * @return array<int, array{
+     * sa_nom: string,
+     * salle_nom: string,
+     * sa_etat: EtatSA,
+     * exp_etat: EtatExperimentation
+     * }>
+     */
+    public function trierSA(array $resultat): array
+    {
         foreach ($resultat as &$exp) {
             if ($exp['exp_etat'] == EtatExperimentation::retiree) {
                 $exp['salle_nom'] = null;
@@ -85,7 +101,15 @@ class SARepository extends ServiceEntityRepository
     /*
      * Liste tous les SA
      */
-    public function toutLesSA()
+    /**
+     * @return array<int, array{
+     *  sa_nom: string,
+     *  salle_nom: string,
+     *  sa_etat: EtatSA,
+     *  exp_etat: EtatExperimentation
+     *  }>
+     */
+    public function toutLesSA(): array
     {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
@@ -114,9 +138,18 @@ class SARepository extends ServiceEntityRepository
     /*
      * Fonction de filtre des SA
      */
-    public function filtrerSAGestionSA($etat = null, $localisation = null)
+    /**
+     * @param array<int, int>|null $etat
+     * @param array<int, string>|null $localisation
+     * @return array<int, array{
+     * sa_nom: string,
+     * salle_nom: string,
+     * sa_etat: EtatSA,
+     * exp_etat: EtatExperimentation
+     * }>
+     */
+    public function filtrerSAGestionSA(array $etat = null, array $localisation = null): array
     {
-
         $exp = $this->toutLesSA();
 
         if (!empty($etat) && $etat !== null) {
@@ -166,7 +199,15 @@ class SARepository extends ServiceEntityRepository
     /*
      * Fonction de recherche des SA
      */
-    public function rechercheSA($contient_ce_string = null)
+    /**
+     * @return array<int, array{
+     *  sa_nom: string,
+     *  salle_nom: string,
+     *  sa_etat: EtatSA,
+     *  exp_etat: EtatExperimentation
+     *  }>
+     */
+    public function rechercheSA(string $contient_ce_string = null): array
     {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
@@ -192,13 +233,13 @@ class SARepository extends ServiceEntityRepository
     /*
      * Ajouter un SA
      */
-    public function ajoutSA($nom = null)
+    public function ajoutSA(string $nom = null): void
     {
         $sa = new SA();
         $sa->setEtat(EtatSA::eteint);
         $sa->setNom($nom);
         $sa->setNumero(0);
-        $sa->setDisponible(1);
+        $sa->setDisponible(true);
 
         // Obtenez le gestionnaire d'entités et persistez l'entité
         $entityManager = $this->getEntityManager();
@@ -209,7 +250,7 @@ class SARepository extends ServiceEntityRepository
     /*
      * Vérifie s'il y a déjà un SA existant selon le nom
      */
-    public function existeDeja($nom = null)
+    public function existeDeja(string $nom = null): ?SA
     {
         return $this->findOneBy(['nom' => $nom]);
     }
@@ -217,7 +258,7 @@ class SARepository extends ServiceEntityRepository
     /*
      * Supprimer un SA
      */
-    public function supprimerSA($nomsa)
+    public function supprimerSA(string $nomsa): bool
     {
         $sa = $this->findOneBy(['nom' => $nomsa]);
         if ($sa) {
@@ -236,7 +277,7 @@ class SARepository extends ServiceEntityRepository
     /*
      * Change l'état du SA
      */
-    public function changerEtatSA($nomsalle, $etat) : void
+    public function changerEtatSA(string $nomsalle, EtatSA $etat) : void
     {
         $entityManager = $this->getEntityManager();
         $experimentationsRepository = $entityManager->getRepository(Experimentation::class);
@@ -260,7 +301,11 @@ class SARepository extends ServiceEntityRepository
     /*
      * Regarde les salles associés aux SA
      */
-    public function salle_associe_sa($nomsa){
+    /**
+     * @return array<string, string>
+     */
+    public function salle_associe_sa(string $nomsa): array
+    {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
 
@@ -274,22 +319,5 @@ class SARepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
 
-    }
-
-    public function sa_associe_salle($nomsalle){
-        $dql = '
-        SELECT sa.nom
-        FROM App\Entity\Salle salle
-        JOIN App\Entity\Experimentation experimentation WITH salle.id = experimentation.Salles
-        JOIN App\Entity\SA sa WITH experimentation.SA = sa.id
-        WHERE salle.nom = :nomsalle 
-        AND experimentation.etat IN (1,2)
-        ';
-
-        $query = $this->getEntityManager()->createQuery($dql);
-
-        $query->setParameter('nomsalle', $nomsalle);
-
-        return $query->getOneOrNullResult();
     }
 }

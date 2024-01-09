@@ -15,13 +15,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use DateTime;
 
 class AppFixtures extends Fixture
 {
     private Generator $faker;
-    private $salleRepository;
-    private $saRepository;
+    private SalleRepository $salleRepository;
+    private SARepository $saRepository;
 
     // Initialisation du générateur Faker dans le constructeur.
     public function __construct(SalleRepository $salleRepository, SARepository $saRepository)
@@ -90,7 +89,7 @@ class AppFixtures extends Fixture
             $sa->setEtat(EtatSA::eteint);
             $sa->setDisponible(true);
             $number = sprintf('%03d', $i);
-            $sa->setNumero($number);
+            $sa->setNumero($i);
             $sa->setNom('ESP-'. $number);
             $manager->persist($sa);
         }

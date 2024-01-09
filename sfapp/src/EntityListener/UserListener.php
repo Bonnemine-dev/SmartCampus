@@ -13,12 +13,12 @@ class UserListener
     {
         $this->passwordHasher = $passwordHasher;
     }
-    public function prePersist(User $user)
+    public function prePersist(User $user): void
     {
         $this->encodePassword($user);
     }
 
-    public function preUpdate(User $user)
+    public function preUpdate(User $user): void
     {
         $this->encodePassword($user);
     }

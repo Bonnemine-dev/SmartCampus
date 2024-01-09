@@ -49,7 +49,7 @@ class SAController extends AbstractController
     }
 
     #[Route('/technicien/gestion-sa/supprimer-sa/{nomsa}', name: 'supprimer_sa')]
-    public function supprimer_sa(Request $request, SARepository $saRepository, $nomsa): Response
+    public function supprimer_sa(Request $request, SARepository $saRepository, string $nomsa): Response
     {
         if ($saRepository->findOneBy(['nom' => $nomsa]) == null) {
             $this->addFlash('error', "Le système d'acquisition " . $nomsa . " ne fait pas encore partie de votre stock.");
@@ -66,7 +66,7 @@ class SAController extends AbstractController
     }
 
     #[Route('/technicien/gestion-sa/suppression-sa/{nomsa}', name: 'valid_supprimer_sa')]
-    public function valid_supprimer_sa(SARepository $saRepository, $nomsa): Response
+    public function valid_supprimer_sa(SARepository $saRepository, string $nomsa): Response
     {
         // Recherchez l'objet en fonction du nom de la salle entre dans la condition si le sa n'existe pas
         // si il existe il est supprimé
@@ -84,7 +84,7 @@ class SAController extends AbstractController
     }
 
     #[Route('/technicien/gestion-sa/details-sa/{nomsa}', name: 'details_sa')]
-    public function details_sa(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, SARepository $saRepository,$nomsa): Response
+    public function details_sa(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, SARepository $saRepository, string $nomsa): Response
     {
         //salle inexistante ?
         if ($saRepository->findOneBy(['nom' => $nomsa]) === null) {
@@ -131,13 +131,13 @@ class SAController extends AbstractController
             //nom du SA
             'nomsa' => $nomsa,
             //Informations sur le SA
-            'etat_sa' => $etat_sa ?? null,
+            'etat_sa' => $etat_sa,
             //dernière données de la salle, null si inexistantes
             'dernieres_donnees' => $dernieres_donnees ?? null,
             //temps écoulé depuis la dernière remonté de données
             'elapsed' => $elapsed ?? null,
             //intervalle de température de la saison actuelle
-            'intervalleTempSaison' => $intervalleTempSaison ?? null,
+            'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 }

@@ -162,6 +162,7 @@ class ChargeMissionController extends AbstractController
         // Effectuer la requête HTTP pour récupérer les données météorologiques
             $response = file_get_contents($apiUrl);
 
+        $temperature_ext = 0;
         // Vérifier si la requête a réussi
         if ($response !== false) {
             // Convertir la réponse JSON en tableau associatif

@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Config\EtatExperimentation;
+use App\Config\EtatSA;
 use App\Entity\Experimentation;
+use App\Entity\Salle;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,8 +22,8 @@ use Doctrine\Persistence\ManagerRegistry;
 class ExperimentationRepository extends ServiceEntityRepository
 {
     // Références aux autres repositories nécessaires.
-    private $salleRepository;
-    private $saRepository;
+    private SalleRepository $salleRepository;
+    private SARepository $saRepository;
 
     // Le constructeur initialise le repository avec le manager d'entités et l'entité associée,
     // ainsi que les repositories des entités Salle et SA.
@@ -33,7 +37,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Ajoute une experimentation pour la salle de nom $salle
      */
-    public function ajouterExperimentation($salle): void
+    public function ajouterExperimentation(string $salle): void
     {
         // Créer une nouvelle instance de l'entité Experimentation
         $experimentation = new Experimentation();
@@ -59,7 +63,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Vérifie si une experimentation pour la salle nomSalle existe ou non
      */
-    public function estExistante($nomSalle): bool
+    public function estExistante(string $nomSalle): bool
     {
         $queryBuilder = $this->createQueryBuilder('e')
             ->select('count(e.id)')
@@ -76,10 +80,16 @@ class ExperimentationRepository extends ServiceEntityRepository
     }
 
 
-    /*
-     * Vérifie si il existe des experimentation à installer
+    /**
+     * @return array<int, array{
+     *     nom_salle: string,
+     *     nom_sa: string,
+     *     datedemande: DateTime,
+     *     dateinstallation: DateTime,
+     *     etat: int
+     * }>
      */
-    public function trouveExperimentationDemandeInstallation()
+    public function trouveExperimentationDemandeInstallation(): array
     {
         $queryBuilder = $this->createQueryBuilder('experimentation')
             ->select([
@@ -109,7 +119,10 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Cherche les expérimentations qui ne sont pas retirées
      */
-    public function findOneByPasRetiree($salle)
+    /**
+     * @return array<int, Experimentation>
+     */
+    public function findOneByPasRetiree(string $salle): array
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
         return $this->createQueryBuilder('experimentation')
@@ -118,10 +131,11 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /*
-     * Supprime une experimentation pour la salle de nom $salle
+    /**
+     * @param string $salle
+     * @return array<int, EtatExperimentation>
      */
-    public function supprimerExperimentation($salle): array
+    public function supprimerExperimentation(string $salle): array
     {
         $idSalle = $this->salleRepository->nomSalleId($salle);
         $exp = $this->findOneByPasRetiree($salle);
@@ -146,7 +160,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Retire une expérimentation qui était en demande d'installation
      */
-    private function supprimerExperimentationDemandeInstallation($exp, $idSalle): void
+    private function supprimerExperimentationDemandeInstallation(Experimentation $exp, Salle $idSalle): void
     {
         $this->saRepository->suppressionExp($exp->getSA());
         $this->supprimerEtVide($exp);
@@ -161,7 +175,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Modifie une expérimentation qui était installée en demande de retrait
      */
-    private function retireExperimentationInstallee($exp): void
+    private function retireExperimentationInstallee(Experimentation $exp): void
     {
         $exp->setEtat(EtatExperimentation::demandeRetrait);
         $exp->setDatedemande(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
@@ -171,7 +185,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Supprime du repository
      */
-    private function supprimerEtVide($entity): void
+    private function supprimerEtVide(Experimentation $entity): void
     {
         $em = $this->getEntityManager();
         $em->remove($entity);
@@ -181,7 +195,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Persiste dans le repository
      */
-    private function persisteEtVide($entity): void
+    private function persisteEtVide(Experimentation $entity): void
     {
         $em = $this->getEntityManager();
         $em->persist($entity);
@@ -191,7 +205,25 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Fonction de filtrage pour la liste des salles en cours d'analyse
      */
-    public function filtreExperimentationAnalyse($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
+    /**
+     * @param array<int, int> $etages
+     * @param array<int, string> $orientation
+     * @param int|null $ordinateurs
+     * @param int|null $sa
+     * @return array<int, array{
+     *   nom: string,
+     *   etage: int,
+     *   numero: int,
+     *   orientation: string,
+     *   nb_fenetres: int,
+     *   nb_ordis: int,
+     *   datedemande: DateTime,
+     *   dateinstallation: DateTime,
+     *   etat: EtatExperimentation,
+     *   sa_etat: EtatSA
+     *   }>
+     */
+    public function filtreExperimentationAnalyse(array $etages = null, array $orientation = null, int $ordinateurs = null, int $sa = null): array
     {
         $queryBuilder = $this->requeteCommune();
 
@@ -247,7 +279,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Selon le numéro de filtre pour les SA, ajoute une condition à la requête
      */
-    private function conditionsSA($sa)
+    private function conditionsSA(int $sa): string
     {
         switch ($sa) {
             case 0:
@@ -256,13 +288,42 @@ class ExperimentationRepository extends ServiceEntityRepository
                 return 'experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NOT NULL';
             case 2:
                 return 'experimentation.datedemande IS NOT NULL AND experimentation.dateinstallation IS NULL';
+
         }
+        return '';
     }
 
     /*
      * Supprime les expérimentations inutiles
      */
-    private function enleveExperimentationsInutiles($exp)
+    /**
+     * @param array<int, array{
+     * nom: string,
+     * etage: int,
+     * numero: int,
+     * orientation: string,
+     * nb_fenetres: int,
+     * nb_ordis: int,
+     * datedemande: DateTime,
+     * dateinstallation: DateTime,
+     * etat: EtatExperimentation,
+     * sa_etat: EtatSA
+     * }> $exp
+     *
+     * @return array<int, array{
+     *  nom: string,
+     *  etage: int,
+     *  numero: int,
+     *  orientation: string,
+     *  nb_fenetres: int,
+     *  nb_ordis: int,
+     *  datedemande: DateTime,
+     *  dateinstallation: DateTime,
+     *  etat: EtatExperimentation,
+     *  sa_etat: EtatSA
+     *  }>
+     */
+    private function enleveExperimentationsInutiles(array $exp): array
     {
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
@@ -277,7 +338,23 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Fonction de recherche
      */
-    public function rechercheExperimentationAnalyse($batiment = null, $salle = null)
+    /**
+     * @param int|null $batiment
+     * @param string|null $salle
+     * @return array<int, array{
+     *    nom: string,
+     *    etage: int,
+     *    numero: int,
+     *    orientation: string,
+     *    nb_fenetres: int,
+     *    nb_ordis: int,
+     *    datedemande: DateTime,
+     *    dateinstallation: DateTime,
+     *    etat: EtatExperimentation,
+     *    sa_etat: EtatSA
+     *    }>
+     */
+    public function rechercheExperimentationAnalyse(int $batiment = null, string $salle = null): array
     {
         $queryBuilder = $this->requeteCommune();
 
@@ -294,121 +371,11 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $this->enleveExperimentationsInutiles($queryBuilder->getQuery()->getResult());
     }
 
-    /*
-     * Liste les salles avec leurs dernières données
-     */
-    public function listerSallesAvecDonnees(array $dataArray, array $verif): array
-    {
-        $salles = [];
-
-        foreach ($dataArray as $item) {
-            $salle = $item['localisation'];
-            if ($this->existeSalle($salle, $verif)) {
-                $this->majDonneesSalle($salles, $item, $salle);
-            }
-        }
-
-        return $salles;
-    }
-
-    /*
-     * Vérifie si une salle existe
-     */
-    private function existeSalle($salle, $verif): bool
-    {
-        foreach ($verif as $veri){
-            if ($veri['nom_salle'] === $salle) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /*
-     * Mets à jour le tableau de données pour mettre les dernières récupérées
-     */
-    private function majDonneesSalle(&$salles, $item, $salle): void
-    {
-        $index = array_search($salle, array_column($salles, 'localisation'));
-
-        if ($index === false || $item['dateCapture'] >= $salles[$index]['dateCapture']) {
-            $this->ajouteOuMajDonnees($salles, $index, $item, $salle);
-        }
-    }
-
-    /*
-     * Ajoute si la salle n'existe pas dans les données et mets à jouer
-     */
-    private function ajouteOuMajDonnees(&$salles, $index, $item, $salle): void
-    {
-        if ($index === false) {
-            $salles[] = [
-                'localisation' => $salle,
-                'co2' => null,
-                'hum' => null,
-                'temp' => null,
-                'dateCapture' => null,
-            ];
-            $index = count($salles) - 1; // L'index de la nouvelle salle
-        }
-
-        // Remplir les valeurs correspondantes avec les dernières données
-        switch ($item['nom']) {
-            case 'co2':
-                $salles[$index]['co2'] = $item['valeur'];
-                break;
-            case 'hum':
-                $salles[$index]['hum'] = $item['valeur'];
-                break;
-            case 'temp':
-                $salles[$index]['temp'] = $item['valeur'];
-                break;
-        }
-        $salles[$index]['dateCapture'] = $item['dateCapture'];
-    }
-
-    /*
-     * Fait la moyenne de toutes les dernières valeurs des salles
-     */
-    public function moyennesDonnees(array $dataArray): array
-    {
-        $salles = $this->listerSallesAvecDonnees($dataArray, $this->salleRepository->listerSalles());
-        return $this->calculsMoyennes($salles);
-    }
-
-    /*
-     * Fait les calculs des moyennes
-     */
-    private function calculsMoyennes($salles): array
-    {
-        $tempValues = $humValues = $co2Values = [];
-
-        foreach ($salles as $data) {
-            $tempValues[] = $data['temp'];
-            $humValues[] = $data['hum'];
-            $co2Values[] = $data['co2'];
-        }
-
-        return [
-            'temp_moy' => $this->moyenne($tempValues),
-            'hum_moy' => $this->moyenne($humValues),
-            'co2_moy' => $this->moyenne($co2Values)
-        ];
-    }
-
-    /*
-     * Fait le calcul général pour une moyenne
-     */
-    private function moyenne($values): float|int|null
-    {
-        return count($values) > 0 ? array_sum($values) / count($values) : null;
-    }
-
 
     /*
      * Modifie l'etat du experimentation à $etat pour la salle de nom $salle
      */
-    public function modifierEtat($etat, $salle): void
+    public function modifierEtat(EtatExperimentation $etat, string $salle): void
     {
         $exp = $this->findOneByPasRetiree($salle);
         $exp = $exp[0];
@@ -421,7 +388,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Mets à jour l'état et persiste dans le repository
      */
-    private function MajEtatEtPersist($exp, $etat): void
+    private function MajEtatEtPersist(Experimentation $exp, EtatExperimentation $etat): void
     {
         $exp->setEtat($etat);
         if ($etat == EtatExperimentation::installee) {
@@ -431,7 +398,7 @@ class ExperimentationRepository extends ServiceEntityRepository
             $exp->setDatedesinstallation(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         }
         if ($etat === EtatExperimentation::retiree) {
-            $exp->getSA()->setDisponible(1);
+            $exp->getSA()->setDisponible(true);
         }
 
         $this->getEntityManager()->persist($exp);
@@ -441,7 +408,23 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Tri les expérimentations par salle et par date de capture dans l'ordre décroissant et supprime les doublons
      */
-    public function triExperimentation($exp)
+    /**
+     * @param array<int, array{
+     * nom_salle: string,
+     * nom_sa: string,
+     * datedemande: DateTime,
+     * dateinstallation: DateTime,
+     * etat: int
+     * }> $exp
+     * @return array<int, array{
+     * nom_salle: string,
+     * nom_sa: string,
+     * datedemande: DateTime,
+     * dateinstallation: DateTime,
+     * etat: int
+     * }>
+     */
+    public function triExperimentation(array $exp): array
     {
         usort($exp, function($a, $b) {
             // Tri par nom_salle
@@ -470,7 +453,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Récupère l'état d'une experimentation pour la salle de nom $salle
      */
-    public function etatExperimentation($salle) : EtatExperimentation
+    public function etatExperimentation(string $salle) : EtatExperimentation
     {
         $exp = $this->findOneByPasRetiree($salle);
         if (count($exp) == 0) {
@@ -483,7 +466,13 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Liste les expérimentations passées d'une salle
      */
-    public function listerLesIntervallesArchives($nomSalle)
+    /**
+     * @return array<int, array{
+     * date_install: DateTime,
+     * date_desinstall: DateTime
+     * }>
+     */
+    public function listerLesIntervallesArchives(string $nomSalle): array
     {
         $queryBuilder = $this->createQueryBuilder('experimentation')
             ->select(['experimentation.dateinstallation AS date_install', 'experimentation.datedesinstallation AS date_desinstall'])
@@ -498,7 +487,10 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Récupère l'expérimentation en cours d'une salle
      */
-    public function extraireDateInstallExpActuelle($nomSalle)
+    /**
+     * @return array<string, DateTime>
+     */
+    public function extraireDateInstallExpActuelle(string $nomSalle): array
     {
         return $this->createQueryBuilder('experimentation')
             ->select('experimentation.dateinstallation AS date_install')
@@ -514,7 +506,12 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Récupère l'état d'une expérimentation d'une salle
      */
-    public function etatExp($nomSalle)
+    /**
+     * @return array<int, array{
+     * etat_exp: EtatExperimentation
+     * }>
+     */
+    public function etatExp(string $nomSalle): array
     {
         return $this->createQueryBuilder('experimentation')
             ->select('experimentation.etat AS etat_exp')
@@ -529,7 +526,10 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Fonctions qui retourne une liste des experimentations qui ont eu lieu dans une salle de nom $nomSalle
      */
-    public function trouveExperimentationsParNomSalle($nomSalle)
+    /**
+     * @return array<int, Experimentation>
+     */
+    public function trouveExperimentationsParNomSalle(string $nomSalle): array
     {
         $queryBuilder = $this->createQueryBuilder('exp')
             ->join('exp.Salles', 'salle')

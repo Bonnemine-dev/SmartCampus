@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Config\EtatExperimentation;
+use App\Config\EtatSA;
 use App\Entity\Salle;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -26,7 +28,8 @@ class SalleRepository extends ServiceEntityRepository
     /*
      * Requête commune pour le repository
      */
-    public function requeteCommune() {
+    public function requeteCommune(): \Doctrine\ORM\QueryBuilder
+    {
         return $this->createQueryBuilder('salle')
             ->select('batiment.id as id_batiment, salle.nom as nom_salle, sa.nom as nom_sa, experimentation.datedemande, salle.etage, salle.numero, salle.orientation, salle.nb_fenetres, salle.nb_ordis, experimentation.dateinstallation, experimentation.datedesinstallation,
             CASE
@@ -47,20 +50,25 @@ class SalleRepository extends ServiceEntityRepository
     }
 
     /*
-     * Liste toutes les salles
-     */
-    public function listerSalles()
-    {
-        $queryBuilder = $this->requeteCommune();
-        $resultat = $this->triListeSalle($queryBuilder->getQuery()->getResult());
-
-        return $resultat;
-    }
-
-    /*
      * Fonction de recherche pour les expérimentations
      */
-    public function rechercheSallePlanExp($batiment = null, $salle = null)
+    /**
+     * @return array<int, array{
+     * id_batiment: int,
+     * nom_salle: string,
+     * nom_sa: ?string,
+     * datedemande: ?DateTime,
+     * etage: int,
+     * numero: int,
+     * orientation: string,
+     * nb_fenetres: int,
+     * nb_ordis: int,
+     * dateinstallation: ?DateTime,
+     * datedesinstallation: ?DateTime,
+     * etat: int
+     * }>
+     */
+    public function rechercheSallePlanExp(int $batiment = null, string $salle = null): array
     {
         // Requête pour filtrer les salles selon les critères spécifiés.
         $queryBuilder = $this->requeteCommune();
@@ -84,14 +92,26 @@ class SalleRepository extends ServiceEntityRepository
 
     /**
      * Filtre les salles selon les critères spécifiés.
-     *
-     * @param array|null $etages
-     * @param array|null $orientation
+     * @param array<int, int> $etages
+     * @param array<int, string> $orientation
      * @param int|null $ordinateurs
      * @param int|null $sa
-     * @return array
+     * @return array<int, array{
+     *  id_batiment: int,
+     *  nom_salle: string,
+     *  nom_sa: ?string,
+     *  datedemande: ?DateTime,
+     *  etage: int,
+     *  numero: int,
+     *  orientation: string,
+     *  nb_fenetres: int,
+     *  nb_ordis: int,
+     *  dateinstallation: ?DateTime,
+     *  datedesinstallation: ?DateTime,
+     *  etat: int
+     *  }>
      */
-    public function filtrerSallePlanExp($etages = null, $orientation = null, $ordinateurs = null, $sa = null)
+    public function filtrerSallePlanExp(array $etages = null, array $orientation = null, int $ordinateurs = null, int $sa = null): array
     {
         // Requête pour filtrer les salles selon les critères spécifiés.
         $queryBuilder = $this->requeteCommune();
@@ -148,7 +168,7 @@ class SalleRepository extends ServiceEntityRepository
      * @param string $salle
      * @return Salle|null
      */
-    public function nomSalleId($salle): ?Salle
+    public function nomSalleId(string $salle): ?Salle
     {
         return $this->findOneBy(['nom' => $salle]);
     }
@@ -156,7 +176,37 @@ class SalleRepository extends ServiceEntityRepository
     /*
      * Tris des salles pour enlever les expérimentations inutiles
      */
-    public function triListeSalle($salle)
+    /**
+     * @param array<int, array{
+          * id_batiment: int,
+          * nom_salle: string,
+          * nom_sa: ?string,
+          * datedemande: ?DateTime,
+          * etage: int,
+          * numero: int,
+          * orientation: string,
+          * nb_fenetres: int,
+          * nb_ordis: int,
+          * dateinstallation: ?DateTime,
+          * datedesinstallation: ?DateTime,
+          * etat: int
+          * }> $salle
+     * @return array<int, array{
+     * id_batiment: int,
+     * nom_salle: string,
+     * nom_sa: ?string,
+     * datedemande: ?DateTime,
+     * etage: int,
+     * numero: int,
+     * orientation: string,
+     * nb_fenetres: int,
+     * nb_ordis: int,
+     * dateinstallation: ?DateTime,
+     * datedesinstallation: ?DateTime,
+     * etat: int
+     * }>
+     */
+    public function triListeSalle(array $salle): array
     {
         usort($salle, function($a, $b) {
             // Tri par nom_salle
@@ -188,7 +238,14 @@ class SalleRepository extends ServiceEntityRepository
     /*
      * Recherche les SA associés à une salle
      */
-    public function SAAssocie($nomsalle) {
+    /**
+     * @return array{
+     * nom_sa: string,
+     * etat_sa: EtatSA
+     * }
+     */
+    public function SAAssocie(string $nomsalle): array
+    {
         $queryBuilder = $this->createQueryBuilder('salle')
             ->select('sa.nom as nom_sa, sa.etat as etat_sa')
             ->join('App\Entity\Experimentation', 'experimentation', 'WITH', 'salle.id = experimentation.Salles')

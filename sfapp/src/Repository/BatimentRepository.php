@@ -25,7 +25,7 @@ class BatimentRepository extends ServiceEntityRepository
     /**
      * Retourne un tableau de bâtiments sous la forme ['Nom du bâtiment' => 'id'].
      *
-     * @return array
+     * @return array<string, int>
      */
     public function tableauBatimentsNomID(): array
     {

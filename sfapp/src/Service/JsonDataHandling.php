@@ -2,24 +2,20 @@
 
 namespace App\Service;
 
+use DateTime;
 use GuzzleHttp\Client;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use App\Repository\SARepository;
+use App\Config\EtatExperimentation;
+use App\Config\EtatSA;
 
 
 
 class JsonDataHandling
 {
 
-    private $saRepository;
+    private array $salles;
 
-    private $salles;
-
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct()
     {
-        $this->saRepository = new SARepository($managerRegistry);
         $this->salles = [
             "D205" => ["nomSA" => "ESP-001", "idSA" => 1, "dbname" => "sae34bdk1eq1", "username" => "k1eq1"],
             "D206" => ["nomSA" => "ESP-002", "idSA" => 2, "dbname" => "sae34bdk1eq2", "username" => "k1eq2"],
@@ -42,12 +38,15 @@ class JsonDataHandling
         ];
     }
 
-    public function getSalles()
+    public function getSalles(): array
     {
         return $this->salles;
     }
 
-    public function getCaptureData($nomsalle, $type)
+    /**
+     * @return mixed
+     */
+    public function getCaptureData(string $nomsalle, string $type): mixed
     {
         $nomSA = $this->salles[$nomsalle]['nomSA'];
         $dbname = $this->salles[$nomsalle]['dbname'];
@@ -70,7 +69,10 @@ class JsonDataHandling
         return json_decode($response->getBody(), true);
     }
 
-    public function getCaptureDataLimited($nomsalle, $type, $count)
+    /**
+     * @return mixed
+     */
+    public function getCaptureDataLimited(string $nomsalle, string $type, int $count): mixed
     {
         $nomSA = $this->salles[$nomsalle]['nomSA'];
         $dbname = $this->salles[$nomsalle]['dbname'];
@@ -94,7 +96,10 @@ class JsonDataHandling
         return json_decode($response->getBody(), true);
     }
 
-    public function getCaptureDataInterval($nomsalle, $type, $date1, $date2)
+    /**
+     * @return mixed
+     */
+    public function getCaptureDataInterval(string $nomsalle, string $type, string $date1, string $date2): mixed
     {
         $dbname = $this->salles[$nomsalle]['dbname'];
 
@@ -117,7 +122,7 @@ class JsonDataHandling
         return json_decode($response->getBody(), true);
     }
 
-    public function getMoyenneParType($type)
+    public function getMoyenneParType(string $type): float
     {
         $somme = 0;
         $count = 0;
@@ -149,9 +154,9 @@ class JsonDataHandling
     }
 
     /**
-     * @throws \Exception
+     * @return array<string, string>
      */
-    public function extraireDerniereDonneeSalle($nomsalle)
+    public function extraireDerniereDonneeSalle(string $nomsalle): array
     {
         date_default_timezone_set('Europe/Paris');
 
@@ -169,11 +174,19 @@ class JsonDataHandling
 
             if (!empty($donnees)) {
                 $derniereDonnee[$type] = $donnees[0]['valeur'];
-                //dump($donnees[0]['dateCapture']);
-                $dateCapture = new \DateTime($donnees[0]['dateCapture']);
 
-                if ($derniereDonnee['date_de_capture'] === null || $dateCapture > new \DateTime($derniereDonnee['date_de_capture'])) {
-                    $derniereDonnee['date_de_capture'] = $dateCapture->format('Y-m-d H:i:s');
+                $dateCapture = $donnees[0]['dateCapture'];
+
+                // Vérification du format de la date
+                if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $dateCapture)) {
+                    $dateCaptureObj = new \DateTime($dateCapture);
+
+                    if ($derniereDonnee['date_de_capture'] === null || $dateCaptureObj > new \DateTime($derniereDonnee['date_de_capture'])) {
+                        $derniereDonnee['date_de_capture'] = $dateCaptureObj->format('Y-m-d H:i:s');
+                    }
+                }
+                else {
+                    $derniereDonnee['date_de_capture'] = (new \DateTime())->format('Y-m-d H:i:s');
                 }
             }
         }
@@ -182,9 +195,15 @@ class JsonDataHandling
     }
 
     /**
-     * @throws \Exception
+     * @param array<string, DateTime> $date_install
+     * @return array<int, array{
+     * date: string,
+     * temp: string,
+     * hum: string,
+     * co2: string
+     * }>
      */
-    public function extraireToutesLesDonneeActuellesSalle($nomsalle, $date_install)
+    public function extraireToutesLesDonneeActuellesSalle(string $nomsalle, array $date_install): array
     {
         $dateInstallString = $date_install['date_install']->format('Y-m-d');
         $dateActuelle = new \DateTime();
@@ -218,7 +237,15 @@ class JsonDataHandling
         return array_values($groupedData);
     }
 
-    public function extraireDonneeSurIntervalle($nomsalle, $date_install, $date_desinstall)
+    /**
+     * @return array<int, array{
+     * date: string,
+     * temp: string,
+     * hum: string,
+     * co2: string
+     * }>
+     */
+    public function extraireDonneeSurIntervalle(string $nomsalle, DateTime $date_install, DateTime $date_desinstall): array
     {
         $dateInstallString = $date_install->format('Y-m-d');
         $dateDesinstallString = $date_desinstall->format('Y-m-d');
@@ -252,7 +279,28 @@ class JsonDataHandling
         return array_values($groupedData);
     }
 
-    public function extraireDernieresDonneesDesSalles($experimentations)
+    /**
+     * @param array<int, array{
+     * nom: string,
+     * etage: int,
+     * numero: int,
+     * orientation: string,
+     * nb_fenetres: int,
+     * nb_ordis: int,
+     * datedemande: DateTime,
+     * dateinstallation: DateTime,
+     * etat: EtatExperimentation,
+     * sa_etat: EtatSA
+     * }> $experimentations
+     * @return array<int, array{
+     * localisation: string,
+     * co2: string,
+     * hum: string,
+     * temp: string,
+     * dateCapture: string
+     * }>
+     */
+    public function extraireDernieresDonneesDesSalles(array $experimentations): array
     {
         $resultats = [];
 

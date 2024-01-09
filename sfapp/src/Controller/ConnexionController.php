@@ -32,10 +32,8 @@ class ConnexionController extends AbstractController
     }
 
     #[Route('/logout', name: 'app_deconnexion')]
-    public function logout()
+    public function logout(): void
     {
         // The code is never executed, Symfony redirects before reaching this method
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
-        return $this->render('app_connexion');
     }
 }

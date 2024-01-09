@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ExperimentationController extends AbstractController
 {
     #[Route('/charge-de-mission/plan-experimentation/ajout-experimentation/{nomsalle}', name: 'ajout_exp')]
-    public function ajouterExperimentation(ExperimentationRepository $experimentationRepository, $nomsalle): Response
+    public function ajouterExperimentation(ExperimentationRepository $experimentationRepository, string $nomsalle): Response
     {
         // Logique d'ajout d'expérimentation
         $experimentationRepository->ajouterExperimentation($nomsalle);
@@ -30,7 +30,7 @@ class ExperimentationController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-experimentation/{nomsalle}', name: 'supprimer_exp')]
-    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    public function supprimerExperimentation(ExperimentationRepository $experimentationRepository , string $nomsalle): Response
     {
         // Utilisez la méthode du repository pour ajouter des données
         $etat = $experimentationRepository->supprimerExperimentation($nomsalle);
@@ -51,7 +51,7 @@ class ExperimentationController extends AbstractController
     }
 
     #[Route('/technicien/modifier-etat-experimentation/{etat}/{nomsalle}', name: 'modifier_etat_exp')]
-    public function modifierEtatExperimentation(ExperimentationRepository $experimentationRepository, SARepository $SARepository, $etat, $nomsalle): Response
+    public function modifierEtatExperimentation(ExperimentationRepository $experimentationRepository, SARepository $SARepository, string $etat, string $nomsalle): Response
     {
         // Utilisez la méthode du repository pour modifier l'état de l'expérimentation
         if ($etat == "installee") {

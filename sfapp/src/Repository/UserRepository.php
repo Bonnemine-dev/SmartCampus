@@ -51,7 +51,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    public function recommandationsEte($donnees): array
+    /**
+     * @param array<string, string> $donnees
+     * @return array<int, string|array<int, string>>
+     */
+    public function recommandationsEte(array $donnees): array
     {
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
@@ -156,7 +160,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
-    public function recommandationsAutomne($donnees): array
+    /**
+     * @param array<string, string> $donnees
+     * @return array<int, string|array<int, string>>
+     */
+    public function recommandationsAutomne(array $donnees): array
     {
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
@@ -259,7 +267,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
-    public function recommandationsHiver($donnees): array
+    /**
+     * @param array<string, string> $donnees
+     * @return array<int, string|array<int, string>>
+     */
+    public function recommandationsHiver(array $donnees): array
     {
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
@@ -364,7 +376,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
-    public function recommandationsPrintemps($donnees): array
+    /**
+     * @param array<string, string> $donnees
+     * @return array<int, string|array<int, string>>
+     */
+    public function recommandationsPrintemps(array $donnees): array
     {
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
@@ -467,12 +483,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
-    public function rechercheUser($username): ?User
+    public function rechercheUser(string $username): ?User
     {
         return $this->findOneBy(['username' => $username]);
     }
 
-    public function recommandationsSalles($donnees, $date) {
+    /**
+     * @param array<string, string> $donnees
+     * @param string $date
+     * @return array<int, string|array<int, string>>
+     */
+    public function recommandationsSalles(array $donnees, string $date): array
+    {
         $anneeActuelle = date("Y");
         if (($date >= ($anneeActuelle - 1) . '-12-22 00:00:00' and $date < $anneeActuelle . '-03-20 00:00:00') ||
             ($date >= $anneeActuelle . '-12-22 00:00:00' and $date <= $anneeActuelle . '-12-31 23:59:59')) {
@@ -487,9 +509,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         else if ($date >= $anneeActuelle . '-09-23 00:00:00' and $date < $anneeActuelle . '-12-22 00:00:00') {
             return $this->recommandationsAutomne($donnees);
         }
+        return [];
     }
 
-    public function intervallesTempSaison($date) {
+    /**
+     * @return array<int, int>
+     */
+    public function intervallesTempSaison(string $date): array
+    {
         $anneeActuelle = date("Y");
         if (($date >= ($anneeActuelle - 1) . '-12-22 00:00:00' and $date < $anneeActuelle . '-03-20 00:00:00') ||
             ($date >= $anneeActuelle . '-12-22 00:00:00' and $date <= $anneeActuelle . '-12-31 23:59:59')) {
@@ -504,6 +531,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         else if ($date >= $anneeActuelle . '-09-23 00:00:00' and $date < $anneeActuelle . '-12-22 00:00:00') {
             return [18, 19, 24, 25];
         }
+        return [];
     }
 
 }

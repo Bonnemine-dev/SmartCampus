@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SalleController extends AbstractController
 {
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
-    public function ajout_salle(SalleRepository $salleRepository , SARepository $saRepository ,ExperimentationRepository $experimentationRepository,$nomsalle): Response
+    public function ajout_salle(SalleRepository $salleRepository , SARepository $saRepository ,ExperimentationRepository $experimentationRepository, string $nomsalle): Response
     {
 
         // Vérifier si la salle existe déjà dans les expérimentations
@@ -42,7 +42,7 @@ class SalleController extends AbstractController
     }
 
     #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
-    public function supprimer_salle(SalleRepository $salleRepository , ExperimentationRepository $experimentationRepository , $nomsalle): Response
+    public function supprimer_salle(SalleRepository $salleRepository , ExperimentationRepository $experimentationRepository , string $nomsalle): Response
     {
         // Vérifier si la salle existe déjà dans les expérimentations
         if($salleRepository->nomSalleId($nomsalle) == null){
@@ -64,7 +64,7 @@ class SalleController extends AbstractController
     }
 
     #[Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')]
-    public function details_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function details_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository, string $nomsalle): Response
     {
         // Salle inexistante ?
         if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null or !$experimentationRepository->estExistante($nomsalle)) {
@@ -100,7 +100,7 @@ class SalleController extends AbstractController
 
 
             //determine quel recommandation faire
-            $etatExp = $experimentationRepository->etatExp($nomsalle) ?? null;
+            $etatExp = $experimentationRepository->etatExp($nomsalle);
             foreach ($etatExp as $exp) {
                 if ($exp['etat_exp'] == EtatExperimentation::demandeInstallation ) {
                     $recommandation = 'demande_installation_en_cours';
@@ -119,20 +119,20 @@ class SalleController extends AbstractController
             //nom de la salle
             'nomsalle' => $nomsalle,
             //Infoemration sur le sa présent dans la salle si il existe
-            'etat_sa' => $etat_sa ?? null,
+            'etat_sa' => $etat_sa,
             //dernière données de la salle, null si inexistantes
-            'dernieres_donnees' => $dernieres_donnees ?? null,
+            'dernieres_donnees' => $dernieres_donnees,
             //temps écoulé depuis la dernière remonté de données
             'elapsed' => $elapsed ?? null,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'recommandation' => $recommandation ?? null,
+            'recommandation' => $recommandation,
 
-            'intervalleTempSaison' => $intervalleTempSaison ?? null,
+            'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 
     #[Route('/charge-de-mission/liste-salles/historique/{nomsalle}', name: 'historique_salle')]
-    public function historique_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function historique_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request, string $nomsalle): Response
     {
         $liste_donnee_historique = null;
         //salle inexistante ?
@@ -166,13 +166,13 @@ class SalleController extends AbstractController
             //nom de la salle
             'nomsalle' => $nomsalle,
             //liste de toutes les données de l'expérimentation en cours, null si inexistantes
-            'liste_donnee_historique' => $liste_donnee_historique ?? null,
-            'intervalleTempSaison' => $intervalleTempSaison ?? null,
+            'liste_donnee_historique' => $liste_donnee_historique,
+            'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 
     #[Route('/charge-de-mission/liste-salles/archives/{nomsalle}', name: 'archives_salle')]
-    public function archives_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request,$nomsalle): Response
+    public function archives_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request, string $nomsalle): Response
     {
         //salle inexistante ?
         if ($salleRepository->findOneBy(['nom' => $nomsalle]) === null) {
@@ -215,15 +215,13 @@ class SalleController extends AbstractController
             //nom de la salle
             'nomsalle' => $nomsalle,
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive ?? null,
-            //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
-            'recommandation' => $recommandation ?? null,
-            'intervalleTempSaison' => $intervalleTempSaison ?? null,
+            'liste_de_liste_donnee_archive' => $liste_de_liste_donnee_archive,
+            'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 
     #[Route('/charge-de-mission/liste-salles/diagnostic/{nomsalle?}', name: 'diagnostic_salle')]
-    public function diagnostic_salle($nomsalle): Response
+    public function diagnostic_salle(string $nomsalle): Response
     {
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/diagnostic-salle.html.twig', [
