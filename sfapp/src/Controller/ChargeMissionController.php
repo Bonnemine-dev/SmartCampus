@@ -76,6 +76,9 @@ class ChargeMissionController extends AbstractController
     #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
     public function liste_experimentation(UserRepository $userRepository, Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
     {
+
+        $intervalleTempSaison = [-50,-20,50,100];
+
         // Création des instances de formulaire
         $filtreSalleForm = $this->createForm(FiltreSalleFormType::class);
         $rechercheSalleForm = $this->createForm(RechercheSalleFormType::class, null, [
@@ -129,8 +132,10 @@ class ChargeMissionController extends AbstractController
         if(empty($liste_experimentations)){
             $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
         }
-
-        $intervalleTempSaison = $userRepository->intervallesTempSaison($listeSallesAvecDonnees[0]['dateCapture']);
+        
+        if(!empty($listeSallesAvecDonnees)){
+            $intervalleTempSaison = $userRepository->intervallesTempSaison($listeSallesAvecDonnees[0]['dateCapture']);
+        }
 
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
