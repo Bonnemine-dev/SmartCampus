@@ -14,7 +14,7 @@ use App\Repository\SARepository;
 
 class APIController extends AbstractController
 {
-    private $jsonDataHandling;
+    private JsonDataHandling $jsonDataHandling;
 
     public function __construct(JsonDataHandling $jsonDataHandling)
     {
@@ -22,20 +22,16 @@ class APIController extends AbstractController
     }
 
     #[Route('/api/captures/{nomsalle?}/{type?}', name: 'app_api')]
-    public function index(SARepository $SARepository, $nomsalle = null, $type = null): Response
+    public function index( $nomsalle = null, $type = null): Response
     {
-        $nomsa = $SARepository->sa_associe_salle($nomsalle);
-        $data = $this->jsonDataHandling->getCaptureData($nomsa, $type);
-
+        $data = $this->jsonDataHandling->getCaptureData($nomsalle, $type);
         return new JsonResponse($data);
     }
 
     #[Route('/api/captures/{nomsalle?}/{type?}/{count?}', name: 'app_api_limit')]
-    public function limit(SARepository $SARepository, $type = null, $nomsalle = null, $count = null): Response
+    public function limit($type = null, $nomsalle = null, $count = null): Response
     {
-        $nomsa = $SARepository->sa_associe_salle($nomsalle);
-        $data = $this->jsonDataHandling->getCaptureDataLimited($nomsa, $type, $count);
-
+        $data = $this->jsonDataHandling->getCaptureDataLimited($nomsalle, $type, $count);
         return new JsonResponse($data);
     }
 
@@ -43,7 +39,6 @@ class APIController extends AbstractController
     public function interval($type, $date1, $date2): Response
     {
         $data = $this->jsonDataHandling->getCaptureDataInterval($type, $date1, $date2);
-
         return new JsonResponse($data);
     }
 

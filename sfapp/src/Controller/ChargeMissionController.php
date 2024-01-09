@@ -148,7 +148,7 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
-    public function cm_tableau_de_bord(SalleRepository $salleRepository,ExperimentationRepository $experimentationRepository): Response
+    public function cm_tableau_de_bord(JsonDataHandling $jsonDataHandling, SalleRepository $salleRepository, ExperimentationRepository $experimentationRepository): Response
     {
         //récuperer la température exterireur
         $apiKey = 'fb96e1802894f03c5c50e5408b058bce';
@@ -183,21 +183,30 @@ class ChargeMissionController extends AbstractController
             echo "Erreur lors de la requête vers l'API OpenWeatherMap.";
         }
 
-        // Afficher la vue d'ajout de salle avec le résultat de l'existence
-        // 1. Lire le fichier JSON
-        $jsonFilePath = $this->getParameter('kernel.project_dir') . "/public/json/moy_der_valeurs.json";
-        $jsonContent = file_get_contents($jsonFilePath);
-        $dataArray = json_decode($jsonContent, true);
-        $listsalle = $salleRepository->listerSalles();
-        $salles = $experimentationRepository->listerSallesAvecDonnees($dataArray,$listsalle);
-        $moyDonnees = $experimentationRepository->moyennesDonnees($dataArray);
+        $salles = [];
+        $compteur = 0;
+        foreach ($jsonDataHandling->getSalles() as $nomSalle => $infosSalle) {
+            if ($compteur < 12) {
+                $salles[] = $nomSalle; // Ajoutez le nom de la salle au tableau
+                $compteur++; // Incrémentez le compteur
+            } else {
+                break; // Arrêtez la boucle après avoir ajouté les 12 premières salles
+            }
+        }
+
+        //dump($salles);
+
+
+        $moyenneTemp = $jsonDataHandling->getMoyenneParType("temp");
+        $moyenneHum = $jsonDataHandling->getMoyenneParType("hum");
+        $moyenneCo2 = $jsonDataHandling->getMoyenneParType("co2");
 
         return $this->render('chargemission/tableau-de-bord.html.twig', [
-             'temp_moy' => $moyDonnees['temp_moy'],
-             'hum_moy' => $moyDonnees['hum_moy'],
-             'taux_carbone_moy' => $moyDonnees['co2_moy'],
+             'temp_moy' => $moyenneTemp,
+             'hum_moy' => $moyenneHum,
+             'taux_carbone_moy' => $moyenneCo2,
              'salles' => $salles,
-            'temperature_ext' => $temperature_ext
+             'temperature_ext' => $temperature_ext
         ]);
     }
 
