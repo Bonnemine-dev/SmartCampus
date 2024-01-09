@@ -42,6 +42,11 @@ class JsonDataHandling
         ];
     }
 
+    public function getSalles()
+    {
+        return $this->salles;
+    }
+
     public function getCaptureData($nomsalle, $type)
     {
         $nomSA = $this->salles[$nomsalle]['nomSA'];
@@ -89,8 +94,10 @@ class JsonDataHandling
         return json_decode($response->getBody(), true);
     }
 
-    public function getCaptureDataInterval($type, $date1, $date2)
+    public function getCaptureDataInterval($nomsalle, $type, $date1, $date2)
     {
+        $dbname = $this->salles[$nomsalle]['dbname'];
+
         $client = new Client();
         $response = $client->request('GET', 'https://sae34.k8s.iut-larochelle.fr/api/captures/interval', [
             'query' => [
@@ -101,13 +108,44 @@ class JsonDataHandling
             ],
             'headers' => [
                 'accept' => 'application/json',
-                'dbname' => 'sae34bdl2eq2',
+                'dbname' => $dbname,
                 'username' => 'l2eq2',
                 'userpass' => 'wiqnyt-fuqgyc-7vUhby'
             ]
         ]);
 
         return json_decode($response->getBody(), true);
+    }
+
+    public function getMoyenneParType($type)
+    {
+        $somme = 0;
+        $count = 0;
+
+        foreach ($this->salles as $nomSalle => $infoSalle) {
+            $donnee = $this->getCaptureDataLimited($nomSalle, $type, 1);
+
+            //dump($donnee);
+
+            if (!empty($donnee) && isset($donnee[0]['valeur']) && $donnee[0]['valeur'] !== "")
+            {
+                //dump($donnee[0]['valeur']);
+                $somme += floatval($donnee[0]['valeur']);
+                $count++;
+            }
+        }
+
+        $moyenneGlobale = $somme / $count;
+
+        if ($type === "hum" || $type === "temp")
+        {
+            $moyenneGlobale = round($moyenneGlobale, 1);
+        }
+        else
+        {
+            $moyenneGlobale = round($moyenneGlobale);
+        }
+        return $moyenneGlobale;
     }
 
     /**
@@ -146,7 +184,7 @@ class JsonDataHandling
     /**
      * @throws \Exception
      */
-    public function extraireToutesLesDonneeActuellesSalle($date_install)
+    public function extraireToutesLesDonneeActuellesSalle($nomsalle, $date_install)
     {
         $dateInstallString = $date_install['date_install']->format('Y-m-d');
         $dateActuelle = new \DateTime();
@@ -156,7 +194,7 @@ class JsonDataHandling
         $groupedData = [];
 
         foreach ($types as $type) {
-            $data = $this->getCaptureDataInterval($type, $dateInstallString, $dateActuelleString);
+            $data = $this->getCaptureDataInterval($nomsalle, $type, $dateInstallString, $dateActuelleString);
 
             foreach ($data as $entry) {
                 $date = $entry['dateCapture'];

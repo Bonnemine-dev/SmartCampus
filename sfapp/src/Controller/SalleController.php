@@ -146,7 +146,7 @@ class SalleController extends AbstractController
         //Si il existe une expérimentation en cours alors créer le tableau
         if ($dateInstallExpActuelle != null and $dateInstallExpActuelle['date_install'] != null) {
             $liste_donnee_historique = $paginator->paginate(
-                $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($dateInstallExpActuelle),
+                $JsonDataHandling_service->extraireToutesLesDonneeActuellesSalle($nomsalle, $dateInstallExpActuelle),
                 $request->query->getInt('pageH',1),
                 18,[
                     'pageParameterName' => 'pageH', // Spécifiez le nom du paramètre de page pour la première entité
@@ -158,7 +158,7 @@ class SalleController extends AbstractController
             return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
         }
 
-        dump($liste_donnee_historique);
+        //dump($liste_donnee_historique);
         $intervalleTempSaison = $userRepository->intervallesTempSaison(date('Y-m-d H:i:s'));
 
         // Afficher la vue de salle details avec le résultat de l'existence

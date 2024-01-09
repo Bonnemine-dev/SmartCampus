@@ -14,7 +14,7 @@ use App\Repository\SARepository;
 
 class APIController extends AbstractController
 {
-    private $jsonDataHandling;
+    private JsonDataHandling $jsonDataHandling;
 
     public function __construct(JsonDataHandling $jsonDataHandling)
     {
