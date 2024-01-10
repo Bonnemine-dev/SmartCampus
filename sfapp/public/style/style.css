@@ -1136,20 +1136,17 @@ button {
   padding: 30px;
 }
 .container.widget-salles .salles {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
   width: 100%;
 }
 .container.widget-salles .salles .salle {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 0 0 auto;
-  width: 300px;
+  margin: 0;
   background: #737373;
-  margin: 0 15px 15px 0;
   padding: 10px;
   border-radius: 8px;
 }
@@ -1166,7 +1163,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 1.2rem;
 }
 

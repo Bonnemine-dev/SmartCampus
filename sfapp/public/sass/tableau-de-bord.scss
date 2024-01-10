@@ -80,16 +80,15 @@
   padding: 30px;
 
   .salles{
-    @include flex($justify: flex-start);
-    flex-wrap: wrap;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
     width: 100%;
 
     .salle{
       @include flex($justify: space-between);
-      flex: 0 0 auto;
-      width: 300px;
+      margin: 0;
       background: $grey-4;
-      margin: 0 15px 15px 0;
       padding: 10px;
       border-radius : 8px;
     }
@@ -111,7 +110,7 @@
   .voir-tout-bouton{
     @extend .little-gradient-button;
     @include flex();
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 1.2rem;
   }
 
