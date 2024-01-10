@@ -327,4 +327,16 @@ class SARepository extends ServiceEntityRepository
         // Sinon, retourner le premier élément du résultat sous forme de tableau
         return $result;
     }
+
+    public function sa_eteint_probleme(array $listeSallesAvecDonnees): void {
+        foreach ($listeSallesAvecDonnees as $experimentation) {
+            if ($experimentation['co2'] < 300 or $experimentation['co2'] > 5000 or $experimentation['temp'] < 0 or $experimentation['temp'] > 50 or $experimentation['hum'] < 0 or $experimentation['hum'] > 100) {
+                $this->changerEtatSA($experimentation['localisation'], EtatSA::probleme);
+            } elseif ($experimentation['co2'] == null or $experimentation['temp'] == null or $experimentation['hum'] == null) {
+                $this->changerEtatSA($experimentation['localisation'], EtatSA::eteint);
+            } else {
+                $this->changerEtatSA($experimentation['localisation'], EtatSA::marche);
+            }
+        }
+    }
 }

@@ -95,6 +95,7 @@ class SalleController extends AbstractController
             } else {
                 $elapsed = $interval->s . ' secondes';
             }
+            $intervalleTempSaison = $userRepository->intervallesTempSaison($dernieres_donnees['date_de_capture']);
         }
 
 
@@ -112,7 +113,6 @@ class SalleController extends AbstractController
             }
             if(!isset($recommandation)){$recommandation = 'pas_de_exp';}
 
-        $intervalleTempSaison = $userRepository->intervallesTempSaison($dernieres_donnees['date_de_capture']);
 
         // Afficher la vue de salle details avec le résultat de l'existence
         return $this->render('salle/details-salle.html.twig', [
@@ -127,7 +127,7 @@ class SalleController extends AbstractController
             //liste d'une liste contenant des information sur l'intervalle et toutes les données associé, null si inexistantes
             'recommandation' => $recommandation,
 
-            'intervalleTempSaison' => $intervalleTempSaison,
+            'intervalleTempSaison' => $intervalleTempSaison ?? null,
         ]);
     }
 

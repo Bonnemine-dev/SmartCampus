@@ -97,7 +97,7 @@ class SAController extends AbstractController
         $nom_salle_associe_sa = $saRepository->salle_associe_sa($nomsa);
         //Récupère les dernières données remonté par le SA
         if($nom_salle_associe_sa != null) {
-            $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nom_salle_associe_sa['nom']);
+            $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nom_salle_associe_sa[0]['nom']);
         }
 
         if($nom_salle_associe_sa != null and $dernieres_donnees['date_de_capture'] != null) {

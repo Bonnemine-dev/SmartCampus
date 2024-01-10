@@ -74,7 +74,7 @@ class ChargeMissionController extends AbstractController
     }
     
     #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
-    public function liste_experimentation(UserRepository $userRepository, Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
+    public function liste_experimentation(SARepository $saRepository, UserRepository $userRepository, Request $request, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
     {
 
 
@@ -115,6 +115,8 @@ class ChargeMissionController extends AbstractController
 
         // Afficher la vue d'ajout de salle avec le résultat de l'existence
         $listeSallesAvecDonnees = $jsonDataHandling->extraireDernieresDonneesDesSalles($liste_experimentations);
+        $saRepository->sa_eteint_probleme($listeSallesAvecDonnees);
+        $listeSallesAvecDonnees = $jsonDataHandling->extraireDernieresDonneesDesSalles($liste_experimentations);
         if(empty($liste_experimentations)){
             $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
         }
@@ -126,6 +128,7 @@ class ChargeMissionController extends AbstractController
         if (empty($intervalleTempSaison) or $intervalleTempSaison == null) {
             $intervalleTempSaison = [-50,-20,50,100];
         }
+
 
 
         return $this->render('chargemission/liste-salles.html.twig', [
