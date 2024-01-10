@@ -330,9 +330,9 @@ class SARepository extends ServiceEntityRepository
 
     public function sa_eteint_probleme(array $listeSallesAvecDonnees): void {
         foreach ($listeSallesAvecDonnees as $experimentation) {
-            if ($experimentation['co2'] < 300 or $experimentation['co2'] > 5000 or $experimentation['temp'] < 0 or $experimentation['temp'] > 50 or $experimentation['hum'] < 0 or $experimentation['hum'] > 100) {
+            if ($experimentation['co2'] == null or $experimentation['temp'] == null or $experimentation['hum'] == null or $experimentation['co2'] < 300 or $experimentation['co2'] > 5000 or $experimentation['temp'] < 0 or $experimentation['temp'] > 50 or $experimentation['hum'] < 0 or $experimentation['hum'] > 100) {
                 $this->changerEtatSA($experimentation['localisation'], EtatSA::probleme);
-            } elseif ($experimentation['co2'] == null or $experimentation['temp'] == null or $experimentation['hum'] == null) {
+            } elseif ($experimentation['dateCapture'] < date('Y-m-d H:i:s', strtotime('-10 minutes'))) {
                 $this->changerEtatSA($experimentation['localisation'], EtatSA::eteint);
             } else {
                 $this->changerEtatSA($experimentation['localisation'], EtatSA::marche);
