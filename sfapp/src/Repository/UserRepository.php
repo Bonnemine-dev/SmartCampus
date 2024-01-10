@@ -59,8 +59,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
-        $temp_inf = $donnees['temp'] < 20;
-        $temp_sup = $donnees['temp'] > 25;
+        $temp_inf = $donnees['temp'] < 24;
+        $temp_sup = $donnees['temp'] > 28;
         $hum_inf = $donnees['hum'] < 40;
         $hum_sup = $donnees['hum'] > 70;
 
@@ -169,7 +169,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
         $temp_inf = $donnees['temp'] < 19;
-        $temp_sup = $donnees['temp'] > 24;
+        $temp_sup = $donnees['temp'] > 23;
         $hum_inf = $donnees['hum'] < 40;
         $hum_sup = $donnees['hum'] > 70;
 
@@ -275,7 +275,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
-        $temp_inf = $donnees['temp'] < 19;
+        $temp_inf = $donnees['temp'] < 18;
         $temp_sup = $donnees['temp'] > 22;
         $hum_inf = $donnees['hum'] < 40;
         $hum_sup = $donnees['hum'] > 70;
@@ -385,7 +385,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $co2_inf = $donnees['co2'] < 400;
         $co2_sup = $donnees['co2'] > 1000;
         $temp_inf = $donnees['temp'] < 20;
-        $temp_sup = $donnees['temp'] > 23;
+        $temp_sup = $donnees['temp'] > 24;
         $hum_inf = $donnees['hum'] < 40;
         $hum_sup = $donnees['hum'] > 70;
 
@@ -520,16 +520,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $anneeActuelle = date("Y");
         if (($date >= ($anneeActuelle - 1) . '-12-22 00:00:00' and $date < $anneeActuelle . '-03-20 00:00:00') ||
             ($date >= $anneeActuelle . '-12-22 00:00:00' and $date <= $anneeActuelle . '-12-31 23:59:59')) {
-            return [18, 19, 22, 24];
+            return [16, 18, 22, 24];
         }
         else if ($date >= $anneeActuelle . '-03-20 00:00:00' and $date < $anneeActuelle . '-06-20 00:00:00') {
-            return [18, 20, 23, 25];
+            return [18, 20, 24, 26];
         }
         else if ($date >= $anneeActuelle . '-06-20 00:00:00' and $date < $anneeActuelle . '-09-23 00:00:00') {
-            return [18, 20, 25, 28];
+            return [24, 26, 28, 30];
         }
         else if ($date >= $anneeActuelle . '-09-23 00:00:00' and $date < $anneeActuelle . '-12-22 00:00:00') {
-            return [18, 19, 24, 25];
+            return [17, 19, 23, 25];
         }
         return [];
     }

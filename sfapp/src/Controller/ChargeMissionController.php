@@ -77,7 +77,6 @@ class ChargeMissionController extends AbstractController
     public function liste_experimentation(UserRepository $userRepository, Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
     {
 
-        $intervalleTempSaison = [-50,-20,50,100];
 
         // Création des instances de formulaire
         $filtreSalleForm = $this->createForm(FiltreSalleFormType::class);
@@ -90,19 +89,11 @@ class ChargeMissionController extends AbstractController
         $rechercheSalleForm->handleRequest($request);
 
         // Initialisation des résultats de la salle
-        $salles = $salleRepository->filtrerSallePlanExp();
         $liste_experimentations = $experimentationRepository->filtreExperimentationAnalyse();
 
         // Filtrage des salles en fonction du formulaire de filtre
         if ($filtreSalleForm->isSubmitted() && $filtreSalleForm->isValid()) {
             $dataFiltre = $filtreSalleForm->getData();
-            // Extraire les données et les utiliser pour filtrer les salles
-            $salles = $salleRepository->filtrerSallePlanExp(
-                $dataFiltre['etage'] ?? null,
-                $dataFiltre['orientation'] ?? null,
-                $dataFiltre['ordinateurs'] ?? null,
-                $dataFiltre['sa'] ?? null
-            );
             $liste_experimentations = $experimentationRepository->filtreExperimentationAnalyse(
                 $dataFiltre['etage'] ?? null,
                 $dataFiltre['orientation'] ?? null,
@@ -114,11 +105,6 @@ class ChargeMissionController extends AbstractController
         // Recherche des salles en fonction du formulaire de recherche
         if ($rechercheSalleForm->isSubmitted() && $rechercheSalleForm->isValid()) {
             $dataRecherche = $rechercheSalleForm->getData();
-            // Extraire les données et les utiliser pour rechercher les salles
-            $salles = $salleRepository->rechercheSallePlanExp(
-                $dataRecherche['batiment'] ?? null,
-                $dataRecherche['salle'] ?? null
-            );
             $liste_experimentations = $experimentationRepository->rechercheExperimentationAnalyse(
                 $dataRecherche['batiment'] ?? null,
                 $dataRecherche['salle'] ?? null
@@ -137,6 +123,11 @@ class ChargeMissionController extends AbstractController
             $intervalleTempSaison = $userRepository->intervallesTempSaison($listeSallesAvecDonnees[0]['dateCapture']);
         }
 
+        if (empty($intervalleTempSaison) or $intervalleTempSaison == null) {
+            $intervalleTempSaison = [-50,-20,50,100];
+        }
+
+
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
             'listeDerniereValeur' => $listeSallesAvecDonnees,
@@ -148,7 +139,7 @@ class ChargeMissionController extends AbstractController
     }
 
     #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
-    public function cm_tableau_de_bord(JsonDataHandling $jsonDataHandling, SalleRepository $salleRepository, ExperimentationRepository $experimentationRepository): Response
+    public function cm_tableau_de_bord(JsonDataHandling $jsonDataHandling, UserRepository $userRepository): Response
     {
         //récuperer la température exterireur
         $apiKey = 'fb96e1802894f03c5c50e5408b058bce';
@@ -195,19 +186,20 @@ class ChargeMissionController extends AbstractController
             }
         }
 
-        //dump($salles);
-
+        $intervalleTempSaison = $userRepository->intervallesTempSaison(date("Y-m-d H:i:s"));
 
         $moyenneTemp = $jsonDataHandling->getMoyenneParType("temp");
         $moyenneHum = $jsonDataHandling->getMoyenneParType("hum");
         $moyenneCo2 = $jsonDataHandling->getMoyenneParType("co2");
+
 
         return $this->render('chargemission/tableau-de-bord.html.twig', [
              'temp_moy' => $moyenneTemp,
              'hum_moy' => $moyenneHum,
              'taux_carbone_moy' => $moyenneCo2,
              'salles' => $salles,
-             'temperature_ext' => $temperature_ext
+             'temperature_ext' => $temperature_ext,
+             'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 

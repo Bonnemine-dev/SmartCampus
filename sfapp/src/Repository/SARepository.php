@@ -302,9 +302,9 @@ class SARepository extends ServiceEntityRepository
      * Regarde les salles associés aux SA
      */
     /**
-     * @return array<string, string>
+     * @return array<string, string>|null
      */
-    public function salle_associe_sa(string $nomsa): array
+    public function salle_associe_sa(string $nomsa): ?array
     {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
@@ -317,7 +317,14 @@ class SARepository extends ServiceEntityRepository
             ->andWhere($queryBuilder->expr()->in('experimentation.etat', [1, 2]))
             ->setParameter('nomsa', $nomsa);
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        $result = $queryBuilder->getQuery()->getResult();
 
+        // Si le résultat est vide, retourner null
+        if (empty($result)) {
+            return null;
+        }
+
+        // Sinon, retourner le premier élément du résultat sous forme de tableau
+        return $result;
     }
 }
