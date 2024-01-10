@@ -2,6 +2,8 @@
 
 $font: 'Montserrat', 'Roboto', Tahoma, Verdana, sans-serif;
 $gradient: linear-gradient(90deg, #00B292, #7ED957);
+// $gradient: linear-gradient(90deg, #c50707, #ef5c5c);
+//$gradient: #222222;
 
 // Couleurs
 $light-green: #7ED957;
@@ -140,9 +142,11 @@ button{
 //Modif du mot de passe
 @import "modif-mdp.scss";
 
-
-// CM Diagnostic Salla
+// CM Diagnostic Salle
 @import "diagnostic-salle.scss";
 
 //Accueil
 @import "accueil.scss";
+
+// Recommandations pour l'utilisateur
+@import "recommandations.scss";

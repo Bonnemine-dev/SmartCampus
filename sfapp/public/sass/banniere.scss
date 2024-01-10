@@ -24,9 +24,22 @@
     }
 }
 
-.left-content img {
-    width: 60px;
-    margin-left: 20px;
+.left-content{
+    @include flex($justify: flex-end, $align: center);
+    img {
+        width: 60px;
+        margin-left: 20px;
+    }
+
+    .icon-link{
+        @include flex();
+        margin-right: 10px;
+
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+    }
 }
 
 .right-content {

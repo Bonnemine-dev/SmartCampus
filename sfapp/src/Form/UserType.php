@@ -24,7 +24,7 @@ class UserType extends AbstractType
             ->add('PlainPassword', PasswordType::class, [
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Mot de passe'
+                    'placeholder' => 'Nouveau mot de passe'
                 ],
                 'label' => false,
             ])
