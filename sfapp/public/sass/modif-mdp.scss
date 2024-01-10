@@ -1,8 +1,26 @@
 /* Formulaire de modification du mot de passe */
 .mdp-form{
+  @extend .sa-form ;
   width: fit-content;
+
   form{
     @include flex-column($justify: space-between);
-    height: 400px;
+
+    input{
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    #user_verif{
+      width: 320px;
+    }
+  }
+
+  button {
+    margin-top: 15px;
+  }
+
+  p{
+    margin: 0;
   }
 }

@@ -21,16 +21,16 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    private string $OUVRIR_PORTES_FENETRES = 'Ouvrir les portes et les fenêtres';
-    private string $ALLUMER_VENTILATEURS = 'Allumer les ventilateurs';
-    private string $FERMER_RIDEAUX_VOLETS = 'Fermer les rideaux et les volets';
-    private string $ETEINDRE_CHAUFFAGE = 'Éteindre le chauffage';
-    private string $ETEINDRE_VENTILATEURS = 'Éteindre les ventilateurs';
-    private string $FERMER_PORTES_FENETRES = 'Fermer les portes et les fenêtres';
-    private string $ALLUMER_CHAUFFAGE = 'Allumer le chauffage';
-    private string $OUVRIR_PORTES = 'Ouvrir les portes';
-    private string $FERMER_FENETRES = 'Fermer les fenêtres';
-    private string $FERMER_RIDEAUX = 'Fermer les rideaux';
+    private array $OUVRIR_PORTES_FENETRES = ['Ouvrir les portes et les fenêtres', 1];
+    private array $ALLUMER_VENTILATEURS = ['Allumer les ventilateurs', 2];
+    private array $FERMER_RIDEAUX_VOLETS = ['Fermer les rideaux et les volets', 3];
+    private array $ETEINDRE_CHAUFFAGE = ['Éteindre le chauffage', 4];
+    private array $ETEINDRE_VENTILATEURS = ['Éteindre les ventilateurs', 2];
+    private array $FERMER_PORTES_FENETRES = ['Fermer les portes et les fenêtres', 1];
+    private array $ALLUMER_CHAUFFAGE = ['Allumer le chauffage', 4];
+    private array $OUVRIR_PORTES = ['Ouvrir les portes', 1];
+    private array $FERMER_FENETRES = ['Fermer les fenêtres', 3];
+    private array $FERMER_RIDEAUX = ['Fermer les rideaux', 3];
 
     public function __construct(ManagerRegistry $registry)
     {

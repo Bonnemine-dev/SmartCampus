@@ -26,17 +26,14 @@
 
         {# --------------------------------------------- #}
 
-        <h3 class="">Modifier son mot de passe</h3>
-        <div class="sa-form mdp-form">
+        <h3>Modifier son mot de passe</h3>
+        <div class="mdp-form">
 
             {{ form_start(userForm) }}
-                <p>Mot de passe actuel : </p>
                 {{ form_widget(userForm.MDP) }}
-                <p>Nouveau mot de passe : </p>
                 {{ form_widget(userForm.PlainPassword) }}
-                <p class="erreur-form">{{ erreur }}</p>
-                <p>Comfirmation du nouveau mot de passe : </p>
                 {{ form_widget(userForm.verif) }}
+                 <p class="erreur-form">{{ erreur }}</p>
 
             <button type='submit'>Modifier</button>
             {{ form_row(userForm._token) }}
