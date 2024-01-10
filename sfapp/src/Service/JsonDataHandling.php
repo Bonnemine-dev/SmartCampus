@@ -2,20 +2,25 @@
 
 namespace App\Service;
 
+use App\Repository\ExperimentationRepository;
+use App\Repository\SalleRepository;
+use App\Repository\SARepository;
 use DateTime;
 use GuzzleHttp\Client;
 use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
-
+use Doctrine\Persistence\ManagerRegistry;
 
 
 class JsonDataHandling
 {
 
+    private ExperimentationRepository $experimentationRepository;
     private array $salles;
 
-    public function __construct()
+    public function __construct(ManagerRegistry $managerRegistry)
     {
+        $this->experimentationRepository = new ExperimentationRepository($managerRegistry, new SalleRepository($managerRegistry), new SARepository($managerRegistry));
         $this->salles = [
             "D205" => ["nomSA" => "ESP-001", "idSA" => 1, "dbname" => "sae34bdk1eq1", "username" => "k1eq1"],
             "D206" => ["nomSA" => "ESP-002", "idSA" => 2, "dbname" => "sae34bdk1eq2", "username" => "k1eq2"],
@@ -40,7 +45,17 @@ class JsonDataHandling
 
     public function getSalles(): array
     {
-        return $this->salles;
+        $listeSalles = [];
+        $listeExperimentations = $this->experimentationRepository->enleveExperimentationsInutiles($this->experimentationRepository->requeteCommune()->getQuery()->getResult());
+        foreach ($listeExperimentations as $experimentation) {
+            $nomSalle = $experimentation['nom'];
+            foreach ($this->salles as $nomSalle2 => $infoSalle) {
+                if ($nomSalle === $nomSalle2) {
+                    $listeSalles[$nomSalle] = $infoSalle;
+                }
+            }
+        }
+        return $listeSalles;
     }
 
     /**

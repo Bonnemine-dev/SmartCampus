@@ -253,7 +253,7 @@ class ExperimentationRepository extends ServiceEntityRepository
     /*
      * Requête commune à la fonction de filtrage et de recherche (fonction qui récupère tout)
      */
-    private function requeteCommune(): \Doctrine\ORM\QueryBuilder
+    public function requeteCommune(): \Doctrine\ORM\QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('experimentation')
             ->select([
@@ -323,7 +323,7 @@ class ExperimentationRepository extends ServiceEntityRepository
      *  sa_etat: EtatSA
      *  }>
      */
-    private function enleveExperimentationsInutiles(array $exp): array
+    public function enleveExperimentationsInutiles(array $exp): array
     {
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
