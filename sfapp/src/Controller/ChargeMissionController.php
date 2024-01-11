@@ -113,31 +113,11 @@ class ChargeMissionController extends AbstractController
         // Logique métier supplémentaire
         $batiments = $batimentRepository->findAll();
 
-        // Afficher la vue d'ajout de salle avec le résultat de l'existence
-        $listeSallesAvecDonnees = $jsonDataHandling->extraireDernieresDonneesDesSalles($liste_experimentations);
-        $saRepository->sa_eteint_probleme($listeSallesAvecDonnees);
-        $listeSallesAvecDonnees = $jsonDataHandling->extraireDernieresDonneesDesSalles($liste_experimentations);
-        if(empty($liste_experimentations)){
-            $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
-        }
-        
-        if(!empty($listeSallesAvecDonnees)){
-            $intervalleTempSaison = $userRepository->intervallesTempSaison($listeSallesAvecDonnees[0]['dateCapture']);
-        }
-
-        if (empty($intervalleTempSaison) or $intervalleTempSaison == null) {
-            $intervalleTempSaison = [-50,-20,50,100];
-        }
-
-
-
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
-            'listeDerniereValeur' => $listeSallesAvecDonnees,
             'liste_batiments' => $batiments,
             'filtreSalleForm' => $filtreSalleForm->createView(),
             'rechercheSalleForm' => $rechercheSalleForm->createView(),
-            'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 
@@ -189,20 +169,9 @@ class ChargeMissionController extends AbstractController
             }
         }
 
-        $intervalleTempSaison = $userRepository->intervallesTempSaison(date("Y-m-d H:i:s"));
-
-        $moyenneTemp = $jsonDataHandling->getMoyenneParType("temp");
-        $moyenneHum = $jsonDataHandling->getMoyenneParType("hum");
-        $moyenneCo2 = $jsonDataHandling->getMoyenneParType("co2");
-
-
         return $this->render('chargemission/tableau-de-bord.html.twig', [
-             'temp_moy' => $moyenneTemp,
-             'hum_moy' => $moyenneHum,
-             'taux_carbone_moy' => $moyenneCo2,
              'salles' => $salles,
-             'temperature_ext' => $temperature_ext,
-             'intervalleTempSaison' => $intervalleTempSaison,
+             'temperature_ext' => $temperature_ext
         ]);
     }
 

@@ -319,22 +319,42 @@ class JsonDataHandling
     {
         $resultats = [];
 
-        foreach ($experimentations as $experimentation) {
-            $nomsalle = $experimentation['nom'];
+        if (!empty($experimentations))
+        {
+            foreach ($experimentations as $experimentation) {
+                $nomsalle = $experimentation['nom'];
 
-            $derniereDonnee = $this->extraireDerniereDonneeSalle($nomsalle);
+                $derniereDonnee = $this->extraireDerniereDonneeSalle($nomsalle);
 
-            // Si des données ont été trouvées pour la salle
-            if ($derniereDonnee['date_de_capture'] !== null) {
-                $resultats[] = [
-                    'localisation' => $nomsalle,
-                    'co2' => $derniereDonnee['co2'],
-                    'hum' => $derniereDonnee['hum'],
-                    'temp' => $derniereDonnee['temp'],
-                    'dateCapture' => $derniereDonnee['date_de_capture']
-                ];
+                // Si des données ont été trouvées pour la salle
+                if ($derniereDonnee['date_de_capture'] !== null) {
+                    $resultats[] = [
+                        'localisation' => $nomsalle,
+                        'co2' => $derniereDonnee['co2'],
+                        'hum' => $derniereDonnee['hum'],
+                        'temp' => $derniereDonnee['temp'],
+                        'dateCapture' => $derniereDonnee['date_de_capture']
+                    ];
+                }
             }
         }
+        else {
+            foreach ($this->salles as $nomsalle => $infosalle){
+                $derniereDonnee = $this->extraireDerniereDonneeSalle($nomsalle);
+
+                // Si des données ont été trouvées pour la salle
+                if ($derniereDonnee['date_de_capture'] !== null) {
+                    $resultats[] = [
+                        'localisation' => $nomsalle,
+                        'co2' => $derniereDonnee['co2'],
+                        'hum' => $derniereDonnee['hum'],
+                        'temp' => $derniereDonnee['temp'],
+                        'dateCapture' => $derniereDonnee['date_de_capture']
+                    ];
+                }
+            }
+        }
+
 
         return $resultats;
     }

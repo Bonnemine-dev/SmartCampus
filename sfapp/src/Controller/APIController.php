@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\SARepository;
 use App\Service\JsonDataHandling;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,5 +39,19 @@ class APIController extends AbstractController
         return new JsonResponse($data);
     }
 
+    #[Route('/api/captures/moyenne/par/type/{type?}', name: 'app_api_moyenne_type')]
+    public function moyenne(string $type): Response
+    {
+        $data = $this->jsonDataHandling->getMoyenneParType($type);
+        return new JsonResponse($data);
+    }
+
+    #[Route('/api/captures/liste/salles/avec/donnees', name: 'app_api_moyenne_salle')]
+    public function listeSallesAvecDonnees(SARepository $saRepository): Response
+    {
+        $data = $this->jsonDataHandling->extraireDernieresDonneesDesSalles([]);
+        $saRepository->sa_eteint_probleme($data);
+        return new JsonResponse($data);
+    }
 
 }

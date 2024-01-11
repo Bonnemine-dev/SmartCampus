@@ -38,6 +38,14 @@
       h4{
         margin: 0;
         font-size: 1.3rem;
+
+        &.text-red{
+          color: #FF3A3A;
+        }
+
+        &.text-orange{
+          color: #FFA53A;
+        }
       }
     }
 
