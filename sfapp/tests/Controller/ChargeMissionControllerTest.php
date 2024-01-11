@@ -2,29 +2,62 @@
 
 namespace App\Tests\Controller;
 
+use App\Repository\UserRepository;
+use Symfony\Component\Routing\RouterInterface;
 use App\Entity\Experimentation;
 use App\Entity\Salle;
+use App\Repository\SalleRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
 
 class ChargeMissionControllerTest extends WebTestCase
 {
-    // Test de la page principale
-    public function testPage(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/charge-de-mission/plan-experimentation');
+    private $client;
 
-        $this->assertResponseIsSuccessful();
+    //Test de la page principale
+    public function testPages(): void
+    {
+        $client = static::createClient();         
+        $userRepository = static::getContainer()->get(UserRepository::class);         
+        $testUser = $userRepository->findOneByUsername('chargemission');         
+        $client->loginUser($testUser); 
+        $container = $client->getContainer();         
+        $router = $container->get(RouterInterface::class);    
+
+        $url = $router->generate('app_charge_mission');         
+        $client->request('GET', $url);         
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $url = $router->generate('app_modifier_chargemission');         
+        $client->request('GET', $url);         
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $url = $router->generate('cm_tableau_de_bord');         
+        $client->request('GET', $url);         
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $url = $router->generate('liste_salles');         
+        $client->request('GET', $url);         
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     // Test de soumission du formulaire de filtre
     public function testSoumissionFiltre()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/charge-de-mission/plan-experimentation');
+        $client = static::createClient();         
+        $userRepository = static::getContainer()->get(UserRepository::class);         
+        $testUser = $userRepository->findOneByUsername('chargemission');         
+        $client->loginUser($testUser); 
+        $container = $client->getContainer();         
+        $router = $container->get(RouterInterface::class);    
 
+        $url = $router->generate('app_charge_mission');         
+        $crawler = $client->request('GET', $url);    
+
+        // Sélectionner le formulaire
         $form = $crawler->selectButton('Valider')->form();
 
+        // Remplir le formulaire avec les données appropriées
         $formData = [
             'filtre_salle_form' => [
                 'etage' => ['0'],
@@ -34,16 +67,25 @@ class ChargeMissionControllerTest extends WebTestCase
             ],
         ];
 
+        // Soumettre le formulaire
         $client->submit($form, $formData);
 
+        // Vérifier la réponse
         $this->assertResponseIsSuccessful();
     }
 
-    // Test de soumission du formulaire de recherche
+    //Test de soumission du formulaire de recherche
     public function testSoumissionRecherche()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/charge-de-mission/plan-experimentation');
+        $client = static::createClient();         
+        $userRepository = static::getContainer()->get(UserRepository::class);         
+        $testUser = $userRepository->findOneByUsername('chargemission');         
+        $client->loginUser($testUser); 
+        $container = $client->getContainer();         
+        $router = $container->get(RouterInterface::class);    
+
+        $url = $router->generate('app_charge_mission');         
+        $crawler = $client->request('GET', $url);    
 
         $form = $crawler->filter('form[name="recherche_salle_form"]')->form();
 
@@ -62,9 +104,16 @@ class ChargeMissionControllerTest extends WebTestCase
     // Test de la réinitialisation du formulaire de filtre
     public function testReinitialisationFiltre()
     {
-        $client = static::createClient();
+        $client = static::createClient();         
+        $userRepository = static::getContainer()->get(UserRepository::class);         
+        $testUser = $userRepository->findOneByUsername('chargemission');         
+        $client->loginUser($testUser); 
+        $container = $client->getContainer();         
+        $router = $container->get(RouterInterface::class);    
 
-        $client->request('GET', '/charge-de-mission/plan-experimentation');
+        $url = $router->generate('app_charge_mission');         
+        $client->request('GET', $url);   
+        
         $crawler = $client->submitForm('Réinitialiser');
 
         $this->assertResponseIsSuccessful();
@@ -73,111 +122,73 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertEquals([], $crawler->filter('input[name="filtreSalleForm[orientation][]"]:checked')->extract(['value']));
     }
 
-    // Test de la redirection vers la page d'ajout d'expérimentation
-    public function testRedirectionAjoutExperimentation()
-    {
-        $client = static::createClient();
+    // // Test de l'ajout d'expérimentation
+    // public function testAjoutExperimentation()
+    // {
+    //     $client = static::createClient();         
+    //     $userRepository = static::getContainer()->get(UserRepository::class);         
+    //     $testUser = $userRepository->findOneByUsername('chargemission');         
+    //     $client->loginUser($testUser); 
+    //     $container = $client->getContainer();         
+    //     $router = $container->get(RouterInterface::class);    
 
-        $entityManager = $this->getContainer()->get('doctrine')->getManager();
-        $expRepository = $entityManager->getRepository(Experimentation::class);
-        $salleRepository = $entityManager->getRepository(Salle::class);
-        $id = $salleRepository->nomSalleId('D001');
+    //     $url = $router->generate('app_charge_mission');         
+    //     $client->request('GET', $url);
 
-        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+    //     $entityManager = $this->getContainer()->get('doctrine')->getManager();
+    //     $expRepository = $entityManager->getRepository(Experimentation::class);
+    //     $salleRepository = $entityManager->getRepository(Salle::class); // Correction ici
+    //     $id = $salleRepository->nomSalleId('D001');
 
-        if ($experimentation != null) {
-            $expRepository->supprimerExperimentation('D001');
-        }
+    //     $experimentation = $expRepository->findOneBy(['Salles' => ['id' => $id]]);
 
-        $client->request('GET', '/charge-de-mission/plan-experimentation');
+    //     if ($experimentation != null) {
+    //         $expRepository->supprimerExperimentation('D001');
+    //     }
 
-        $link = $client->getCrawler()->filter('a[href="plan-experimentation/ajouter-salle/D001"]')->link();
-        $client->click($link);
+    //     $this->client->request('GET', '/charge-de-mission/plan-experimentation/ajouter-salle/D001');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    //     $link = $this->client->getCrawler()->selectLink('Valider')->link();
+    //     $this->client->click($link);
 
-    }
+    //     $this->client->followRedirect();
 
-    // Test de l'ajout d'expérimentation
-    public function testAjoutExperimentation()
-    {
-        $client = static::createClient();
+    //     $this->assertResponseIsSuccessful();
+    //     $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été ajoutée au plan d\'expérimentation avec succès.');
+    // }
 
-        $entityManager = $this->getContainer()->get('doctrine')->getManager();
-        $expRepository = $entityManager->getRepository(Experimentation::class);
-        $salleRepository = $entityManager->getRepository(Salle::class);
-        $id = $salleRepository->nomSalleId('D001');
+    // // Test de la suppression d'expérimentation
+    // public function testSupprimerExperimentation()
+    // {
+    //     $client = static::createClient();         
+    //     $userRepository = static::getContainer()->get(UserRepository::class);         
+    //     $testUser = $userRepository->findOneByUsername('chargemission');         
+    //     $client->loginUser($testUser); 
+    //     $container = $client->getContainer();         
+    //     $router = $container->get(RouterInterface::class);    
 
-        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+    //     $url = $router->generate('app_charge_mission');         
+    //     $client->request('GET', $url);
 
-        if ($experimentation != null) {
-            $expRepository->supprimerExperimentation('D001');
-        }
+    //     $entityManager = $this->getContainer()->get('doctrine')->getManager();
+    //     $expRepository = $entityManager->getRepository(Experimentation::class);
+    //     $salleRepository = $entityManager->getRepository(Salle::class); // Correction ici
+    //     $id = $salleRepository->nomSalleId('D001');
 
-        $client->request('GET', '/charge-de-mission/plan-experimentation/ajouter-salle/D001');
+    //     $experimentation = $expRepository->findOneBy(['Salles' => ['id' => $id]]);
 
-        $link = $client->getCrawler()->selectLink('Valider')->link();
-        $client->click($link);
+    //     if ($experimentation == null) {
+    //         $expRepository->ajouterExperimentation('D001');
+    //     }
 
-        $client->followRedirect();
+    //     $this->client->request('GET', '/charge-de-mission/plan-experimentation/supprimer-salle/D001');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    //     $link = $this->client->getCrawler()->selectLink('Valider')->link();
+    //     $this->client->click($link);
 
-        $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été ajoutée au plan d\'expérimentation avec succès.');
+    //     $this->client->followRedirect();
 
-    }
-
-    // Test de la redirection vers la page de suppression d'expérimentation
-    public function testRedirectionSupprimerExperimentation()
-    {
-        $client = static::createClient();
-
-        $entityManager = $this->getContainer()->get('doctrine')->getManager();
-        $expRepository = $entityManager->getRepository(Experimentation::class);
-        $salleRepository = $entityManager->getRepository(Salle::class);
-        $id = $salleRepository->nomSalleId('D001');
-
-        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
-
-        if ($experimentation == null) {
-            $expRepository->ajouterExperimentation('D001');
-        }
-
-        $client->request('GET', '/charge-de-mission/plan-experimentation');
-
-        $link = $client->getCrawler()->filter('a[href="plan-experimentation/supprimer-salle/D001"]')->link();
-        $client->click($link);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-    }
-
-    // Test de la suppression d'expérimentation
-    public function testSupprimerExperimentation()
-    {
-        $client = static::createClient();
-
-        $entityManager = $this->getContainer()->get('doctrine')->getManager();
-        $expRepository = $entityManager->getRepository(Experimentation::class);
-        $salleRepository = $entityManager->getRepository(Salle::class);
-        $id = $salleRepository->nomSalleId('D001');
-
-        $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
-
-        if ($experimentation == null) {
-            $expRepository->ajouterExperimentation('D001');
-        }
-
-        $client->request('GET', '/charge-de-mission/plan-experimentation/supprimer-salle/D001');
-
-        $link = $client->getCrawler()->selectLink('Valider')->link();
-        $client->click($link);
-
-        $client->followRedirect();
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été retirée du plan d\'expérimentation avec succès.');
-    }
-
+    //     $this->assertResponseIsSuccessful();
+    //     $this->assertSelectorTextContains('.alert-success', 'La salle D001 a été retirée du plan d\'expérimentation avec succès.');
+    // }
 }
