@@ -1,0 +1,338 @@
+\doxysection{App\textbackslash{}Repository\textbackslash{}Salle\+Repository Class Reference}
+\hypertarget{classApp_1_1Repository_1_1SalleRepository}{}\label{classApp_1_1Repository_1_1SalleRepository}\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+Inheritance diagram for App\textbackslash{}Repository\textbackslash{}Salle\+Repository\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Repository_1_1SalleRepository}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a2f74a19679d0d2f8bde788b9820641d3}{\+\_\+\+\_\+construct}} (Manager\+Registry \$registry)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{requete\+Commune}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_aeed2ed88d923a6cbab6a3dd2e72ad7da}{recherche\+Salle\+Plan\+Exp}} (int \$batiment=null, string \$salle=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_af31ae845a7ac9d545f13d0c0736bd8ab}{filtrer\+Salle\+Plan\+Exp}} (array \$etages=null, array \$orientation=null, int \$ordinateurs=null, int \$sa=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_adc00bcca1b40c526fff0da879318c487}{nom\+Salle\+Id}} (string \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{tri\+Liste\+Salle}} (array \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5cf98b96ea7902f319c5468f89c328b8}{SAAssocie}} (string \$nomsalle)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Repository pour gérer les opérations de base de données liées aux entités Salle. $<$\+Salle$>$
+
+@method Salle\texorpdfstring{$\vert$}{|}null find(\$id, \$lock\+Mode = null, \$lock\+Version = null) @method Salle\texorpdfstring{$\vert$}{|}null find\+One\+By(array \$criteria, array \$order\+By = null) @method Salle\mbox{[}\mbox{]} find\+All() @method Salle\mbox{[}\mbox{]} find\+By(array \$criteria, array \$order\+By = null, \$limit = null, \$offset = null) 
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00022}{22}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_a2f74a19679d0d2f8bde788b9820641d3}\label{classApp_1_1Repository_1_1SalleRepository_a2f74a19679d0d2f8bde788b9820641d3} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Manager\+Registry}]{\$registry }\end{DoxyParamCaption})}
+
+Constructeur de Salle\+Repository. Initialise le repository avec le manager d\textquotesingle{}entités Doctrine. 
+\begin{DoxyParams}[1]{Parameters}
+Manager\+Registry & {\em \$registry} & Le gestionnaire de l\textquotesingle{}entité Doctrine. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00029}{29}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ Salle::class);}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_af31ae845a7ac9d545f13d0c0736bd8ab}\label{classApp_1_1Repository_1_1SalleRepository_af31ae845a7ac9d545f13d0c0736bd8ab} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!filtrerSallePlanExp@{filtrerSallePlanExp}}
+\index{filtrerSallePlanExp@{filtrerSallePlanExp}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{filtrerSallePlanExp()}{filtrerSallePlanExp()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::filtrer\+Salle\+Plan\+Exp (\begin{DoxyParamCaption}\item[{array}]{\$etages = {\ttfamily null},  }\item[{array}]{\$orientation = {\ttfamily null},  }\item[{int}]{\$ordinateurs = {\ttfamily null},  }\item[{int}]{\$sa = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Filtre les salles et leurs expérimentations selon des critères spécifiques. Utilise des paramètres optionnels pour le filtrage par étage, orientation, nombre d\textquotesingle{}ordinateurs, et état du SA. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int,int$>$} & \$etages Les étages à filtrer. \\
+\hline
+ & {\em array$<$int,string$>$} & \$orientation Les orientations à filtrer. \\
+\hline
+int | null & {\em \$ordinateurs} & Le nombre d\textquotesingle{}ordinateurs à filtrer. \\
+\hline
+int | null & {\em \$sa} & L\textquotesingle{}état du SA à filtrer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ id\+\_\+batiment\+: int, nom\+\_\+salle\+: string, nom\+\_\+sa\+: ?string, datedemande\+: ?Date\+Time, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, dateinstallation\+: ?Date\+Time, datedesinstallation\+: ?Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} Liste des salles filtrées avec les détails des expérimentations. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00124}{124}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Requête\ pour\ filtrer\ les\ salles\ selon\ les\ critères\ spécifiés.}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{requeteCommune}}();}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{triListeSalle}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$etages))\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$etages)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in\_array(\$item[\textcolor{stringliteral}{'etage'}],\ \$etages);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtrage\ par\ orientation}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$orientation))\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$orientation)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in\_array(\$item[\textcolor{stringliteral}{'orientation'}],\ \$orientation);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ordinateurs\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$ordinateurs)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ordinateurs\ ===\ 0)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'nb\_ordis'}]\ ==\ 0;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$ordinateurs\ ===\ 1)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'nb\_ordis'}]\ >\ 0;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$sa\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$sa)\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\$sa)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 3\ ||\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 4;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 1\ ||\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 2;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 0;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécutez\ la\ requête\ et\ retournez\ les\ résultats.}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_adc00bcca1b40c526fff0da879318c487}\label{classApp_1_1Repository_1_1SalleRepository_adc00bcca1b40c526fff0da879318c487} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!nomSalleId@{nomSalleId}}
+\index{nomSalleId@{nomSalleId}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{nomSalleId()}{nomSalleId()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::nom\+Salle\+Id (\begin{DoxyParamCaption}\item[{string}]{\$salle }\end{DoxyParamCaption})}
+
+Récupère l\textquotesingle{}entité Salle correspondant au nom donné. Recherche la salle par son nom. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Salle\texorpdfstring{$\vert$}{|}null L\textquotesingle{}entité Salle correspondante ou null si non trouvée. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00181}{181}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?Salle}
+\DoxyCodeLine{00182\ \ \ \ \ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$salle]);}
+\DoxyCodeLine{00184\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_aeed2ed88d923a6cbab6a3dd2e72ad7da}\label{classApp_1_1Repository_1_1SalleRepository_aeed2ed88d923a6cbab6a3dd2e72ad7da} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!rechercheSallePlanExp@{rechercheSallePlanExp}}
+\index{rechercheSallePlanExp@{rechercheSallePlanExp}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{rechercheSallePlanExp()}{rechercheSallePlanExp()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::recherche\+Salle\+Plan\+Exp (\begin{DoxyParamCaption}\item[{int}]{\$batiment = {\ttfamily null},  }\item[{string}]{\$salle = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Recherche les salles et leurs expérimentations associées selon les critères spécifiés. Peut filtrer par batiment et/ou nom de salle. 
+\begin{DoxyParams}[1]{Parameters}
+int | null & {\em \$batiment} & L\textquotesingle{}identifiant du bâtiment (filtre optionnel). \\
+\hline
+string | null & {\em \$salle} & Le nom de la salle (filtre optionnel). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ id\+\_\+batiment\+: int, nom\+\_\+salle\+: string, nom\+\_\+sa\+: ?string, datedemande\+: ?Date\+Time, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, dateinstallation\+: ?Date\+Time, datedesinstallation\+: ?Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} Liste des salles et leurs expérimentations correspondantes aux critères. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00080}{80}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Requête\ pour\ filtrer\ les\ salles\ selon\ les\ critères\ spécifiés.}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{requeteCommune}}();}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{triListeSalle}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$batiment\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$batiment)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'id\_batiment'}]\ ==\ \$batiment;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$salle))\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$salle)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stripos(\$item[\textcolor{stringliteral}{'nom\_salle'}],\ \$salle)\ !==\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécutez\ la\ requête\ et\ retournez\ les\ résultats.}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}\label{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!requeteCommune@{requeteCommune}}
+\index{requeteCommune@{requeteCommune}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{requeteCommune()}{requeteCommune()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::requete\+Commune (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Crée une requête commune pour le repository. Construit un Query\+Builder pour les salles avec les détails nécessaires pour les expérimentations. \begin{DoxyReturn}{Returns}
+\textbackslash{}\+Doctrine\textbackslash{}\+ORM\textbackslash{}\+Query\+Builder Le Query\+Builder avec la requête construite. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00039}{39}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \(\backslash\)Doctrine\(\backslash\)ORM\(\backslash\)QueryBuilder}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'batiment.id\ as\ id\_batiment,\ salle.nom\ as\ nom\_salle,\ sa.nom\ as\ nom\_sa,\ experimentation.datedemande,\ salle.etage,\ salle.numero,\ salle.orientation,\ salle.nb\_fenetres,\ salle.nb\_ordis,\ experimentation.dateinstallation,\ experimentation.datedesinstallation,}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ CASE}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_demande\_installation\ THEN\ 0}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_installee\ THEN\ 1}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_demandeRetrait\ THEN\ 2}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_retiree\ THEN\ 3}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ELSE\ 4}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ END\ AS\ etat'})}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.id\ =\ experimentation.Salles'})}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'sa.id\ =\ experimentation.SA'})}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Batiment'},\ \textcolor{stringliteral}{'batiment'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.batiment\ =\ batiment.id'})}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>orderBy(\textcolor{stringliteral}{'salle.nom'},\ \textcolor{stringliteral}{'ASC'})}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_demande\_installation'},\ EtatExperimentation::demandeInstallation)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_installee'},\ EtatExperimentation::installee)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_demandeRetrait'},\ EtatExperimentation::demandeRetrait)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_retiree'},\ EtatExperimentation::retiree);}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_a5cf98b96ea7902f319c5468f89c328b8}\label{classApp_1_1Repository_1_1SalleRepository_a5cf98b96ea7902f319c5468f89c328b8} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!SAAssocie@{SAAssocie}}
+\index{SAAssocie@{SAAssocie}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{SAAssocie()}{SAAssocie()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::\+SAAssocie (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Recherche les informations SA associées à une salle donnée. Trouve le SA et son état pour une salle spécifique. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Le nom de la salle pour laquelle rechercher le SA. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ nom\+\_\+sa\+: string, etat\+\_\+sa\+: Etat\+SA \} Résultat contenant le nom du SA et son état. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00260}{260}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00261\ \ \ \ \ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'sa.nom\ as\ nom\_sa,\ sa.etat\ as\ etat\_sa'})}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.id\ =\ experimentation.Salles'})}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'experimentation.SA\ =\ sa.id'})}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'experimentation.etat\ IN\ (:etats)'})}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomsalle)}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etats'},\ [1,\ 2]);}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getOneOrNullResult();}
+\DoxyCodeLine{00272\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}\label{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06} 
+\index{App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}!triListeSalle@{triListeSalle}}
+\index{triListeSalle@{triListeSalle}!App\textbackslash{}Repository\textbackslash{}SalleRepository@{App\textbackslash{}Repository\textbackslash{}SalleRepository}}
+\doxysubsubsection{\texorpdfstring{triListeSalle()}{triListeSalle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Salle\+Repository\+::tri\+Liste\+Salle (\begin{DoxyParamCaption}\item[{array}]{\$salle }\end{DoxyParamCaption})}
+
+Trie une liste de salles et élimine les doublons. Utilisé pour organiser et filtrer les salles et leurs expérimentations. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,array\{} & id\+\_\+batiment\+: int, nom\+\_\+salle\+: string, nom\+\_\+sa\+: ?string, datedemande\+: ?Date\+Time, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, dateinstallation\+: ?Date\+Time, datedesinstallation\+: ?Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} \$salle Liste des salles à trier.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ id\+\_\+batiment\+: int, nom\+\_\+salle\+: string, nom\+\_\+sa\+: ?string, datedemande\+: ?Date\+Time, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, dateinstallation\+: ?Date\+Time, datedesinstallation\+: ?Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} Liste triée des salles avec expérimentations. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleRepository_8php_source_l00222}{222}} of file \mbox{\hyperlink{SalleRepository_8php_source}{Salle\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00223\ \ \ \ \ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ usort(\$salle,\ \textcolor{keyword}{function}(\$a,\ \$b)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tri\ par\ nom\_salle}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$a[\textcolor{stringliteral}{'nom\_salle'}]\ !=\ \$b[\textcolor{stringliteral}{'nom\_salle'}])\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$a[\textcolor{stringliteral}{'nom\_salle'}]\ <=>\ \$b[\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ nom\_salle\ est\ identique,\ tri\ par\ datedemande\ en\ ordre\ décroissant}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$b[\textcolor{stringliteral}{'datedemande'}]\ <=>\ \$a[\textcolor{stringliteral}{'datedemande'}];}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$salle);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(count(\$salle)>2)\{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \$nom\_salle\ =\ \$salle[0][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\$i\ =\ 0\ ;\ \$i\ <\ \$len-\/1\ ;\ \$i\ ++)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$nom\_salle\ ==\ \$salle[\$i+1][\textcolor{stringliteral}{'nom\_salle'}])}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$salle[\$i+1]);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$nom\_salle\ =\ \$salle[\$i+1][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$salle;}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Salle\+Repository.\+php\end{DoxyCompactItemize}

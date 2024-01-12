@@ -1,0 +1,135 @@
+\doxysection{App\textbackslash{}Form\textbackslash{}Filtre\+Salle\+Form\+Type Class Reference}
+\hypertarget{classApp_1_1Form_1_1FiltreSalleFormType}{}\label{classApp_1_1Form_1_1FiltreSalleFormType}\index{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType@{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType}}
+Inheritance diagram for App\textbackslash{}Form\textbackslash{}Filtre\+Salle\+Form\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Form_1_1FiltreSalleFormType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType_af3cfa3a333fac60de540222af1a8f299}{build\+Form}} (Form\+Builder\+Interface \$builder, array \$options)
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType_ade816657badb9f1e417ae77d66912dd6}{configure\+Options}} (Options\+Resolver \$resolver)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Filtre\+Salle\+Form\+Type pour créer un formulaire de filtrage pour les salles. Cette classe étend Abstract\+Type et définit la structure du formulaire pour filtrer les salles en fonction de divers critères tels que l\textquotesingle{}étage, l\textquotesingle{}orientation, la présence d\textquotesingle{}ordinateurs, et de systèmes d\textquotesingle{}acquisition. 
+
+Definition at line \mbox{\hyperlink{FiltreSalleFormType_8php_source_l00016}{16}} of file \mbox{\hyperlink{FiltreSalleFormType_8php_source}{Filtre\+Salle\+Form\+Type.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Form_1_1FiltreSalleFormType_af3cfa3a333fac60de540222af1a8f299}\label{classApp_1_1Form_1_1FiltreSalleFormType_af3cfa3a333fac60de540222af1a8f299} 
+\index{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType@{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType}!buildForm@{buildForm}}
+\index{buildForm@{buildForm}!App\textbackslash{}Form\textbackslash{}FiltreSalleFormType@{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType}}
+\doxysubsubsection{\texorpdfstring{buildForm()}{buildForm()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Filtre\+Salle\+Form\+Type\+::build\+Form (\begin{DoxyParamCaption}\item[{Form\+Builder\+Interface}]{\$builder,  }\item[{array}]{\$options }\end{DoxyParamCaption})}
+
+Construit le formulaire de filtrage pour les salles. Ajoute des champs de sélection pour filtrer les salles par étage, orientation, présence d\textquotesingle{}ordinateurs, et de systèmes d\textquotesingle{}acquisition.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Form\+Builder\+Interface & {\em \$builder} & Le constructeur de formulaire. \\
+\hline
+array & {\em \$options} & Les options pour le constructeur de formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{FiltreSalleFormType_8php_source_l00025}{25}} of file \mbox{\hyperlink{FiltreSalleFormType_8php_source}{Filtre\+Salle\+Form\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'etage'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'etage'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'RDC'}\ =>\ 0,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{charliteral}{'1'}\ =>\ 1,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{charliteral}{'2'}\ =>\ 2,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{charliteral}{'3'}\ =>\ 3}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Étage'},}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'orientation'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'orientation'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Nord'}\ =>\ \textcolor{stringliteral}{'nord'},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sud'}\ =>\ \textcolor{stringliteral}{'sud'},}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Est'}\ =>\ \textcolor{stringliteral}{'est'},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Ouest'}\ =>\ \textcolor{stringliteral}{'ouest'}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Orientation'},}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'ordinateurs'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'ordinateurs'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Non\ spécifié'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Avec'}\ =>\ 1,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sans'}\ =>\ 0,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Ordinateur'},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'sa'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'sa'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Non\ spécifié'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Avec'}\ =>\ 1,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sans'}\ =>\ 0,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Demande\ en\ cours'}\ =>\ 2,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Système\ d\(\backslash\)'acquisition'},}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Form_1_1FiltreSalleFormType_ade816657badb9f1e417ae77d66912dd6}\label{classApp_1_1Form_1_1FiltreSalleFormType_ade816657badb9f1e417ae77d66912dd6} 
+\index{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType@{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType}!configureOptions@{configureOptions}}
+\index{configureOptions@{configureOptions}!App\textbackslash{}Form\textbackslash{}FiltreSalleFormType@{App\textbackslash{}Form\textbackslash{}FiltreSalleFormType}}
+\doxysubsubsection{\texorpdfstring{configureOptions()}{configureOptions()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Filtre\+Salle\+Form\+Type\+::configure\+Options (\begin{DoxyParamCaption}\item[{Options\+Resolver}]{\$resolver }\end{DoxyParamCaption})}
+
+Configure les options par défaut pour le formulaire de filtrage des salles. Définit les options par défaut, y compris la méthode de requête HTTP utilisée pour le formulaire.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Options\+Resolver & {\em \$resolver} & Le résolveur d\textquotesingle{}options pour le formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{FiltreSalleFormType_8php_source_l00087}{87}} of file \mbox{\hyperlink{FiltreSalleFormType_8php_source}{Filtre\+Salle\+Form\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définition\ d'options\ par\ défaut,\ notamment\ la\ méthode\ de\ soumission\ du\ formulaire.}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \$resolver-\/>setDefaults([}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'method'}\ =>\ \textcolor{stringliteral}{'GET'},}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Filtre\+Salle\+Form\+Type.\+php\end{DoxyCompactItemize}

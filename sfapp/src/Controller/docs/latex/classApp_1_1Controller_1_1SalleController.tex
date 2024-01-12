@@ -1,0 +1,412 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}Salle\+Controller Class Reference}
+\hypertarget{classApp_1_1Controller_1_1SalleController}{}\label{classApp_1_1Controller_1_1SalleController}\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}Salle\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1SalleController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SalleController_afcfe6371cdab0566f2ed807b00c189bf}{ajout\+\_\+salle}} (Salle\+Repository \$salle\+Repository, SARepository \$sa\+Repository, Experimentation\+Repository \$experimentation\+Repository, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SalleController_a78ae6ec783956364bf9adf049f2e5e30}{supprimer\+\_\+salle}} (Salle\+Repository \$salle\+Repository, Experimentation\+Repository \$experimentation\+Repository, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SalleController_a024fb7412eaba1ddf4e76971ea2e2f05}{details\+\_\+salle}} (User\+Repository \$user\+Repository, Json\+Data\+Handling \$Json\+Data\+Handling\+\_\+service, Experimentation\+Repository \$experimentation\+Repository, Salle\+Repository \$salle\+Repository, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SalleController_a8404548ea1782c1a5606d6eb704353b4}{historique\+\_\+salle}} (User\+Repository \$user\+Repository, Json\+Data\+Handling \$Json\+Data\+Handling\+\_\+service, Paginator\+Interface \$paginator, Experimentation\+Repository \$experimentation\+Repository, Salle\+Repository \$salle\+Repository, Request \$request, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SalleController_ac653d960242b1df23127f1d0851fcb4f}{archives\+\_\+salle}} (User\+Repository \$user\+Repository, Json\+Data\+Handling \$Json\+Data\+Handling\+\_\+service, Paginator\+Interface \$paginator, Experimentation\+Repository \$experimentation\+Repository, Salle\+Repository \$salle\+Repository, Request \$request, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SalleController_ab2c88e4941959dd56afdee9c57d33a94}{diagnostic\+\_\+salle}} (string \$nomsalle)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour la gestion des salles dans l\textquotesingle{}application. 
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00024}{24}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1SalleController_afcfe6371cdab0566f2ed807b00c189bf}\label{classApp_1_1Controller_1_1SalleController_afcfe6371cdab0566f2ed807b00c189bf} 
+\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}!ajout\_salle@{ajout\_salle}}
+\index{ajout\_salle@{ajout\_salle}!App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+\doxysubsubsection{\texorpdfstring{ajout\_salle()}{ajout\_salle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Salle\+Controller\+::ajout\+\_\+salle (\begin{DoxyParamCaption}\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{SARepository}]{\$sa\+Repository,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche la vue d\textquotesingle{}ajout d\textquotesingle{}une salle et gère la logique associée. 
+\begin{DoxyParams}[1]{Parameters}
+Salle\+Repository & {\em \$salle\+Repository} & Le repository des salles. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Le repository des systèmes d\textquotesingle{}acquisition. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository des expérimentations. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle à ajouter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue d\textquotesingle{}ajout de salle. @\+Route(\textquotesingle{}/charge-\/de-\/mission/plan-\/experimentation/ajouter-\/salle/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}ajout\+\_\+salle\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00036}{36}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifier\ si\ la\ salle\ existe\ déjà\ dans\ les\ expérimentations}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$salleRepository-\/>nomSalleId(\$nomsalle)\ ==\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'bundles/TwigBundle/Exception/error404.html.twig'});}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \$existeDeja\ =\ 0;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \$SADispo\ =\ \$saRepository-\/>compteSASansExperimentation();}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \$existeDeja\ =\ 1;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ d'ajout\ de\ salle\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/ajouter-\/salle.html.twig'},\ [}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'existedeja'}\ =>\ \$existeDeja,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'SADispo'}\ =>\ \$SADispo,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SalleController_ac653d960242b1df23127f1d0851fcb4f}\label{classApp_1_1Controller_1_1SalleController_ac653d960242b1df23127f1d0851fcb4f} 
+\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}!archives\_salle@{archives\_salle}}
+\index{archives\_salle@{archives\_salle}!App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+\doxysubsubsection{\texorpdfstring{archives\_salle()}{archives\_salle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Salle\+Controller\+::archives\+\_\+salle (\begin{DoxyParamCaption}\item[{User\+Repository}]{\$user\+Repository,  }\item[{Json\+Data\+Handling}]{\$\+Json\+Data\+Handling\+\_\+service,  }\item[{Paginator\+Interface}]{\$paginator,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{Request}]{\$request,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche les archives des données d\textquotesingle{}une salle spécifique. 
+\begin{DoxyParams}[1]{Parameters}
+User\+Repository & {\em \$user\+Repository} & Le repository des utilisateurs. \\
+\hline
+Json\+Data\+Handling & {\em \$\+Json\+Data\+Handling\+\_\+service} & Le service de traitement des données JSON. \\
+\hline
+Paginator\+Interface & {\em \$paginator} & L\textquotesingle{}interface de pagination. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository des expérimentations. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Le repository des salles. \\
+\hline
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle dont les archives sont affichées. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue d\textquotesingle{}archives de salle. @\+Route(\textquotesingle{}/charge-\/de-\/mission/liste-\/salles/archives/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}archives\+\_\+salle\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00231}{231}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00232\ \ \ \ \ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//salle\ inexistante\ ?}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsalle])\ ===\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'liste\_salles'});}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Obtention\ via\ BD\ de\ toutes\ les\ intervalles\ des\ expérimentation\ qui\ son\ terminées}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \$liste\_intervalles\ =\ \$experimentationRepository-\/>listerLesIntervallesArchives(\$nomsalle);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Initialisation\ du\ tableau\ qui\ sera\ envoié\ à\ la\ twig}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \$liste\_de\_liste\_donnee\_archive\ =\ [];}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \$i\ =\ 1;}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{comment}{//parcours\ tous\ les\ intervalles\ et\ pour\ chaque\ intervalla\ extrait\ les\ données\ du\ json\ qui}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{comment}{//sont\ dans\ cet\ intervalle\ et\ dont\ la\ salle\ à\ le\ nom\ voulue}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$liste\_intervalles\ as\ \$intervalle)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \$donneesPagine\ =\ \$paginator-\/>paginate(}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$JsonDataHandling\_service-\/>extraireDonneeSurIntervalle(\$nomsalle,\ \$intervalle[\textcolor{stringliteral}{'date\_install'}],\ \$intervalle[\textcolor{stringliteral}{'date\_desinstall'}]),}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$request-\/>query-\/>getInt(\textcolor{stringliteral}{'pageA'}.\$i,1),}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 10,[}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'pageParameterName'}\ =>\ \textcolor{stringliteral}{'pageA'}.\$i,\ \textcolor{comment}{//\ Spécifiez\ le\ nom\ du\ paramètre\ de\ page\ pour\ la\ première\ entité}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ array\_push(\$liste\_de\_liste\_donnee\_archive,\ [}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date\_install'}\ =>\ \$intervalle[\textcolor{stringliteral}{'date\_install'}],}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date\_desinstall'}\ =>\ \$intervalle[\textcolor{stringliteral}{'date\_desinstall'}],}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'donnees'}\ =>\ \$donneesPagine]);}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \$i++;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$liste\_de\_liste\_donnee\_archive\ \ ==\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'details\_salle'},[\textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(date(\textcolor{stringliteral}{'Y-\/m-\/d\ H:i:s'}));}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'salle/archives-\/salle.html.twig'},\ [}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ de\ la\ salle}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//liste\ d'une\ liste\ contenant\ des\ information\ sur\ l'intervalle\ et\ toutes\ les\ données\ associé,\ null\ si\ inexistantes}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_de\_liste\_donnee\_archive'}\ =>\ \$liste\_de\_liste\_donnee\_archive,}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SalleController_a024fb7412eaba1ddf4e76971ea2e2f05}\label{classApp_1_1Controller_1_1SalleController_a024fb7412eaba1ddf4e76971ea2e2f05} 
+\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}!details\_salle@{details\_salle}}
+\index{details\_salle@{details\_salle}!App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+\doxysubsubsection{\texorpdfstring{details\_salle()}{details\_salle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Salle\+Controller\+::details\+\_\+salle (\begin{DoxyParamCaption}\item[{User\+Repository}]{\$user\+Repository,  }\item[{Json\+Data\+Handling}]{\$\+Json\+Data\+Handling\+\_\+service,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche les détails d\textquotesingle{}une salle spécifique. 
+\begin{DoxyParams}[1]{Parameters}
+User\+Repository & {\em \$user\+Repository} & Le repository des utilisateurs. \\
+\hline
+Json\+Data\+Handling & {\em \$\+Json\+Data\+Handling\+\_\+service} & Le service de traitement des données JSON. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository des expérimentations. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Le repository des salles. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle dont les détails sont affichés. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue de détails de salle. @\+Route(\textquotesingle{}/charge-\/de-\/mission/liste-\/salles/details-\/salle/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}details\+\_\+salle\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00099}{99}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Salle\ inexistante\ ?}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsalle])\ ===\ \textcolor{keyword}{null}\ or\ !\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'liste\_salles'});}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \$etat\_sa\ =\ \$salleRepository-\/>SAAssocie(\$nomsalle);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//extraction\ des\ dernière\ donnée\ d'une\ salle\ si\ il\ y\ en\ a\ pas\ alors\ est\ null}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \$dernieres\_donnees\ =\ \$JsonDataHandling\_service-\/>extraireDerniereDonneeSalle(\$nomsalle);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]\ !=\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \$date\_de\_capture\ =\ new\ \(\backslash\)DateTime(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \$now\ =\ new\ \(\backslash\)DateTime();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \$interval\ =\ \$date\_de\_capture-\/>diff(\$now);}
+\DoxyCodeLine{00115\ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Format\ l'intervalle\ de\ temps\ de\ manière\ lisible}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$interval-\/>y\ >\ 0)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>y\ .\ \textcolor{stringliteral}{'\ années'};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>m\ >\ 0)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>m\ .\ \textcolor{stringliteral}{'\ mois'};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>d\ >\ 0)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>d\ .\ \textcolor{stringliteral}{'\ jours'};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>h\ >\ 0)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>h\ .\ \textcolor{stringliteral}{'\ heures'};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>i\ >\ 0)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>i\ .\ \textcolor{stringliteral}{'\ minutes'};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>s\ .\ \textcolor{stringliteral}{'\ secondes'};}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//determine\ quel\ recommandation\ faire}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \$etatExp\ =\ \$experimentationRepository-\/>etatExp(\$nomsalle);}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$etatExp\ as\ \$exp)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp[\textcolor{stringliteral}{'etat\_exp'}]\ ==\ EtatExperimentation::demandeInstallation\ )\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$recommandation\ =\ \textcolor{stringliteral}{'demande\_installation\_en\_cours'};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$exp[\textcolor{stringliteral}{'etat\_exp'}]\ ==\ EtatExperimentation::installee)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$recommandation\ =\ \textcolor{stringliteral}{'installee'};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$exp[\textcolor{stringliteral}{'etat\_exp'}]\ ==\ EtatExperimentation::demandeRetrait)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$recommandation\ =\ \textcolor{stringliteral}{'demande\_retrait\_en\_cours'};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!isset(\$recommandation))\{\$recommandation\ =\ \textcolor{stringliteral}{'pas\_de\_exp'};\}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'salle/details-\/salle.html.twig'},\ [}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ de\ la\ salle}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Infoemration\ sur\ le\ sa\ présent\ dans\ la\ salle\ si\ il\ existe}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_sa'}\ =>\ \$etat\_sa,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dernière\ données\ de\ la\ salle,\ null\ si\ inexistantes}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dernieres\_donnees'}\ =>\ \$dernieres\_donnees,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//temps\ écoulé\ depuis\ la\ dernière\ remonté\ de\ données}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'elapsed'}\ =>\ \$elapsed\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//liste\ d'une\ liste\ contenant\ des\ information\ sur\ l'intervalle\ et\ toutes\ les\ données\ associé,\ null\ si\ inexistantes}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'recommandation'}\ =>\ \$recommandation,}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SalleController_ab2c88e4941959dd56afdee9c57d33a94}\label{classApp_1_1Controller_1_1SalleController_ab2c88e4941959dd56afdee9c57d33a94} 
+\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}!diagnostic\_salle@{diagnostic\_salle}}
+\index{diagnostic\_salle@{diagnostic\_salle}!App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+\doxysubsubsection{\texorpdfstring{diagnostic\_salle()}{diagnostic\_salle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Salle\+Controller\+::diagnostic\+\_\+salle (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche la vue de diagnostic d\textquotesingle{}une salle. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Nom de la salle pour laquelle le diagnostic est effectué. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response Réponse HTTP avec la vue de diagnostic de la salle. @\+Route(\textquotesingle{}/charge-\/de-\/mission/liste-\/salles/diagnostic/\{nomsalle?\}\textquotesingle{}, name\+: \textquotesingle{}diagnostic\+\_\+salle\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00286}{286}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00287\ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'salle/diagnostic-\/salle.html.twig'},\ [}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ de\ la\ salle}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00293\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SalleController_a8404548ea1782c1a5606d6eb704353b4}\label{classApp_1_1Controller_1_1SalleController_a8404548ea1782c1a5606d6eb704353b4} 
+\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}!historique\_salle@{historique\_salle}}
+\index{historique\_salle@{historique\_salle}!App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+\doxysubsubsection{\texorpdfstring{historique\_salle()}{historique\_salle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Salle\+Controller\+::historique\+\_\+salle (\begin{DoxyParamCaption}\item[{User\+Repository}]{\$user\+Repository,  }\item[{Json\+Data\+Handling}]{\$\+Json\+Data\+Handling\+\_\+service,  }\item[{Paginator\+Interface}]{\$paginator,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{Request}]{\$request,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche l\textquotesingle{}historique des données d\textquotesingle{}une salle spécifique. 
+\begin{DoxyParams}[1]{Parameters}
+User\+Repository & {\em \$user\+Repository} & Le repository des utilisateurs. \\
+\hline
+Json\+Data\+Handling & {\em \$\+Json\+Data\+Handling\+\_\+service} & Le service de traitement des données JSON. \\
+\hline
+Paginator\+Interface & {\em \$paginator} & L\textquotesingle{}interface de pagination. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository des expérimentations. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Le repository des salles. \\
+\hline
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle dont l\textquotesingle{}historique est affiché. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue d\textquotesingle{}historique de salle. @\+Route(\textquotesingle{}/charge-\/de-\/mission/liste-\/salles/historique/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}historique\+\_\+salle\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00179}{179}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00180\ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \$liste\_donnee\_historique\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{comment}{//salle\ inexistante\ ?}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsalle])\ ===\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'liste\_salles'});}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Obtention\ via\ BD\ de\ la\ date\ de\ début\ de\ l'expérimentation\ en\ cours}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \$dateInstallExpActuelle\ =\ \$experimentationRepository-\/>extraireDateInstallExpActuelle(\$nomsalle);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Si\ il\ existe\ une\ expérimentation\ en\ cours\ alors\ créer\ le\ tableau}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$dateInstallExpActuelle\ !=\ \textcolor{keyword}{null}\ and\ \$dateInstallExpActuelle[\textcolor{stringliteral}{'date\_install'}]\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_donnee\_historique\ =\ \$paginator-\/>paginate(}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$JsonDataHandling\_service-\/>extraireToutesLesDonneeActuellesSalle(\$nomsalle,\ \$dateInstallExpActuelle),}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$request-\/>query-\/>getInt(\textcolor{stringliteral}{'pageH'},1),}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 18,[}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'pageParameterName'}\ =>\ \textcolor{stringliteral}{'pageH'},\ \textcolor{comment}{//\ Spécifiez\ le\ nom\ du\ paramètre\ de\ page\ pour\ la\ première\ entité}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$liste\_donnee\_historique\ \ ==\ \textcolor{keyword}{null}\ or\ \$liste\_donnee\_historique-\/>getTotalItemCount()\ ==\ 0)\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'details\_salle'},[\textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//dump(\$liste\_donnee\_historique);}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(date(\textcolor{stringliteral}{'Y-\/m-\/d\ H:i:s'}));}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'salle/historique-\/salle.html.twig'},\ [}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ de\ la\ salle}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//liste\ de\ toutes\ les\ données\ de\ l'expérimentation\ en\ cours,\ null\ si\ inexistantes}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_donnee\_historique'}\ =>\ \$liste\_donnee\_historique,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SalleController_a78ae6ec783956364bf9adf049f2e5e30}\label{classApp_1_1Controller_1_1SalleController_a78ae6ec783956364bf9adf049f2e5e30} 
+\index{App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}!supprimer\_salle@{supprimer\_salle}}
+\index{supprimer\_salle@{supprimer\_salle}!App\textbackslash{}Controller\textbackslash{}SalleController@{App\textbackslash{}Controller\textbackslash{}SalleController}}
+\doxysubsubsection{\texorpdfstring{supprimer\_salle()}{supprimer\_salle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Salle\+Controller\+::supprimer\+\_\+salle (\begin{DoxyParamCaption}\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche la vue de suppression d\textquotesingle{}une salle et gère la logique associée. 
+\begin{DoxyParams}[1]{Parameters}
+Salle\+Repository & {\em \$salle\+Repository} & Le repository des salles. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository des expérimentations. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle à supprimer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue de suppression de salle. @\+Route(\textquotesingle{}/charge-\/de-\/mission/plan-\/experimentation/supprimer-\/salle/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}supprimer\+\_\+salle\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SalleController_8php_source_l00067}{67}} of file \mbox{\hyperlink{SalleController_8php_source}{Salle\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifier\ si\ la\ salle\ existe\ déjà\ dans\ les\ expérimentations}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$salleRepository-\/>nomSalleId(\$nomsalle)\ ==\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'bundles/TwigBundle/Exception/error404.html.twig'});}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \$existeDeja\ =\ 1;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \$existeDeja\ =\ 0;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ suppression\ de\ salle\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/supprimer-\/salle.html.twig'},\ [}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'existedeja'}\ =>\ \$existeDeja,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Salle\+Controller.\+php\end{DoxyCompactItemize}

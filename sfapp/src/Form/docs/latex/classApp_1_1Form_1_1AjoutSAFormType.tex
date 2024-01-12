@@ -1,0 +1,66 @@
+\doxysection{App\textbackslash{}Form\textbackslash{}Ajout\+SAForm\+Type Class Reference}
+\hypertarget{classApp_1_1Form_1_1AjoutSAFormType}{}\label{classApp_1_1Form_1_1AjoutSAFormType}\index{App\textbackslash{}Form\textbackslash{}AjoutSAFormType@{App\textbackslash{}Form\textbackslash{}AjoutSAFormType}}
+Inheritance diagram for App\textbackslash{}Form\textbackslash{}Ajout\+SAForm\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Form_1_1AjoutSAFormType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1AjoutSAFormType_a35de241c3fbe6731a33dbe8f091e9b8b}{build\+Form}} (Form\+Builder\+Interface \$builder, array \$options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Ajout\+SAForm\+Type pour créer le formulaire d\textquotesingle{}ajout d\textquotesingle{}un Système d\textquotesingle{}Acquisition (SA). Cette classe étend Abstract\+Type et définit la structure du formulaire pour l\textquotesingle{}ajout d\textquotesingle{}un SA. 
+
+Definition at line \mbox{\hyperlink{AjoutSAFormType_8php_source_l00014}{14}} of file \mbox{\hyperlink{AjoutSAFormType_8php_source}{Ajout\+SAForm\+Type.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Form_1_1AjoutSAFormType_a35de241c3fbe6731a33dbe8f091e9b8b}\label{classApp_1_1Form_1_1AjoutSAFormType_a35de241c3fbe6731a33dbe8f091e9b8b} 
+\index{App\textbackslash{}Form\textbackslash{}AjoutSAFormType@{App\textbackslash{}Form\textbackslash{}AjoutSAFormType}!buildForm@{buildForm}}
+\index{buildForm@{buildForm}!App\textbackslash{}Form\textbackslash{}AjoutSAFormType@{App\textbackslash{}Form\textbackslash{}AjoutSAFormType}}
+\doxysubsubsection{\texorpdfstring{buildForm()}{buildForm()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Ajout\+SAForm\+Type\+::build\+Form (\begin{DoxyParamCaption}\item[{Form\+Builder\+Interface}]{\$builder,  }\item[{array}]{\$options }\end{DoxyParamCaption})}
+
+Construit le formulaire d\textquotesingle{}ajout d\textquotesingle{}un SA. Cette méthode ajoute des champs au formulaire, y compris le nom du SA et un bouton de soumission.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Form\+Builder\+Interface & {\em \$builder} & Le constructeur de formulaire. \\
+\hline
+array & {\em \$options} & Les options pour le constructeur de formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{AjoutSAFormType_8php_source_l00023}{23}} of file \mbox{\hyperlink{AjoutSAFormType_8php_source}{Ajout\+SAForm\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'batiment'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'nom'},\ TextType::class,\ [}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Nom\ du\ SA'}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'ajout'}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Ajout\+SAForm\+Type.\+php\end{DoxyCompactItemize}

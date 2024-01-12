@@ -1,0 +1,99 @@
+\doxysection{App\textbackslash{}Repository\textbackslash{}Batiment\+Repository Class Reference}
+\hypertarget{classApp_1_1Repository_1_1BatimentRepository}{}\label{classApp_1_1Repository_1_1BatimentRepository}\index{App\textbackslash{}Repository\textbackslash{}BatimentRepository@{App\textbackslash{}Repository\textbackslash{}BatimentRepository}}
+Inheritance diagram for App\textbackslash{}Repository\textbackslash{}Batiment\+Repository\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Repository_1_1BatimentRepository}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository_ac073a3a43720a66c7bb53d65b5ff35f9}{\+\_\+\+\_\+construct}} (Manager\+Registry \$registry)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository_aad902fd7782b03c720a33d57c0a7bd96}{tableau\+Batiments\+Nom\+ID}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+$<$\+Batiment$>$
+
+@method Batiment\texorpdfstring{$\vert$}{|}null find(\$id, \$lock\+Mode = null, \$lock\+Version = null) @method Batiment\texorpdfstring{$\vert$}{|}null find\+One\+By(array \$criteria, array \$order\+By = null) @method Batiment\mbox{[}\mbox{]} find\+All() @method Batiment\mbox{[}\mbox{]} find\+By(array \$criteria, array \$order\+By = null, \$limit = null, \$offset = null) 
+
+Definition at line \mbox{\hyperlink{BatimentRepository_8php_source_l00017}{17}} of file \mbox{\hyperlink{BatimentRepository_8php_source}{Batiment\+Repository.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Repository_1_1BatimentRepository_ac073a3a43720a66c7bb53d65b5ff35f9}\label{classApp_1_1Repository_1_1BatimentRepository_ac073a3a43720a66c7bb53d65b5ff35f9} 
+\index{App\textbackslash{}Repository\textbackslash{}BatimentRepository@{App\textbackslash{}Repository\textbackslash{}BatimentRepository}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Repository\textbackslash{}BatimentRepository@{App\textbackslash{}Repository\textbackslash{}BatimentRepository}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Batiment\+Repository\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Manager\+Registry}]{\$registry }\end{DoxyParamCaption})}
+
+Constructeur de la classe Batiment\+Repository.
+
+Initialise le repository avec le Manager\+Registry (gestionnaire d\textquotesingle{}entités) et l\textquotesingle{}entité Batiment.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Manager\+Registry & {\em \$registry} & Le gestionnaire de registre des entités. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{BatimentRepository_8php_source_l00026}{26}} of file \mbox{\hyperlink{BatimentRepository_8php_source}{Batiment\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ Batiment::class);}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Repository_1_1BatimentRepository_aad902fd7782b03c720a33d57c0a7bd96}\label{classApp_1_1Repository_1_1BatimentRepository_aad902fd7782b03c720a33d57c0a7bd96} 
+\index{App\textbackslash{}Repository\textbackslash{}BatimentRepository@{App\textbackslash{}Repository\textbackslash{}BatimentRepository}!tableauBatimentsNomID@{tableauBatimentsNomID}}
+\index{tableauBatimentsNomID@{tableauBatimentsNomID}!App\textbackslash{}Repository\textbackslash{}BatimentRepository@{App\textbackslash{}Repository\textbackslash{}BatimentRepository}}
+\doxysubsubsection{\texorpdfstring{tableauBatimentsNomID()}{tableauBatimentsNomID()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Batiment\+Repository\+::tableau\+Batiments\+Nom\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retourne un tableau associatif de bâtiments.
+
+La méthode exécute une requête DQL pour récupérer les id et noms des bâtiments. Elle transforme ensuite les résultats en un tableau associatif où les clés sont les noms des bâtiments et les valeurs sont leurs identifiants.
+
+\begin{DoxyReturn}{Returns}
+array$<$string, int$>$ Un tableau associatif où les clés sont les noms des bâtiments et les valeurs sont leurs identifiants. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{BatimentRepository_8php_source_l00040}{40}} of file \mbox{\hyperlink{BatimentRepository_8php_source}{Batiment\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Construction\ de\ la\ requête\ DQL\ pour\ sélectionner\ les\ id\ et\ noms\ des\ bâtiments.}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \$batiments\ =\ \$this-\/>createQueryBuilder(\textcolor{charliteral}{'b'})}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'b.id'},\ \textcolor{stringliteral}{'b.nom'})}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getResult();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transformation\ du\ tableau\ de\ résultats\ en\ un\ tableau\ associatif\ ['Nom\ du\ bâtiment'\ =>\ 'id'].}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \$batimentsArray\ =\ [];}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$batiments\ as\ \$batiment)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \$batimentsArray[\$batiment[\textcolor{stringliteral}{'nom'}]]\ =\ \$batiment[\textcolor{stringliteral}{'id'}];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retour\ du\ tableau\ résultant.}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$batimentsArray;}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Batiment\+Repository.\+php\end{DoxyCompactItemize}

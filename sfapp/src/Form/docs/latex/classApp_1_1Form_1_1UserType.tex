@@ -1,0 +1,80 @@
+\doxysection{App\textbackslash{}Form\textbackslash{}User\+Type Class Reference}
+\hypertarget{classApp_1_1Form_1_1UserType}{}\label{classApp_1_1Form_1_1UserType}\index{App\textbackslash{}Form\textbackslash{}UserType@{App\textbackslash{}Form\textbackslash{}UserType}}
+Inheritance diagram for App\textbackslash{}Form\textbackslash{}User\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Form_1_1UserType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1UserType_a5f0b56c3323a6b0032c99b6810d221bb}{build\+Form}} (Form\+Builder\+Interface \$builder, array \$options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe User\+Type pour créer un formulaire de gestion des mots de passe des utilisateurs. Cette classe étend Abstract\+Type et définit la structure du formulaire pour permettre à un utilisateur de changer son mot de passe. 
+
+Definition at line \mbox{\hyperlink{UserType_8php_source_l00017}{17}} of file \mbox{\hyperlink{UserType_8php_source}{User\+Type.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Form_1_1UserType_a5f0b56c3323a6b0032c99b6810d221bb}\label{classApp_1_1Form_1_1UserType_a5f0b56c3323a6b0032c99b6810d221bb} 
+\index{App\textbackslash{}Form\textbackslash{}UserType@{App\textbackslash{}Form\textbackslash{}UserType}!buildForm@{buildForm}}
+\index{buildForm@{buildForm}!App\textbackslash{}Form\textbackslash{}UserType@{App\textbackslash{}Form\textbackslash{}UserType}}
+\doxysubsubsection{\texorpdfstring{buildForm()}{buildForm()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+User\+Type\+::build\+Form (\begin{DoxyParamCaption}\item[{Form\+Builder\+Interface}]{\$builder,  }\item[{array}]{\$options }\end{DoxyParamCaption})}
+
+Construit le formulaire pour la modification du mot de passe de l\textquotesingle{}utilisateur. Ajoute des champs pour l\textquotesingle{}ancien mot de passe, le nouveau mot de passe, la confirmation du nouveau mot de passe, et un bouton de soumission.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Form\+Builder\+Interface & {\em \$builder} & Le constructeur de formulaire. \\
+\hline
+array & {\em \$options} & Les options pour le constructeur de formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{UserType_8php_source_l00026}{26}} of file \mbox{\hyperlink{UserType_8php_source}{User\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'MDP'},\ PasswordType::class,\ [}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Mot\ de\ passe\ actuel'}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'PlainPassword'},\ PasswordType::class,\ [}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Nouveau\ mot\ de\ passe'}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'verif'},\ PasswordType::class,\ [}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Confirmer\ votre\ mot\ de\ passe'}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Modifier'}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+User\+Type.\+php\end{DoxyCompactItemize}

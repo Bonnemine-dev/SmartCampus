@@ -1,0 +1,52 @@
+\doxysection{Recherche\+Salle\+Form\+Type.\+php}
+\hypertarget{RechercheSalleFormType_8php_source}{}\label{RechercheSalleFormType_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Form;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00005}00005\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)AbstractType;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00006}00006\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)ChoiceType;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00007}00007\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)SubmitType;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)TextType;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)FormBuilderInterface;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00010}00010\ use\ Symfony\(\backslash\)Component\(\backslash\)OptionsResolver\(\backslash\)OptionsResolver;}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00017}\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType}{00017}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType}{RechercheSalleFormType}}\ \textcolor{keyword}{extends}\ AbstractType}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00026}\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType_a3332a6ecb592cdafe4f5106a9d07a4a8}{00026}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType_a3332a6ecb592cdafe4f5106a9d07a4a8}{buildForm}}(FormBuilderInterface\ \$builder,\ array\ \$options)}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'batiment'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'batiment'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ \$options[\textcolor{stringliteral}{'liste\_batiments'}],}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Choisir\ un\ batiment'},}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [\textcolor{stringliteral}{'class'}\ =>\ \textcolor{stringliteral}{'bat-\/selection'}],}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'salle'\ de\ type\ TextType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'salle'},\ TextType::class,\ [}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Rechercher\ une\ salle'}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Rechercher'}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00049}00049\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00057}\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType_a3e7b8d255cd8a2d33b25edeb69852c01}{00057}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType_a3e7b8d255cd8a2d33b25edeb69852c01}{configureOptions}}(OptionsResolver\ \$resolver)}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définition\ d'options\ par\ défaut,\ notamment\ la\ méthode\ de\ soumission\ du\ formulaire\ et\ la\ liste\ des\ batiments.}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \$resolver-\/>setDefaults([}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ [],}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'method'}\ =>\ \textcolor{stringliteral}{'GET'},}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RechercheSalleFormType_8php_source_l00065}00065\ \}}
+
+\end{DoxyCode}

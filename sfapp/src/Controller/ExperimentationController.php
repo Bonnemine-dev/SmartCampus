@@ -10,8 +10,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @class ExperimentationController
+ * Contrôleur pour gérer les expérimentations dans l'application.
+ * @extends AbstractController
+ */
 class ExperimentationController extends AbstractController
 {
+    /**
+     * Gère l'ajout d'une expérimentation pour une salle donnée.
+     * Ajoute une expérimentation et affiche un message flash selon le résultat.
+     * @param ExperimentationRepository $experimentationRepository Le repository pour accéder aux données des expérimentations.
+     * @param string $nomsalle Le nom de la salle pour laquelle l'expérimentation est ajoutée.
+     * @return Response La réponse HTTP avec redirection vers la page de gestion des expérimentations.
+     * @Route('/charge-de-mission/plan-experimentation/ajout-experimentation/{nomsalle}', name: 'ajout_exp')
+     */
     #[Route('/charge-de-mission/plan-experimentation/ajout-experimentation/{nomsalle}', name: 'ajout_exp')]
     public function ajouterExperimentation(ExperimentationRepository $experimentationRepository, string $nomsalle): Response
     {
@@ -29,6 +42,14 @@ class ExperimentationController extends AbstractController
         return $this->redirectToRoute('app_charge_mission', ['scrollTo' => $nomsalle]);
     }
 
+    /**
+     * Gère la suppression d'une expérimentation pour une salle donnée.
+     * Supprime une expérimentation et affiche un message flash selon le résultat.
+     * @param ExperimentationRepository $experimentationRepository Le repository pour accéder aux données des expérimentations.
+     * @param string $nomsalle Le nom de la salle pour laquelle l'expérimentation est supprimée.
+     * @return Response La réponse HTTP avec redirection vers la page de gestion des expérimentations.
+     * @Route('/charge-de-mission/plan-experimentation/supprimer-experimentation/{nomsalle}', name: 'supprimer_exp')
+     */
     #[Route('/charge-de-mission/plan-experimentation/supprimer-experimentation/{nomsalle}', name: 'supprimer_exp')]
     public function supprimerExperimentation(ExperimentationRepository $experimentationRepository , string $nomsalle): Response
     {
@@ -50,6 +71,16 @@ class ExperimentationController extends AbstractController
         return $this->redirectToRoute('app_charge_mission', ['scrollTo' => $nomsalle]);
     }
 
+    /**
+     * Gère la modification de l'état d'une expérimentation pour une salle donnée.
+     * Modifie l'état de l'expérimentation et affiche un message flash selon le résultat.
+     * @param ExperimentationRepository $experimentationRepository Le repository pour accéder aux données des expérimentations.
+     * @param SARepository $SARepository Le repository pour accéder aux données des SA.
+     * @param string $etat Le nouvel état de l'expérimentation.
+     * @param string $nomsalle Le nom de la salle pour laquelle l'état de l'expérimentation est modifié.
+     * @return Response La réponse HTTP avec redirection vers la page appropriée.
+     * @Route('/technicien/modifier-etat-experimentation/{etat}/{nomsalle}', name: 'modifier_etat_exp')
+     */
     #[Route('/technicien/modifier-etat-experimentation/{etat}/{nomsalle}', name: 'modifier_etat_exp')]
     public function modifierEtatExperimentation(ExperimentationRepository $experimentationRepository, SARepository $SARepository, string $etat, string $nomsalle): Response
     {

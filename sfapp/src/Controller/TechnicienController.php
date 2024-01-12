@@ -16,11 +16,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @class TechnicienController
+ * Contrôleur pour gérer les actions liées aux techniciens.
+ * @extends AbstractController
+ */
 class TechnicienController extends AbstractController
 {
-    // La fonction index représente la page principale des fonctionnalités du technicien.
-    // Elle récupère la liste des expérimentations sans date d'installation à partir du repository.
-    // Ensuite, elle rend la vue 'technicien/liste-souhaits.html.twig' avec les expérimentations récupérées.
+    /**
+     * Affiche la liste des souhaits d'expérimentations pour le technicien.
+     * @param ExperimentationRepository $repository Repository pour interagir avec les données d'expérimentation.
+     * @return Response Réponse HTTP avec la vue de la liste des souhaits d'expérimentations.
+     * @Route('/technicien/liste-souhaits', name: 'app_technicien')
+     */
     #[Route('/technicien/liste-souhaits', name: 'app_technicien')]
     public function index(ExperimentationRepository $repository): Response
     {
@@ -35,9 +43,13 @@ class TechnicienController extends AbstractController
         ]);
     }
 
-    // La fonction gestionSA représente la page de gestion des SA du technicien.
-    // Elle récupère la liste des SA à partir du repository.
-    // Ensuite, elle rend la vue 'technicien/gestion-sa.html.twig' avec les SA récupérées.
+    /**
+     * Gère la page de gestion des systèmes d'acquisition (SA) pour le technicien.
+     * @param Request $request Requête HTTP entrante.
+     * @param SARepository $saRepository Repository pour les systèmes d'acquisition.
+     * @return Response Réponse HTTP avec la vue de gestion des SA.
+     * @Route('/technicien/gestion-sa', name: 'gestion_sa')
+     */
     #[Route('/technicien/gestion-sa', name: 'gestion_sa')]
     public function gestion_sa(Request $request , SARepository $saRepository): Response
     {
@@ -73,6 +85,15 @@ class TechnicienController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet au technicien de modifier ses informations personnelles, notamment le mot de passe.
+     * @param Request $request Requête HTTP entrante.
+     * @param UserRepository $repository Repository pour les utilisateurs.
+     * @param EntityManagerInterface $manager Gestionnaire d'entité pour la persistance des données.
+     * @param UserPasswordHasherInterface $hasher Interface pour le hachage de mot de passe.
+     * @return Response Réponse HTTP avec la vue de modification des informations personnelles.
+     * @Route('/technicien/modifier', name: 'app_modifier')
+     */
     #[Route('/technicien/modifier', name: 'app_modifier')]
     public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager , UserPasswordHasherInterface $hasher ): Response
     {

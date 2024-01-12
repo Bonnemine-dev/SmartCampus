@@ -16,8 +16,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @class SalleController
+ * Contrôleur pour la gestion des salles dans l'application.
+ * @extends AbstractController
+ */
 class SalleController extends AbstractController
 {
+    /**
+     * Affiche la vue d'ajout d'une salle et gère la logique associée.
+     * @param SalleRepository $salleRepository Le repository des salles.
+     * @param SARepository $saRepository Le repository des systèmes d'acquisition.
+     * @param ExperimentationRepository $experimentationRepository Le repository des expérimentations.
+     * @param string $nomsalle Le nom de la salle à ajouter.
+     * @return Response La réponse HTTP avec la vue d'ajout de salle.
+     * @Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')
+     */
     #[Route('/charge-de-mission/plan-experimentation/ajouter-salle/{nomsalle}', name: 'ajout_salle')]
     public function ajout_salle(SalleRepository $salleRepository , SARepository $saRepository ,ExperimentationRepository $experimentationRepository, string $nomsalle): Response
     {
@@ -41,6 +55,14 @@ class SalleController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche la vue de suppression d'une salle et gère la logique associée.
+     * @param SalleRepository $salleRepository Le repository des salles.
+     * @param ExperimentationRepository $experimentationRepository Le repository des expérimentations.
+     * @param string $nomsalle Le nom de la salle à supprimer.
+     * @return Response La réponse HTTP avec la vue de suppression de salle.
+     * @Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')
+     */
     #[Route('/charge-de-mission/plan-experimentation/supprimer-salle/{nomsalle}', name: 'supprimer_salle')]
     public function supprimer_salle(SalleRepository $salleRepository , ExperimentationRepository $experimentationRepository , string $nomsalle): Response
     {
@@ -63,6 +85,16 @@ class SalleController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche les détails d'une salle spécifique.
+     * @param UserRepository $userRepository Le repository des utilisateurs.
+     * @param JsonDataHandling $JsonDataHandling_service Le service de traitement des données JSON.
+     * @param ExperimentationRepository $experimentationRepository Le repository des expérimentations.
+     * @param SalleRepository $salleRepository Le repository des salles.
+     * @param string $nomsalle Le nom de la salle dont les détails sont affichés.
+     * @return Response La réponse HTTP avec la vue de détails de salle.
+     * @Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')
+     */
     #[Route('/charge-de-mission/liste-salles/details-salle/{nomsalle}', name: 'details_salle')]
     public function details_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository, string $nomsalle): Response
     {
@@ -131,6 +163,18 @@ class SalleController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche l'historique des données d'une salle spécifique.
+     * @param UserRepository $userRepository Le repository des utilisateurs.
+     * @param JsonDataHandling $JsonDataHandling_service Le service de traitement des données JSON.
+     * @param PaginatorInterface $paginator L'interface de pagination.
+     * @param ExperimentationRepository $experimentationRepository Le repository des expérimentations.
+     * @param SalleRepository $salleRepository Le repository des salles.
+     * @param Request $request La requête HTTP entrante.
+     * @param string $nomsalle Le nom de la salle dont l'historique est affiché.
+     * @return Response La réponse HTTP avec la vue d'historique de salle.
+     * @Route('/charge-de-mission/liste-salles/historique/{nomsalle}', name: 'historique_salle')
+     */
     #[Route('/charge-de-mission/liste-salles/historique/{nomsalle}', name: 'historique_salle')]
     public function historique_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request, string $nomsalle): Response
     {
@@ -171,6 +215,18 @@ class SalleController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche les archives des données d'une salle spécifique.
+     * @param UserRepository $userRepository Le repository des utilisateurs.
+     * @param JsonDataHandling $JsonDataHandling_service Le service de traitement des données JSON.
+     * @param PaginatorInterface $paginator L'interface de pagination.
+     * @param ExperimentationRepository $experimentationRepository Le repository des expérimentations.
+     * @param SalleRepository $salleRepository Le repository des salles.
+     * @param Request $request La requête HTTP entrante.
+     * @param string $nomsalle Le nom de la salle dont les archives sont affichées.
+     * @return Response La réponse HTTP avec la vue d'archives de salle.
+     * @Route('/charge-de-mission/liste-salles/archives/{nomsalle}', name: 'archives_salle')
+     */
     #[Route('/charge-de-mission/liste-salles/archives/{nomsalle}', name: 'archives_salle')]
     public function archives_salle(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, PaginatorInterface $paginator,ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,Request $request, string $nomsalle): Response
     {
@@ -220,6 +276,12 @@ class SalleController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche la vue de diagnostic d'une salle.
+     * @param string $nomsalle Nom de la salle pour laquelle le diagnostic est effectué.
+     * @return Response Réponse HTTP avec la vue de diagnostic de la salle.
+     * @Route('/charge-de-mission/liste-salles/diagnostic/{nomsalle?}', name: 'diagnostic_salle')
+     */
     #[Route('/charge-de-mission/liste-salles/diagnostic/{nomsalle?}', name: 'diagnostic_salle')]
     public function diagnostic_salle(string $nomsalle): Response
     {

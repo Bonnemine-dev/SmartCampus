@@ -11,13 +11,33 @@ use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
 use Doctrine\Persistence\ManagerRegistry;
 
-
+/**
+ * Classe JsonDataHandling pour gérer le traitement des données JSON.
+ * Cette classe est responsable de la récupération, du traitement, et de la fourniture
+ * de données JSON en provenance de différentes sources, notamment des bases de données
+ * et des API externes.
+ */
 class JsonDataHandling
 {
 
+    /**
+     * @var ExperimentationRepository
+     * Référentiel pour accéder aux données des expérimentations.
+     */
     private ExperimentationRepository $experimentationRepository;
+
+    /**
+     * @var array
+     * Tableau contenant des informations sur les salles.
+     */
     private array $salles;
 
+    /**
+     * Constructeur de la classe JsonDataHandling.
+     * Initialise les référentiels nécessaires et prépare le tableau des salles.
+     *
+     * @param ManagerRegistry $managerRegistry Le gestionnaire de registre pour les entités Doctrine.
+     */
     public function __construct(ManagerRegistry $managerRegistry)
     {
         $this->experimentationRepository = new ExperimentationRepository($managerRegistry, new SalleRepository($managerRegistry), new SARepository($managerRegistry));
@@ -43,6 +63,12 @@ class JsonDataHandling
         ];
     }
 
+    /**
+     * Récupère les informations des salles.
+     * Cette méthode filtre et retourne les informations pertinentes des salles.
+     *
+     * @return array Tableau contenant les informations des salles.
+     */
     public function getSalles(): array
     {
         $listeSalles = [];
@@ -59,7 +85,11 @@ class JsonDataHandling
     }
 
     /**
-     * @return mixed
+     * Récupère les données de capture pour une salle donnée.
+     *
+     * @param string $nomsalle Le nom de la salle.
+     * @param string $type Le type de données à récupérer (temp, hum, etc.).
+     * @return mixed Les données de capture sous forme de tableau ou autre format.
      */
     public function getCaptureData(string $nomsalle, string $type): mixed
     {
@@ -85,7 +115,12 @@ class JsonDataHandling
     }
 
     /**
-     * @return mixed
+     * Récupère une quantité limitée de données de capture pour une salle et un type de mesure spécifiques.
+     *
+     * @param string $nomsalle Nom de la salle.
+     * @param string $type Type de données à récupérer.
+     * @param int $count Nombre de données à récupérer.
+     * @return mixed Les données de capture sous forme de tableau ou autre format.
      */
     public function getCaptureDataLimited(string $nomsalle, string $type, int $count): mixed
     {
@@ -112,7 +147,13 @@ class JsonDataHandling
     }
 
     /**
-     * @return mixed
+     * Récupère les données de capture pour une salle et un type de mesure sur un intervalle de temps donné.
+     *
+     * @param string $nomsalle Nom de la salle.
+     * @param string $type Type de données à récupérer.
+     * @param string $date1 Date de début de l'intervalle.
+     * @param string $date2 Date de fin de l'intervalle.
+     * @return mixed Les données de capture sous forme de tableau ou autre format.
      */
     public function getCaptureDataInterval(string $nomsalle, string $type, string $date1, string $date2): mixed
     {
@@ -137,6 +178,12 @@ class JsonDataHandling
         return json_decode($response->getBody(), true);
     }
 
+    /**
+     * Calcule et retourne la moyenne des valeurs de capture pour un type de mesure donné.
+     *
+     * @param string $type Type de données pour lequel calculer la moyenne (température, humidité, etc.).
+     * @return float La moyenne calculée pour le type de données spécifié.
+     */
     public function getMoyenneParType(string $type): float
     {
         $somme = 0;
@@ -169,7 +216,10 @@ class JsonDataHandling
     }
 
     /**
-     * @return array<string, string>
+     * Extrait et retourne les dernières données de capture pour une salle donnée.
+     *
+     * @param string $nomsalle Nom de la salle pour laquelle extraire les données.
+     * @return array<string, string> Tableau associatif des dernières données de capture pour la salle.
      */
     public function extraireDerniereDonneeSalle(string $nomsalle): array
     {
@@ -210,13 +260,16 @@ class JsonDataHandling
     }
 
     /**
-     * @param array<string, DateTime> $date_install
+     * Extrait et retourne toutes les données de capture actuelles pour une salle donnée.
+     *
+     * @param string $nomsalle Nom de la salle.
+     * @param array<string, DateTime> $date_install Date d'installation pour le filtre des données.
      * @return array<int, array{
-     * date: string,
-     * temp: string,
-     * hum: string,
-     * co2: string
-     * }>
+     *     date: string,
+     *     temp: string,
+     *     hum: string,
+     *     co2: string
+     * }> Tableau des données de capture pour la salle.
      */
     public function extraireToutesLesDonneeActuellesSalle(string $nomsalle, array $date_install): array
     {
@@ -253,12 +306,17 @@ class JsonDataHandling
     }
 
     /**
+     * Extrait et retourne les données de capture pour une salle donnée sur un intervalle de temps spécifique.
+     *
+     * @param string $nomsalle Nom de la salle.
+     * @param DateTime $date_install Date de début de l'intervalle.
+     * @param DateTime $date_desinstall Date de fin de l'intervalle.
      * @return array<int, array{
-     * date: string,
-     * temp: string,
-     * hum: string,
-     * co2: string
-     * }>
+     *     date: string,
+     *     temp: string,
+     *     hum: string,
+     *     co2: string
+     * }> Tableau des données de capture pour la salle et l'intervalle spécifiés.
      */
     public function extraireDonneeSurIntervalle(string $nomsalle, DateTime $date_install, DateTime $date_desinstall): array
     {
@@ -295,25 +353,27 @@ class JsonDataHandling
     }
 
     /**
+     * Extrait les dernières données des salles basées sur les expérimentations données.
+     *
      * @param array<int, array{
-     * nom: string,
-     * etage: int,
-     * numero: int,
-     * orientation: string,
-     * nb_fenetres: int,
-     * nb_ordis: int,
-     * datedemande: DateTime,
-     * dateinstallation: DateTime,
-     * etat: EtatExperimentation,
-     * sa_etat: EtatSA
-     * }> $experimentations
+     *     nom: string,
+     *     etage: int,
+     *     numero: int,
+     *     orientation: string,
+     *     nb_fenetres: int,
+     *     nb_ordis: int,
+     *     datedemande: DateTime,
+     *     dateinstallation: DateTime,
+     *     etat: EtatExperimentation,
+     *     sa_etat: EtatSA
+     * }> $experimentations Tableau des expérimentations pour les salles.
      * @return array<int, array{
-     * localisation: string,
-     * co2: string,
-     * hum: string,
-     * temp: string,
-     * dateCapture: string
-     * }>
+     *     localisation: string,
+     *     co2: string,
+     *     hum: string,
+     *     temp: string,
+     *     dateCapture: string
+     * }> Tableau des dernières données pour chaque salle.
      */
     public function extraireDernieresDonneesDesSalles(array $experimentations): array
     {

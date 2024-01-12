@@ -1,0 +1,369 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}Charge\+Mission\+Controller Class Reference}
+\hypertarget{classApp_1_1Controller_1_1ChargeMissionController}{}\label{classApp_1_1Controller_1_1ChargeMissionController}\index{App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}Charge\+Mission\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1ChargeMissionController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a05790a7d55b223d6ef3358f2c4d7204b}{index}} (Request \$request, Salle\+Repository \$salle\+Repository, SARepository \$sa\+Repository, Batiment\+Repository \$batiment\+Repository)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_aad89b315e94e8e71fb511870d83c1101}{liste\+\_\+experimentation}} (SARepository \$sa\+Repository, User\+Repository \$user\+Repository, Request \$request, Batiment\+Repository \$batiment\+Repository, Experimentation\+Repository \$experimentation\+Repository, Json\+Data\+Handling \$json\+Data\+Handling)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a2b39bfe4d26d32bb8c579f7857ae9088}{cm\+\_\+tableau\+\_\+de\+\_\+bord}} (Json\+Data\+Handling \$json\+Data\+Handling, User\+Repository \$user\+Repository)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a492097a8bff704211875c824826343c1}{modifier}} (Request \$request, User\+Repository \$repository, Entity\+Manager\+Interface \$manager, User\+Password\+Hasher\+Interface \$hasher)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour gérer les actions du chargé de mission. 
+
+Definition at line \mbox{\hyperlink{ChargeMissionController_8php_source_l00026}{26}} of file \mbox{\hyperlink{ChargeMissionController_8php_source}{Charge\+Mission\+Controller.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1ChargeMissionController_a2b39bfe4d26d32bb8c579f7857ae9088}\label{classApp_1_1Controller_1_1ChargeMissionController_a2b39bfe4d26d32bb8c579f7857ae9088} 
+\index{App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}!cm\_tableau\_de\_bord@{cm\_tableau\_de\_bord}}
+\index{cm\_tableau\_de\_bord@{cm\_tableau\_de\_bord}!App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}}
+\doxysubsubsection{\texorpdfstring{cm\_tableau\_de\_bord()}{cm\_tableau\_de\_bord()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Charge\+Mission\+Controller\+::cm\+\_\+tableau\+\_\+de\+\_\+bord (\begin{DoxyParamCaption}\item[{Json\+Data\+Handling}]{\$json\+Data\+Handling,  }\item[{User\+Repository}]{\$user\+Repository }\end{DoxyParamCaption})}
+
+Affiche le tableau de bord du chargé de mission. Inclut des données météorologiques et des statistiques sur les salles. 
+\begin{DoxyParams}[1]{Parameters}
+Json\+Data\+Handling & {\em \$json\+Data\+Handling} & Le service de traitement des données JSON. \\
+\hline
+User\+Repository & {\em \$user\+Repository} & Le repository pour accéder aux données des utilisateurs. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue générée. @\+Route(\textquotesingle{}/charge-\/de-\/mission/tableau-\/de-\/bord\textquotesingle{}, name\+: \textquotesingle{}cm\+\_\+tableau\+\_\+de\+\_\+bord\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ChargeMissionController_8php_source_l00180}{180}} of file \mbox{\hyperlink{ChargeMissionController_8php_source}{Charge\+Mission\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00181\ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{comment}{//récuperer\ la\ température\ exterireur}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \$apiKey\ =\ \textcolor{stringliteral}{'fb96e1802894f03c5c50e5408b058bce'};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ La\ Rochelle,\ France\ -\/\ ID\ de\ la\ ville}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \$cityId\ =\ 3006787;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ URL\ de\ l'API\ OpenWeatherMap}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \$apiUrl\ =\ \textcolor{stringliteral}{"{}http://api.openweathermap.org/data/2.5/weather?id=\$cityId\&appid=\$apiKey"{}};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Effectuer\ la\ requête\ HTTP\ pour\ récupérer\ les\ données\ météorologiques}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \$response\ =\ file\_get\_contents(\$apiUrl);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \$temperature\_ext\ =\ 0;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifier\ si\ la\ requête\ a\ réussi}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$response\ !==\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convertir\ la\ réponse\ JSON\ en\ tableau\ associatif}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \$weatherData\ =\ json\_decode(\$response,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifier\ si\ la\ réponse\ contient\ des\ données\ valides}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$weatherData\ \&\&\ isset(\$weatherData[\textcolor{stringliteral}{'main'}][\textcolor{stringliteral}{'temp'}]))\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Température\ en\ Kelvin,\ convertir\ en\ Celsius}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$temperatureCelsius\ =\ \$weatherData[\textcolor{stringliteral}{'main'}][\textcolor{stringliteral}{'temp'}]\ -\/\ 273.15;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ récuperer\ la\ température}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$temperature\_ext\ =\ round(\$temperatureCelsius,\ 2);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//arondir\ a\ 1\ aprés\ la\ virgule}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$temperature\_ext\ =\ round(\$temperature\_ext,\ 1);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Erreur\ lors\ de\ la\ récupération\ des\ données\ météorologiques."{}};}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Erreur\ lors\ de\ la\ requête\ vers\ l'API\ OpenWeatherMap."{}};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \$salles\ =\ [];}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \$compteur\ =\ 0;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$jsonDataHandling-\/>getSalles()\ as\ \$nomSalle\ =>\ \$infosSalle)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$compteur\ <\ 12)\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salles[]\ =\ \$nomSalle;\ \textcolor{comment}{//\ Ajoutez\ le\ nom\ de\ la\ salle\ au\ tableau}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$compteur++;\ \textcolor{comment}{//\ Incrémentez\ le\ compteur}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ Arrêtez\ la\ boucle\ après\ avoir\ ajouté\ les\ 12\ premières\ salles}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(date(\textcolor{stringliteral}{"{}Y-\/m-\/d\ H:i:s"{}}));}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \$moyenneTemp\ =\ \$jsonDataHandling-\/>getMoyenneParType(\textcolor{stringliteral}{"{}temp"{}});}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \$moyenneHum\ =\ \$jsonDataHandling-\/>getMoyenneParType(\textcolor{stringliteral}{"{}hum"{}});}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \$moyenneCo2\ =\ \$jsonDataHandling-\/>getMoyenneParType(\textcolor{stringliteral}{"{}co2"{}});}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/tableau-\/de-\/bord.html.twig'},\ [}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp\_moy'}\ =>\ \$moyenneTemp,}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum\_moy'}\ =>\ \$moyenneHum,}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'taux\_carbone\_moy'}\ =>\ \$moyenneCo2,}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salles'}\ =>\ \$salles,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temperature\_ext'}\ =>\ \$temperature\_ext,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00242\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1ChargeMissionController_a05790a7d55b223d6ef3358f2c4d7204b}\label{classApp_1_1Controller_1_1ChargeMissionController_a05790a7d55b223d6ef3358f2c4d7204b} 
+\index{App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}!index@{index}}
+\index{index@{index}!App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Charge\+Mission\+Controller\+::index (\begin{DoxyParamCaption}\item[{Request}]{\$request,  }\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{SARepository}]{\$sa\+Repository,  }\item[{Batiment\+Repository}]{\$batiment\+Repository }\end{DoxyParamCaption})}
+
+Affiche la page de planification des expérimentations. Gère les formulaires de filtre et de recherche pour les salles. 
+\begin{DoxyParams}[1]{Parameters}
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Le repository pour accéder aux données des salles. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Le repository pour accéder aux données des SA. \\
+\hline
+Batiment\+Repository & {\em \$batiment\+Repository} & Le repository pour accéder aux données des bâtiments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue générée. @\+Route(\textquotesingle{}/charge-\/de-\/mission/plan-\/experimentation\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+charge\+\_\+mission\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ChargeMissionController_8php_source_l00039}{39}} of file \mbox{\hyperlink{ChargeMissionController_8php_source}{Charge\+Mission\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \$filtreSalleForm\ =\ \$this-\/>createForm(FiltreSalleFormType::class);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \$rechercheSalleForm\ =\ \$this-\/>createForm(RechercheSalleFormType::class,\ \textcolor{keyword}{null},\ [}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batimentRepository-\/>tableauBatimentsNomID(),}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \$filtreSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \$rechercheSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialisation\ des\ résultats\ de\ la\ salle}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \$salles\ =\ \$salleRepository-\/>filtrerSallePlanExp();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtrage\ des\ salles\ en\ fonction\ du\ formulaire\ de\ filtre}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$filtreSalleForm-\/>isSubmitted()\ \&\&\ \$filtreSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre\ =\ \$filtreSalleForm-\/>getData();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ filtrer\ les\ salles}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \$salles\ =\ \$salleRepository-\/>filtrerSallePlanExp(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'etage'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'orientation'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'ordinateurs'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'sa'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherche\ des\ salles\ en\ fonction\ du\ formulaire\ de\ recherche}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$rechercheSalleForm-\/>isSubmitted()\ \&\&\ \$rechercheSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSalleForm-\/>getData();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ les\ salles}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \$salles\ =\ \$salleRepository-\/>rechercheSallePlanExp(}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'batiment'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'salle'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logique\ métier\ supplémentaire}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \$nb\_sa\ =\ \$saRepository-\/>compteSASansExperimentation();}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \$batiments\ =\ \$batimentRepository-\/>findAll();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Passer\ les\ instances\ de\ formulaire\ au\ template}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/plan-\/experimentation.html.twig'},\ [}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_salles'}\ =>\ \$salles,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nb\_sa'}\ =>\ \$nb\_sa,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batiments,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'filtreSalleForm'}\ =>\ \$filtreSalleForm-\/>createView(),}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSalleForm'}\ =>\ \$rechercheSalleForm-\/>createView(),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1ChargeMissionController_aad89b315e94e8e71fb511870d83c1101}\label{classApp_1_1Controller_1_1ChargeMissionController_aad89b315e94e8e71fb511870d83c1101} 
+\index{App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}!liste\_experimentation@{liste\_experimentation}}
+\index{liste\_experimentation@{liste\_experimentation}!App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}}
+\doxysubsubsection{\texorpdfstring{liste\_experimentation()}{liste\_experimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Charge\+Mission\+Controller\+::liste\+\_\+experimentation (\begin{DoxyParamCaption}\item[{SARepository}]{\$sa\+Repository,  }\item[{User\+Repository}]{\$user\+Repository,  }\item[{Request}]{\$request,  }\item[{Batiment\+Repository}]{\$batiment\+Repository,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{Json\+Data\+Handling}]{\$json\+Data\+Handling }\end{DoxyParamCaption})}
+
+Affiche la liste des expérimentations en cours. Utilise les formulaires de filtre et de recherche pour filtrer les résultats. 
+\begin{DoxyParams}[1]{Parameters}
+SARepository & {\em \$sa\+Repository} & Le repository pour accéder aux données des SA. \\
+\hline
+User\+Repository & {\em \$user\+Repository} & Le repository pour accéder aux données des utilisateurs. \\
+\hline
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+Batiment\+Repository & {\em \$batiment\+Repository} & Le repository pour accéder aux données des bâtiments. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository pour accéder aux données des expérimentations. \\
+\hline
+Json\+Data\+Handling & {\em \$json\+Data\+Handling} & Le service de traitement des données JSON. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue générée. @\+Route(\textquotesingle{}/charge-\/de-\/mission/liste-\/salles\textquotesingle{}, name\+: \textquotesingle{}liste\+\_\+salles\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ChargeMissionController_8php_source_l00104}{104}} of file \mbox{\hyperlink{ChargeMissionController_8php_source}{Charge\+Mission\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \$filtreSalleForm\ =\ \$this-\/>createForm(FiltreSalleFormType::class);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \$rechercheSalleForm\ =\ \$this-\/>createForm(RechercheSalleFormType::class,\ \textcolor{keyword}{null},\ [}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batimentRepository-\/>tableauBatimentsNomID(),}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \$filtreSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \$rechercheSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialisation\ des\ résultats\ de\ la\ salle}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \$liste\_experimentations\ =\ \$experimentationRepository-\/>filtreExperimentationAnalyse();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtrage\ des\ salles\ en\ fonction\ du\ formulaire\ de\ filtre}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$filtreSalleForm-\/>isSubmitted()\ \&\&\ \$filtreSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre\ =\ \$filtreSalleForm-\/>getData();}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_experimentations\ =\ \$experimentationRepository-\/>filtreExperimentationAnalyse(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'etage'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'orientation'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'ordinateurs'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'sa'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherche\ des\ salles\ en\ fonction\ du\ formulaire\ de\ recherche}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$rechercheSalleForm-\/>isSubmitted()\ \&\&\ \$rechercheSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSalleForm-\/>getData();}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_experimentations\ =\ \$experimentationRepository-\/>rechercheExperimentationAnalyse(}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'batiment'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'salle'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logique\ métier\ supplémentaire}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \$batiments\ =\ \$batimentRepository-\/>findAll();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ d'ajout\ de\ salle\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \$listeSallesAvecDonnees\ =\ \$jsonDataHandling-\/>extraireDernieresDonneesDesSalles(\$liste\_experimentations);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \$saRepository-\/>sa\_eteint\_probleme(\$listeSallesAvecDonnees);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \$listeSallesAvecDonnees\ =\ \$jsonDataHandling-\/>extraireDernieresDonneesDesSalles(\$liste\_experimentations);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(empty(\$liste\_experimentations))\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Votre\ recherche\ ne\ correspond\ pas\ a\ une\ expérimentation\ en\ cours"{}});}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!empty(\$listeSallesAvecDonnees))\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$listeSallesAvecDonnees[0][\textcolor{stringliteral}{'dateCapture'}]);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (empty(\$intervalleTempSaison)\ or\ \$intervalleTempSaison\ ==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ [-\/50,-\/20,50,100];}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/liste-\/salles.html.twig'},\ [}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_experimentations'}\ =>\ \$liste\_experimentations,\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'listeDerniereValeur'}\ =>\ \$listeSallesAvecDonnees,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batiments,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'filtreSalleForm'}\ =>\ \$filtreSalleForm-\/>createView(),}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSalleForm'}\ =>\ \$rechercheSalleForm-\/>createView(),}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1ChargeMissionController_a492097a8bff704211875c824826343c1}\label{classApp_1_1Controller_1_1ChargeMissionController_a492097a8bff704211875c824826343c1} 
+\index{App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}!modifier@{modifier}}
+\index{modifier@{modifier}!App\textbackslash{}Controller\textbackslash{}ChargeMissionController@{App\textbackslash{}Controller\textbackslash{}ChargeMissionController}}
+\doxysubsubsection{\texorpdfstring{modifier()}{modifier()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Charge\+Mission\+Controller\+::modifier (\begin{DoxyParamCaption}\item[{Request}]{\$request,  }\item[{User\+Repository}]{\$repository,  }\item[{Entity\+Manager\+Interface}]{\$manager,  }\item[{User\+Password\+Hasher\+Interface}]{\$hasher }\end{DoxyParamCaption})}
+
+Permet au chargé de mission de modifier son mot de passe. Gère le formulaire de modification de mot de passe. 
+\begin{DoxyParams}[1]{Parameters}
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+User\+Repository & {\em \$repository} & Le repository pour accéder aux données des utilisateurs. \\
+\hline
+Entity\+Manager\+Interface & {\em \$manager} & Le gestionnaire d\textquotesingle{}entités. \\
+\hline
+User\+Password\+Hasher\+Interface & {\em \$hasher} & L\textquotesingle{}outil de hashage des mots de passe. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue générée. @\+Route(\textquotesingle{}/charge-\/de-\/mission/modifier\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+modifier\+\_\+chargemission\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ChargeMissionController_8php_source_l00255}{255}} of file \mbox{\hyperlink{ChargeMissionController_8php_source}{Charge\+Mission\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00256\ \ \ \ \ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \$user\ =\ \$repository-\/>rechercheUser(\textcolor{stringliteral}{'chargemission'});}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \$userForm\ =\ \$this-\/>createForm(UserType::class);}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \$userForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$userForm-\/>isSubmitted()\ \&\&\ \$userForm-\/>isValid())\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \$data\ =\ \$userForm-\/>getData();}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$data[\textcolor{stringliteral}{'PlainPassword'}]\ !=\ \$data[\textcolor{stringliteral}{'verif'}])\{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Vos\ nouveaux\ mots\ de\ passe\ ne\ correspondent\ pas\ entre\ eux.\ Veuillez\ réessayer."{}});}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(!\$hasher-\/>isPasswordValid(\$user,\$data[\textcolor{stringliteral}{'MDP'}]))\{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}mot\ de\ passe\ actuel\ incorrects"{}});}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(strlen(\$data[\textcolor{stringliteral}{'PlainPassword'}])\ <\ 8\ )}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ 8\ caractère"{}};}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[a-\/z]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ une\ minuscule"{}};}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[A-\/Z]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ une\ majuscule"{}};}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[\string^a-\/zA-\/Z0-\/9]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ un\ un\ caractère\ spécial"{}};}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\$data[\textcolor{stringliteral}{'PlainPassword'}]);}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}mot\ de\ passe\ modifier\ !"{}});}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rend\ la\ vue\ avec\ la\ liste\ des\ expérimentations.}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/modifier.html.twig'},\ [}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'userForm'}\ =>\ \$userForm-\/>createView()\ ,}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'erreur'}\ =>\ \$erreur\ ,}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Charge\+Mission\+Controller.\+php\end{DoxyCompactItemize}

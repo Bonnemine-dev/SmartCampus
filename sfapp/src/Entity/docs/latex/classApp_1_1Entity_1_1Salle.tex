@@ -1,0 +1,447 @@
+\doxysection{App\textbackslash{}Entity\textbackslash{}Salle Class Reference}
+\hypertarget{classApp_1_1Entity_1_1Salle}{}\label{classApp_1_1Entity_1_1Salle}\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a42b26f19b4e5862dbbfb71dbe53e5dbb}{get\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_ab5d003a5d915bf50897470950a2075ce}{get\+Nom}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_abeda60fece13ec306937de35da9bc229}{set\+Nom}} (string \$nom)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a2a46a728c831be76773f1168db56a833}{get\+Etage}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_ac5862240e76028e0285eaa69dc76281a}{set\+Etage}} (int \$etage)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a5d8e9b3b823f550d967430e24d69aaaa}{get\+Numero}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a683b6ba0067d7297c648d1b093159f15}{set\+Numero}} (int \$numero)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a5283a96d650d1402cf05db82a35a8eee}{get\+Orientation}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_afafd3c0cd6cc513bcf576dee5be342a0}{set\+Orientation}} (?string \$orientation)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a01ce4a28460d013f27ebcec7fde4cbb9}{get\+Nb\+Fenetres}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_ab8343a9548bb453d9ec8a25d8c3debee}{set\+Nb\+Fenetres}} (?int \$nb\+\_\+fenetres)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_af006637642e2fa619d33c02c8217057b}{get\+Nb\+Ordis}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a541bd1848f5b7578741f891780c2e126}{set\+Nb\+Ordis}} (?int \$nb\+\_\+ordis)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a35eb6e997c0f41a20323939b07b2971b}{get\+Batiment}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a2a2f4c35f130c96f244ec66ba53f5c08}{set\+Batiment}} (?\mbox{\hyperlink{classApp_1_1Entity_1_1Batiment}{Batiment}} \$batiment)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a07c7b74cff50e0ecd38dcc4025d80a9f}{get\+Experimentations}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_ab2719809c0c8544eb67f6103f394ce09}{add\+Experimentation}} (\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}} \$experimentation)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1Salle_abed7a752d8886fc3ae62df6634cdc569}{remove\+Experimentation}} (\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}} \$experimentation)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classApp_1_1Entity_1_1Salle_a58cc79497d71f46f3c71726c784cf286}{Orientation}} = \mbox{[}\textquotesingle{}NORD\textquotesingle{},\textquotesingle{}SUD\textquotesingle{},\textquotesingle{}EST\textquotesingle{},\textquotesingle{}OUEST\textquotesingle{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00013}{13}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Entity_1_1Salle_ad3025ff8d6d93feb344b4e27b3bc1790}\label{classApp_1_1Entity_1_1Salle_ad3025ff8d6d93feb344b4e27b3bc1790} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00070}{70}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \$this-\/>experimentations\ =\ \textcolor{keyword}{new}\ ArrayCollection();}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Entity_1_1Salle_ab2719809c0c8544eb67f6103f394ce09}\label{classApp_1_1Entity_1_1Salle_ab2719809c0c8544eb67f6103f394ce09} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!addExperimentation@{addExperimentation}}
+\index{addExperimentation@{addExperimentation}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{addExperimentation()}{addExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::add\+Experimentation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}}}]{\$experimentation }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00173}{173}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00174\ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$this-\/>experimentations-\/>contains(\$experimentation))\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>experimentations-\/>add(\$experimentation);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \$experimentation-\/>setSalles(\$this);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a35eb6e997c0f41a20323939b07b2971b}\label{classApp_1_1Entity_1_1Salle_a35eb6e997c0f41a20323939b07b2971b} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getBatiment@{getBatiment}}
+\index{getBatiment@{getBatiment}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getBatiment()}{getBatiment()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Batiment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00153}{153}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?Batiment}
+\DoxyCodeLine{00154\ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>batiment;}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a2a46a728c831be76773f1168db56a833}\label{classApp_1_1Entity_1_1Salle_a2a46a728c831be76773f1168db56a833} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getEtage@{getEtage}}
+\index{getEtage@{getEtage}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getEtage()}{getEtage()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Etage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00092}{92}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00093\ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>etage;}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a07c7b74cff50e0ecd38dcc4025d80a9f}\label{classApp_1_1Entity_1_1Salle_a07c7b74cff50e0ecd38dcc4025d80a9f} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getExperimentations@{getExperimentations}}
+\index{getExperimentations@{getExperimentations}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getExperimentations()}{getExperimentations()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Experimentations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Collection$<$int, Experimentation$>$ 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00168}{168}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Collection}
+\DoxyCodeLine{00169\ \ \ \ \ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>experimentations;}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a42b26f19b4e5862dbbfb71dbe53e5dbb}\label{classApp_1_1Entity_1_1Salle_a42b26f19b4e5862dbbfb71dbe53e5dbb} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getId@{getId}}
+\index{getId@{getId}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00075}{75}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>id;}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a01ce4a28460d013f27ebcec7fde4cbb9}\label{classApp_1_1Entity_1_1Salle_a01ce4a28460d013f27ebcec7fde4cbb9} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getNbFenetres@{getNbFenetres}}
+\index{getNbFenetres@{getNbFenetres}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getNbFenetres()}{getNbFenetres()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Nb\+Fenetres (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00128}{128}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00129\ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>nb\_fenetres;}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_af006637642e2fa619d33c02c8217057b}\label{classApp_1_1Entity_1_1Salle_af006637642e2fa619d33c02c8217057b} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getNbOrdis@{getNbOrdis}}
+\index{getNbOrdis@{getNbOrdis}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getNbOrdis()}{getNbOrdis()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Nb\+Ordis (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00140}{140}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00141\ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>nb\_ordis;}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_ab5d003a5d915bf50897470950a2075ce}\label{classApp_1_1Entity_1_1Salle_ab5d003a5d915bf50897470950a2075ce} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getNom@{getNom}}
+\index{getNom@{getNom}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getNom()}{getNom()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Nom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00080}{80}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{string}}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>nom;}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a5d8e9b3b823f550d967430e24d69aaaa}\label{classApp_1_1Entity_1_1Salle_a5d8e9b3b823f550d967430e24d69aaaa} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getNumero@{getNumero}}
+\index{getNumero@{getNumero}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getNumero()}{getNumero()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Numero (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00104}{104}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>numero;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a5283a96d650d1402cf05db82a35a8eee}\label{classApp_1_1Entity_1_1Salle_a5283a96d650d1402cf05db82a35a8eee} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!getOrientation@{getOrientation}}
+\index{getOrientation@{getOrientation}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{getOrientation()}{getOrientation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::get\+Orientation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00116}{116}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{string}}
+\DoxyCodeLine{00117\ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>orientation;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_abed7a752d8886fc3ae62df6634cdc569}\label{classApp_1_1Entity_1_1Salle_abed7a752d8886fc3ae62df6634cdc569} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!removeExperimentation@{removeExperimentation}}
+\index{removeExperimentation@{removeExperimentation}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{removeExperimentation()}{removeExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::remove\+Experimentation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}}}]{\$experimentation }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00183}{183}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00184\ \ \ \ \ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$this-\/>experimentations-\/>removeElement(\$experimentation))\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ owning\ side\ to\ null\ (unless\ already\ changed)}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentation-\/>getSalles()\ ===\ \$this)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$experimentation-\/>setSalles(\textcolor{keyword}{null});}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a2a2f4c35f130c96f244ec66ba53f5c08}\label{classApp_1_1Entity_1_1Salle_a2a2f4c35f130c96f244ec66ba53f5c08} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setBatiment@{setBatiment}}
+\index{setBatiment@{setBatiment}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setBatiment()}{setBatiment()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Batiment (\begin{DoxyParamCaption}\item[{?\mbox{\hyperlink{classApp_1_1Entity_1_1Batiment}{Batiment}}}]{\$batiment }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00158}{158}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00159\ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \$this-\/>batiment\ =\ \$batiment;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_ac5862240e76028e0285eaa69dc76281a}\label{classApp_1_1Entity_1_1Salle_ac5862240e76028e0285eaa69dc76281a} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setEtage@{setEtage}}
+\index{setEtage@{setEtage}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setEtage()}{setEtage()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Etage (\begin{DoxyParamCaption}\item[{int}]{\$etage }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00097}{97}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00098\ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \$this-\/>etage\ =\ \$etage;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_ab8343a9548bb453d9ec8a25d8c3debee}\label{classApp_1_1Entity_1_1Salle_ab8343a9548bb453d9ec8a25d8c3debee} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setNbFenetres@{setNbFenetres}}
+\index{setNbFenetres@{setNbFenetres}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setNbFenetres()}{setNbFenetres()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Nb\+Fenetres (\begin{DoxyParamCaption}\item[{?int}]{\$nb\+\_\+fenetres }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00133}{133}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \$this-\/>nb\_fenetres\ =\ \$nb\_fenetres;}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a541bd1848f5b7578741f891780c2e126}\label{classApp_1_1Entity_1_1Salle_a541bd1848f5b7578741f891780c2e126} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setNbOrdis@{setNbOrdis}}
+\index{setNbOrdis@{setNbOrdis}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setNbOrdis()}{setNbOrdis()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Nb\+Ordis (\begin{DoxyParamCaption}\item[{?int}]{\$nb\+\_\+ordis }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00145}{145}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00146\ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \$this-\/>nb\_ordis\ =\ \$nb\_ordis;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_abeda60fece13ec306937de35da9bc229}\label{classApp_1_1Entity_1_1Salle_abeda60fece13ec306937de35da9bc229} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setNom@{setNom}}
+\index{setNom@{setNom}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setNom()}{setNom()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Nom (\begin{DoxyParamCaption}\item[{string}]{\$nom }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00085}{85}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \$this-\/>nom\ =\ \$nom;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a683b6ba0067d7297c648d1b093159f15}\label{classApp_1_1Entity_1_1Salle_a683b6ba0067d7297c648d1b093159f15} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setNumero@{setNumero}}
+\index{setNumero@{setNumero}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setNumero()}{setNumero()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Numero (\begin{DoxyParamCaption}\item[{int}]{\$numero }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00109}{109}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00110\ \ \ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \$this-\/>numero\ =\ \$numero;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1Salle_afafd3c0cd6cc513bcf576dee5be342a0}\label{classApp_1_1Entity_1_1Salle_afafd3c0cd6cc513bcf576dee5be342a0} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!setOrientation@{setOrientation}}
+\index{setOrientation@{setOrientation}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{setOrientation()}{setOrientation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::set\+Orientation (\begin{DoxyParamCaption}\item[{?string}]{\$orientation }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00121}{121}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00122\ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \$this-\/>orientation\ =\ \$orientation;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Entity_1_1Salle_a58cc79497d71f46f3c71726c784cf286}\label{classApp_1_1Entity_1_1Salle_a58cc79497d71f46f3c71726c784cf286} 
+\index{App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}!Orientation@{Orientation}}
+\index{Orientation@{Orientation}!App\textbackslash{}Entity\textbackslash{}Salle@{App\textbackslash{}Entity\textbackslash{}Salle}}
+\doxysubsubsection{\texorpdfstring{Orientation}{Orientation}}
+{\footnotesize\ttfamily const App\textbackslash{}\+Entity\textbackslash{}\+Salle\+::\+Orientation = \mbox{[}\textquotesingle{}NORD\textquotesingle{},\textquotesingle{}SUD\textquotesingle{},\textquotesingle{}EST\textquotesingle{},\textquotesingle{}OUEST\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{Salle_8php_source_l00042}{42}} of file \mbox{\hyperlink{Salle_8php_source}{Salle.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Salle.\+php\end{DoxyCompactItemize}

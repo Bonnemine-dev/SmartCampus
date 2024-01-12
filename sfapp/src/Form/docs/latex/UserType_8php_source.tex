@@ -1,0 +1,48 @@
+\doxysection{User\+Type.\+php}
+\hypertarget{UserType_8php_source}{}\label{UserType_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Form;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00005}00005\ use\ App\(\backslash\)Entity\(\backslash\)User;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00006}00006\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)AbstractType;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00007}00007\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)SubmitType;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)PasswordType;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)FormBuilderInterface;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00010}00010\ use\ Symfony\(\backslash\)Component\(\backslash\)OptionsResolver\(\backslash\)OptionsResolver;}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00017}\mbox{\hyperlink{classApp_1_1Form_1_1UserType}{00017}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Form_1_1UserType}{UserType}}\ \textcolor{keyword}{extends}\ AbstractType}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00026}\mbox{\hyperlink{classApp_1_1Form_1_1UserType_a5f0b56c3323a6b0032c99b6810d221bb}{00026}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1UserType_a5f0b56c3323a6b0032c99b6810d221bb}{buildForm}}(FormBuilderInterface\ \$builder,\ array\ \$options):\ void}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'MDP'},\ PasswordType::class,\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Mot\ de\ passe\ actuel'}}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'PlainPassword'},\ PasswordType::class,\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Nouveau\ mot\ de\ passe'}}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'verif'},\ PasswordType::class,\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Confirmer\ votre\ mot\ de\ passe'}}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Modifier'}}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UserType_8php_source_l00055}00055\ \}}
+
+\end{DoxyCode}

@@ -11,6 +11,8 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @class SARepository
+ *  Repository pour gérer les opérations de base de données liées aux entités SA (Système d'Automatisation).
  * @extends ServiceEntityRepository<SA>
  *
  * @method SA|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,14 +22,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SARepository extends ServiceEntityRepository
 {
-    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée.
+    /**
+     * Constructeur de SARepository.
+     * Initialise le repository avec le manager d'entités Doctrine.
+     * @param ManagerRegistry $registry Le gestionnaire de l'entité Doctrine.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SA::class);
     }
 
-    /*
-     * Compte le nombre de SA sans expérimentation
+    /**
+     * Compte le nombre de SA (Système d'Automatisation) disponibles sans expérimentation.
+     * @return int Le nombre de SA disponibles.
      */
     public function compteSASansExperimentation(): int
     {
@@ -39,7 +46,10 @@ class SARepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    // Fonction qui retourne le premier SA disponible
+    /**
+     * Sélectionne le premier SA disponible et le marque comme utilisé.
+     * @return SA|null Retourne l'entité SA disponible ou null si aucun n'est disponible.
+     */
     public function saNonUtiliser(): ?sa
     {
         // Requête pour sélectionner un SA disponible.
@@ -48,29 +58,32 @@ class SARepository extends ServiceEntityRepository
         return $sa;
     }
 
-    //Fonction qui change l'etat du SA a disponible (si le sa est enlever de l'experimentation par exemple)
+    /**
+     * Met à jour l'état d'un SA pour le marquer comme disponible.
+     * @param SA $sa L'entité SA à mettre à jour.
+     * @return void
+     */
     public function suppressionExp(SA $sa): void
     {
         // Mettre à jour l'état du SA.
         $sa->setDisponible(true);
     }
 
-    /*
-     * Enlève les SA inutiles
-     */
     /**
+     * Trie et nettoie une liste de SA pour enlever les éléments inutiles.
      * @param array<int, array{
      * sa_nom: string,
      * salle_nom: string,
      * sa_etat: EtatSA,
      * exp_etat: EtatExperimentation
-     * }> $resultat
+     * }> $resultat La liste des SA à trier.
+     *
      * @return array<int, array{
      * sa_nom: string,
      * salle_nom: string,
      * sa_etat: EtatSA,
      * exp_etat: EtatExperimentation
-     * }>
+     * }> La liste triée des SA.
      */
     public function trierSA(array $resultat): array
     {
@@ -98,16 +111,14 @@ class SARepository extends ServiceEntityRepository
         return $resultat;
     }
 
-    /*
-     * Liste tous les SA
-     */
     /**
+     * Récupère la liste de tous les SA avec les détails des expérimentations associées.
      * @return array<int, array{
      *  sa_nom: string,
      *  salle_nom: string,
      *  sa_etat: EtatSA,
      *  exp_etat: EtatExperimentation
-     *  }>
+     *  }> Liste de tous les SA avec des informations détaillées.
      */
     public function toutLesSA(): array
     {
@@ -135,18 +146,16 @@ class SARepository extends ServiceEntityRepository
         return $resultat;
     }
 
-    /*
-     * Fonction de filtre des SA
-     */
     /**
-     * @param array<int, int>|null $etat
-     * @param array<int, string>|null $localisation
+     * Filtre les SA selon l'état et la localisation spécifiés.
+     * @param array<int, int>|null $etat Les états des SA à filtrer.
+     * @param array<int, string>|null $localisation Les localisations à filtrer.
      * @return array<int, array{
      * sa_nom: string,
      * salle_nom: string,
      * sa_etat: EtatSA,
      * exp_etat: EtatExperimentation
-     * }>
+     * }> Liste filtrée des SA.
      */
     public function filtrerSAGestionSA(array $etat = null, array $localisation = null): array
     {
@@ -196,16 +205,15 @@ class SARepository extends ServiceEntityRepository
         return $exp;
     }
 
-    /*
-     * Fonction de recherche des SA
-     */
     /**
+     * Recherche les SA contenant une chaîne de caractères spécifique dans leur nom ou celui de leur salle associée.
+     * @param string|null $contient_ce_string La chaîne de caractères à rechercher.
      * @return array<int, array{
      *  sa_nom: string,
      *  salle_nom: string,
      *  sa_etat: EtatSA,
      *  exp_etat: EtatExperimentation
-     *  }>
+     *  }> Liste des SA correspondants à la recherche.
      */
     public function rechercheSA(string $contient_ce_string = null): array
     {
@@ -230,8 +238,10 @@ class SARepository extends ServiceEntityRepository
         return $resultat;
     }
 
-    /*
-     * Ajouter un SA
+    /**
+     * Ajoute un nouveau SA avec les informations spécifiées.
+     * @param string|null $nom Le nom du nouveau SA.
+     * @return void
      */
     public function ajoutSA(string $nom = null): void
     {
@@ -247,16 +257,20 @@ class SARepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
-    /*
-     * Vérifie s'il y a déjà un SA existant selon le nom
+    /**
+     * Vérifie l'existence d'un SA selon son nom.
+     * @param string|null $nom Le nom du SA à vérifier.
+     * @return SA|null L'entité SA si elle existe, sinon null.
      */
     public function existeDeja(string $nom = null): ?SA
     {
         return $this->findOneBy(['nom' => $nom]);
     }
 
-    /*
-     * Supprimer un SA
+    /**
+     * Supprime un SA spécifié par son nom.
+     * @param string $nomsa Le nom du SA à supprimer.
+     * @return bool True si la suppression est réussie, false sinon.
      */
     public function supprimerSA(string $nomsa): bool
     {
@@ -274,8 +288,11 @@ class SARepository extends ServiceEntityRepository
         }
     }
 
-    /*
-     * Change l'état du SA
+    /**
+     * Change l'état d'un SA associé à une salle donnée.
+     * @param string $nomsalle Le nom de la salle associée au SA.
+     * @param EtatSA $etat Le nouvel état à attribuer au SA.
+     * @return void
      */
     public function changerEtatSA(string $nomsalle, EtatSA $etat) : void
     {
@@ -298,11 +315,10 @@ class SARepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
-    /*
-     * Regarde les salles associés aux SA
-     */
     /**
-     * @return array<string, string>|null
+     * Trouve les salles associées à un SA donné.
+     * @param string $nomsa Le nom du SA.
+     * @return array<string, string>|null Liste des salles associées ou null si aucune salle n'est associée.
      */
     public function salle_associe_sa(string $nomsa): ?array
     {
@@ -328,6 +344,11 @@ class SARepository extends ServiceEntityRepository
         return $result;
     }
 
+    /**
+     * Met à jour l'état des SA en fonction de données spécifiques d'expérimentation.
+     * @param array $listeSallesAvecDonnees Les données d'expérimentation pour chaque salle.
+     * @return void
+     */
     public function sa_eteint_probleme(array $listeSallesAvecDonnees): void {
         foreach ($listeSallesAvecDonnees as $experimentation) {
             if ($experimentation['dateCapture'] < date('Y-m-d H:i:s', strtotime('-10 minutes'))) {

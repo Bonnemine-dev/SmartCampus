@@ -1,0 +1,720 @@
+\doxysection{App\textbackslash{}Repository\textbackslash{}User\+Repository Class Reference}
+\hypertarget{classApp_1_1Repository_1_1UserRepository}{}\label{classApp_1_1Repository_1_1UserRepository}\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+Inheritance diagram for App\textbackslash{}Repository\textbackslash{}User\+Repository\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Repository_1_1UserRepository}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a9798d36538da6fd3f77a23b4c8100e14}{\+\_\+\+\_\+construct}} (Manager\+Registry \$registry)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a2049a93ba06a29d7664a1f5ca53969af}{upgrade\+Password}} (Password\+Authenticated\+User\+Interface \$user, string \$new\+Hashed\+Password)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_ae8178f5a4898bd01ef1cc699bc0263ca}{recommandations\+Ete}} (array \$donnees)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a59525a63539ca1b1b7677b646fcf7549}{recommandations\+Automne}} (array \$donnees)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_ab7ddcef575b35fde9a7b8511f33df33a}{recommandations\+Hiver}} (array \$donnees)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a92808058c6f09c661a7febef1b8c62dd}{recommandations\+Printemps}} (array \$donnees)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a6a3491a474364e1db5a9be0e2a53d2a3}{recherche\+User}} (string \$username)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a4c70c400923fac7d576952801d036a69}{recommandations\+Salles}} (array \$donnees, string \$date)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a37237b40869f860399d6a081c20abf68}{intervalles\+Temp\+Saison}} (string \$date)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Repository pour gérer les opérations de base de données liées aux entités User. $<$\+User$>$
+
+$<$\+User$>$
+
+@method User\texorpdfstring{$\vert$}{|}null find(\$id, \$lock\+Mode = null, \$lock\+Version = null) @method User\texorpdfstring{$\vert$}{|}null find\+One\+By(array \$criteria, array \$order\+By = null) @method User\mbox{[}\mbox{]} find\+All() @method User\mbox{[}\mbox{]} find\+By(array \$criteria, array \$order\+By = null, \$limit = null, \$offset = null) 
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00024}{24}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a9798d36538da6fd3f77a23b4c8100e14}\label{classApp_1_1Repository_1_1UserRepository_a9798d36538da6fd3f77a23b4c8100e14} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Manager\+Registry}]{\$registry }\end{DoxyParamCaption})}
+
+Constructeur de User\+Repository. Initialise le repository avec le manager d\textquotesingle{}entités Doctrine. 
+\begin{DoxyParams}[1]{Parameters}
+Manager\+Registry & {\em \$registry} & Le gestionnaire de l\textquotesingle{}entité Doctrine. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00042}{42}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ User::class);}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a37237b40869f860399d6a081c20abf68}\label{classApp_1_1Repository_1_1UserRepository_a37237b40869f860399d6a081c20abf68} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!intervallesTempSaison@{intervallesTempSaison}}
+\index{intervallesTempSaison@{intervallesTempSaison}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{intervallesTempSaison()}{intervallesTempSaison()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::intervalles\+Temp\+Saison (\begin{DoxyParamCaption}\item[{string}]{\$date }\end{DoxyParamCaption})}
+
+Fournit les intervalles de température recommandés pour chaque saison. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$date} & La date actuelle pour déterminer la saison. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int, int$>$ Les intervalles de température pour la saison donnée. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00541}{541}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00542\ \ \ \ \ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \$anneeActuelle\ =\ date(\textcolor{stringliteral}{"{}Y"{}});}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\$date\ >=\ (\$anneeActuelle\ -\/\ 1)\ .\ \textcolor{stringliteral}{'-\/12-\/22\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/03-\/20\ 00:00:00'})\ ||}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/12-\/22\ 00:00:00'}\ and\ \$date\ <=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/12-\/31\ 23:59:59'}))\ \{}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [16,\ 18,\ 22,\ 24];}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/03-\/20\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/06-\/20\ 00:00:00'})\ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [18,\ 20,\ 24,\ 26];}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/06-\/20\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/09-\/23\ 00:00:00'})\ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [24,\ 26,\ 28,\ 30];}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/09-\/23\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/12-\/22\ 00:00:00'})\ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [17,\ 19,\ 23,\ 25];}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [];}
+\DoxyCodeLine{00558\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a6a3491a474364e1db5a9be0e2a53d2a3}\label{classApp_1_1Repository_1_1UserRepository_a6a3491a474364e1db5a9be0e2a53d2a3} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!rechercheUser@{rechercheUser}}
+\index{rechercheUser@{rechercheUser}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{rechercheUser()}{rechercheUser()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::recherche\+User (\begin{DoxyParamCaption}\item[{string}]{\$username }\end{DoxyParamCaption})}
+
+Recherche un utilisateur par son nom d\textquotesingle{}utilisateur. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$username} & Le nom d\textquotesingle{}utilisateur à rechercher. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+User\texorpdfstring{$\vert$}{|}null L\textquotesingle{}utilisateur trouvé ou null si aucun utilisateur n\textquotesingle{}a été trouvé. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00506}{506}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?User}
+\DoxyCodeLine{00507\ \ \ \ \ \{}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>findOneBy([\textcolor{stringliteral}{'username'}\ =>\ \$username]);}
+\DoxyCodeLine{00509\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a59525a63539ca1b1b7677b646fcf7549}\label{classApp_1_1Repository_1_1UserRepository_a59525a63539ca1b1b7677b646fcf7549} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!recommandationsAutomne@{recommandationsAutomne}}
+\index{recommandationsAutomne@{recommandationsAutomne}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{recommandationsAutomne()}{recommandationsAutomne()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::recommandations\+Automne (\begin{DoxyParamCaption}\item[{array}]{\$donnees }\end{DoxyParamCaption})}
+
+Génère des recommandations d\textquotesingle{}action en fonction des conditions atmosphériques pour l\textquotesingle{}automne. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,string$>$} & \$donnees Les données atmosphériques comme le CO2, la température et l\textquotesingle{}humidité. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$\vert$}{|}array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} Les recommandations d\textquotesingle{}action basées sur les données fournies. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00180}{180}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00181\ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \$co2\_inf\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ <\ 400;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \$co2\_sup\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ >\ 1000;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \$temp\_inf\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ <\ 19;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \$temp\_sup\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ >\ 23;}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \$hum\_inf\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ <\ 40;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \$hum\_sup\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ >\ 70;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définition\ des\ ensembles\ d'actions\ numérotées}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \$actions1\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX];}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \$actions2\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \$actions3\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX];}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \$actions4\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \$actions5\ =\ [\$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \$actions6\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES];}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \$actions7\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \$actions8\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \$actions9\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES];}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \$actions10\ =\ [\$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2,\ la\ température\ et\ le\ taux\ d'humidité\ sont\ tous\ trop\ élevés."{}},\ \$actions1];}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ et\ la\ température\ sont\ trop\ élevés,\ mais\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions1];}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé,\ la\ température\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions2];}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé,\ la\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ faibles."{}},\ \$actions2];}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible,\ la\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ élevés."{}},\ \$actions3];}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible,\ la\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions3];}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible,\ la\ température\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions4];}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2,\ la\ température\ et\ le\ taux\ d'humidité\ sont\ tous\ trop\ faibles."{}},\ \$actions4];}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ élevés."{}},\ \$actions1];}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions1];}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ et\ la\ température\ sont\ trop\ élevés."{}},\ \$actions1];}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ et\ le\ taux\ d'humidité\ sont\ trop\ élevés."{}},\ \$actions2];}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions2];}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible\ et\ la\ température\ est\ trop\ élevée."{}},\ \$actions3];}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions5];}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ faibles."{}},\ \$actions5];}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé\ et\ la\ température\ est\ trop\ faible."{}},\ \$actions6];}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions7];}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions7];}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ et\ la\ température\ sont\ trop\ faibles."{}},\ \$actions8];}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup)\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ élevée."{}},\ \$actions1];}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_sup)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions2];}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_inf)\ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions2];}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup)\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé."{}},\ \$actions6];}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf)\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ faible."{}},\ \$actions9];}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf)\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible."{}},\ \$actions10];}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{'Bonne\ ambiance'},\ \textcolor{stringliteral}{'Pas\ de\ recommandations\ pour\ la\ salle'}];}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_ae8178f5a4898bd01ef1cc699bc0263ca}\label{classApp_1_1Repository_1_1UserRepository_ae8178f5a4898bd01ef1cc699bc0263ca} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!recommandationsEte@{recommandationsEte}}
+\index{recommandationsEte@{recommandationsEte}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{recommandationsEte()}{recommandationsEte()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::recommandations\+Ete (\begin{DoxyParamCaption}\item[{array}]{\$donnees }\end{DoxyParamCaption})}
+
+Génère des recommandations d\textquotesingle{}action en fonction des conditions atmosphériques pour l\textquotesingle{}été. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,string$>$} & \$donnees Les données atmosphériques comme le CO2, la température et l\textquotesingle{}humidité. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$\vert$}{|}array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} Les recommandations d\textquotesingle{}action basées sur les données fournies. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00070}{70}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \$co2\_inf\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ <\ 400;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \$co2\_sup\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ >\ 1000;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \$temp\_inf\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ <\ 24;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \$temp\_sup\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ >\ 28;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \$hum\_inf\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ <\ 40;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \$hum\_sup\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ >\ 70;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définition\ des\ ensembles\ d'actions\ numérotées}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \$actions1\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX\_VOLETS,\ \$this-\/>ETEINDRE\_CHAUFFAGE];}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \$actions2\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \$actions3\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ETEINDRE\_CHAUFFAGE,\ \$this-\/>ETEINDRE\_VENTILATEURS];}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \$actions4\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX\_VOLETS,\ \$this-\/>ETEINDRE\_CHAUFFAGE];}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \$actions5\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \$actions6\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ETEINDRE\_VENTILATEURS];}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \$actions7\ =\ [\$this-\/>OUVRIR\_PORTES,\ \$this-\/>FERMER\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX\_VOLETS,\ \$this-\/>ETEINDRE\_CHAUFFAGE];}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \$actions8\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES];}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \$actions9\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \$actions10\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ETEINDRE\_CHAUFFAGE,\ \$this-\/>ETEINDRE\_VENTILATEURS];}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \$actions11\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \$actions12\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES];}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Application\ des\ conditions}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé,\ la\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions1];}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé,\ la\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions1];}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé,\ la\ température\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions2];}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé,\ la\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ faibles."{}},\ \$actions3];}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible,\ la\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions4];}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible,\ la\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions4];}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible,\ la\ température\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions5];}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2,\ la\ température\ et\ le\ taux\ d'humidité\ sont\ tous\ trop\ faibles."{}},\ \$actions6];}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ élevés."{}},\ \$actions1];}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé\ et\ la\ température\ est\ trop\ élevée."{}},\ \$actions1];}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions2];}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ et\ le\ taux\ d'humidité\ sont\ trop\ élevés."{}},\ \$actions2];}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions3];}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible\ et\ la\ température\ est\ trop\ élevée."{}},\ \$actions4];}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ et\ le\ taux\ d'humidité\ sont\ trop\ faibles."{}},\ \$actions6];}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ élevée\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions7];}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé\ et\ la\ température\ est\ trop\ faible."{}},\ \$actions8];}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions9];}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible\ et\ le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions10];}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ et\ la\ température\ sont\ trop\ faibles."{}},\ \$actions11];}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ élevée."{}},\ \$actions1];}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_sup)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ d'humidité\ est\ trop\ élevé."{}},\ \$actions2];}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf)\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}La\ température\ est\ trop\ faible."{}},\ \$actions8];}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ élevé."{}},\ \$actions8];}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_inf)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ d'humidité\ est\ trop\ faible."{}},\ \$actions10];}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Le\ taux\ de\ CO2\ est\ trop\ faible."{}},\ \$actions12];}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{'Bonne\ ambiance'},\ \textcolor{stringliteral}{'Pas\ de\ recommandations\ pour\ la\ salle'}];}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_ab7ddcef575b35fde9a7b8511f33df33a}\label{classApp_1_1Repository_1_1UserRepository_ab7ddcef575b35fde9a7b8511f33df33a} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!recommandationsHiver@{recommandationsHiver}}
+\index{recommandationsHiver@{recommandationsHiver}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{recommandationsHiver()}{recommandationsHiver()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::recommandations\+Hiver (\begin{DoxyParamCaption}\item[{array}]{\$donnees }\end{DoxyParamCaption})}
+
+Génère des recommandations d\textquotesingle{}action en fonction des conditions atmosphériques pour l\textquotesingle{}hiver. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,string$>$} & \$donnees Les données atmosphériques comme le CO2, la température et l\textquotesingle{}humidité. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$\vert$}{|}array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} Les recommandations d\textquotesingle{}action basées sur les données fournies. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00288}{288}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00289\ \ \ \ \ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \$co2\_inf\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ <\ 400;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \$co2\_sup\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ >\ 1000;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \$temp\_inf\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ <\ 18;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \$temp\_sup\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ >\ 22;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \$hum\_inf\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ <\ 40;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \$hum\_sup\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ >\ 70;}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \$actions1\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ETEINDRE\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \$actions2\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \$actions3\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ETEINDRE\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \$actions4\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \$actions5\ =\ [\$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \$actions6\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ETEINDRE\_CHAUFFAGE];}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \$actions7\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES];}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \$actions8\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \$actions9\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ETEINDRE\_CHAUFFAGE];}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \$actions10\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \$actions12\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES];}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \$actions14\ =\ [\$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \$actions15\ =\ [\$this-\/>ETEINDRE\_CHAUFFAGE,\ \$this-\/>OUVRIR\_PORTES];}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2,\ température\ et\ humidité\ sont\ tous\ supérieurs\ aux\ seuils."{}},\ \$actions1];}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ température\ sont\ supérieurs\ aux\ seuils,\ mais\ l'humidité\ est\ inférieure\ au\ seuil."{}},\ \$actions1];}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ humidité\ sont\ supérieurs\ aux\ seuils,\ mais\ la\ température\ est\ inférieure\ au\ seuil."{}},\ \$actions2];}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ supérieur\ au\ seuil,\ mais\ la\ température\ et\ l'humidité\ sont\ inférieures\ aux\ seuils."{}},\ \$actions2];}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ et\ humidité\ sont\ supérieures\ aux\ seuils,\ mais\ CO2\ est\ inférieur\ au\ seuil."{}},\ \$actions3];}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ supérieure\ au\ seuil,\ mais\ CO2\ et\ humidité\ sont\ inférieurs\ aux\ seuils."{}},\ \$actions3];}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ supérieure\ au\ seuil,\ mais\ CO2\ et\ température\ sont\ inférieurs\ aux\ seuils."{}},\ \$actions4];}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2,\ température\ et\ humidité\ sont\ tous\ inférieurs\ aux\ seuils."{}},\ \$actions4];}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ et\ humidité\ sont\ supérieures\ aux\ seuils."{}},\ \$actions1];}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ supérieure\ au\ seuil,\ mais\ humidité\ est\ inférieure\ au\ seuil."{}},\ \$actions1];}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ supérieure\ au\ seuil,\ mais\ température\ est\ inférieure\ au\ seuil."{}},\ \$actions5];}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ et\ humidité\ sont\ inférieures\ aux\ seuils."{}},\ \$actions5];}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ humidité\ sont\ supérieurs\ aux\ seuils."{}},\ \$actions2];}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ supérieur\ au\ seuil,\ mais\ humidité\ est\ inférieure\ au\ seuil."{}},\ \$actions2];}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ température\ sont\ supérieurs\ aux\ seuils."{}},\ \$actions6];}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ supérieur\ au\ seuil,\ mais\ température\ est\ inférieure\ au\ seuil."{}},\ \$actions7];}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ supérieure\ au\ seuil,\ mais\ CO2\ est\ inférieur\ au\ seuil."{}},\ \$actions8];}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ humidité\ sont\ inférieurs\ aux\ seuils."{}},\ \$actions8];}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ supérieure\ au\ seuil,\ mais\ CO2\ est\ inférieur\ au\ seuil."{}},\ \$actions9];}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ température\ sont\ inférieurs\ aux\ seuils."{}},\ \$actions10];}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup)\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ supérieure\ au\ seuil."{}},\ \$actions15];}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_sup)\ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ supérieure\ au\ seuil."{}},\ \$actions2];}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_inf)\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ inférieure\ au\ seuil."{}},\ \$actions2];}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup)\ \{}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ supérieur\ au\ seuil."{}},\ \$actions7];}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf)\ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ inférieure\ au\ seuil."{}},\ \$actions14];}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf)\ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ inférieur\ au\ seuil."{}},\ \$actions12];}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{'Bonne\ ambiance'},\ \textcolor{stringliteral}{'Pas\ de\ recommandations\ pour\ la\ salle'}];}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a92808058c6f09c661a7febef1b8c62dd}\label{classApp_1_1Repository_1_1UserRepository_a92808058c6f09c661a7febef1b8c62dd} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!recommandationsPrintemps@{recommandationsPrintemps}}
+\index{recommandationsPrintemps@{recommandationsPrintemps}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{recommandationsPrintemps()}{recommandationsPrintemps()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::recommandations\+Printemps (\begin{DoxyParamCaption}\item[{array}]{\$donnees }\end{DoxyParamCaption})}
+
+Génère des recommandations d\textquotesingle{}action en fonction des conditions atmosphériques pour le printemps. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,string$>$} & \$donnees Les données atmosphériques comme le CO2, la température et l\textquotesingle{}humidité. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$\vert$}{|}array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} Les recommandations d\textquotesingle{}action basées sur les données fournies. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00398}{398}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00399\ \ \ \ \ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \$co2\_inf\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ <\ 400;}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \$co2\_sup\ =\ \$donnees[\textcolor{stringliteral}{'co2'}]\ >\ 1000;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \$temp\_inf\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ <\ 20;}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \$temp\_sup\ =\ \$donnees[\textcolor{stringliteral}{'temp'}]\ >\ 24;}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \$hum\_inf\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ <\ 40;}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \$hum\_sup\ =\ \$donnees[\textcolor{stringliteral}{'hum'}]\ >\ 70;}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \$actions1\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX\_VOLETS];}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \$actions2\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \$actions3\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>FERMER\_RIDEAUX\_VOLETS];}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \$actions4\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS,\ \$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \$actions5\ =\ [\$this-\/>ALLUMER\_CHAUFFAGE,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \$actions6\ =\ [\$this-\/>OUVRIR\_PORTES\_FENETRES];}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \$actions7\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_VENTILATEURS];}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \$actions8\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES,\ \$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \$actions9\ =\ [\$this-\/>FERMER\_PORTES\_FENETRES];}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \$actions10\ =\ [\$this-\/>ALLUMER\_CHAUFFAGE];}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2,\ température,\ et\ humidité\ sont\ tous\ trop\ élevés."{}},\ \$actions1];}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ température\ sont\ trop\ élevés,\ humidité\ trop\ faible."{}},\ \$actions1];}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ humidité\ sont\ trop\ élevés,\ température\ trop\ faible."{}},\ \$actions2];}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ trop\ élevé,\ température\ et\ humidité\ sont\ trop\ faibles."{}},\ \$actions2];}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ et\ humidité\ sont\ trop\ élevées,\ CO2\ trop\ faible."{}},\ \$actions3];}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ trop\ élevée,\ CO2\ et\ humidité\ sont\ trop\ faibles."{}},\ \$actions3];}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ trop\ élevée,\ CO2\ et\ température\ sont\ trop\ faibles."{}},\ \$actions4];}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2,\ température,\ et\ humidité\ sont\ tous\ trop\ faibles."{}},\ \$actions4];}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ et\ humidité\ sont\ trop\ élevées."{}},\ \$actions1];}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ trop\ élevée,\ humidité\ trop\ faible."{}},\ \$actions1];}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ température\ sont\ trop\ élevés."{}},\ \$actions1];}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ humidité\ sont\ trop\ élevés."{}},\ \$actions2];}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ trop\ élevé,\ humidité\ trop\ faible."{}},\ \$actions2];}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_sup)\ \{}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ trop\ élevée,\ CO2\ trop\ faible."{}},\ \$actions3];}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ trop\ faible,\ humidité\ trop\ élevée."{}},\ \$actions5];}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ et\ humidité\ sont\ trop\ faibles."{}},\ \$actions5];}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ trop\ élevé,\ température\ trop\ faible."{}},\ \$actions6];}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_sup)\ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ trop\ élevée,\ CO2\ trop\ faible."{}},\ \$actions7];}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$hum\_inf)\ \{}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ humidité\ sont\ trop\ faibles."{}},\ \$actions7];}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf\ and\ \$temp\_inf)\ \{}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ et\ température\ sont\ trop\ faibles."{}},\ \$actions8];}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_sup)\ \{}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ trop\ élevée."{}},\ \$actions1];}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_sup)\ \{}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ trop\ élevée."{}},\ \$actions2];}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hum\_inf)\ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Humidité\ est\ trop\ faible."{}},\ \$actions2];}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_sup)\ \{}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ trop\ élevé."{}},\ \$actions6];}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$temp\_inf)\ \{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}Température\ est\ trop\ faible."{}},\ \$actions9];}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$co2\_inf)\ \{}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{"{}CO2\ est\ trop\ faible."{}},\ \$actions10];}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [\textcolor{stringliteral}{'Bonne\ ambiance'},\ \textcolor{stringliteral}{'Pas\ de\ recommandations\ pour\ la\ salle'}];}
+\DoxyCodeLine{00499\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a4c70c400923fac7d576952801d036a69}\label{classApp_1_1Repository_1_1UserRepository_a4c70c400923fac7d576952801d036a69} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!recommandationsSalles@{recommandationsSalles}}
+\index{recommandationsSalles@{recommandationsSalles}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{recommandationsSalles()}{recommandationsSalles()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::recommandations\+Salles (\begin{DoxyParamCaption}\item[{array}]{\$donnees,  }\item[{string}]{\$date }\end{DoxyParamCaption})}
+
+Fournit des recommandations pour les salles en fonction de la saison et des données atmosphériques. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$string,string$>$} & \$donnees Les données atmosphériques. \\
+\hline
+string & {\em \$date} & La date actuelle pour déterminer la saison. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$\vert$}{|}array\texorpdfstring{$<$}{<}int, string\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} Les recommandations d\textquotesingle{}action pour la saison donnée. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00517}{517}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00518\ \ \ \ \ \{}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \$anneeActuelle\ =\ date(\textcolor{stringliteral}{"{}Y"{}});}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\$date\ >=\ (\$anneeActuelle\ -\/\ 1)\ .\ \textcolor{stringliteral}{'-\/12-\/22\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/03-\/20\ 00:00:00'})\ ||}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/12-\/22\ 00:00:00'}\ and\ \$date\ <=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/12-\/31\ 23:59:59'}))\ \{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_ab7ddcef575b35fde9a7b8511f33df33a}{recommandationsHiver}}(\$donnees);}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/03-\/20\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/06-\/20\ 00:00:00'})\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a92808058c6f09c661a7febef1b8c62dd}{recommandationsPrintemps}}(\$donnees);}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/06-\/20\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/09-\/23\ 00:00:00'})\ \{}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_ae8178f5a4898bd01ef1cc699bc0263ca}{recommandationsEte}}(\$donnees);}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$date\ >=\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/09-\/23\ 00:00:00'}\ and\ \$date\ <\ \$anneeActuelle\ .\ \textcolor{stringliteral}{'-\/12-\/22\ 00:00:00'})\ \{}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1UserRepository_a59525a63539ca1b1b7677b646fcf7549}{recommandationsAutomne}}(\$donnees);}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [];}
+\DoxyCodeLine{00534\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1UserRepository_a2049a93ba06a29d7664a1f5ca53969af}\label{classApp_1_1Repository_1_1UserRepository_a2049a93ba06a29d7664a1f5ca53969af} 
+\index{App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}!upgradePassword@{upgradePassword}}
+\index{upgradePassword@{upgradePassword}!App\textbackslash{}Repository\textbackslash{}UserRepository@{App\textbackslash{}Repository\textbackslash{}UserRepository}}
+\doxysubsubsection{\texorpdfstring{upgradePassword()}{upgradePassword()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+User\+Repository\+::upgrade\+Password (\begin{DoxyParamCaption}\item[{Password\+Authenticated\+User\+Interface}]{\$user,  }\item[{string}]{\$new\+Hashed\+Password }\end{DoxyParamCaption})}
+
+Utilisé pour mettre à jour (rehash) le mot de passe de l\textquotesingle{}utilisateur automatiquement avec le temps. 
+\begin{DoxyParams}[1]{Parameters}
+Password\+Authenticated\+User\+Interface & {\em \$user} & L\textquotesingle{}utilisateur dont le mot de passe doit être mis à jour. \\
+\hline
+string & {\em \$new\+Hashed\+Password} & Le nouveau mot de passe hashé. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Unsupported\+User\+Exception} & Si l\textquotesingle{}instance de l\textquotesingle{}utilisateur n\textquotesingle{}est pas supportée. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UserRepository_8php_source_l00054}{54}} of file \mbox{\hyperlink{UserRepository_8php_source}{User\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$user\ instanceof\ User)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ UnsupportedUserException(sprintf(\textcolor{stringliteral}{'Instances\ of\ "{}\%s"{}\ are\ not\ supported.'},\ \$user::class));}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\$newHashedPassword);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>persist(\$user);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>flush();}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+User\+Repository.\+php\end{DoxyCompactItemize}

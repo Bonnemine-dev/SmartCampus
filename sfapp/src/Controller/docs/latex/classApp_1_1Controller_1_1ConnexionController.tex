@@ -1,0 +1,91 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}Connexion\+Controller Class Reference}
+\hypertarget{classApp_1_1Controller_1_1ConnexionController}{}\label{classApp_1_1Controller_1_1ConnexionController}\index{App\textbackslash{}Controller\textbackslash{}ConnexionController@{App\textbackslash{}Controller\textbackslash{}ConnexionController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}Connexion\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1ConnexionController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ConnexionController_ac655c0e2733b3e47323d381deae7c876}{index}} (Authentication\+Utils \$authentication\+Utils)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ConnexionController_a1b485c26c0379999d186e47f1822e256}{logout}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour gérer les actions de connexion et de déconnexion des utilisateurs. 
+
+Definition at line \mbox{\hyperlink{ConnexionController_8php_source_l00015}{15}} of file \mbox{\hyperlink{ConnexionController_8php_source}{Connexion\+Controller.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1ConnexionController_ac655c0e2733b3e47323d381deae7c876}\label{classApp_1_1Controller_1_1ConnexionController_ac655c0e2733b3e47323d381deae7c876} 
+\index{App\textbackslash{}Controller\textbackslash{}ConnexionController@{App\textbackslash{}Controller\textbackslash{}ConnexionController}!index@{index}}
+\index{index@{index}!App\textbackslash{}Controller\textbackslash{}ConnexionController@{App\textbackslash{}Controller\textbackslash{}ConnexionController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Connexion\+Controller\+::index (\begin{DoxyParamCaption}\item[{Authentication\+Utils}]{\$authentication\+Utils }\end{DoxyParamCaption})}
+
+Gère la page de connexion de l\textquotesingle{}application. Récupère les éventuelles erreurs de connexion et affiche la vue de connexion. 
+\begin{DoxyParams}[1]{Parameters}
+Authentication\+Utils & {\em \$authentication\+Utils} & Utilitaire pour gérer l\textquotesingle{}authentification. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue de la page de connexion. @\+Route(\textquotesingle{}/connexion\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+connexion\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ConnexionController_8php_source_l00025}{25}} of file \mbox{\hyperlink{ConnexionController_8php_source}{Connexion\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00026\ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ login\ error\ if\ there\ is\ one}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \$error\ =\ \$authenticationUtils-\/>getLastAuthenticationError();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$error)\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{'Connexion\ impossible\ :\ mot\ de\ passe\ incorrects'});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ last\ username\ entered\ by\ the\ user}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \$lastUsername\ =\ \$authenticationUtils-\/>getLastUsername();}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'connexion/index.html.twig'},\ [}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'controller\_name'}\ =>\ \textcolor{stringliteral}{'LoginController'},}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'last\_username'}\ =>\ \$lastUsername,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'error'}\ =>\ \$error,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1ConnexionController_a1b485c26c0379999d186e47f1822e256}\label{classApp_1_1Controller_1_1ConnexionController_a1b485c26c0379999d186e47f1822e256} 
+\index{App\textbackslash{}Controller\textbackslash{}ConnexionController@{App\textbackslash{}Controller\textbackslash{}ConnexionController}!logout@{logout}}
+\index{logout@{logout}!App\textbackslash{}Controller\textbackslash{}ConnexionController@{App\textbackslash{}Controller\textbackslash{}ConnexionController}}
+\doxysubsubsection{\texorpdfstring{logout()}{logout()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Connexion\+Controller\+::logout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gère la déconnexion de l\textquotesingle{}utilisateur. Le code de cette méthode n\textquotesingle{}est jamais exécuté car Symfony redirige avant son atteinte. @\+Route(\textquotesingle{}/logout\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+deconnexion\textquotesingle{}) \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ConnexionController_8php_source_l00051}{51}} of file \mbox{\hyperlink{ConnexionController_8php_source}{Connexion\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ code\ is\ never\ executed,\ Symfony\ redirects\ before\ reaching\ this\ method}}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Connexion\+Controller.\+php\end{DoxyCompactItemize}

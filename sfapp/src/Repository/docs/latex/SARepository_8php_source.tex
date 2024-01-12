@@ -1,0 +1,264 @@
+\doxysection{SARepository.\+php}
+\hypertarget{SARepository_8php_source}{}\label{SARepository_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Repository;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00005}00005\ use\ App\(\backslash\)Config\(\backslash\)EtatExperimentation;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00006}00006\ use\ App\(\backslash\)Config\(\backslash\)EtatSA;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00007}00007\ use\ App\(\backslash\)Entity\(\backslash\)Experimentation;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00008}00008\ use\ App\(\backslash\)Entity\(\backslash\)SA;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00009}00009\ use\ Doctrine\(\backslash\)Bundle\(\backslash\)DoctrineBundle\(\backslash\)Repository\(\backslash\)ServiceEntityRepository;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00010}00010\ use\ Doctrine\(\backslash\)ORM\(\backslash\)NonUniqueResultException;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00011}00011\ use\ Doctrine\(\backslash\)Persistence\(\backslash\)ManagerRegistry;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00023}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository}{00023}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository}{SARepository}}\ \textcolor{keyword}{extends}\ ServiceEntityRepository}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00024}00024\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00030}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a19edd7010a766357af3f82d4dcfd03ce}{00030}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a19edd7010a766357af3f82d4dcfd03ce}{\_\_construct}}(ManagerRegistry\ \$registry)}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00031}00031\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ SA::class);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00033}00033\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00039}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a627c48c1362785706d60fd86cfbd2dfe}{00039}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a627c48c1362785706d60fd86cfbd2dfe}{compteSASansExperimentation}}():\ int}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Requête\ pour\ compter\ les\ SA\ sans\ expérimentation.}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'count(sa.id)'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'sa.disponible\ =\ 1'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getSingleScalarResult();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00053}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a70f731d8af704e3efa505a079255ed3c}{00053}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a70f731d8af704e3efa505a079255ed3c}{saNonUtiliser}}():\ ?sa}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Requête\ pour\ sélectionner\ un\ SA\ disponible.}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \$sa\ =\ \$this-\/>findOneBy([\textcolor{stringliteral}{'disponible'}\ =>\ 1]);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$sa;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00066}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a801c7dbf106a9f1a800dc4ad2b35499e}{00066}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a801c7dbf106a9f1a800dc4ad2b35499e}{suppressionExp}}(SA\ \$sa):\ void}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00067}00067\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mettre\ à\ jour\ l'état\ du\ SA.}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00070}00070\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00088}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2a7adda15cbf723b9b6c7a693d21fedc}{00088}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2a7adda15cbf723b9b6c7a693d21fedc}{trierSA}}(array\ \$resultat):\ array}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00089}00089\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$resultat\ as\ \&\$exp)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp[\textcolor{stringliteral}{'exp\_etat'}]\ ==\ EtatExperimentation::retiree)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$exp[\textcolor{stringliteral}{'salle\_nom'}]\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_values(\$resultat);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00097}00097\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$resultat);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\$i\ =\ 0;\$i<\$len;\$i++)\{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \$nom\_sa\ =\ \$resultat[\$i][\textcolor{stringliteral}{'sa\_nom'}];}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \$nombre\_occurrences\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$resultat\ as\ \$element)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$element[\textcolor{stringliteral}{'sa\_nom'}]\ ===\ \$nom\_sa)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$nombre\_occurrences++;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$resultat[\$i][\textcolor{stringliteral}{'exp\_etat'}]\ ==\ EtatExperimentation::retiree\ and\ \$resultat[\$i][\textcolor{stringliteral}{'salle\_nom'}]\ ==\ \textcolor{keyword}{null}\ and\ \$nombre\_occurrences\ >=\ 2)\{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$resultat[\$i]);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00123}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2e1d2cf6f7c95e62ef70727aec1b6216}{00123}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2e1d2cf6f7c95e62ef70727aec1b6216}{toutLesSA}}():\ array}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00124}00124\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00125}00125\ \ \ \ \ \ \ \ \ \$entityManager\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$entityManager-\/>createQueryBuilder();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00128}00128\ \ \ \ \ \ \ \ \ \$queryBuilder}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sa.nom\ as\ sa\_nom'},}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nom\ as\ salle\_nom'},}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sa.etat\ as\ sa\_etat'},}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.etat\ as\ exp\_etat'}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>from(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'sa.id\ =\ experimentation.SA'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Salle'},\ \textcolor{stringliteral}{'salle'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'experimentation.Salles\ =\ salle.id'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>orderBy(\textcolor{stringliteral}{'sa.nom'},\ \textcolor{stringliteral}{'ASC'});}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécuter\ la\ requête}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00141}00141\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00143}00143\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2a7adda15cbf723b9b6c7a693d21fedc}{trierSA}}(\$resultat);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retourner\ true\ si\ une\ expérimentation\ est\ trouvée,\ sinon\ false}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00160}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_aa3a7b3b4f3ecf780bbfa44293ffd9354}{00160}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_aa3a7b3b4f3ecf780bbfa44293ffd9354}{filtrerSAGestionSA}}(array\ \$etat\ =\ \textcolor{keyword}{null},\ array\ \$localisation\ =\ \textcolor{keyword}{null}):\ array}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00161}00161\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00162}00162\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2e1d2cf6f7c95e62ef70727aec1b6216}{toutLesSA}}();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$etat)\ \&\&\ \$etat\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \$etatsFiltres\ =\ array\_map(\textcolor{keyword}{function}\ (\$one)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\$one)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EtatSA::eteint;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EtatSA::marche;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EtatSA::probleme;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \},\ \$etat);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp\ =\ array\_filter(\$exp,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$etatsFiltres)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in\_array(\$item[\textcolor{stringliteral}{'sa\_etat'}],\ \$etatsFiltres);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00181}00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00183}00183\ \ \ \ \ \ \ \ \ \$exp\ =\ array\_values(\$exp);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count(\$localisation)\ ===\ 1\ \&\&\ \$localisation\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$localisation[0]\ ===\ \textcolor{stringliteral}{'salle'})\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ \$localisation\ est\ true,\ ajouter\ la\ condition\ pour\ salle.nom\ IS\ NOT\ NULL}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$len\ =\ count(\$exp);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\$i\ =\ 0;\$i<\$len;\$i++)\{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$exp[\$i][\textcolor{stringliteral}{'exp\_etat'}]\ ==\ EtatExperimentation::retiree\ or\ \$exp[\$i][\textcolor{stringliteral}{'salle\_nom'}]\ ==\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$exp[\$i]);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$localisation[0]\ ===\ \textcolor{stringliteral}{'stock'})\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ \$localisation\ est\ false,\ ajouter\ la\ condition\ pour\ salle.nom\ IS\ NULL}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$len\ =\ count(\$exp);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\$i\ =\ 0;\$i<\$len;\$i++)\{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$exp[\$i][\textcolor{stringliteral}{'exp\_etat'}]\ ==\ EtatExperimentation::installee\ or\ \$exp[\$i][\textcolor{stringliteral}{'exp\_etat'}]\ ==\ EtatExperimentation::demandeInstallation\ or\ \$exp[\$i][\textcolor{stringliteral}{'exp\_etat'}]\ ==\ EtatExperimentation::demandeRetrait\ or\ \$exp[\$i][\textcolor{stringliteral}{'sa\_etat'}]\ !=\ EtatSA::eteint)\{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$exp[\$i]);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00203}00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$exp;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00206}00206\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00218}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a3ce83eb2e12e9eb8d383cbc8a09b7965}{00218}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a3ce83eb2e12e9eb8d383cbc8a09b7965}{rechercheSA}}(\textcolor{keywordtype}{string}\ \$contient\_ce\_string\ =\ \textcolor{keyword}{null}):\ array}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00219}00219\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00220}00220\ \ \ \ \ \ \ \ \ \$entityManager\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00221}00221\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$entityManager-\/>createQueryBuilder();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00223}00223\ \ \ \ \ \ \ \ \ \$queryBuilder-\/>select(\textcolor{stringliteral}{'sa.nom\ as\ sa\_nom'},\ \textcolor{stringliteral}{'salle.nom\ as\ salle\_nom'},\ \textcolor{stringliteral}{'sa.etat\ as\ sa\_etat'},\ \textcolor{stringliteral}{'experimentation.etat\ as\ exp\_etat'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>from(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'sa.id\ =\ experimentation.SA'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Salle'},\ \textcolor{stringliteral}{'salle'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'experimentation.Salles\ =\ salle.id'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>expr()-\/>orX(}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>expr()-\/>like(\textcolor{stringliteral}{'sa.nom'},\ \textcolor{stringliteral}{':contient\_ce\_string'}),}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>expr()-\/>like(\textcolor{stringliteral}{'salle.nom'},\ \textcolor{stringliteral}{':contient\_ce\_string'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'contient\_ce\_string'},\ \textcolor{charliteral}{'\%'}\ .\ \$contient\_ce\_string\ .\ \textcolor{charliteral}{'\%'});}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00235}00235\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00236}00236\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a2a7adda15cbf723b9b6c7a693d21fedc}{trierSA}}(\$resultat);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00239}00239\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00246}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_aeca96b57b666f992593f65d4179458b2}{00246}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_aeca96b57b666f992593f65d4179458b2}{ajoutSA}}(\textcolor{keywordtype}{string}\ \$nom\ =\ \textcolor{keyword}{null}):\ void}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00247}00247\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00248}00248\ \ \ \ \ \ \ \ \ \$sa\ =\ \textcolor{keyword}{new}\ SA();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00249}00249\ \ \ \ \ \ \ \ \ \$sa-\/>setEtat(EtatSA::eteint);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00250}00250\ \ \ \ \ \ \ \ \ \$sa-\/>setNom(\$nom);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00251}00251\ \ \ \ \ \ \ \ \ \$sa-\/>setNumero(0);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00252}00252\ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Obtenez\ le\ gestionnaire\ d'entités\ et\ persistez\ l'entité}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00255}00255\ \ \ \ \ \ \ \ \ \$entityManager\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00256}00256\ \ \ \ \ \ \ \ \ \$entityManager-\/>persist(\$sa);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00257}00257\ \ \ \ \ \ \ \ \ \$entityManager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00265}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_af1f27e603657272f9de148cc117dd01f}{00265}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_af1f27e603657272f9de148cc117dd01f}{existeDeja}}(\textcolor{keywordtype}{string}\ \$nom\ =\ \textcolor{keyword}{null}):\ ?SA}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00266}00266\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nom]);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00268}00268\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00275}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_ad93bff6f868bbd978e5a2edc30b833ad}{00275}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_ad93bff6f868bbd978e5a2edc30b833ad}{supprimerSA}}(\textcolor{keywordtype}{string}\ \$nomsa):\ bool}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00276}00276\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00277}00277\ \ \ \ \ \ \ \ \ \$sa\ =\ \$this-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa]);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00278}00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$sa)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \$entityManager\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Supprimer\ l'objet\ SA}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \$entityManager-\/>remove(\$sa);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécuter\ les\ changements\ dans\ la\ base\ de\ données}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \$entityManager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retourner\ true\ pour\ indiquer\ que\ la\ suppression\ a\ réussi}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00286}00286\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00288}00288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00289}00289\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00297}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a864e06189eddcaa6061ccaa8ab4ad1bf}{00297}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a864e06189eddcaa6061ccaa8ab4ad1bf}{changerEtatSA}}(\textcolor{keywordtype}{string}\ \$nomsalle,\ EtatSA\ \$etat)\ :\ void}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00298}00298\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00299}00299\ \ \ \ \ \ \ \ \ \$entityManager\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00300}00300\ \ \ \ \ \ \ \ \ \$experimentationsRepository\ =\ \$entityManager-\/>getRepository(Experimentation::class);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rechercher\ toutes\ les\ expérimentations\ liées\ à\ la\ salle\ avec\ le\ nom\ donné}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00303}00303\ \ \ \ \ \ \ \ \ \$experimentations\ =\ \$experimentationsRepository-\/>trouveExperimentationsParNomSalle(\$nomsalle);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00305}00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$experimentations\ as\ \$experimentation)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa\ =\ \$experimentation-\/>getSA();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$sa\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setEtat(\$etat);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$entityManager-\/>persist(\$sa);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00312}00312\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Appliquer\ les\ changements\ dans\ la\ base\ de\ données}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00315}00315\ \ \ \ \ \ \ \ \ \$entityManager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00316}00316\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00323}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_aecb670e0cbff773c408b1d6f63ea0a03}{00323}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_aecb670e0cbff773c408b1d6f63ea0a03}{salle\_associe\_sa}}(\textcolor{keywordtype}{string}\ \$nomsa):\ ?array}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00324}00324\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00325}00325\ \ \ \ \ \ \ \ \ \$entityManager\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00326}00326\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$entityManager-\/>createQueryBuilder();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00328}00328\ \ \ \ \ \ \ \ \ \$queryBuilder-\/>select(\textcolor{stringliteral}{'salle.nom'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>from(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Salle'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.id\ =\ experimentation.Salles'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'experimentation.SA\ =\ sa.id'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'sa.nom\ =\ :nomsa'})}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\$queryBuilder-\/>expr()-\/>in(\textcolor{stringliteral}{'experimentation.etat'},\ [1,\ 2]))}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomsa'},\ \$nomsa);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00336}00336\ \ \ \ \ \ \ \ \ \$result\ =\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00338}00338\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ le\ résultat\ est\ vide,\ retourner\ null}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00339}00339\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (empty(\$result))\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00341}00341\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00343}00343\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sinon,\ retourner\ le\ premier\ élément\ du\ résultat\ sous\ forme\ de\ tableau}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00344}00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$result;}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00345}00345\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00352}\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a99f77f946dd0d327313783f9788b3f2c}{00352}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a99f77f946dd0d327313783f9788b3f2c}{sa\_eteint\_probleme}}(array\ \$listeSallesAvecDonnees):\ void\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00353}00353\ \ \ \ \ \ \ \ \ foreach\ (\$listeSallesAvecDonnees\ as\ \$experimentation)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentation[\textcolor{stringliteral}{'dateCapture'}]\ <\ date(\textcolor{stringliteral}{'Y-\/m-\/d\ H:i:s'},\ strtotime(\textcolor{stringliteral}{'-\/10\ minutes'})))\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a864e06189eddcaa6061ccaa8ab4ad1bf}{changerEtatSA}}(\$experimentation[\textcolor{stringliteral}{'localisation'}],\ EtatSA::eteint);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ elseif\ (\$experimentation[\textcolor{stringliteral}{'co2'}]\ ==\ \textcolor{keyword}{null}\ or\ \$experimentation[\textcolor{stringliteral}{'temp'}]\ ==\ \textcolor{keyword}{null}\ or\ \$experimentation[\textcolor{stringliteral}{'hum'}]\ ==\ \textcolor{keyword}{null}\ or\ \$experimentation[\textcolor{stringliteral}{'co2'}]\ <\ 300\ or\ \$experimentation[\textcolor{stringliteral}{'co2'}]\ >\ 5000\ or\ \$experimentation[\textcolor{stringliteral}{'temp'}]\ <\ 0\ or\ \$experimentation[\textcolor{stringliteral}{'temp'}]\ >\ 50\ or\ \$experimentation[\textcolor{stringliteral}{'hum'}]\ <\ 0\ or\ \$experimentation[\textcolor{stringliteral}{'hum'}]\ >\ 100)\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a864e06189eddcaa6061ccaa8ab4ad1bf}{changerEtatSA}}(\$experimentation[\textcolor{stringliteral}{'localisation'}],\ EtatSA::probleme);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository_a864e06189eddcaa6061ccaa8ab4ad1bf}{changerEtatSA}}(\$experimentation[\textcolor{stringliteral}{'localisation'}],\ EtatSA::marche);}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00362}00362\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00363}00363\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SARepository_8php_source_l00364}00364\ \}}
+
+\end{DoxyCode}

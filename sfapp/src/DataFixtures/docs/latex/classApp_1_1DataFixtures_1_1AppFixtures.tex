@@ -1,0 +1,195 @@
+\doxysection{App\textbackslash{}Data\+Fixtures\textbackslash{}App\+Fixtures Class Reference}
+\hypertarget{classApp_1_1DataFixtures_1_1AppFixtures}{}\label{classApp_1_1DataFixtures_1_1AppFixtures}\index{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures@{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures}}
+Inheritance diagram for App\textbackslash{}Data\+Fixtures\textbackslash{}App\+Fixtures\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1DataFixtures_1_1AppFixtures}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures_a1f0d9ce04c4253e7b1bbed9edfc52be8}{\+\_\+\+\_\+construct}} (Salle\+Repository \$salle\+Repository, SARepository \$sa\+Repository)
+\item 
+\mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures_ae88495a48887828eef63b9ac8e264e54}{load}} (Object\+Manager \$manager)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe App\+Fixtures pour charger les données initiales dans la base de données. Cette classe utilise le bundle Doctrine\+Fixtures pour créer des données de test, notamment des bâtiments, des salles, des systèmes d\textquotesingle{}acquisitions, etc. 
+
+Definition at line \mbox{\hyperlink{AppFixtures_8php_source_l00024}{24}} of file \mbox{\hyperlink{AppFixtures_8php_source}{App\+Fixtures.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1DataFixtures_1_1AppFixtures_a1f0d9ce04c4253e7b1bbed9edfc52be8}\label{classApp_1_1DataFixtures_1_1AppFixtures_a1f0d9ce04c4253e7b1bbed9edfc52be8} 
+\index{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures@{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}DataFixtures\textbackslash{}AppFixtures@{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Data\+Fixtures\textbackslash{}\+App\+Fixtures\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{SARepository}]{\$sa\+Repository }\end{DoxyParamCaption})}
+
+Constructeur de la classe App\+Fixtures. Initialise le générateur Faker et les référentiels nécessaires.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Salle\+Repository & {\em \$salle\+Repository} & Référentiel pour les salles. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Référentiel pour les SA. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{AppFixtures_8php_source_l00052}{52}} of file \mbox{\hyperlink{AppFixtures_8php_source}{App\+Fixtures.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \$this-\/>faker\ =\ Factory::create(\textcolor{stringliteral}{'fr\_FR'});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \$this-\/>salleRepository\ =\ \$salleRepository;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \$this-\/>saRepository\ =\ \$saRepository;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1DataFixtures_1_1AppFixtures_ae88495a48887828eef63b9ac8e264e54}\label{classApp_1_1DataFixtures_1_1AppFixtures_ae88495a48887828eef63b9ac8e264e54} 
+\index{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures@{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures}!load@{load}}
+\index{load@{load}!App\textbackslash{}DataFixtures\textbackslash{}AppFixtures@{App\textbackslash{}DataFixtures\textbackslash{}AppFixtures}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Data\+Fixtures\textbackslash{}\+App\+Fixtures\+::load (\begin{DoxyParamCaption}\item[{Object\+Manager}]{\$manager }\end{DoxyParamCaption})}
+
+Méthode principale pour charger les données de test dans la base de données. Cette méthode crée des bâtiments, des salles, des SA, des utilisateurs, etc.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Object\+Manager & {\em \$manager} & Le gestionnaire d\textquotesingle{}entité Doctrine. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{AppFixtures_8php_source_l00065}{65}} of file \mbox{\hyperlink{AppFixtures_8php_source}{App\+Fixtures.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ d'un\ bâtiment\ avec\ des\ salles\ pour\ chaque\ étage\ et\ numéro\ de\ salle.}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \$batiment\ =\ \textcolor{keyword}{new}\ Batiment();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \$batiment-\/>setNom(\textcolor{charliteral}{'D'});}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \$batiment-\/>setDescription(\textcolor{stringliteral}{'Bâtiment\ D\ -\/\ Département\ informatique'});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$batiment);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$etage=0;\ \$etage\ <\ 4;\ \$etage++)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$numero=1;\ \$numero\ <\ 8;\ \$numero++)\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \textcolor{keyword}{new}\ Salle();}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setEtage(\$etage);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNumero(\$numero);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setOrientation(\$numero\%2==0?\textcolor{stringliteral}{'sud'}:\textcolor{stringliteral}{'nord'});}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbFenetres(\$this-\/>faker-\/>numberBetween(2,6));}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbOrdis(\$this-\/>faker-\/>randomElement([\textcolor{keyword}{true},\textcolor{keyword}{false}])?0:\$this-\/>faker-\/>numberBetween(10,20));}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setBatiment(\$batiment);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNom(\$batiment-\/>getNom().\$salle-\/>getEtage().\textcolor{charliteral}{'0'}.\$salle-\/>getNumero());}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$salle);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ de\ la\ salle\ D109}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \$salle\ =\ \textcolor{keyword}{new}\ Salle();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \$salle-\/>setEtage(1);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \$salle-\/>setNumero(9);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \$salle-\/>setOrientation(\textcolor{stringliteral}{'sud'});}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \$salle-\/>setNbFenetres(2);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \$salle-\/>setNbOrdis(0);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \$salle-\/>setBatiment(\$batiment);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \$salle-\/>setNom(\$batiment-\/>getNom().\$salle-\/>getEtage().\textcolor{charliteral}{'0'}.\$salle-\/>getNumero());}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$salle);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ du\ batiment\ C\ et\ de\ ses\ salles\ associées}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \$batiment\ =\ \textcolor{keyword}{new}\ Batiment();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \$batiment-\/>setNom(\textcolor{charliteral}{'C'});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \$batiment-\/>setDescription(\textcolor{stringliteral}{'Bâtiment\ C\ -\/\ Département\ réseaux\ télécoms'});}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$batiment);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$etage=0;\ \$etage\ <\ 4;\ \$etage++)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$numero=1;\ \$numero\ <\ 8;\ \$numero++)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \textcolor{keyword}{new}\ Salle();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setEtage(\$etage);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNumero(\$numero);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setOrientation(\$numero\%2==0?\textcolor{stringliteral}{'sud'}:\textcolor{stringliteral}{'nord'});}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbFenetres(\$this-\/>faker-\/>numberBetween(2,6));}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbOrdis(\$this-\/>faker-\/>randomElement([\textcolor{keyword}{true},\textcolor{keyword}{false}])?0:\$this-\/>faker-\/>numberBetween(10,20));}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setBatiment(\$batiment);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNom(\$batiment-\/>getNom().\$salle-\/>getEtage().\textcolor{charliteral}{'0'}.\$salle-\/>getNumero());}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$salle);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ de\ 18\ systèmes\ d'acquisitions\ (SA)\ avec\ des\ numéros\ générés\ aléatoirement.}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$i=1;\ \$i\ <=\ 18;\ \$i++)\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa\ =\ \textcolor{keyword}{new}\ SA();}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setEtat(EtatSA::eteint);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{true});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \$number\ =\ sprintf(\textcolor{stringliteral}{'\%03d'},\ \$i);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setNumero(\$i);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setNom(\textcolor{stringliteral}{'ESP-\/'}.\ \$number);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$sa);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécution\ des\ opérations\ d'écriture\ dans\ la\ base\ de\ données.}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Affichage\ du\ nombre\ total\ de\ salles\ générées.}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \$salles\ =\ \$manager-\/>getRepository(Salle::class)-\/>findAll();}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Nombre\ total\ de\ salles\ :\ "{}}\ .\ count(\$salles)\ .\ PHP\_EOL;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Affichage\ du\ nombre\ total\ de\ SA\ générées.}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \$sas\ =\ \$manager-\/>getRepository(SA::class)-\/>findAll();}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Nombre\ total\ de\ SA\ :\ "{}}\ .\ count(\$sas)\ .\ PHP\_EOL;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ 17\ expérimentations\ avec\ des\ dates\ de\ demande\ et\ d'installation\ aléatoires.}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \$expArray\ =\ [\ [\textcolor{stringliteral}{"{}D205"{}},\ \textcolor{stringliteral}{"{}ESP-\/001"{}}],\ [\textcolor{stringliteral}{"{}D206"{}},\ \textcolor{stringliteral}{"{}ESP-\/002"{}}],\ [\textcolor{stringliteral}{"{}D207"{}},\ \textcolor{stringliteral}{"{}ESP-\/003"{}}],\ [\textcolor{stringliteral}{"{}D204"{}},\ \textcolor{stringliteral}{"{}ESP-\/004"{}}],\ [\textcolor{stringliteral}{"{}D203"{}},\ \textcolor{stringliteral}{"{}ESP-\/005"{}}],\ [\textcolor{stringliteral}{"{}D303"{}},\ \textcolor{stringliteral}{"{}ESP-\/006"{}}],\ [\textcolor{stringliteral}{"{}D304"{}},\ \textcolor{stringliteral}{"{}ESP-\/007"{}}],\ [\textcolor{stringliteral}{"{}C101"{}},\ \textcolor{stringliteral}{"{}ESP-\/008"{}}],\ [\textcolor{stringliteral}{"{}D109"{}},\ \textcolor{stringliteral}{"{}ESP-\/009"{}}],\ [\textcolor{stringliteral}{"{}D106"{}},\ \textcolor{stringliteral}{"{}ESP-\/010"{}}],\ [\textcolor{stringliteral}{"{}D001"{}},\ \textcolor{stringliteral}{"{}ESP-\/011"{}}],\ [\textcolor{stringliteral}{"{}D002"{}},\ \textcolor{stringliteral}{"{}ESP-\/012"{}}],\ [\textcolor{stringliteral}{"{}D004"{}},\ \textcolor{stringliteral}{"{}ESP-\/013"{}}],\ [\textcolor{stringliteral}{"{}C004"{}},\ \textcolor{stringliteral}{"{}ESP-\/014"{}}],\ [\textcolor{stringliteral}{"{}C007"{}},\ \textcolor{stringliteral}{"{}ESP-\/015"{}}],\ [\textcolor{stringliteral}{"{}D201"{}},\ \textcolor{stringliteral}{"{}ESP-\/016"{}}],\ [\textcolor{stringliteral}{"{}D307"{}},\ \textcolor{stringliteral}{"{}ESP-\/017"{}}],\ [\textcolor{stringliteral}{"{}C005"{}},\ \textcolor{stringliteral}{"{}ESP-\/018"{}}]\ ];}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$expArray\ as\ \$experimentation)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$this-\/>salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$experimentation[0]]);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa\ =\ \$this-\/>saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$experimentation[1]]);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setEtat(EtatSA::marche);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{false});}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Salle\ :\ "{}}\ .\ \$salle-\/>getNom()\ .\ \textcolor{stringliteral}{"{}\ -\/\ SA\ :\ "{}}\ .\ \$sa-\/>getNom()\ .\ PHP\_EOL;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp\ =\ \textcolor{keyword}{new}\ Experimentation();}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setDatedemande(\$this-\/>faker-\/>dateTimeBetween(\textcolor{stringliteral}{'-\/7\ week'},\ \textcolor{stringliteral}{'-\/1\ week'}));}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setDateinstallation(\$this-\/>faker-\/>dateTimeBetween(\textcolor{stringliteral}{'-\/7\ week'},\ \textcolor{stringliteral}{'-\/1\ week'}));}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setEtat(EtatExperimentation::installee);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setSalles(\$salle);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setSA(\$sa);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$exp);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécution\ des\ opérations\ d'écriture\ dans\ la\ base\ de\ données.}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \$user\ =\ \textcolor{keyword}{new}\ User();}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \$user-\/>setUsername(\textcolor{stringliteral}{'technicien'});}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \$user-\/>setRoles([\textcolor{stringliteral}{'ROLE\_TECHNICIEN'}]);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\textcolor{stringliteral}{'technicien'});}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \$user\ =\ \textcolor{keyword}{new}\ User();}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \$user-\/>setUsername(\textcolor{stringliteral}{'chargemission'});}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \$user-\/>setRoles([\textcolor{stringliteral}{'ROLE\_CHARGEMISSION'}]);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\textcolor{stringliteral}{'chargemission'});}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+App\+Fixtures.\+php\end{DoxyCompactItemize}

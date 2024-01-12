@@ -1,0 +1,119 @@
+\doxysection{Technicien\+Controller.\+php}
+\hypertarget{TechnicienController_8php_source}{}\label{TechnicienController_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Controller;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00005}00005\ use\ App\(\backslash\)Entity\(\backslash\)User;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00006}00006\ use\ App\(\backslash\)Form\(\backslash\)FiltreSAFormType;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00007}00007\ use\ App\(\backslash\)Form\(\backslash\)RechercheSAFormType;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00008}00008\ use\ App\(\backslash\)Form\(\backslash\)UserType;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00009}00009\ use\ App\(\backslash\)Repository\(\backslash\)ExperimentationRepository;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00010}00010\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00011}00011\ use\ App\(\backslash\)Repository\(\backslash\)UserRepository;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00012}00012\ use\ Doctrine\(\backslash\)ORM\(\backslash\)EntityManagerInterface;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00013}00013\ use\ Symfony\(\backslash\)Bundle\(\backslash\)FrameworkBundle\(\backslash\)Controller\(\backslash\)AbstractController;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00014}00014\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Request;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00015}00015\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00016}00016\ use\ Symfony\(\backslash\)Component\(\backslash\)PasswordHasher\(\backslash\)Hasher\(\backslash\)UserPasswordHasherInterface;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00017}00017\ use\ Symfony\(\backslash\)Component\(\backslash\)Routing\(\backslash\)Annotation\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00024}\mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController}{00024}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController}{TechnicienController}}\ \textcolor{keyword}{extends}\ AbstractController}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00032}00032\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/liste-\/souhaits',\ name:\ 'app\_technicien')]}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00033}\mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController_a6be99b3a8a49693281069ffae0d8efd3}{00033}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController_a6be99b3a8a49693281069ffae0d8efd3}{index}}(ExperimentationRepository\ \$repository):\ Response}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00034}00034\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Récupère\ les\ expérimentations\ du\ repository.}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \$experimentations\ =\ \$repository-\/>trouveExperimentationDemandeInstallation();}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \$experimentations\ =\ \$repository-\/>triExperimentation(\$experimentations);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rend\ la\ vue\ avec\ la\ liste\ des\ expérimentations.}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'technicien/liste-\/souhaits.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentations'}\ =>\ \$experimentations}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00053}00053\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/gestion-\/sa',\ name:\ 'gestion\_sa')]}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00054}\mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController_acb01c0a158a90eb99247e375d03cf7b9}{00054}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController_acb01c0a158a90eb99247e375d03cf7b9}{gestion\_sa}}(Request\ \$request\ ,\ SARepository\ \$saRepository):\ Response}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00055}00055\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \$filtreSAForm\ =\ \$this-\/>createForm(FiltreSAFormType::class);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \$filtreSAForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \$rechercheSAForm\ =\ \$this-\/>createForm(RechercheSAFormType::class);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \$rechercheSAForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$filtreSAForm-\/>isSubmitted()\ \&\&\ \$filtreSAForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre\ =\ \$filtreSAForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ filtrer\ les\ salles}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_sa\ =\ \$saRepository-\/>filtrerSAGestionSA(}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'etat'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'localisation'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(empty(\$liste\_sa))\$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Votre\ recherche\ ne\ correspond\ ni\ a\ un\ système\ d'acquisition\ ni\ a\ une\ salle"{}});}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$rechercheSAForm-\/>isSubmitted()\ \&\&\ \$rechercheSAForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSAForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ les\ salles}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_sa\ =\ \$saRepository-\/>rechercheSA(\$dataRecherche[\textcolor{stringliteral}{'sa\_nom'}]);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(empty(\$liste\_sa))\$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Votre\ recherche\ "{}}\ .\ \$dataRecherche[\textcolor{stringliteral}{'sa\_nom'}]\ .\ \textcolor{stringliteral}{"{}\ ne\ correspond\ ni\ a\ un\ système\ d'acquisition\ ni\ a\ une\ salle"{}});}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \$liste\_sa\ =\ \$saRepository-\/>toutLesSA();}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\$liste\_sa\ =\ \$saRepository-\/>trierSA(\$liste\_sa);}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rend\ la\ vue\ avec\ la\ liste\ des\ expérimentations.}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'technicien/gestion-\/sa.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_sa'}\ =>\ \$liste\_sa\ ,}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSAForm'}\ =>\ \$rechercheSAForm-\/>createView()\ ,}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'filtreSAForm'}\ =>\ \$filtreSAForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00085}00085\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00097}00097\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/modifier',\ name:\ 'app\_modifier')]}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00098}\mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController_ad32af7a96663228791d84cc7b4baae70}{00098}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1TechnicienController_ad32af7a96663228791d84cc7b4baae70}{modifier}}(Request\ \$request\ ,UserRepository\ \$repository,\ EntityManagerInterface\ \$manager\ ,\ UserPasswordHasherInterface\ \$hasher\ ):\ Response}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00099}00099\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \$user\ =\ \$repository-\/>rechercheUser(\textcolor{stringliteral}{'technicien'});}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00101}00101\ \ \ \ \ \ \ \ \ \$userForm\ =\ \$this-\/>createForm(UserType::class);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00102}00102\ \ \ \ \ \ \ \ \ \$userForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00103}00103\ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$userForm-\/>isSubmitted()\ \&\&\ \$userForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \$data\ =\ \$userForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$data[\textcolor{stringliteral}{'PlainPassword'}]\ !=\ \$data[\textcolor{stringliteral}{'verif'}])\{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Vos\ nouveaux\ mots\ de\ passe\ ne\ correspondent\ pas\ entre\ eux.\ Veuillez\ réessayer."{}});}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(!\$hasher-\/>isPasswordValid(\$user,\$data[\textcolor{stringliteral}{'MDP'}]))\{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}mot\ de\ passe\ actuel\ incorrects"{}});}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(strlen(\$data[\textcolor{stringliteral}{'PlainPassword'}])\ <\ 8\ )}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ 8\ caractère"{}};}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[a-\/z]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ une\ minuscule"{}};}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[A-\/Z]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ une\ majuscule"{}};}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[\string^a-\/zA-\/Z0-\/9]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ un\ un\ caractère\ spécial"{}};}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\$data[\textcolor{stringliteral}{'PlainPassword'}]);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}mot\ de\ passe\ modifier\ !"{}});}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00134}00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rend\ la\ vue\ avec\ la\ liste\ des\ expérimentations.}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'technicien/modifier.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'userForm'}\ =>\ \$userForm-\/>createView()\ ,}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'erreur'}\ =>\ \$erreur\ ,}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00139}00139\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TechnicienController_8php_source_l00141}00141\ \}}
+
+\end{DoxyCode}

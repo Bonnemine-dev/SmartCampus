@@ -1,0 +1,168 @@
+\doxysection{Salle\+Repository.\+php}
+\hypertarget{SalleRepository_8php_source}{}\label{SalleRepository_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Repository;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00005}00005\ use\ App\(\backslash\)Config\(\backslash\)EtatExperimentation;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00006}00006\ use\ App\(\backslash\)Config\(\backslash\)EtatSA;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00007}00007\ use\ App\(\backslash\)Entity\(\backslash\)Salle;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00008}00008\ use\ DateTime;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00009}00009\ use\ Doctrine\(\backslash\)Bundle\(\backslash\)DoctrineBundle\(\backslash\)Repository\(\backslash\)ServiceEntityRepository;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00010}00010\ use\ Doctrine\(\backslash\)Persistence\(\backslash\)ManagerRegistry;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00022}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository}{00022}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository}{SalleRepository}}\ \textcolor{keyword}{extends}\ ServiceEntityRepository}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00029}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a2f74a19679d0d2f8bde788b9820641d3}{00029}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a2f74a19679d0d2f8bde788b9820641d3}{\_\_construct}}(ManagerRegistry\ \$registry)}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ Salle::class);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00039}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{00039}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{requeteCommune}}():\ \(\backslash\)Doctrine\(\backslash\)ORM\(\backslash\)QueryBuilder}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'batiment.id\ as\ id\_batiment,\ salle.nom\ as\ nom\_salle,\ sa.nom\ as\ nom\_sa,\ experimentation.datedemande,\ salle.etage,\ salle.numero,\ salle.orientation,\ salle.nb\_fenetres,\ salle.nb\_ordis,\ experimentation.dateinstallation,\ experimentation.datedesinstallation,}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ CASE}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_demande\_installation\ THEN\ 0}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_installee\ THEN\ 1}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_demandeRetrait\ THEN\ 2}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_retiree\ THEN\ 3}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ELSE\ 4}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ END\ AS\ etat'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.id\ =\ experimentation.Salles'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'sa.id\ =\ experimentation.SA'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>leftJoin(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Batiment'},\ \textcolor{stringliteral}{'batiment'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.batiment\ =\ batiment.id'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>orderBy(\textcolor{stringliteral}{'salle.nom'},\ \textcolor{stringliteral}{'ASC'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_demande\_installation'},\ EtatExperimentation::demandeInstallation)}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_installee'},\ EtatExperimentation::installee)}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_demandeRetrait'},\ EtatExperimentation::demandeRetrait)}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etat\_retiree'},\ EtatExperimentation::retiree);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00080}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_aeed2ed88d923a6cbab6a3dd2e72ad7da}{00080}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_aeed2ed88d923a6cbab6a3dd2e72ad7da}{rechercheSallePlanExp}}(\textcolor{keywordtype}{int}\ \$batiment\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{string}\ \$salle\ =\ \textcolor{keyword}{null}):\ array}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Requête\ pour\ filtrer\ les\ salles\ selon\ les\ critères\ spécifiés.}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{requeteCommune}}();}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{triListeSalle}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$batiment\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$batiment)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'id\_batiment'}]\ ==\ \$batiment;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$salle))\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$salle)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stripos(\$item[\textcolor{stringliteral}{'nom\_salle'}],\ \$salle)\ !==\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécutez\ la\ requête\ et\ retournez\ les\ résultats.}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00124}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_af31ae845a7ac9d545f13d0c0736bd8ab}{00124}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_af31ae845a7ac9d545f13d0c0736bd8ab}{filtrerSallePlanExp}}(array\ \$etages\ =\ \textcolor{keyword}{null},\ array\ \$orientation\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{int}\ \$ordinateurs\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{int}\ \$sa\ =\ \textcolor{keyword}{null}):\ array}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00125}00125\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Requête\ pour\ filtrer\ les\ salles\ selon\ les\ critères\ spécifiés.}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00127}00127\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5d902a4d807df3dc51293a373cd75fd8}{requeteCommune}}();}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00129}00129\ \ \ \ \ \ \ \ \ \$resultat\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{triListeSalle}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$etages))\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$etages)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in\_array(\$item[\textcolor{stringliteral}{'etage'}],\ \$etages);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtrage\ par\ orientation}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$orientation))\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$orientation)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in\_array(\$item[\textcolor{stringliteral}{'orientation'}],\ \$orientation);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00142}00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ordinateurs\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$ordinateurs)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ordinateurs\ ===\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'nb\_ordis'}]\ ==\ 0;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$ordinateurs\ ===\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'nb\_ordis'}]\ >\ 0;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00153}00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$sa\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \$resultat\ =\ array\_filter(\$resultat,\ \textcolor{keyword}{function}\ (\$item)\ use\ (\$sa)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\$sa)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 3\ ||\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 4;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 1\ ||\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 2;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$item[\textcolor{stringliteral}{'etat'}]\ ==\ 0;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00168}00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécutez\ la\ requête\ et\ retournez\ les\ résultats.}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultat;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00173}00173\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00181}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_adc00bcca1b40c526fff0da879318c487}{00181}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_adc00bcca1b40c526fff0da879318c487}{nomSalleId}}(\textcolor{keywordtype}{string}\ \$salle):\ ?Salle}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00182}00182\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$salle]);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00184}00184\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00186}00186\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00187}00187\ \textcolor{comment}{\ \ \ \ \ *\ Tris\ des\ salles\ pour\ enlever\ les\ expérimentations\ inutiles}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00188}00188\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00222}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{00222}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_abb6c635b3f9aa21e3b59d69f92183f06}{triListeSalle}}(array\ \$salle):\ array}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00223}00223\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00224}00224\ \ \ \ \ \ \ \ \ usort(\$salle,\ \textcolor{keyword}{function}(\$a,\ \$b)\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tri\ par\ nom\_salle}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$a[\textcolor{stringliteral}{'nom\_salle'}]\ !=\ \$b[\textcolor{stringliteral}{'nom\_salle'}])\ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$a[\textcolor{stringliteral}{'nom\_salle'}]\ <=>\ \$b[\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ nom\_salle\ est\ identique,\ tri\ par\ datedemande\ en\ ordre\ décroissant}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$b[\textcolor{stringliteral}{'datedemande'}]\ <=>\ \$a[\textcolor{stringliteral}{'datedemande'}];}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00232}00232\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00235}00235\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$salle);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(count(\$salle)>2)\{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \$nom\_salle\ =\ \$salle[0][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\$i\ =\ 0\ ;\ \$i\ <\ \$len-\/1\ ;\ \$i\ ++)}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$nom\_salle\ ==\ \$salle[\$i+1][\textcolor{stringliteral}{'nom\_salle'}])}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$salle[\$i+1]);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$nom\_salle\ =\ \$salle[\$i+1][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00247}00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$salle;}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00249}00249\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00260}\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5cf98b96ea7902f319c5468f89c328b8}{00260}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository_a5cf98b96ea7902f319c5468f89c328b8}{SAAssocie}}(\textcolor{keywordtype}{string}\ \$nomsalle):\ array}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00261}00261\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00262}00262\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'sa.nom\ as\ nom\_sa,\ sa.etat\ as\ etat\_sa'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)Experimentation'},\ \textcolor{stringliteral}{'experimentation'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'salle.id\ =\ experimentation.Salles'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'App\(\backslash\)Entity\(\backslash\)SA'},\ \textcolor{stringliteral}{'sa'},\ \textcolor{stringliteral}{'WITH'},\ \textcolor{stringliteral}{'experimentation.SA\ =\ sa.id'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'experimentation.etat\ IN\ (:etats)'})}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomsalle)}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etats'},\ [1,\ 2]);}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00271}00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getOneOrNullResult();}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00272}00272\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SalleRepository_8php_source_l00273}00273\ \}}
+
+\end{DoxyCode}

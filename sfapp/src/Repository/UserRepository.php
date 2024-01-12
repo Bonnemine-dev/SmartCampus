@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
+ * @class UserRepository
+ * Repository pour gérer les opérations de base de données liées aux entités User.
  * @extends ServiceEntityRepository<User>
  *
  * @implements PasswordUpgraderInterface<User>
@@ -32,13 +34,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     private array $FERMER_FENETRES = ['Fermer les fenêtres', 3];
     private array $FERMER_RIDEAUX = ['Fermer les rideaux', 3];
 
+    /**
+     * Constructeur de UserRepository.
+     * Initialise le repository avec le manager d'entités Doctrine.
+     * @param ManagerRegistry $registry Le gestionnaire de l'entité Doctrine.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * Utilisé pour mettre à jour (rehash) le mot de passe de l'utilisateur automatiquement avec le temps.
+     * @param PasswordAuthenticatedUserInterface $user L'utilisateur dont le mot de passe doit être mis à jour.
+     * @param string $newHashedPassword Le nouveau mot de passe hashé.
+     * @throws UnsupportedUserException Si l'instance de l'utilisateur n'est pas supportée.
+     * @return void
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -52,8 +63,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param array<string, string> $donnees
-     * @return array<int, string|array<int, string>>
+     * Génère des recommandations d'action en fonction des conditions atmosphériques pour l'été.
+     * @param array<string, string> $donnees Les données atmosphériques comme le CO2, la température et l'humidité.
+     * @return array<int, string|array<int, string>> Les recommandations d'action basées sur les données fournies.
      */
     public function recommandationsEte(array $donnees): array
     {
@@ -161,8 +173,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param array<string, string> $donnees
-     * @return array<int, string|array<int, string>>
+     * Génère des recommandations d'action en fonction des conditions atmosphériques pour l'automne.
+     * @param array<string, string> $donnees Les données atmosphériques comme le CO2, la température et l'humidité.
+     * @return array<int, string|array<int, string>> Les recommandations d'action basées sur les données fournies.
      */
     public function recommandationsAutomne(array $donnees): array
     {
@@ -268,8 +281,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param array<string, string> $donnees
-     * @return array<int, string|array<int, string>>
+     * Génère des recommandations d'action en fonction des conditions atmosphériques pour l'hiver.
+     * @param array<string, string> $donnees Les données atmosphériques comme le CO2, la température et l'humidité.
+     * @return array<int, string|array<int, string>> Les recommandations d'action basées sur les données fournies.
      */
     public function recommandationsHiver(array $donnees): array
     {
@@ -377,8 +391,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @param array<string, string> $donnees
-     * @return array<int, string|array<int, string>>
+     * Génère des recommandations d'action en fonction des conditions atmosphériques pour le printemps.
+     * @param array<string, string> $donnees Les données atmosphériques comme le CO2, la température et l'humidité.
+     * @return array<int, string|array<int, string>> Les recommandations d'action basées sur les données fournies.
      */
     public function recommandationsPrintemps(array $donnees): array
     {
@@ -483,15 +498,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return ['Bonne ambiance', 'Pas de recommandations pour la salle'];
     }
 
+    /**
+     * Recherche un utilisateur par son nom d'utilisateur.
+     * @param string $username Le nom d'utilisateur à rechercher.
+     * @return User|null L'utilisateur trouvé ou null si aucun utilisateur n'a été trouvé.
+     */
     public function rechercheUser(string $username): ?User
     {
         return $this->findOneBy(['username' => $username]);
     }
 
     /**
-     * @param array<string, string> $donnees
-     * @param string $date
-     * @return array<int, string|array<int, string>>
+     * Fournit des recommandations pour les salles en fonction de la saison et des données atmosphériques.
+     * @param array<string, string> $donnees Les données atmosphériques.
+     * @param string $date La date actuelle pour déterminer la saison.
+     * @return array<int, string|array<int, string>> Les recommandations d'action pour la saison donnée.
      */
     public function recommandationsSalles(array $donnees, string $date): array
     {
@@ -513,7 +534,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @return array<int, int>
+     * Fournit les intervalles de température recommandés pour chaque saison.
+     * @param string $date La date actuelle pour déterminer la saison.
+     * @return array<int, int> Les intervalles de température pour la saison donnée.
      */
     public function intervallesTempSaison(string $date): array
     {

@@ -1,0 +1,169 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}Utilisateur\+Controller Class Reference}
+\hypertarget{classApp_1_1Controller_1_1UtilisateurController}{}\label{classApp_1_1Controller_1_1UtilisateurController}\index{App\textbackslash{}Controller\textbackslash{}UtilisateurController@{App\textbackslash{}Controller\textbackslash{}UtilisateurController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}Utilisateur\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1UtilisateurController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController_a9711b13161a0a0451de8c6ac6cd66c2a}{index}} (Request \$request, Salle\+Repository \$salle\+Repository, SARepository \$sa\+Repository, Batiment\+Repository \$batiment\+Repository)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController_a1196bd6b9fc93160a1040c4b1046c0f4}{utilisateur\+\_\+donnees}} (User\+Repository \$user\+Repository, Json\+Data\+Handling \$Json\+Data\+Handling\+\_\+service, Experimentation\+Repository \$experimentation\+Repository, Salle\+Repository \$salle\+Repository, string \$nomsalle)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour gérer les interactions des utilisateurs avec l\textquotesingle{}application. 
+
+Definition at line \mbox{\hyperlink{UtilisateurController_8php_source_l00022}{22}} of file \mbox{\hyperlink{UtilisateurController_8php_source}{Utilisateur\+Controller.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1UtilisateurController_a9711b13161a0a0451de8c6ac6cd66c2a}\label{classApp_1_1Controller_1_1UtilisateurController_a9711b13161a0a0451de8c6ac6cd66c2a} 
+\index{App\textbackslash{}Controller\textbackslash{}UtilisateurController@{App\textbackslash{}Controller\textbackslash{}UtilisateurController}!index@{index}}
+\index{index@{index}!App\textbackslash{}Controller\textbackslash{}UtilisateurController@{App\textbackslash{}Controller\textbackslash{}UtilisateurController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Utilisateur\+Controller\+::index (\begin{DoxyParamCaption}\item[{Request}]{\$request,  }\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{SARepository}]{\$sa\+Repository,  }\item[{Batiment\+Repository}]{\$batiment\+Repository }\end{DoxyParamCaption})}
+
+Affiche la page d\textquotesingle{}accueil pour les utilisateurs et gère la recherche de salles. 
+\begin{DoxyParams}[1]{Parameters}
+Request & {\em \$request} & Requête HTTP entrante. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Repository pour interagir avec les données des salles. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Repository pour les systèmes d\textquotesingle{}acquisition. \\
+\hline
+Batiment\+Repository & {\em \$batiment\+Repository} & Repository pour les bâtiments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response Réponse HTTP avec la vue de l\textquotesingle{}accueil. @\+Route(\textquotesingle{}/\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+accueil\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UtilisateurController_8php_source_l00034}{34}} of file \mbox{\hyperlink{UtilisateurController_8php_source}{Utilisateur\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \$rechercheSalleForm\ =\ \$this-\/>createForm(RechercheSalleFormType::class,\ \textcolor{keyword}{null},\ [}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batimentRepository-\/>tableauBatimentsNomID(),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \$rechercheSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherche\ des\ salles\ en\ fonction\ du\ formulaire\ de\ recherche}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$rechercheSalleForm-\/>isSubmitted()\ \&\&\ \$rechercheSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSalleForm-\/>getData();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ la\ salles}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$dataRecherche[\textcolor{stringliteral}{'salle'}]]);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$salle\ !=\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirect(\textcolor{stringliteral}{'/utilisateur/'}.\$salle-\/>getNom());}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}.\$dataRecherche[\textcolor{stringliteral}{'salle'}].\textcolor{stringliteral}{"{}\ n'existe\ pas"{}});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'utilisateur/index.html.twig'},\ [}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSalleForm'}\ =>\ \$rechercheSalleForm-\/>createView(),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1UtilisateurController_a1196bd6b9fc93160a1040c4b1046c0f4}\label{classApp_1_1Controller_1_1UtilisateurController_a1196bd6b9fc93160a1040c4b1046c0f4} 
+\index{App\textbackslash{}Controller\textbackslash{}UtilisateurController@{App\textbackslash{}Controller\textbackslash{}UtilisateurController}!utilisateur\_donnees@{utilisateur\_donnees}}
+\index{utilisateur\_donnees@{utilisateur\_donnees}!App\textbackslash{}Controller\textbackslash{}UtilisateurController@{App\textbackslash{}Controller\textbackslash{}UtilisateurController}}
+\doxysubsubsection{\texorpdfstring{utilisateur\_donnees()}{utilisateur\_donnees()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Utilisateur\+Controller\+::utilisateur\+\_\+donnees (\begin{DoxyParamCaption}\item[{User\+Repository}]{\$user\+Repository,  }\item[{Json\+Data\+Handling}]{\$\+Json\+Data\+Handling\+\_\+service,  }\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{Salle\+Repository}]{\$salle\+Repository,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Affiche les données relatives à une salle spécifique pour l\textquotesingle{}utilisateur. 
+\begin{DoxyParams}[1]{Parameters}
+User\+Repository & {\em \$user\+Repository} & Repository pour les utilisateurs. \\
+\hline
+Json\+Data\+Handling & {\em \$\+Json\+Data\+Handling\+\_\+service} & Service pour la gestion des données JSON. \\
+\hline
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Repository pour les expérimentations. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Repository pour les salles. \\
+\hline
+string & {\em \$nomsalle} & Nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response Réponse HTTP avec la vue des données de la salle. @\+Route(\textquotesingle{}/utilisateur/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}utilisateur\+\_\+donnees\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{UtilisateurController_8php_source_l00074}{74}} of file \mbox{\hyperlink{UtilisateurController_8php_source}{Utilisateur\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00075\ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//salle\ inexistante\ ?}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsalle])\ ===\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}.\$nomsalle.\textcolor{stringliteral}{"{}\ n'existe\ pas"{}});}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_accueil'});}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}.\$nomsalle.\textcolor{stringliteral}{"{}\ n'est\ pas\ dans\ le\ plan\ d'experimenattion"{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_accueil'});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \$dernieres\_donnees\ =\ \$JsonDataHandling\_service-\/>extraireDerniereDonneeSalle(\$nomsalle);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]\ !=\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \$date\_de\_capture\ =\ new\ \(\backslash\)DateTime(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \$now\ =\ new\ \(\backslash\)DateTime();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \$interval\ =\ \$date\_de\_capture-\/>diff(\$now);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Format\ l'intervalle\ de\ temps\ de\ manière\ lisible}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$interval-\/>y\ >\ 0)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>y\ .\ \textcolor{stringliteral}{'\ années'};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>m\ >\ 0)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>m\ .\ \textcolor{stringliteral}{'\ mois'};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>d\ >\ 0)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>d\ .\ \textcolor{stringliteral}{'\ jours'};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>h\ >\ 0)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>h\ .\ \textcolor{stringliteral}{'\ heures'};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>i\ >\ 0)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>i\ .\ \textcolor{stringliteral}{'\ minutes'};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>s\ .\ \textcolor{stringliteral}{'\ secondes'};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \$recommandations\ =\ \$userRepository-\/>recommandationsSalles(\$dernieres\_donnees,\ \$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'utilisateur/utilisateur-\/donnees.html.twig'},\ [}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ de\ la\ salle}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dernière\ données\ de\ la\ salle,\ null\ si\ inexistantes}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dernieres\_donnees'}\ =>\ \$dernieres\_donnees,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//temps\ écoulé\ depuis\ la\ dernière\ remonté\ de\ données}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'elapsed'}\ =>\ \$elapsed\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//intervalle\ de\ température\ de\ la\ saison}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//recommandations}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'recommandations'}\ =>\ \$recommandations,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Utilisateur\+Controller.\+php\end{DoxyCompactItemize}

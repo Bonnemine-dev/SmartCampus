@@ -1,0 +1,47 @@
+\doxysection{APIController.\+php}
+\hypertarget{APIController_8php_source}{}\label{APIController_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Controller;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00005}00005\ use\ App\(\backslash\)Service\(\backslash\)JsonDataHandling;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00006}00006\ use\ Symfony\(\backslash\)Bundle\(\backslash\)FrameworkBundle\(\backslash\)Controller\(\backslash\)AbstractController;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00007}00007\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)JsonResponse;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Component\(\backslash\)Routing\(\backslash\)Annotation\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00016}\mbox{\hyperlink{classApp_1_1Controller_1_1APIController}{00016}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Controller_1_1APIController}{APIController}}\ \textcolor{keyword}{extends}\ AbstractController}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{private}\ JsonDataHandling\ \$jsonDataHandling;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00025}\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_af2b64a0ff856571e547f2426af492a04}{00025}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1APIController_af2b64a0ff856571e547f2426af492a04}{\_\_construct}}(JsonDataHandling\ \$jsonDataHandling)}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00026}00026\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \$this-\/>jsonDataHandling\ =\ \$jsonDataHandling;}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00038}00038\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/api/captures/\{nomsalle?\}/\{type?\}',\ name:\ 'app\_api')]}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00039}\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_ae5dacf766f122c3c651343d4ee6be405}{00039}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1APIController_ae5dacf766f122c3c651343d4ee6be405}{index}}(\textcolor{keywordtype}{string}\ \$nomsalle\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{string}\ \$type\ =\ \textcolor{keyword}{null}):\ Response}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>jsonDataHandling-\/>getCaptureData(\$nomsalle,\ \$type);}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ JsonResponse(\$data);}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00054}00054\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/api/captures/\{nomsalle?\}/\{type?\}/\{count?\}',\ name:\ 'app\_api\_limit')]}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00055}\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_a30f75b6062b90251d3102f2ee4a93db2}{00055}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1APIController_a30f75b6062b90251d3102f2ee4a93db2}{limit}}(\textcolor{keywordtype}{string}\ \$type\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{string}\ \$nomsalle\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{int}\ \$count\ =\ \textcolor{keyword}{null}):\ Response}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00056}00056\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>jsonDataHandling-\/>getCaptureDataLimited(\$nomsalle,\ \$type,\ \$count);}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ JsonResponse(\$data);}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00071}00071\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/api/captures/interval/\{nomsalle?\}/\{type\}/\{date1\}/\{date2\}',\ name:\ 'app\_api\_interval')]}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00072}\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_af5c45fa37490449553f7bb009ed12168}{00072}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1APIController_af5c45fa37490449553f7bb009ed12168}{interval}}(\textcolor{keywordtype}{string}\ \$type,\ \textcolor{keywordtype}{string}\ \$date1,\ \textcolor{keywordtype}{string}\ \$date2,\ \textcolor{keywordtype}{string}\ \$nomsalle\ =\ \textcolor{keyword}{null}):\ Response}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00073}00073\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>jsonDataHandling-\/>getCaptureDataInterval(\$nomsalle,\ \$type,\ \$date1,\ \$date2);}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ JsonResponse(\$data);}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{APIController_8php_source_l00079}00079\ \}}
+
+\end{DoxyCode}

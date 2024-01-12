@@ -1,0 +1,145 @@
+\doxysection{SAController.\+php}
+\hypertarget{SAController_8php_source}{}\label{SAController_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Controller;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00005}00005\ use\ App\(\backslash\)Form\(\backslash\)AjoutSAFormType;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00006}00006\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00007}00007\ use\ App\(\backslash\)Repository\(\backslash\)UserRepository;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00008}00008\ use\ App\(\backslash\)Service\(\backslash\)JsonDataHandling;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Request;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00010}00010\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00011}00011\ use\ Symfony\(\backslash\)Component\(\backslash\)Routing\(\backslash\)Annotation\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00012}00012\ use\ Symfony\(\backslash\)Bundle\(\backslash\)FrameworkBundle\(\backslash\)Controller\(\backslash\)AbstractController;}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00019}\mbox{\hyperlink{classApp_1_1Controller_1_1SAController}{00019}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Controller_1_1SAController}{SAController}}\ \textcolor{keyword}{extends}\ AbstractController}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00028}00028\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/gestion-\/sa/ajouter-\/sa',\ name:\ 'ajout\_sa')]}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00029}\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_a28a6bc1ffa1bfce0c31e15651d3eff3c}{00029}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1SAController_a28a6bc1ffa1bfce0c31e15651d3eff3c}{index}}(Request\ \$request,\ SARepository\ \$saRepository):\ Response}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \$ajoutSAForm\ =\ \$this-\/>createForm(AjoutSAFormType::class);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \$ajoutSAForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ajoutSAForm-\/>isSubmitted()\ \&\&\ \$ajoutSAForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$ajoutSAForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strlen(\$dataRecherche[\textcolor{stringliteral}{'nom'}])\ <\ 7)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}*\ 7\ caractères\ minimum"{}};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strlen(\$dataRecherche[\textcolor{stringliteral}{'nom'}])\ >\ 15)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}*\ 15\ caractères\ maximum"{}};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$saRepository-\/>existeDeja(\$dataRecherche[\textcolor{stringliteral}{'nom'}])\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}*\ Ce\ nom\ de\ SA\ est\ deja\ attribué"{}};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ les\ salles}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$saRepository-\/>ajoutSA(}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'nom'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$dataRecherche[\textcolor{stringliteral}{'nom'}]]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'sa/ajouter-\/sa.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ajoutSAForm'}\ =>\ \$ajoutSAForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'erreur'}\ =>\ \$erreur,}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00071}00071\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/gestion-\/sa/supprimer-\/sa/\{nomsa\}',\ name:\ 'supprimer\_sa')]}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00072}\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_ad7f1d7de27fc5814a44f0e472c25f316}{00072}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1SAController_ad7f1d7de27fc5814a44f0e472c25f316}{supprimer\_sa}}(Request\ \$request,\ SARepository\ \$saRepository,\ \textcolor{keywordtype}{string}\ \$nomsa):\ Response}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00073}00073\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa])\ ==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ ne\ fait\ pas\ encore\ partie\ de\ votre\ stock."{}});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \}\ elseif\ (\$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa])-\/>isDisponible())\ \textcolor{comment}{//Oui\ le\ SA\ est\ libre}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'sa/supprimer-\/sa.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsa'}\ =>\ \$nomsa}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{//\ Non\ ,\ le\ SA\ est\ encore\ dans\ une\ expérimentation}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ fait\ partie\ d'une\ expérimenation\ en\ cours."{}});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00095}00095\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/gestion-\/sa/suppression-\/sa/\{nomsa\}',\ name:\ 'valid\_supprimer\_sa')]}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00096}\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_a23a7ae30cf6dbcccdc18586c525ea0f2}{00096}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1SAController_a23a7ae30cf6dbcccdc18586c525ea0f2}{valid\_supprimer\_sa}}(SARepository\ \$saRepository,\ \textcolor{keywordtype}{string}\ \$nomsa):\ Response}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00097}00097\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherchez\ l'objet\ en\ fonction\ du\ nom\ de\ la\ salle\ entre\ dans\ la\ condition\ si\ le\ sa\ n'existe\ pas}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ si\ il\ existe\ il\ est\ supprimé}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$saRepository-\/>supprimerSA(\$nomsa))\ \textcolor{comment}{//entre\ dedans\ si\ la\ suppression\ a\ échoué}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00101}00101\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//ajout\ du\ message\ flash}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ n'à\ pas\ pu\ être\ supprimé."{}});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirection}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00106}00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ajout\ du\ message\ flash}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ à\ été\ supprimé\ avec\ succès."{}});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirection}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00111}00111\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00122}00122\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/gestion-\/sa/details-\/sa/\{nomsa\}',\ name:\ 'details\_sa')]}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00123}\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_ab264950427573229bf2e0c77619752cf}{00123}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1SAController_ab264950427573229bf2e0c77619752cf}{details\_sa}}(UserRepository\ \$userRepository,\ JsonDataHandling\ \$JsonDataHandling\_service,\ SARepository\ \$saRepository,\ \textcolor{keywordtype}{string}\ \$nomsa):\ Response}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00124}00124\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{//salle\ inexistante\ ?}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa])\ ===\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00128}00128\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00130}00130\ \ \ \ \ \ \ \ \ \$etat\_sa\ =\ \$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Recherche\ le\ nom\ de\ la\ salle\ dans\ laquelle\ se\ trouve\ le\ SA}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00133}00133\ \ \ \ \ \ \ \ \ \$nom\_salle\_associe\_sa\ =\ \$saRepository-\/>salle\_associe\_sa(\$nomsa);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Récupère\ les\ dernières\ données\ remonté\ par\ le\ SA}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$nom\_salle\_associe\_sa\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \$dernieres\_donnees\ =\ \$JsonDataHandling\_service-\/>extraireDerniereDonneeSalle(\$nom\_salle\_associe\_sa[0][\textcolor{stringliteral}{'nom'}]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$nom\_salle\_associe\_sa\ !=\ \textcolor{keyword}{null}\ and\ \$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \$date\_de\_capture\ =\ new\ \(\backslash\)DateTime(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \$now\ =\ new\ \(\backslash\)DateTime();}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \$interval\ =\ \$date\_de\_capture-\/>diff(\$now);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Format\ l'intervalle\ de\ temps\ de\ manière\ lisible}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$interval-\/>y\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>y\ .\ \textcolor{stringliteral}{'\ années'};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>m\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>m\ .\ \textcolor{stringliteral}{'\ mois'};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>d\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>d\ .\ \textcolor{stringliteral}{'\ jours'};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>h\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>h\ .\ \textcolor{stringliteral}{'\ heures'};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>i\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>i\ .\ \textcolor{stringliteral}{'\ minutes'};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>s\ .\ \textcolor{stringliteral}{'\ secondes'};}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00159}00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'sa/details-\/sa.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ du\ SA}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsa'}\ =>\ \$nomsa,}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Informations\ sur\ le\ SA}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_sa'}\ =>\ \$etat\_sa,}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dernière\ données\ de\ la\ salle,\ null\ si\ inexistantes}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dernieres\_donnees'}\ =>\ \$dernieres\_donnees\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//temps\ écoulé\ depuis\ la\ dernière\ remonté\ de\ données}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'elapsed'}\ =>\ \$elapsed\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//intervalle\ de\ température\ de\ la\ saison\ actuelle}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00174}00174\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00175}00175\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SAController_8php_source_l00176}00176\ \}}
+
+\end{DoxyCode}

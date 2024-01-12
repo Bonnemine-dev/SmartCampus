@@ -14,8 +14,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @class UtilisateurController
+ * Contrôleur pour gérer les interactions des utilisateurs avec l'application.
+ * @extends AbstractController
+ */
 class UtilisateurController extends AbstractController
 {
+    /**
+     * Affiche la page d'accueil pour les utilisateurs et gère la recherche de salles.
+     * @param Request $request Requête HTTP entrante.
+     * @param SalleRepository $salleRepository Repository pour interagir avec les données des salles.
+     * @param SARepository $saRepository Repository pour les systèmes d'acquisition.
+     * @param BatimentRepository $batimentRepository Repository pour les bâtiments.
+     * @return Response Réponse HTTP avec la vue de l'accueil.
+     * @Route('/', name: 'app_accueil')
+     */
     #[Route('/', name: 'app_accueil')]
     public function index(Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository): Response
     {
@@ -46,6 +60,16 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche les données relatives à une salle spécifique pour l'utilisateur.
+     * @param UserRepository $userRepository Repository pour les utilisateurs.
+     * @param JsonDataHandling $JsonDataHandling_service Service pour la gestion des données JSON.
+     * @param ExperimentationRepository $experimentationRepository Repository pour les expérimentations.
+     * @param SalleRepository $salleRepository Repository pour les salles.
+     * @param string $nomsalle Nom de la salle.
+     * @return Response Réponse HTTP avec la vue des données de la salle.
+     * @Route('/utilisateur/{nomsalle}', name: 'utilisateur_donnees')
+     */
     #[Route('/utilisateur/{nomsalle}', name: 'utilisateur_donnees')]
     public function utilisateur_donnees(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, ExperimentationRepository $experimentationRepository,SalleRepository $salleRepository,string $nomsalle): Response
     {

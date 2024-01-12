@@ -18,8 +18,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExperimentationRepository;
 
+/**
+ * @class ChargeMissionController
+ * Contrôleur pour gérer les actions du chargé de mission.
+ * @extends AbstractController
+ */
 class ChargeMissionController extends AbstractController
 {
+    /**
+     * Affiche la page de planification des expérimentations.
+     * Gère les formulaires de filtre et de recherche pour les salles.
+     * @param Request $request La requête HTTP entrante.
+     * @param SalleRepository $salleRepository Le repository pour accéder aux données des salles.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param BatimentRepository $batimentRepository Le repository pour accéder aux données des bâtiments.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/plan-experimentation', name: 'app_charge_mission')
+     */
     #[Route('/charge-de-mission/plan-experimentation', name: 'app_charge_mission')]
     public function index(Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository): Response
     {
@@ -72,7 +87,19 @@ class ChargeMissionController extends AbstractController
             'rechercheSalleForm' => $rechercheSalleForm->createView(),
         ]);
     }
-    
+
+    /**
+     * Affiche la liste des expérimentations en cours.
+     * Utilise les formulaires de filtre et de recherche pour filtrer les résultats.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param UserRepository $userRepository Le repository pour accéder aux données des utilisateurs.
+     * @param Request $request La requête HTTP entrante.
+     * @param BatimentRepository $batimentRepository Le repository pour accéder aux données des bâtiments.
+     * @param ExperimentationRepository $experimentationRepository Le repository pour accéder aux données des expérimentations.
+     * @param JsonDataHandling $jsonDataHandling Le service de traitement des données JSON.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/liste-salles', name: 'liste_salles')
+     */
     #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
     public function liste_experimentation(SARepository $saRepository, UserRepository $userRepository, Request $request, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
     {
@@ -121,6 +148,14 @@ class ChargeMissionController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche le tableau de bord du chargé de mission.
+     * Inclut des données météorologiques et des statistiques sur les salles.
+     * @param JsonDataHandling $jsonDataHandling Le service de traitement des données JSON.
+     * @param UserRepository $userRepository Le repository pour accéder aux données des utilisateurs.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')
+     */
     #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
     public function cm_tableau_de_bord(JsonDataHandling $jsonDataHandling, UserRepository $userRepository): Response
     {
@@ -175,6 +210,16 @@ class ChargeMissionController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet au chargé de mission de modifier son mot de passe.
+     * Gère le formulaire de modification de mot de passe.
+     * @param Request $request La requête HTTP entrante.
+     * @param UserRepository $repository Le repository pour accéder aux données des utilisateurs.
+     * @param EntityManagerInterface $manager Le gestionnaire d'entités.
+     * @param UserPasswordHasherInterface $hasher L'outil de hashage des mots de passe.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')
+     */
     #[Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')]
     public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {

@@ -1,0 +1,130 @@
+\doxysection{SA.\+php}
+\hypertarget{SA_8php_source}{}\label{SA_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Entity;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00005}00005\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00006}00006\ use\ Doctrine\(\backslash\)Common\(\backslash\)Collections\(\backslash\)ArrayCollection;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00007}00007\ use\ Doctrine\(\backslash\)Common\(\backslash\)Collections\(\backslash\)Collection;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00008}00008\ use\ Doctrine\(\backslash\)ORM\(\backslash\)Mapping\ as\ ORM;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Component\(\backslash\)Validator\(\backslash\)Constraints\ as\ Assert;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00010}00010\ use\ App\(\backslash\)Config\(\backslash\)EtatSA;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00012}00012\ \textcolor{preprocessor}{\#[ORM\(\backslash\)Entity(repositoryClass:\ SARepository::class)]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00013}\mbox{\hyperlink{classApp_1_1Entity_1_1SA}{00013}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Entity_1_1SA}{SA}}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ Identifiant\ unique\ généré\ automatiquement\ pour\ le\ SA.}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00016}00016\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Id]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00017}00017\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)GeneratedValue]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00018}00018\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00019}00019\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)NotBlank]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{private}\ ?\textcolor{keywordtype}{int}\ \$id\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//\ Numéro\ du\ SA.}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00023}00023\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00024}00024\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)Range(min:\ 0,max:\ 9999,\ notInRangeMessage:\ 'Les\ numéro\ de\ SA\ sont\ choisie\ aléatoirement\ entre\ 0\ et\ 9999')]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{private}\ ?\textcolor{keywordtype}{int}\ \$numero\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00027}00027\ \ \ \ \ \textcolor{comment}{//\ Nom\ du\ SA,\ limité\ à\ 50\ caractères.}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00028}00028\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column(length:\ 50)]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00029}00029\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)NotBlank]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00030}00030\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)Positive]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00031}00031\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)Length(min:\ 7,\ max:\ 7,\ maxMessage:\ 'Le\ nom\ d\(\backslash\)'un\ SA\ est\ de\ la\ forme\ SA-\/????,\ et\ fais\ donc\ 7\ caractères')]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{private}\ ?\textcolor{keywordtype}{string}\ \$nom\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00034}00034\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{private}\ ?EtatSA\ \$etat\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00037}00037\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{private}\ ?\textcolor{keywordtype}{bool}\ \$disponible\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00040}00040\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)OneToMany(mappedBy:\ 'SA',\ targetEntity:\ Experimentation::class)]}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{private}\ Collection\ \$experimentations;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \_\_construct()}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00044}00044\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \$this-\/>experimentations\ =\ \textcolor{keyword}{new}\ ArrayCollection();}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getEtat():\ ?EtatSA}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00049}00049\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>etat;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00053}00053\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setEtat(?EtatSA\ \$etat):\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \$this-\/>etat\ =\ \$etat;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getId():\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00059}00059\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>id;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00063}00063\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getNumero():\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00064}00064\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>numero;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00066}00066\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setNumero(\textcolor{keywordtype}{int}\ \$numero):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00069}00069\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \$this-\/>numero\ =\ \$numero;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00075}00075\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getNom():\ ?\textcolor{keywordtype}{string}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00076}00076\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>nom;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00080}00080\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setNom(\textcolor{keywordtype}{string}\ \$nom):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \$this-\/>nom\ =\ \$nom;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00087}00087\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ isDisponible():\ ?\textcolor{keywordtype}{bool}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00088}00088\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>disponible;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00092}00092\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setDisponible(\textcolor{keywordtype}{bool}\ \$disponible):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \$this-\/>disponible\ =\ \$disponible;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00102}\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a00d76e0863a4966a4e62d539210130fe}{00102}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Entity_1_1SA_a00d76e0863a4966a4e62d539210130fe}{getExperimentations}}():\ Collection}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00103}00103\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>experimentations;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00107}00107\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ addExperimentation(\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}}\ \$experimentation):\ static}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00108}00108\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$this-\/>experimentations-\/>contains(\$experimentation))\ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>experimentations-\/>add(\$experimentation);}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \$experimentation-\/>setSA(\$this);}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00112}00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00115}00115\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00117}00117\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ removeExperimentation(Experimentation\ \$experimentation):\ static}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00118}00118\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$this-\/>experimentations-\/>removeElement(\$experimentation))\ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ owning\ side\ to\ null\ (unless\ already\ changed)}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentation-\/>getSA()\ ===\ \$this)\ \{}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$experimentation-\/>setSA(\textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00124}00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SA_8php_source_l00128}00128\ \}}
+
+\end{DoxyCode}
