@@ -109,7 +109,7 @@ class TechnicienController extends AbstractController
                 $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
             }
             else if(!$hasher->isPasswordValid($user,$data['MDP'])){
-                $this->addFlash('error', "mot de passe actuel incorrects");
+                $this->addFlash('error', "Mot de passe actuel incorrects");
             }
             else if(strlen($data['PlainPassword']) < 8 )
             {
@@ -128,7 +128,7 @@ class TechnicienController extends AbstractController
                 $user->setPlainPassword($data['PlainPassword']);
                 $manager->persist($user);
                 $manager->flush();
-                $this->addFlash('success', "mot de passe modifier !");
+                $this->addFlash('success', "Mot de passe modifié !");
             }
 
         }
