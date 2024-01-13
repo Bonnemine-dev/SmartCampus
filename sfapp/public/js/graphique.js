@@ -56,9 +56,16 @@ function transformerDonnees(jsonData) {
         return [date.getTime(), item[1]];
     });
 
+    // Filtrer les éléments non valides (NaN, chaîne vide, null)
+    dataMapped = dataMapped.filter(item => {
+        // Vérifie que la date est un nombre valide et que la valeur n'est ni null, ni NaN, ni une chaîne vide
+        return !isNaN(item[0]) && item[1] !== null && item[1] !== '' && !isNaN(item[1]) && item[1] >= 0 && item[1] <= 5000;
+    });
+
     // Trier les données par date en ordre croissant
     dataMapped.sort((a, b) => a[0] - b[0]);
 
+    console.log(dataMapped);
     return dataMapped;
 }
 
@@ -126,19 +133,25 @@ function creerGraphique(donneesGraphique, nomSalle, typeGraphique) {
     var debut = donneesGraphique[0][0];
     var fin = donneesGraphique[donneesGraphique.length - 1][0];
 
-    var nom, yaxisMax;
+    var nom, yaxisMax, yAnnotationLow, yAnnotationHigh
     switch (typeGraphique) {
         case 'temp':
             nom = "Température (°C)";
             yaxisMax = 30;
+            yAnnotationLow = 18;
+            yAnnotationHigh = 22;
             break;
         case 'hum':
             nom = "Humidité (%)";
             yaxisMax = 100;
+            yAnnotationLow = 40;
+            yAnnotationHigh = 70;
             break;
         case 'co2':
             nom = "CO2 (ppm)";
             yaxisMax = 2000;
+            yAnnotationLow = 400;
+            yAnnotationHigh = 1000;
             break;
         default:
             throw new Error('Type de graphique non supporté');
@@ -165,6 +178,26 @@ function creerGraphique(donneesGraphique, nomSalle, typeGraphique) {
         yaxis: {
             min: typeGraphique === 'temp' ? 14 : 0,
             max: yaxisMax,
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: yAnnotationLow,
+                    borderColor: '#00E396',
+                },
+                {
+                    y: yAnnotationHigh,
+                    borderColor: '#00E396',
+                    label: {
+                        borderColor: '#00E396',
+                        style: {
+                            color: '#fff',
+                            background: '#00E396',
+                        },
+                        text: 'Plage idéale',
+                    }
+                }
+            ]
         },
         title: {
             text: `${nom} pour la salle ${nomSalle}`,
