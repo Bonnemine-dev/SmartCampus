@@ -194,7 +194,7 @@ class JsonDataHandling
 
             //dump($donnee);
 
-            if (!empty($donnee) && isset($donnee[0]['valeur']) && $donnee[0]['valeur'] !== "")
+            if (!empty($donnee) && isset($donnee[0]['valeur']) && $donnee[0]['valeur'] !== "" && $donnee[0]['valeur'] > 0 && $donnee[0]['valeur'] < 5000 && $donnee[0]['valeur'] !== null)
             {
                 //dump($donnee[0]['valeur']);
                 $somme += floatval($donnee[0]['valeur']);
@@ -350,73 +350,6 @@ class JsonDataHandling
         });
 
         return array_values($groupedData);
-    }
-
-    /**
-     * Extrait les dernières données des salles basées sur les expérimentations données.
-     *
-     * @param array<int, array{
-     *     nom: string,
-     *     etage: int,
-     *     numero: int,
-     *     orientation: string,
-     *     nb_fenetres: int,
-     *     nb_ordis: int,
-     *     datedemande: DateTime,
-     *     dateinstallation: DateTime,
-     *     etat: EtatExperimentation,
-     *     sa_etat: EtatSA
-     * }> $experimentations Tableau des expérimentations pour les salles.
-     * @return array<int, array{
-     *     localisation: string,
-     *     co2: string,
-     *     hum: string,
-     *     temp: string,
-     *     dateCapture: string
-     * }> Tableau des dernières données pour chaque salle.
-     */
-    public function extraireDernieresDonneesDesSalles(array $experimentations): array
-    {
-        $resultats = [];
-
-        if (!empty($experimentations))
-        {
-            foreach ($experimentations as $experimentation) {
-                $nomsalle = $experimentation['nom'];
-
-                $derniereDonnee = $this->extraireDerniereDonneeSalle($nomsalle);
-
-                // Si des données ont été trouvées pour la salle
-                if ($derniereDonnee['date_de_capture'] !== null) {
-                    $resultats[] = [
-                        'localisation' => $nomsalle,
-                        'co2' => $derniereDonnee['co2'],
-                        'hum' => $derniereDonnee['hum'],
-                        'temp' => $derniereDonnee['temp'],
-                        'dateCapture' => $derniereDonnee['date_de_capture']
-                    ];
-                }
-            }
-        }
-        else {
-            foreach ($this->salles as $nomsalle => $infosalle){
-                $derniereDonnee = $this->extraireDerniereDonneeSalle($nomsalle);
-
-                // Si des données ont été trouvées pour la salle
-                if ($derniereDonnee['date_de_capture'] !== null) {
-                    $resultats[] = [
-                        'localisation' => $nomsalle,
-                        'co2' => $derniereDonnee['co2'],
-                        'hum' => $derniereDonnee['hum'],
-                        'temp' => $derniereDonnee['temp'],
-                        'dateCapture' => $derniereDonnee['date_de_capture']
-                    ];
-                }
-            }
-        }
-
-
-        return $resultats;
     }
 
 }

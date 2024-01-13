@@ -76,18 +76,17 @@ class APIController extends AbstractController
         return new JsonResponse($data);
     }
 
-    #[Route('/api/captures/moyenne/par/type/{type?}', name: 'app_api_moyenne_type')]
+    #[Route('/api/captures/moyenne/par/type/{type?}', name: 'app_moyenne_type')]
     public function moyenne(string $type): Response
     {
         $data = $this->jsonDataHandling->getMoyenneParType($type);
         return new JsonResponse($data);
     }
 
-    #[Route('/api/captures/liste/salles/avec/donnees', name: 'app_api_moyenne_salle')]
-    public function listeSallesAvecDonnees(SARepository $saRepository): Response
+    #[Route('/api/captures/dernieres/donnees/salle/{nomsalle?}', name: 'app_derniere_donnees_salle')]
+    public function derniereDonneesSalle(string $nomsalle): Response
     {
-        $data = $this->jsonDataHandling->extraireDernieresDonneesDesSalles([]);
-        $saRepository->sa_eteint_probleme($data);
+        $data = $this->jsonDataHandling->extraireDerniereDonneeSalle($nomsalle);
         return new JsonResponse($data);
     }
 

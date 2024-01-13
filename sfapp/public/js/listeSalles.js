@@ -29,22 +29,23 @@ function intervallesTempSaison() {
 
 const intervalleTemp = intervallesTempSaison();
 
-
+const listeNomSalles = [ "D205", "D206", "D207", "D204", "D203", "D303", "D304", "C101", "D109", "D106", "D001", "D002", "D004", "C004", "C007", "D201", "D307", "C005" ];
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/captures/liste/salles/avec/donnees')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(salle => {
-                updateSalleData(salle);
-            });
-        })
-        .catch(error => console.error('Erreur:', error));
+    listeNomSalles.forEach(nomSalle => {
+        fetch('/api/captures/dernieres/donnees/salle/' + nomSalle)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                updateSalleData(data, nomSalle);
+            })
+            .catch(error => console.error('Erreur:', error));
+    });
 });
 
-function updateSalleData(salle) {
+function updateSalleData(salle, nomSalle) {
     console.log(salle);
     // Mise à jour des données de l'humidité
-    let humElement = document.getElementById(`hum_${salle.localisation}`);
+    let humElement = document.getElementById(`hum_${nomSalle}`);
     if (humElement) {
         humElement.innerHTML = `${salle.hum}%`;
         if (salle.hum === 100 || salle.hum === 0) {
@@ -60,7 +61,7 @@ function updateSalleData(salle) {
     }
 
     // Mise à jour des données de la température
-    let tempElement = document.getElementById(`temp_${salle.localisation}`);
+    let tempElement = document.getElementById(`temp_${nomSalle}`);
     if (tempElement) {
         tempElement.innerHTML = `${salle.temp}°C`;
         if (salle.temp < intervalleTemp[0] || salle.temp > intervalleTemp[3]) {
@@ -76,7 +77,7 @@ function updateSalleData(salle) {
     }
 
     // Mise à jour des données du CO2
-    let co2Element = document.getElementById(`co2_${salle.localisation}`);
+    let co2Element = document.getElementById(`co2_${nomSalle}`);
     if (co2Element) {
         co2Element.innerHTML = `${salle.co2}ppm`;
         if (salle.co2 > 1500 || salle.co2 < 400 ) {
