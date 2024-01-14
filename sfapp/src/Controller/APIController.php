@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * @class APIController
@@ -77,17 +79,38 @@ class APIController extends AbstractController
     }
 
     #[Route('/api/captures/moyenne/par/type/{type?}', name: 'app_moyenne_type')]
-    public function moyenne(string $type): Response
+    public function moyenne(string $type, CacheInterface $cache): Response
     {
-        $data = $this->jsonDataHandling->getMoyenneParType($type);
+        // Clé de cache unique pour chaque type
+        $cacheKey = 'moyenne_par_type_' . $type;
+
+        // Vérifier si les données sont en cache
+        $data = $cache->get($cacheKey, function (ItemInterface $item) use ($type) {
+            // Expiration du cache au bout de 5 minutes (intervale de récupération des données par les SA)
+            $item->expiresAfter(350);
+            // Récupérer les données si elles ne sont pas en cache
+            return $this->jsonDataHandling->getMoyenneParType($type);
+        });
+
         return new JsonResponse($data);
     }
 
     #[Route('/api/captures/dernieres/donnees/salle/{nomsalle?}', name: 'app_derniere_donnees_salle')]
-    public function derniereDonneesSalle(string $nomsalle): Response
+    public function derniereDonneesSalle(string $nomsalle, CacheInterface $cache): Response
     {
-        $data = $this->jsonDataHandling->extraireDerniereDonneeSalle($nomsalle);
+        // Clé de cache unique pour chaque salle
+        $cacheKey = 'dernieres_donnees_salle_' . $nomsalle;
+
+        // Vérifier si les données sont en cache
+        $data = $cache->get($cacheKey, function (ItemInterface $item) use ($nomsalle) {
+            // Expiration du cache au bout de 5 minutes (intervale de récupération des données par les SA)
+            $item->expiresAfter(350);
+            // Récupérer les données si elles ne sont pas en cache
+            return $this->jsonDataHandling->extraireDerniereDonneeSalle($nomsalle);
+        });
+
         return new JsonResponse($data);
     }
+
 
 }
