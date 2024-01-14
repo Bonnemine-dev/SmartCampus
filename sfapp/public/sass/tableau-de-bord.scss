@@ -41,7 +41,7 @@
 
   .donnees {
     @include flex($justify: space-between);
-    //flex-wrap: wrap;
+    flex-wrap: wrap;
 
     .donnee {
       @include flex-column($justify: space-between, $align: center);
@@ -79,7 +79,29 @@
       margin-bottom: 0;
       text-align: center;
     }
+
   }
+
+  @media (max-width: 550px) {
+    align-items: center;
+
+    .donnees {
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      .donnee {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    align-self: center;
+    padding: 20px;
+  }
+
+
 }
 
 //----------------------------------------------

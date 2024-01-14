@@ -48,6 +48,6 @@
         height: fit-content;
         padding: 20px 0;
         position: relative;
-        margin-top: $banner-height;
+        padding-top: calc($banner-height + 20px);
     }
 }

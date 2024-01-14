@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- Affichage responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Welcome!{% endblock %}</title>
     <!-- Icône de l'onglet -->
     <link rel="icon" href="{{ asset('img/logo.jpg') }}">
@@ -14,7 +16,7 @@
 <body>
 <!-- Bannière avec le titre SmartCampus -->
 <div class="banner">
-    <div class="right-content">
+    <div class="left-content">
         <!-- Lien de déconnexion avec icônes -->
         <a class="link" href="{{ path('app_deconnexion') }}">
             <div class="circle_icon">
@@ -27,40 +29,44 @@
         <h2>[DASHBOARD Bêta]</h2>
     </div>
 
-    <div class="left-content">
+    <div class="right-content">
         <!-- Affichage du nom d'utilisateur -->
-            {% if app.user == null %}
-                <a class="little-gradient-button" href="/connexion">Se connecter</a>
-            {% elseif app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
-                <a class="icon-link" href="/charge-de-mission/modifier" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M0 18V13.75L13.2 0.575C13.4 0.391667 13.621 0.25 13.863 0.15C14.105 0.0500001 14.359 0 14.625 0C14.8917 0 15.15 0.0500001 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.771 2.4 17.863 2.65C17.955 2.9 18.0007 3.15 18 3.4C18 3.66667 17.9543 3.921 17.863 4.163C17.7717 4.405 17.6257 4.62567 17.425 4.825L4.25 18H0ZM14.6 4.8L16 3.4L14.6 2L13.2 3.4L14.6 4.8Z" fill="white"/>
-                    </svg>
-                </a>
-                <a class="icon-link" href="{{ path('app_deconnexion') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none">
-                        <path d="M15 13L19 9M19 9L15 5M19 9H5M11 13V14C11 14.7956 10.6839 15.5587 10.1213 16.1213C9.55871 16.6839 8.79565 17 8 17H4C3.20435 17 2.44129 16.6839 1.87868 16.1213C1.31607 15.5587 1 14.7956 1 14V4C1 3.20435 1.31607 2.44129 1.87868 1.87868C2.44129 1.31607 3.20435 1 4 1H8C8.79565 1 9.55871 1.31607 10.1213 1.87868C10.6839 2.44129 11 3.20435 11 4V5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <p>Chargé de mission</p>
-                <!-- Icône utilisateur -->
-                <img  src="{{ asset('img/user.png') }}" alt="Icone user">
+        {% if app.user == null %}
+            <a class="little-gradient-button" href="/connexion">Se connecter</a>
+        {% elseif app.user.roles[0] == 'ROLE_CHARGEMISSION' %}
+            <a class="icon-link" href="/charge-de-mission/modifier">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M0 18V13.75L13.2 0.575C13.4 0.391667 13.621 0.25 13.863 0.15C14.105 0.0500001 14.359 0 14.625 0C14.8917 0 15.15 0.0500001 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.771 2.4 17.863 2.65C17.955 2.9 18.0007 3.15 18 3.4C18 3.66667 17.9543 3.921 17.863 4.163C17.7717 4.405 17.6257 4.62567 17.425 4.825L4.25 18H0ZM14.6 4.8L16 3.4L14.6 2L13.2 3.4L14.6 4.8Z"
+                          fill="white"/>
+                </svg>
+            </a>
+            <a class="icon-link" href="{{ path('app_deconnexion') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none">
+                    <path d="M15 13L19 9M19 9L15 5M19 9H5M11 13V14C11 14.7956 10.6839 15.5587 10.1213 16.1213C9.55871 16.6839 8.79565 17 8 17H4C3.20435 17 2.44129 16.6839 1.87868 16.1213C1.31607 15.5587 1 14.7956 1 14V4C1 3.20435 1.31607 2.44129 1.87868 1.87868C2.44129 1.31607 3.20435 1 4 1H8C8.79565 1 9.55871 1.31607 10.1213 1.87868C10.6839 2.44129 11 3.20435 11 4V5"
+                          stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <p>Chargé de mission</p>
+            <!-- Icône utilisateur -->
+            <img src="{{ asset('img/user.png') }}" alt="Icone user">
 
-            {% elseif app.user.roles[0] == 'ROLE_TECHNICIEN' %}
-                <a class="icon-link" href="/technicien/modifier" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M0 18V13.75L13.2 0.575C13.4 0.391667 13.621 0.25 13.863 0.15C14.105 0.0500001 14.359 0 14.625 0C14.8917 0 15.15 0.0500001 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.771 2.4 17.863 2.65C17.955 2.9 18.0007 3.15 18 3.4C18 3.66667 17.9543 3.921 17.863 4.163C17.7717 4.405 17.6257 4.62567 17.425 4.825L4.25 18H0ZM14.6 4.8L16 3.4L14.6 2L13.2 3.4L14.6 4.8Z" fill="white"/>
-                    </svg>
-                </a>
-                <a class="icon-link" href="{{ path('app_deconnexion') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none">
-                        <path d="M15 13L19 9M19 9L15 5M19 9H5M11 13V14C11 14.7956 10.6839 15.5587 10.1213 16.1213C9.55871 16.6839 8.79565 17 8 17H4C3.20435 17 2.44129 16.6839 1.87868 16.1213C1.31607 15.5587 1 14.7956 1 14V4C1 3.20435 1.31607 2.44129 1.87868 1.87868C2.44129 1.31607 3.20435 1 4 1H8C8.79565 1 9.55871 1.31607 10.1213 1.87868C10.6839 2.44129 11 3.20435 11 4V5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <p>Technicien</p>
-                <!-- Icône utilisateur -->
-                <img  src="{{ asset('img/user.png') }}" alt="Icone user">
-            {% endif %}
+        {% elseif app.user.roles[0] == 'ROLE_TECHNICIEN' %}
+            <a class="icon-link" href="/technicien/modifier">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M0 18V13.75L13.2 0.575C13.4 0.391667 13.621 0.25 13.863 0.15C14.105 0.0500001 14.359 0 14.625 0C14.8917 0 15.15 0.0500001 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.771 2.4 17.863 2.65C17.955 2.9 18.0007 3.15 18 3.4C18 3.66667 17.9543 3.921 17.863 4.163C17.7717 4.405 17.6257 4.62567 17.425 4.825L4.25 18H0ZM14.6 4.8L16 3.4L14.6 2L13.2 3.4L14.6 4.8Z"
+                          fill="white"/>
+                </svg>
+            </a>
+            <a class="icon-link" href="{{ path('app_deconnexion') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none">
+                    <path d="M15 13L19 9M19 9L15 5M19 9H5M11 13V14C11 14.7956 10.6839 15.5587 10.1213 16.1213C9.55871 16.6839 8.79565 17 8 17H4C3.20435 17 2.44129 16.6839 1.87868 16.1213C1.31607 15.5587 1 14.7956 1 14V4C1 3.20435 1.31607 2.44129 1.87868 1.87868C2.44129 1.31607 3.20435 1 4 1H8C8.79565 1 9.55871 1.31607 10.1213 1.87868C10.6839 2.44129 11 3.20435 11 4V5"
+                          stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <p>Technicien</p>
+            <!-- Icône utilisateur -->
+            <img src="{{ asset('img/user.png') }}" alt="Icone user">
+        {% endif %}
     </div>
 </div>
 

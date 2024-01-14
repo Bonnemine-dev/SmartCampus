@@ -1,5 +1,6 @@
 @charset "UTF-8";
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+@import url("https://fonts.cdnfonts.com/css/montserrat");
 html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
@@ -320,7 +321,6 @@ button {
   height: 100px;
   padding: 0 6%;
   width: 100%;
-  z-index: 999;
   box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.25);
   position: fixed;
   z-index: 100;
@@ -336,50 +336,62 @@ button {
   }
 }
 
-.left-content {
+.right-content {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.left-content img {
+.right-content img {
   width: 60px;
   margin-left: 20px;
 }
-.left-content .icon-link {
+.right-content .icon-link {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 10px;
 }
-.left-content .icon-link:hover {
+.right-content .icon-link:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
+@media (max-width: 550px) {
+  .right-content img {
+    width: 50px;
+    margin-left: 10px;
+  }
+}
 
-.right-content h1 {
+.left-content h1 {
   font-size: 1.4rem;
   font-weight: 500;
 }
-.right-content h2 {
+.left-content h2 {
   font-size: 1.1rem;
   font-weight: 500;
   color: #737373;
   margin-left: 20px;
 }
 @media (max-width: 999px) {
-  .right-content h1 {
+  .left-content h1 {
     font-size: 1.3rem;
   }
-  .right-content h2 {
+  .left-content h2 {
     font-size: 1rem;
   }
 }
-
-.link {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-right: 30px;
+@media (max-width: 800px) {
+  .left-content h1 {
+    font-size: 1.1rem;
+  }
+  .left-content h2 {
+    display: none;
+  }
+}
+@media (max-width: 550px) {
+  .left-content h1 {
+    display: none;
+  }
 }
 
 .circle_icon {
@@ -387,6 +399,7 @@ button {
   height: 70px;
   background: linear-gradient(90deg, #00B292, #7ED957);
   border-radius: 50%;
+  margin-right: 30px;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
@@ -426,6 +439,28 @@ button {
   transform: rotate(-15deg);
   left: 14%;
   transition: transform 0.3s ease;
+}
+@media (max-width: 550px) {
+  .circle_icon {
+    width: 50px;
+    height: 50px;
+  }
+  .circle_icon img {
+    width: 25px;
+    height: 25px;
+  }
+  .circle_icon .leave_left {
+    top: 17%;
+    left: 13%;
+  }
+  .circle_icon:hover .leave_left {
+    left: 11%;
+    transform: rotate(-7deg);
+  }
+  .circle_icon .leave_right {
+    top: 35%;
+    left: 35%;
+  }
 }
 
 .app-container {
@@ -493,7 +528,7 @@ button {
     height: fit-content;
     padding: 20px 0;
     position: relative;
-    margin-top: 100px;
+    padding-top: 120px;
   }
 }
 
@@ -508,12 +543,6 @@ button {
   height: 100%;
   position: relative;
   margin-left: 320px;
-  /*&.souhaits, &.cm-pe{
-      @extend .app-content;
-      @include flex-column($align: flex-start, $justify: flex-start);
-      padding: 5%;
-      padding-top: calc(5% + $banner-height);
-  }*/
 }
 .app-content h3 {
   font-size: 1.9rem;
@@ -547,6 +576,7 @@ button {
 @media (max-width: 999px) {
   .app-content {
     margin-left: 0;
+    padding-top: 7%;
   }
 }
 
@@ -1103,6 +1133,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 .container.widget-dg .donnees .donnee {
   display: flex;
@@ -1136,6 +1167,25 @@ button {
   font-size: 1.1rem;
   margin-bottom: 0;
   text-align: center;
+}
+@media (max-width: 550px) {
+  .container.widget-dg {
+    align-items: center;
+  }
+  .container.widget-dg .donnees {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .container.widget-dg .donnees .donnee {
+    margin-right: 0;
+  }
+}
+@media (max-width: 450px) {
+  .container.widget-dg {
+    align-self: center;
+    padding: 20px;
+  }
 }
 
 .container.widget-salles {
@@ -1288,6 +1338,19 @@ button {
   opacity: 0; /* Commence avec une opacité de 0 (complètement transparent) */
   transition: opacity 0.5s ease-in-out; /* Transition d'opacité sur 0.5 seconde */
 }
+@media (max-width: 450px) {
+  .infos-sa {
+    width: 100%;
+    margin-bottom: 30px;
+    align-self: center;
+  }
+  .infos-sa h4 {
+    font-size: 1.5rem;
+  }
+  .infos-sa h5 {
+    font-size: 1rem;
+  }
+}
 
 .container.widget-dg .title {
   margin-bottom: 20px;
@@ -1298,6 +1361,18 @@ button {
 }
 .container.widget-dg .title p {
   margin-bottom: 0;
+}
+@media (max-width: 550px) {
+  .container.widget-dg .title {
+    flex-direction: column;
+  }
+}
+@media (max-width: 450px) {
+  .container.widget-dg .title h4 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-right: 0;
+  }
 }
 
 .container.data-history {
@@ -1480,6 +1555,11 @@ button {
   width: 100vw;
 }
 
+@media (max-width: 500px) {
+  .page-accueil h3 {
+    font-size: 1.3rem;
+  }
+}
 .container.img-accueil {
   display: flex;
   flex-direction: column;
@@ -1493,12 +1573,33 @@ button {
   height: 380px;
   margin-bottom: 50px;
 }
+.container.img-accueil .circle_icon {
+  margin-right: 0;
+}
 .container.img-accueil h1 {
   font-size: 3rem;
   font-weight: 700;
   margin-top: 20px;
   letter-spacing: 5px;
   text-align: center;
+}
+@media (max-width: 675px) {
+  .container.img-accueil {
+    height: 300px;
+    margin-bottom: 35px;
+  }
+  .container.img-accueil h1 {
+    font-size: 2.5rem;
+  }
+}
+@media (max-width: 500px) {
+  .container.img-accueil {
+    height: 200px;
+    margin-bottom: 25px;
+  }
+  .container.img-accueil h1 {
+    font-size: 1.6rem;
+  }
 }
 
 .container.info-accueil {
@@ -1541,6 +1642,21 @@ button {
   max-width: 100%;
   width: 100%;
 }
+@media (max-width: 700px) {
+  .container.info-accueil .info-content {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .container.info-accueil .info-content svg {
+    width: 150px;
+    height: 150px;
+    margin: 20px 0;
+  }
+  .container.info-accueil .info-content .form-div {
+    max-width: 100%;
+    width: 100%;
+  }
+}
 
 .sa-form.accueil-form, .accueil-form.mdp-form {
   margin: 0;
@@ -1554,6 +1670,13 @@ button {
 }
 .sa-form.accueil-form button, .accueil-form.mdp-form button {
   margin: 0;
+}
+@media (max-width: 500px) {
+  .sa-form.accueil-form input[type=text], .accueil-form.mdp-form input[type=text] {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
 }
 
 #konami-audio {
@@ -1592,7 +1715,21 @@ button {
   border-color: #ff5050;
   background: rgba(255, 80, 80, 0.5);
 }
+@media (max-width: 500px) {
+  .container.recommandations .recommandation p {
+    font-size: 1rem;
+  }
+}
 
+@media (max-width: 500px) {
+  #reco-title {
+    align-self: center;
+  }
+  #reco-title h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
 .loading-dots {
   display: flex;
   justify-content: center;

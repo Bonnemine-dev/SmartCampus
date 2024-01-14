@@ -8,13 +8,6 @@
     position: relative;
     margin-left: $sidebar-width;
 
-    /*&.souhaits, &.cm-pe{
-        @extend .app-content;
-        @include flex-column($align: flex-start, $justify: flex-start);
-        padding: 5%;
-        padding-top: calc(5% + $banner-height);
-    }*/
-
     h3{
         font-size: 1.9rem;
         letter-spacing: 4px;
@@ -48,5 +41,6 @@
 
     @media (max-width: 999px) {
         margin-left: 0;
+        padding-top: 7%;
     }
 }

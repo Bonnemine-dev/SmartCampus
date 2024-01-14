@@ -36,4 +36,21 @@ $reco-red: #ff5050;
     border-color: $reco-red;
     background:rgba($reco-red, 0.5);
   }
+
+  @media (max-width: 500px){
+    p{
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 500px){
+  #reco-title {
+    align-self: center;
+  }
+
+  #reco-title h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 }
