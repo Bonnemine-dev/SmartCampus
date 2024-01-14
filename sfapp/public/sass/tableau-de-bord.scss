@@ -39,9 +39,12 @@
   width: fit-content;
   padding: 30px;
 
+  .donnees-wrap{
+    flex-wrap: wrap;
+  }
+
   .donnees {
     @include flex($justify: space-between);
-    flex-wrap: wrap;
 
     .donnee {
       @include flex-column($justify: space-between, $align: center);

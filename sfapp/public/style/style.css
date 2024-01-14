@@ -1129,11 +1129,13 @@ button {
   width: fit-content;
   padding: 30px;
 }
+.container.widget-dg .donnees-wrap {
+  flex-wrap: wrap;
+}
 .container.widget-dg .donnees {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
 }
 .container.widget-dg .donnees .donnee {
   display: flex;
