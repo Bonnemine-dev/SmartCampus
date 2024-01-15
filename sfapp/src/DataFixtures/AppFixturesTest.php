@@ -16,7 +16,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
-class AppFixtures extends Fixture 
+class AppFixturesTest extends Fixture 
 {
     private Generator $faker;
     private SalleRepository $salleRepository;
@@ -34,8 +34,8 @@ class AppFixtures extends Fixture
     {
         // Création d'un bâtiment avec des salles pour chaque étage et numéro de salle.
         $batiment = new Batiment();
-        $batiment->setNom('D');
-        $batiment->setDescription('Bâtiment D - Département informatique');
+        $batiment->setNom('G');
+        $batiment->setDescription('Bâtiment G - Département informatique');
         $manager->persist($batiment);
 
         for ($etage=0; $etage < 4; $etage++) {
@@ -65,8 +65,8 @@ class AppFixtures extends Fixture
 
         // Création du batiment C et de ses salles associées
         $batiment = new Batiment();
-        $batiment->setNom('C');
-        $batiment->setDescription('Bâtiment C - Département réseaux télécoms');
+        $batiment->setNom('F');
+        $batiment->setDescription('Bâtiment F - Département réseaux télécoms');
         $manager->persist($batiment);
 
         for ($etage=0; $etage < 4; $etage++) {
@@ -90,7 +90,7 @@ class AppFixtures extends Fixture
             $sa->setDisponible(true);
             $number = sprintf('%03d', $i);
             $sa->setNumero($i);
-            $sa->setNom('ESP-'. $number);
+            $sa->setNom('ESPtest-'. $number);
             $manager->persist($sa);
         }
         // Exécution des opérations d'écriture dans la base de données.
@@ -100,12 +100,22 @@ class AppFixtures extends Fixture
         $salles = $manager->getRepository(Salle::class)->findAll();
         echo "Nombre total de salles : " . count($salles) . PHP_EOL;
 
+        foreach ($salles as $salle) 
+        {
+            echo $salle->getNom() . PHP_EOL;
+        }
+
         // Affichage du nombre total de SA générées.
         $sas = $manager->getRepository(SA::class)->findAll();
         echo "Nombre total de SA : " . count($sas) . PHP_EOL;
 
+        foreach ($sas as $sa) 
+        {
+            echo $sa->getNom() . PHP_EOL;
+        }
+
         // Création des 17 expérimentations avec des dates de demande et d'installation aléatoires.
-        $expArray = [ ["D205", "ESP-001"], ["D206", "ESP-002"], ["D207", "ESP-003"], ["D204", "ESP-004"], ["D203", "ESP-005"], ["D303", "ESP-006"], ["D304", "ESP-007"], ["C101", "ESP-008"], ["D109", "ESP-009"], ["D106", "ESP-010"], ["D001", "ESP-011"], ["D002", "ESP-012"], ["D004", "ESP-013"], ["C004", "ESP-014"], ["C007", "ESP-015"], ["D201", "ESP-016"], ["D307", "ESP-017"], ["C005", "ESP-018"] ];
+        $expArray = [ ["G205", "ESPtest-001"], ["G206", "ESPtest-002"], ["G207", "ESPtest-003"], ["G204", "ESPtest-004"], ["G203", "ESPtest-005"], ["G303", "ESPtest-006"], ["G304", "ESPtest-007"], ["F101", "ESPtest-008"], ["G109", "ESPtest-009"], ["G106", "ESPtest-010"], ["G001", "ESPtest-011"], ["G002", "ESPtest-012"], ["G004", "ESPtest-013"], ["F004", "ESPtest-014"], ["F007", "ESPtest-015"], ["F201", "ESPtest-016"], ["F307", "ESPtest-017"], ["F005", "ESPtest-018"] ];
 
         foreach ($expArray as $experimentation) {
             $salle = $this->salleRepository->findOneBy(['nom' => $experimentation[0]]);

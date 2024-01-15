@@ -38,7 +38,8 @@ composer install
 Pour mener à bien votre développement, vous pourrez également avoir besoin d'insérer des éléments dans la base de données, pour cela, il faudra exécuter les commandes suivantes (toujours dans le bash du conteneur `but-info2-a-sae3-sfapp`) :
 ```bash
 php bin/console doctrine:migrations:migrate # Pour créer les tables dans la base de données si ce n'est pas déjà fait
-php bin/console doctrine:fixtures:load # Pour insérer le jeu de données dans la base de données
+php bin/console doctrine:fixtures:load --group=AppFixtures # Pour insérer le jeu de données dans la base de données
+php bin/console doctrine:fixtures:load --group=AppFixturesTest # Pour load les fixtures dédié au tests
 ```
 - Vous pouvez maintenant vous rendre sur l'adresse `localhost:8000` pour accéder à l'application web.
 
