@@ -24,7 +24,7 @@ class UtilisateurControllerTest extends WebTestCase
 
         $formData = [
             'recherche_salle_form' => [
-                'salle' => 'D001',
+                'salle' => 'G001',
             ]
         ];
 
