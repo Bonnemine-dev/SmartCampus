@@ -10,6 +10,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @class SalleRepository
+ * Repository pour gérer les opérations de base de données liées aux entités Salle.
  * @extends ServiceEntityRepository<Salle>
  *
  * @method Salle|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,14 +21,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SalleRepository extends ServiceEntityRepository
 {
-    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée.
+    /**
+     * Constructeur de SalleRepository.
+     * Initialise le repository avec le manager d'entités Doctrine.
+     * @param ManagerRegistry $registry Le gestionnaire de l'entité Doctrine.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Salle::class);
     }
 
-    /*
-     * Requête commune pour le repository
+    /**
+     * Crée une requête commune pour le repository.
+     * Construit un QueryBuilder pour les salles avec les détails nécessaires pour les expérimentations.
+     * @return \Doctrine\ORM\QueryBuilder Le QueryBuilder avec la requête construite.
      */
     public function requeteCommune(): \Doctrine\ORM\QueryBuilder
     {
@@ -49,10 +57,11 @@ class SalleRepository extends ServiceEntityRepository
             ->setParameter('etat_retiree', EtatExperimentation::retiree);
     }
 
-    /*
-     * Fonction de recherche pour les expérimentations
-     */
     /**
+     * Recherche les salles et leurs expérimentations associées selon les critères spécifiés.
+     *  Peut filtrer par batiment et/ou nom de salle.
+     * @param int|null $batiment L'identifiant du bâtiment (filtre optionnel).
+     * @param string|null $salle Le nom de la salle (filtre optionnel).
      * @return array<int, array{
      * id_batiment: int,
      * nom_salle: string,
@@ -66,7 +75,7 @@ class SalleRepository extends ServiceEntityRepository
      * dateinstallation: ?DateTime,
      * datedesinstallation: ?DateTime,
      * etat: int
-     * }>
+     * }> Liste des salles et leurs expérimentations correspondantes aux critères.
      */
     public function rechercheSallePlanExp(int $batiment = null, string $salle = null): array
     {
@@ -91,11 +100,12 @@ class SalleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Filtre les salles selon les critères spécifiés.
-     * @param array<int, int> $etages
-     * @param array<int, string> $orientation
-     * @param int|null $ordinateurs
-     * @param int|null $sa
+     * Filtre les salles et leurs expérimentations selon des critères spécifiques.
+     * Utilise des paramètres optionnels pour le filtrage par étage, orientation, nombre d'ordinateurs, et état du SA.
+     * @param array<int, int> $etages Les étages à filtrer.
+     * @param array<int, string> $orientation Les orientations à filtrer.
+     * @param int|null $ordinateurs Le nombre d'ordinateurs à filtrer.
+     * @param int|null $sa L'état du SA à filtrer.
      * @return array<int, array{
      *  id_batiment: int,
      *  nom_salle: string,
@@ -109,7 +119,7 @@ class SalleRepository extends ServiceEntityRepository
      *  dateinstallation: ?DateTime,
      *  datedesinstallation: ?DateTime,
      *  etat: int
-     *  }>
+     *  }> Liste des salles filtrées avec les détails des expérimentations.
      */
     public function filtrerSallePlanExp(array $etages = null, array $orientation = null, int $ordinateurs = null, int $sa = null): array
     {
@@ -163,10 +173,10 @@ class SalleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère l'entité Salle en fonction du nom de la salle.
-     *
-     * @param string $salle
-     * @return Salle|null
+     * Récupère l'entité Salle correspondant au nom donné.
+     * Recherche la salle par son nom.
+     * @param string $salle Le nom de la salle.
+     * @return Salle|null L'entité Salle correspondante ou null si non trouvée.
      */
     public function nomSalleId(string $salle): ?Salle
     {
@@ -177,6 +187,8 @@ class SalleRepository extends ServiceEntityRepository
      * Tris des salles pour enlever les expérimentations inutiles
      */
     /**
+     * Trie une liste de salles et élimine les doublons.
+     *  Utilisé pour organiser et filtrer les salles et leurs expérimentations.
      * @param array<int, array{
           * id_batiment: int,
           * nom_salle: string,
@@ -190,7 +202,8 @@ class SalleRepository extends ServiceEntityRepository
           * dateinstallation: ?DateTime,
           * datedesinstallation: ?DateTime,
           * etat: int
-          * }> $salle
+          * }> $salle Liste des salles à trier.
+     *
      * @return array<int, array{
      * id_batiment: int,
      * nom_salle: string,
@@ -204,7 +217,7 @@ class SalleRepository extends ServiceEntityRepository
      * dateinstallation: ?DateTime,
      * datedesinstallation: ?DateTime,
      * etat: int
-     * }>
+     * }> Liste triée des salles avec expérimentations.
      */
     public function triListeSalle(array $salle): array
     {
@@ -235,14 +248,14 @@ class SalleRepository extends ServiceEntityRepository
         return $salle;
     }
 
-    /*
-     * Recherche les SA associés à une salle
-     */
     /**
+     * Recherche les informations SA associées à une salle donnée.
+     * Trouve le SA et son état pour une salle spécifique.
+     * @param string $nomsalle Le nom de la salle pour laquelle rechercher le SA.
      * @return array{
      * nom_sa: string,
      * etat_sa: EtatSA
-     * }
+     * } Résultat contenant le nom du SA et son état.
      */
     public function SAAssocie(string $nomsalle): array
     {

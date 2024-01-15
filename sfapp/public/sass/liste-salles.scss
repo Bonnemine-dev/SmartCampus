@@ -5,8 +5,12 @@
 
   .salle{
     @include flex($justify: space-between);
-    margin: 0 0 15px 0;
+    margin: 0 0 10px 0;
     padding: 10px;
+
+    .flex-start{
+        @include flex($justify: flex-start);
+    }
 
     .salle-titre{
       @include flex($justify: space-between);
@@ -14,12 +18,37 @@
     }
 
     .salle-donnees{
-      @include flex($justify: space-between);
+      @include flex($justify: flex-start);
+      margin-left: 20px;
+
+      .donnee{
+        @include flex($justify: flex-start);
+        margin-right: 15px;
+        width: 190px;
+
+        &:first-child {
+          width: 150px;
+        }
+
+        &:nth-child(2) {
+          width: 160px;
+        }
+      }
 
       h4{
-        margin-right: 15px;
+        margin: 0;
+        font-size: 1.3rem;
+
+        &.text-red{
+          color: #FF3A3A;
+        }
+
+        &.text-orange{
+          color: #FFA53A;
+        }
       }
     }
+
 
     .divider{
       height: 70px;

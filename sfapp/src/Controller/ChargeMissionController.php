@@ -18,8 +18,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExperimentationRepository;
 
+/**
+ * @class ChargeMissionController
+ * Contrôleur pour gérer les actions du chargé de mission.
+ * @extends AbstractController
+ */
 class ChargeMissionController extends AbstractController
 {
+    /**
+     * Affiche la page de planification des expérimentations.
+     * Gère les formulaires de filtre et de recherche pour les salles.
+     * @param Request $request La requête HTTP entrante.
+     * @param SalleRepository $salleRepository Le repository pour accéder aux données des salles.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param BatimentRepository $batimentRepository Le repository pour accéder aux données des bâtiments.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/plan-experimentation', name: 'app_charge_mission')
+     */
     #[Route('/charge-de-mission/plan-experimentation', name: 'app_charge_mission')]
     public function index(Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository): Response
     {
@@ -72,9 +87,21 @@ class ChargeMissionController extends AbstractController
             'rechercheSalleForm' => $rechercheSalleForm->createView(),
         ]);
     }
-    
+
+    /**
+     * Affiche la liste des expérimentations en cours.
+     * Utilise les formulaires de filtre et de recherche pour filtrer les résultats.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param UserRepository $userRepository Le repository pour accéder aux données des utilisateurs.
+     * @param Request $request La requête HTTP entrante.
+     * @param BatimentRepository $batimentRepository Le repository pour accéder aux données des bâtiments.
+     * @param ExperimentationRepository $experimentationRepository Le repository pour accéder aux données des expérimentations.
+     * @param JsonDataHandling $jsonDataHandling Le service de traitement des données JSON.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/liste-salles', name: 'liste_salles')
+     */
     #[Route('/charge-de-mission/liste-salles', name: 'liste_salles')]
-    public function liste_experimentation(UserRepository $userRepository, Request $request, SalleRepository $salleRepository, SARepository $saRepository, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
+    public function liste_experimentation(SARepository $saRepository, UserRepository $userRepository, Request $request, BatimentRepository $batimentRepository, ExperimentationRepository $experimentationRepository, JsonDataHandling $jsonDataHandling): Response
     {
 
 
@@ -113,31 +140,22 @@ class ChargeMissionController extends AbstractController
         // Logique métier supplémentaire
         $batiments = $batimentRepository->findAll();
 
-        // Afficher la vue d'ajout de salle avec le résultat de l'existence
-        $listeSallesAvecDonnees = $jsonDataHandling->extraireDernieresDonneesDesSalles($liste_experimentations);
-        if(empty($liste_experimentations)){
-            $this->addFlash('error', "Votre recherche ne correspond pas a une expérimentation en cours");
-        }
-        
-        if(!empty($listeSallesAvecDonnees)){
-            $intervalleTempSaison = $userRepository->intervallesTempSaison($listeSallesAvecDonnees[0]['dateCapture']);
-        }
-
-        if (empty($intervalleTempSaison) or $intervalleTempSaison == null) {
-            $intervalleTempSaison = [-50,-20,50,100];
-        }
-
-
         return $this->render('chargemission/liste-salles.html.twig', [
             'liste_experimentations' => $liste_experimentations, 
-            'listeDerniereValeur' => $listeSallesAvecDonnees,
             'liste_batiments' => $batiments,
             'filtreSalleForm' => $filtreSalleForm->createView(),
             'rechercheSalleForm' => $rechercheSalleForm->createView(),
-            'intervalleTempSaison' => $intervalleTempSaison,
         ]);
     }
 
+    /**
+     * Affiche le tableau de bord du chargé de mission.
+     * Inclut des données météorologiques et des statistiques sur les salles.
+     * @param JsonDataHandling $jsonDataHandling Le service de traitement des données JSON.
+     * @param UserRepository $userRepository Le repository pour accéder aux données des utilisateurs.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')
+     */
     #[Route('/charge-de-mission/tableau-de-bord', name: 'cm_tableau_de_bord')]
     public function cm_tableau_de_bord(JsonDataHandling $jsonDataHandling, UserRepository $userRepository): Response
     {
@@ -186,23 +204,22 @@ class ChargeMissionController extends AbstractController
             }
         }
 
-        $intervalleTempSaison = $userRepository->intervallesTempSaison(date("Y-m-d H:i:s"));
-
-        $moyenneTemp = $jsonDataHandling->getMoyenneParType("temp");
-        $moyenneHum = $jsonDataHandling->getMoyenneParType("hum");
-        $moyenneCo2 = $jsonDataHandling->getMoyenneParType("co2");
-
-
         return $this->render('chargemission/tableau-de-bord.html.twig', [
-             'temp_moy' => $moyenneTemp,
-             'hum_moy' => $moyenneHum,
-             'taux_carbone_moy' => $moyenneCo2,
              'salles' => $salles,
-             'temperature_ext' => $temperature_ext,
-             'intervalleTempSaison' => $intervalleTempSaison,
+             'temperature_ext' => $temperature_ext
         ]);
     }
 
+    /**
+     * Permet au chargé de mission de modifier son mot de passe.
+     * Gère le formulaire de modification de mot de passe.
+     * @param Request $request La requête HTTP entrante.
+     * @param UserRepository $repository Le repository pour accéder aux données des utilisateurs.
+     * @param EntityManagerInterface $manager Le gestionnaire d'entités.
+     * @param UserPasswordHasherInterface $hasher L'outil de hashage des mots de passe.
+     * @return Response La réponse HTTP avec la vue générée.
+     * @Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')
+     */
     #[Route('/charge-de-mission/modifier', name: 'app_modifier_chargemission')]
     public function modifier(Request $request ,UserRepository $repository, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
@@ -218,7 +235,7 @@ class ChargeMissionController extends AbstractController
                 $this->addFlash('error', "Vos nouveaux mots de passe ne correspondent pas entre eux. Veuillez réessayer.");
             }
             else if(!$hasher->isPasswordValid($user,$data['MDP'])){
-                $this->addFlash('error', "mot de passe actuel incorrects");
+                $this->addFlash('error', "Mot de passe actuel incorrect");
             }
             else if(strlen($data['PlainPassword']) < 8 )
             {
@@ -237,7 +254,7 @@ class ChargeMissionController extends AbstractController
                 $user->setPlainPassword($data['PlainPassword']);
                 $manager->persist($user);
                 $manager->flush();
-                $this->addFlash('success', "mot de passe modifier !");
+                $this->addFlash('success', "Mot de passe modifié !");
             }
 
         }

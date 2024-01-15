@@ -1,0 +1,106 @@
+\doxysection{App\textbackslash{}Form\textbackslash{}Filtre\+SAForm\+Type Class Reference}
+\hypertarget{classApp_1_1Form_1_1FiltreSAFormType}{}\label{classApp_1_1Form_1_1FiltreSAFormType}\index{App\textbackslash{}Form\textbackslash{}FiltreSAFormType@{App\textbackslash{}Form\textbackslash{}FiltreSAFormType}}
+Inheritance diagram for App\textbackslash{}Form\textbackslash{}Filtre\+SAForm\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Form_1_1FiltreSAFormType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType_aeefdbe49cc4b17b2441d1e442c741293}{build\+Form}} (Form\+Builder\+Interface \$builder, array \$options)
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType_a8f2ecde4e3c793a5cc1576fb8096c521}{configure\+Options}} (Options\+Resolver \$resolver)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Filtre\+SAForm\+Type pour créer un formulaire de filtre pour les Systèmes d\textquotesingle{}Acquisition (SA). Cette classe étend Abstract\+Type et définit la structure du formulaire pour filtrer les SA en fonction de différents critères tels que l\textquotesingle{}état et la localisation. 
+
+Definition at line \mbox{\hyperlink{FiltreSAFormType_8php_source_l00015}{15}} of file \mbox{\hyperlink{FiltreSAFormType_8php_source}{Filtre\+SAForm\+Type.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Form_1_1FiltreSAFormType_aeefdbe49cc4b17b2441d1e442c741293}\label{classApp_1_1Form_1_1FiltreSAFormType_aeefdbe49cc4b17b2441d1e442c741293} 
+\index{App\textbackslash{}Form\textbackslash{}FiltreSAFormType@{App\textbackslash{}Form\textbackslash{}FiltreSAFormType}!buildForm@{buildForm}}
+\index{buildForm@{buildForm}!App\textbackslash{}Form\textbackslash{}FiltreSAFormType@{App\textbackslash{}Form\textbackslash{}FiltreSAFormType}}
+\doxysubsubsection{\texorpdfstring{buildForm()}{buildForm()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Filtre\+SAForm\+Type\+::build\+Form (\begin{DoxyParamCaption}\item[{Form\+Builder\+Interface}]{\$builder,  }\item[{array}]{\$options }\end{DoxyParamCaption})}
+
+Construit le formulaire de filtre pour les Systèmes d\textquotesingle{}Acquisition (SA). Cette méthode ajoute des champs de sélection pour filtrer les SA par état et localisation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Form\+Builder\+Interface & {\em \$builder} & Le constructeur de formulaire. \\
+\hline
+array & {\em \$options} & Les options pour le constructeur de formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{FiltreSAFormType_8php_source_l00024}{24}} of file \mbox{\hyperlink{FiltreSAFormType_8php_source}{Filtre\+SAForm\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'etat'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Éteint'}\ =>\ 0,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Allumé'}\ =>\ 1,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Défaillant'}\ =>\ 2,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'État'},}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'localisation'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Stock'}\ =>\ \textcolor{stringliteral}{'stock'},}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Salle'}\ =>\ \textcolor{stringliteral}{'salle'},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Localisation'},}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Form_1_1FiltreSAFormType_a8f2ecde4e3c793a5cc1576fb8096c521}\label{classApp_1_1Form_1_1FiltreSAFormType_a8f2ecde4e3c793a5cc1576fb8096c521} 
+\index{App\textbackslash{}Form\textbackslash{}FiltreSAFormType@{App\textbackslash{}Form\textbackslash{}FiltreSAFormType}!configureOptions@{configureOptions}}
+\index{configureOptions@{configureOptions}!App\textbackslash{}Form\textbackslash{}FiltreSAFormType@{App\textbackslash{}Form\textbackslash{}FiltreSAFormType}}
+\doxysubsubsection{\texorpdfstring{configureOptions()}{configureOptions()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Filtre\+SAForm\+Type\+::configure\+Options (\begin{DoxyParamCaption}\item[{Options\+Resolver}]{\$resolver }\end{DoxyParamCaption})}
+
+Configure les options par défaut pour le formulaire de filtre des SA. Cette méthode définit les options par défaut, y compris la méthode de requête HTTP utilisée.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Options\+Resolver & {\em \$resolver} & Le résolveur d\textquotesingle{}options pour le formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{FiltreSAFormType_8php_source_l00056}{56}} of file \mbox{\hyperlink{FiltreSAFormType_8php_source}{Filtre\+SAForm\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \$resolver-\/>setDefaults([}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ your\ form\ options\ here}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'method'}\ =>\ \textcolor{stringliteral}{'GET'},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Filtre\+SAForm\+Type.\+php\end{DoxyCompactItemize}

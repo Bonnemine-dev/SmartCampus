@@ -1,0 +1,137 @@
+\doxysection{App\textbackslash{}Entity\+Listener\textbackslash{}User\+Listener Class Reference}
+\hypertarget{classApp_1_1EntityListener_1_1UserListener}{}\label{classApp_1_1EntityListener_1_1UserListener}\index{App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1EntityListener_1_1UserListener_af1e973daa51efd6faea58e13f719e4b6}{\+\_\+\+\_\+construct}} (User\+Password\+Hasher\+Interface \$password\+Hasher)
+\item 
+\mbox{\hyperlink{classApp_1_1EntityListener_1_1UserListener_a54e763d407097aaa177285d5784fe03a}{pre\+Persist}} (User \$user)
+\item 
+\mbox{\hyperlink{classApp_1_1EntityListener_1_1UserListener_ae386c05d063d7a545c9a106c603ca8a8}{pre\+Update}} (User \$user)
+\item 
+\mbox{\hyperlink{classApp_1_1EntityListener_1_1UserListener_a770e8963fe723f844058fb575582c6c0}{encode\+Password}} (User \$user)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe User\+Listener pour gérer les événements liés aux entités User. Cette classe écoute les événements de cycle de vie Doctrine pour les entités User, permettant de hacher le mot de passe avant la persistance et la mise à jour. 
+
+Definition at line \mbox{\hyperlink{UserListener_8php_source_l00013}{13}} of file \mbox{\hyperlink{UserListener_8php_source}{User\+Listener.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1EntityListener_1_1UserListener_af1e973daa51efd6faea58e13f719e4b6}\label{classApp_1_1EntityListener_1_1UserListener_af1e973daa51efd6faea58e13f719e4b6} 
+\index{App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\+Listener\textbackslash{}\+User\+Listener\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{User\+Password\+Hasher\+Interface}]{\$password\+Hasher }\end{DoxyParamCaption})}
+
+Constructeur de User\+Listener. Initialise le hacheur de mot de passe.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User\+Password\+Hasher\+Interface & {\em \$password\+Hasher} & Le service de hachage de mot de passe. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{UserListener_8php_source_l00023}{23}} of file \mbox{\hyperlink{UserListener_8php_source}{User\+Listener.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \$this-\/>passwordHasher\ =\ \$passwordHasher;}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1EntityListener_1_1UserListener_a770e8963fe723f844058fb575582c6c0}\label{classApp_1_1EntityListener_1_1UserListener_a770e8963fe723f844058fb575582c6c0} 
+\index{App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}!encodePassword@{encodePassword}}
+\index{encodePassword@{encodePassword}!App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}}
+\doxysubsubsection{\texorpdfstring{encodePassword()}{encodePassword()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\+Listener\textbackslash{}\+User\+Listener\+::encode\+Password (\begin{DoxyParamCaption}\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+Hache le mot de passe de l\textquotesingle{}utilisateur. Si l\textquotesingle{}utilisateur a un plain\+Password, le hache et le définit comme son mot de passe, puis efface le plain\+Password pour des raisons de sécurité.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & L\textquotesingle{}entité utilisateur dont le mot de passe doit être haché. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{UserListener_8php_source_l00056}{56}} of file \mbox{\hyperlink{UserListener_8php_source}{User\+Listener.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$user-\/>getPlainPassword()\ ==\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \$user-\/>setPassword(\$this-\/>passwordHasher-\/>hashPassword(}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \$user,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \$user-\/>getPlainPassword(),}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ ));}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\textcolor{keyword}{null});}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1EntityListener_1_1UserListener_a54e763d407097aaa177285d5784fe03a}\label{classApp_1_1EntityListener_1_1UserListener_a54e763d407097aaa177285d5784fe03a} 
+\index{App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}!prePersist@{prePersist}}
+\index{prePersist@{prePersist}!App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}}
+\doxysubsubsection{\texorpdfstring{prePersist()}{prePersist()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\+Listener\textbackslash{}\+User\+Listener\+::pre\+Persist (\begin{DoxyParamCaption}\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+Méthode appelée avant la persistance d\textquotesingle{}un utilisateur. Hache le mot de passe de l\textquotesingle{}utilisateur avant de le sauvegarder.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & L\textquotesingle{}entité utilisateur à traiter. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{UserListener_8php_source_l00033}{33}} of file \mbox{\hyperlink{UserListener_8php_source}{User\+Listener.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00034\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \$this-\/>\mbox{\hyperlink{classApp_1_1EntityListener_1_1UserListener_a770e8963fe723f844058fb575582c6c0}{encodePassword}}(\$user);}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1EntityListener_1_1UserListener_ae386c05d063d7a545c9a106c603ca8a8}\label{classApp_1_1EntityListener_1_1UserListener_ae386c05d063d7a545c9a106c603ca8a8} 
+\index{App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}!preUpdate@{preUpdate}}
+\index{preUpdate@{preUpdate}!App\textbackslash{}EntityListener\textbackslash{}UserListener@{App\textbackslash{}EntityListener\textbackslash{}UserListener}}
+\doxysubsubsection{\texorpdfstring{preUpdate()}{preUpdate()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\+Listener\textbackslash{}\+User\+Listener\+::pre\+Update (\begin{DoxyParamCaption}\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+Méthode appelée avant la mise à jour d\textquotesingle{}un utilisateur. Hache le mot de passe de l\textquotesingle{}utilisateur avant de le sauvegarder.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & L\textquotesingle{}entité utilisateur à traiter. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{UserListener_8php_source_l00044}{44}} of file \mbox{\hyperlink{UserListener_8php_source}{User\+Listener.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \$this-\/>\mbox{\hyperlink{classApp_1_1EntityListener_1_1UserListener_a770e8963fe723f844058fb575582c6c0}{encodePassword}}(\$user);}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+User\+Listener.\+php\end{DoxyCompactItemize}

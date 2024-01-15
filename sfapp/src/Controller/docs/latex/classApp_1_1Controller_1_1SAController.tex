@@ -1,0 +1,253 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}SAController Class Reference}
+\hypertarget{classApp_1_1Controller_1_1SAController}{}\label{classApp_1_1Controller_1_1SAController}\index{App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}SAController\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1SAController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_a28a6bc1ffa1bfce0c31e15651d3eff3c}{index}} (Request \$request, SARepository \$sa\+Repository)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_ad7f1d7de27fc5814a44f0e472c25f316}{supprimer\+\_\+sa}} (Request \$request, SARepository \$sa\+Repository, string \$nomsa)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_a23a7ae30cf6dbcccdc18586c525ea0f2}{valid\+\_\+supprimer\+\_\+sa}} (SARepository \$sa\+Repository, string \$nomsa)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1SAController_ab264950427573229bf2e0c77619752cf}{details\+\_\+sa}} (User\+Repository \$user\+Repository, Json\+Data\+Handling \$Json\+Data\+Handling\+\_\+service, SARepository \$sa\+Repository, string \$nomsa)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour gérer les actions liées aux systèmes d\textquotesingle{}acquisition (SA). 
+
+Definition at line \mbox{\hyperlink{SAController_8php_source_l00019}{19}} of file \mbox{\hyperlink{SAController_8php_source}{SAController.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1SAController_ab264950427573229bf2e0c77619752cf}\label{classApp_1_1Controller_1_1SAController_ab264950427573229bf2e0c77619752cf} 
+\index{App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}!details\_sa@{details\_sa}}
+\index{details\_sa@{details\_sa}!App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}}
+\doxysubsubsection{\texorpdfstring{details\_sa()}{details\_sa()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+SAController\+::details\+\_\+sa (\begin{DoxyParamCaption}\item[{User\+Repository}]{\$user\+Repository,  }\item[{Json\+Data\+Handling}]{\$\+Json\+Data\+Handling\+\_\+service,  }\item[{SARepository}]{\$sa\+Repository,  }\item[{string}]{\$nomsa }\end{DoxyParamCaption})}
+
+Affiche les détails d\textquotesingle{}un système d\textquotesingle{}acquisition spécifique. 
+\begin{DoxyParams}[1]{Parameters}
+User\+Repository & {\em \$user\+Repository} & Le repository pour accéder aux données des utilisateurs. \\
+\hline
+Json\+Data\+Handling & {\em \$\+Json\+Data\+Handling\+\_\+service} & Le service de traitement des données JSON. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Le repository pour accéder aux données des SA. \\
+\hline
+string & {\em \$nomsa} & Le nom du système d\textquotesingle{}acquisition à afficher. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue de détails de SA. @\+Route(\textquotesingle{}/technicien/gestion-\/sa/details-\/sa/\{nomsa\}\textquotesingle{}, name\+: \textquotesingle{}details\+\_\+sa\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SAController_8php_source_l00123}{123}} of file \mbox{\hyperlink{SAController_8php_source}{SAController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00124\ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{//salle\ inexistante\ ?}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa])\ ===\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \$etat\_sa\ =\ \$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa]);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Recherche\ le\ nom\ de\ la\ salle\ dans\ laquelle\ se\ trouve\ le\ SA}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \$nom\_salle\_associe\_sa\ =\ \$saRepository-\/>salle\_associe\_sa(\$nomsa);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Récupère\ les\ dernières\ données\ remonté\ par\ le\ SA}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$nom\_salle\_associe\_sa\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \$dernieres\_donnees\ =\ \$JsonDataHandling\_service-\/>extraireDerniereDonneeSalle(\$nom\_salle\_associe\_sa[0][\textcolor{stringliteral}{'nom'}]);}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$nom\_salle\_associe\_sa\ !=\ \textcolor{keyword}{null}\ and\ \$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \$date\_de\_capture\ =\ new\ \(\backslash\)DateTime(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \$now\ =\ new\ \(\backslash\)DateTime();}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \$interval\ =\ \$date\_de\_capture-\/>diff(\$now);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Format\ l'intervalle\ de\ temps\ de\ manière\ lisible}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$interval-\/>y\ >\ 0)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>y\ .\ \textcolor{stringliteral}{'\ années'};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>m\ >\ 0)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>m\ .\ \textcolor{stringliteral}{'\ mois'};}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>d\ >\ 0)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>d\ .\ \textcolor{stringliteral}{'\ jours'};}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>h\ >\ 0)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>h\ .\ \textcolor{stringliteral}{'\ heures'};}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>i\ >\ 0)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>i\ .\ \textcolor{stringliteral}{'\ minutes'};}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>s\ .\ \textcolor{stringliteral}{'\ secondes'};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'sa/details-\/sa.html.twig'},\ [}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ du\ SA}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsa'}\ =>\ \$nomsa,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Informations\ sur\ le\ SA}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_sa'}\ =>\ \$etat\_sa,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dernière\ données\ de\ la\ salle,\ null\ si\ inexistantes}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dernieres\_donnees'}\ =>\ \$dernieres\_donnees\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//temps\ écoulé\ depuis\ la\ dernière\ remonté\ de\ données}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'elapsed'}\ =>\ \$elapsed\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//intervalle\ de\ température\ de\ la\ saison\ actuelle}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00175\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SAController_a28a6bc1ffa1bfce0c31e15651d3eff3c}\label{classApp_1_1Controller_1_1SAController_a28a6bc1ffa1bfce0c31e15651d3eff3c} 
+\index{App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}!index@{index}}
+\index{index@{index}!App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+SAController\+::index (\begin{DoxyParamCaption}\item[{Request}]{\$request,  }\item[{SARepository}]{\$sa\+Repository }\end{DoxyParamCaption})}
+
+Affiche et traite le formulaire d\textquotesingle{}ajout d\textquotesingle{}un système d\textquotesingle{}acquisition. 
+\begin{DoxyParams}[1]{Parameters}
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Le repository pour accéder aux données des SA. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue du formulaire d\textquotesingle{}ajout de SA. @\+Route(\textquotesingle{}/technicien/gestion-\/sa/ajouter-\/sa\textquotesingle{}, name\+: \textquotesingle{}ajout\+\_\+sa\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SAController_8php_source_l00029}{29}} of file \mbox{\hyperlink{SAController_8php_source}{SAController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \$ajoutSAForm\ =\ \$this-\/>createForm(AjoutSAFormType::class);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \$ajoutSAForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ajoutSAForm-\/>isSubmitted()\ \&\&\ \$ajoutSAForm-\/>isValid())\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$ajoutSAForm-\/>getData();}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strlen(\$dataRecherche[\textcolor{stringliteral}{'nom'}])\ <\ 7)\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}*\ 7\ caractères\ minimum"{}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strlen(\$dataRecherche[\textcolor{stringliteral}{'nom'}])\ >\ 15)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}*\ 15\ caractères\ maximum"{}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$saRepository-\/>existeDeja(\$dataRecherche[\textcolor{stringliteral}{'nom'}])\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}*\ Ce\ nom\ de\ SA\ est\ deja\ attribué"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ les\ salles}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$saRepository-\/>ajoutSA(}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'nom'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$dataRecherche[\textcolor{stringliteral}{'nom'}]]);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'sa/ajouter-\/sa.html.twig'},\ [}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ajoutSAForm'}\ =>\ \$ajoutSAForm-\/>createView(),}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'erreur'}\ =>\ \$erreur,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SAController_ad7f1d7de27fc5814a44f0e472c25f316}\label{classApp_1_1Controller_1_1SAController_ad7f1d7de27fc5814a44f0e472c25f316} 
+\index{App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}!supprimer\_sa@{supprimer\_sa}}
+\index{supprimer\_sa@{supprimer\_sa}!App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}}
+\doxysubsubsection{\texorpdfstring{supprimer\_sa()}{supprimer\_sa()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+SAController\+::supprimer\+\_\+sa (\begin{DoxyParamCaption}\item[{Request}]{\$request,  }\item[{SARepository}]{\$sa\+Repository,  }\item[{string}]{\$nomsa }\end{DoxyParamCaption})}
+
+Affiche la page de confirmation de suppression d\textquotesingle{}un système d\textquotesingle{}acquisition. 
+\begin{DoxyParams}[1]{Parameters}
+Request & {\em \$request} & La requête HTTP entrante. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Le repository pour accéder aux données des SA. \\
+\hline
+string & {\em \$nomsa} & Le nom du système d\textquotesingle{}acquisition à supprimer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec la vue de suppression de SA. @\+Route(\textquotesingle{}/technicien/gestion-\/sa/supprimer-\/sa/\{nomsa\}\textquotesingle{}, name\+: \textquotesingle{}supprimer\+\_\+sa\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SAController_8php_source_l00072}{72}} of file \mbox{\hyperlink{SAController_8php_source}{SAController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa])\ ==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ ne\ fait\ pas\ encore\ partie\ de\ votre\ stock."{}});}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}\ elseif\ (\$saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsa])-\/>isDisponible())\ \textcolor{comment}{//Oui\ le\ SA\ est\ libre}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'sa/supprimer-\/sa.html.twig'},\ [}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsa'}\ =>\ \$nomsa}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{//\ Non\ ,\ le\ SA\ est\ encore\ dans\ une\ expérimentation}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ fait\ partie\ d'une\ expérimenation\ en\ cours."{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1SAController_a23a7ae30cf6dbcccdc18586c525ea0f2}\label{classApp_1_1Controller_1_1SAController_a23a7ae30cf6dbcccdc18586c525ea0f2} 
+\index{App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}!valid\_supprimer\_sa@{valid\_supprimer\_sa}}
+\index{valid\_supprimer\_sa@{valid\_supprimer\_sa}!App\textbackslash{}Controller\textbackslash{}SAController@{App\textbackslash{}Controller\textbackslash{}SAController}}
+\doxysubsubsection{\texorpdfstring{valid\_supprimer\_sa()}{valid\_supprimer\_sa()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+SAController\+::valid\+\_\+supprimer\+\_\+sa (\begin{DoxyParamCaption}\item[{SARepository}]{\$sa\+Repository,  }\item[{string}]{\$nomsa }\end{DoxyParamCaption})}
+
+Valide la suppression d\textquotesingle{}un système d\textquotesingle{}acquisition. 
+\begin{DoxyParams}[1]{Parameters}
+SARepository & {\em \$sa\+Repository} & Le repository pour accéder aux données des SA. \\
+\hline
+string & {\em \$nomsa} & Le nom du système d\textquotesingle{}acquisition à supprimer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec redirection vers la page de gestion des SA. @\+Route(\textquotesingle{}/technicien/gestion-\/sa/suppression-\/sa/\{nomsa\}\textquotesingle{}, name\+: \textquotesingle{}valid\+\_\+supprimer\+\_\+sa\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SAController_8php_source_l00096}{96}} of file \mbox{\hyperlink{SAController_8php_source}{SAController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherchez\ l'objet\ en\ fonction\ du\ nom\ de\ la\ salle\ entre\ dans\ la\ condition\ si\ le\ sa\ n'existe\ pas}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ si\ il\ existe\ il\ est\ supprimé}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$saRepository-\/>supprimerSA(\$nomsa))\ \textcolor{comment}{//entre\ dedans\ si\ la\ suppression\ a\ échoué}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//ajout\ du\ message\ flash}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ n'à\ pas\ pu\ être\ supprimé."{}});}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirection}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ajout\ du\ message\ flash}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}Le\ système\ d'acquisition\ "{}}\ .\ \$nomsa\ .\ \textcolor{stringliteral}{"{}\ à\ été\ supprimé\ avec\ succès."{}});}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirection}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'gestion\_sa'});}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+SAController.\+php\end{DoxyCompactItemize}

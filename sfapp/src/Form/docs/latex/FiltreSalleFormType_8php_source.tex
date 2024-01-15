@@ -1,0 +1,81 @@
+\doxysection{Filtre\+Salle\+Form\+Type.\+php}
+\hypertarget{FiltreSalleFormType_8php_source}{}\label{FiltreSalleFormType_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Form;}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00005}00005\ \textcolor{comment}{/*use\ App\(\backslash\)Entity\(\backslash\)Salle;*/}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00006}00006\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)AbstractType;}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00007}00007\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)ChoiceType;}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)FormBuilderInterface;}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Component\(\backslash\)OptionsResolver\(\backslash\)OptionsResolver;}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00016}\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType}{00016}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType}{FiltreSalleFormType}}\ \textcolor{keyword}{extends}\ AbstractType}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00025}\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType_af3cfa3a333fac60de540222af1a8f299}{00025}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType_af3cfa3a333fac60de540222af1a8f299}{buildForm}}(FormBuilderInterface\ \$builder,\ array\ \$options)}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00026}00026\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'etage'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'etage'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'RDC'}\ =>\ 0,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{charliteral}{'1'}\ =>\ 1,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{charliteral}{'2'}\ =>\ 2,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{charliteral}{'3'}\ =>\ 3}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Étage'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'orientation'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'orientation'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Nord'}\ =>\ \textcolor{stringliteral}{'nord'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sud'}\ =>\ \textcolor{stringliteral}{'sud'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Est'}\ =>\ \textcolor{stringliteral}{'est'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Ouest'}\ =>\ \textcolor{stringliteral}{'ouest'}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Orientation'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'ordinateurs'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'ordinateurs'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Non\ spécifié'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Avec'}\ =>\ 1,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sans'}\ =>\ 0,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Ordinateur'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'sa'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'sa'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Non\ spécifié'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Avec'}\ =>\ 1,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sans'}\ =>\ 0,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Demande\ en\ cours'}\ =>\ 2,}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Système\ d\(\backslash\)'acquisition'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00087}\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType_ade816657badb9f1e417ae77d66912dd6}{00087}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1FiltreSalleFormType_ade816657badb9f1e417ae77d66912dd6}{configureOptions}}(OptionsResolver\ \$resolver):\ void}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00088}00088\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définition\ d'options\ par\ défaut,\ notamment\ la\ méthode\ de\ soumission\ du\ formulaire.}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \$resolver-\/>setDefaults([}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'method'}\ =>\ \textcolor{stringliteral}{'GET'},}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FiltreSalleFormType_8php_source_l00094}00094\ \}}
+
+\end{DoxyCode}

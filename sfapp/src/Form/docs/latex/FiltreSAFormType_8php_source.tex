@@ -1,0 +1,50 @@
+\doxysection{Filtre\+SAForm\+Type.\+php}
+\hypertarget{FiltreSAFormType_8php_source}{}\label{FiltreSAFormType_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Form;}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00005}00005\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)AbstractType;}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00006}00006\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)FormBuilderInterface;}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00007}00007\ use\ Symfony\(\backslash\)Component\(\backslash\)OptionsResolver\(\backslash\)OptionsResolver;}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)ChoiceType;}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00015}\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType}{00015}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType}{FiltreSAFormType}}\ \textcolor{keyword}{extends}\ AbstractType}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00024}\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType_aeefdbe49cc4b17b2441d1e442c741293}{00024}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType_aeefdbe49cc4b17b2441d1e442c741293}{buildForm}}(FormBuilderInterface\ \$builder,\ array\ \$options):\ void}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00025}00025\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'etat'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Éteint'}\ =>\ 0,}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Allumé'}\ =>\ 1,}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Défaillant'}\ =>\ 2,}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'État'},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false}}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'localisation'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Stock'}\ =>\ \textcolor{stringliteral}{'stock'},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Salle'}\ =>\ \textcolor{stringliteral}{'salle'},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expanded'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'multiple'}\ =>\ \textcolor{keyword}{true},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Localisation'},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00056}\mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType_a8f2ecde4e3c793a5cc1576fb8096c521}{00056}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1FiltreSAFormType_a8f2ecde4e3c793a5cc1576fb8096c521}{configureOptions}}(OptionsResolver\ \$resolver):\ void}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00057}00057\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \$resolver-\/>setDefaults([}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ your\ form\ options\ here}}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'method'}\ =>\ \textcolor{stringliteral}{'GET'},}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FiltreSAFormType_8php_source_l00063}00063\ \}}
+
+\end{DoxyCode}

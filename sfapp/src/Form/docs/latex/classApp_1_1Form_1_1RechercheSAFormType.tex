@@ -1,0 +1,66 @@
+\doxysection{App\textbackslash{}Form\textbackslash{}Recherche\+SAForm\+Type Class Reference}
+\hypertarget{classApp_1_1Form_1_1RechercheSAFormType}{}\label{classApp_1_1Form_1_1RechercheSAFormType}\index{App\textbackslash{}Form\textbackslash{}RechercheSAFormType@{App\textbackslash{}Form\textbackslash{}RechercheSAFormType}}
+Inheritance diagram for App\textbackslash{}Form\textbackslash{}Recherche\+SAForm\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Form_1_1RechercheSAFormType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSAFormType_a0adfce7cf74b7786c2e0264d469df264}{build\+Form}} (Form\+Builder\+Interface \$builder, array \$options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Recherche\+SAForm\+Type pour créer un formulaire de recherche pour les Systèmes d\textquotesingle{}Acquisition (SA). Cette classe étend Abstract\+Type et définit la structure du formulaire pour permettre la recherche de SA par nom. 
+
+Definition at line \mbox{\hyperlink{RechercheSAFormType_8php_source_l00015}{15}} of file \mbox{\hyperlink{RechercheSAFormType_8php_source}{Recherche\+SAForm\+Type.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Form_1_1RechercheSAFormType_a0adfce7cf74b7786c2e0264d469df264}\label{classApp_1_1Form_1_1RechercheSAFormType_a0adfce7cf74b7786c2e0264d469df264} 
+\index{App\textbackslash{}Form\textbackslash{}RechercheSAFormType@{App\textbackslash{}Form\textbackslash{}RechercheSAFormType}!buildForm@{buildForm}}
+\index{buildForm@{buildForm}!App\textbackslash{}Form\textbackslash{}RechercheSAFormType@{App\textbackslash{}Form\textbackslash{}RechercheSAFormType}}
+\doxysubsubsection{\texorpdfstring{buildForm()}{buildForm()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Recherche\+SAForm\+Type\+::build\+Form (\begin{DoxyParamCaption}\item[{Form\+Builder\+Interface}]{\$builder,  }\item[{array}]{\$options }\end{DoxyParamCaption})}
+
+Construit le formulaire de recherche pour les Systèmes d\textquotesingle{}Acquisition (SA). Ajoute un champ de texte pour la saisie du nom du SA et un bouton de soumission.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Form\+Builder\+Interface & {\em \$builder} & Le constructeur de formulaire. \\
+\hline
+array & {\em \$options} & Les options pour le constructeur de formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{RechercheSAFormType_8php_source_l00024}{24}} of file \mbox{\hyperlink{RechercheSAFormType_8php_source}{Recherche\+SAForm\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'batiment'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'sa\_nom'},\ TextType::class,\ [}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Rechercher\ un\ SA'}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Rechercher'}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Recherche\+SAForm\+Type.\+php\end{DoxyCompactItemize}

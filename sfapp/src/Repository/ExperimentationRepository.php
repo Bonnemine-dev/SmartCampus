@@ -12,6 +12,8 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @class ExperimentationRepository
+ * Gère les opérations de base de données pour l'entité Experimentation.
  * @extends ServiceEntityRepository<Experimentation>
  *
  * @method Experimentation|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,12 +23,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ExperimentationRepository extends ServiceEntityRepository
 {
-    // Références aux autres repositories nécessaires.
+    /**
+     * @var SalleRepository $salleRepository
+     * Gère les opérations de base de données pour les entités Salle.
+     */
     private SalleRepository $salleRepository;
+
+    /**
+     * @var SARepository $saRepository
+     * Gère les opérations de base de données pour les entités SA.
+     */
     private SARepository $saRepository;
 
-    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée,
-    // ainsi que les repositories des entités Salle et SA.
+    /**
+     * Constructeur de la classe ExperimentationRepository.
+     * @param ManagerRegistry $registry Gestionnaire de l'entité.
+     * @param SalleRepository $salleRepository Repository pour l'entité Salle.
+     * @param SARepository $saRepository Repository pour l'entité SA.
+     */
     public function __construct(ManagerRegistry $registry, SalleRepository $salleRepository, SARepository $saRepository)
     {
         parent::__construct($registry, Experimentation::class);
@@ -34,8 +48,11 @@ class ExperimentationRepository extends ServiceEntityRepository
         $this->saRepository = $saRepository;
     }
 
-    /*
-     * Ajoute une experimentation pour la salle de nom $salle
+    /**
+     * Ajoute une nouvelle expérimentation pour la salle donnée.
+     * Crée une instance d'Experimentation, définit ses propriétés et la persiste dans la base de données.
+     * @param string $salle Nom de la salle pour laquelle l'expérimentation est ajoutée.
+     * @return void
      */
     public function ajouterExperimentation(string $salle): void
     {
@@ -60,9 +77,13 @@ class ExperimentationRepository extends ServiceEntityRepository
     }
 
 
-    /*
-     * Vérifie si une experimentation pour la salle nomSalle existe ou non
+    /**
+     * Vérifie si une expérimentation existe pour une salle donnée.
+     * Utilise un QueryBuilder pour compter le nombre d'expérimentations correspondant aux critères.
+     * @param string $nomSalle Le nom de la salle à vérifier.
+     * @return bool Renvoie true si une expérimentation existe, false sinon.
      */
+
     public function estExistante(string $nomSalle): bool
     {
         $queryBuilder = $this->createQueryBuilder('e')
@@ -81,13 +102,15 @@ class ExperimentationRepository extends ServiceEntityRepository
 
 
     /**
+     * Trouve les expérimentations en demande d'installation.
+     * Renvoie une liste d'expérimentations avec des détails comme le nom de la salle, le SA, les dates, et l'état.
      * @return array<int, array{
      *     nom_salle: string,
      *     nom_sa: string,
      *     datedemande: DateTime,
      *     dateinstallation: DateTime,
      *     etat: int
-     * }>
+     * }> Liste des expérimentations avec les détails spécifiés.
      */
     public function trouveExperimentationDemandeInstallation(): array
     {
@@ -120,7 +143,9 @@ class ExperimentationRepository extends ServiceEntityRepository
      * Cherche les expérimentations qui ne sont pas retirées
      */
     /**
-     * @return array<int, Experimentation>
+     * Trouve les expérimentations pour une salle donnée qui ne sont pas retirées.
+     * @param string $salle Le nom de la salle.
+     * @return array<int, Experimentation> Liste des expérimentations non retirées pour la salle spécifiée.
      */
     public function findOneByPasRetiree(string $salle): array
     {
@@ -132,8 +157,10 @@ class ExperimentationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $salle
-     * @return array<int, EtatExperimentation>
+     * Supprime une expérimentation pour une salle donnée.
+     * Effectue des vérifications et des opérations de suppression selon l'état de l'expérimentation.
+     * @param string $salle Le nom de la salle pour laquelle l'expérimentation doit être supprimée.
+     * @return array<int, EtatExperimentation> Liste des états avant et après la suppression.
      */
     public function supprimerExperimentation(string $salle): array
     {
@@ -157,9 +184,14 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $listeEtat;
     }
 
-    /*
-     * Retire une expérimentation qui était en demande d'installation
+    /**
+     * Supprime une expérimentation en demande d'installation.
+     * Supprime l'expérimentation et met à jour les entités associées.
+     * @param Experimentation $exp L'objet Experimentation à supprimer.
+     * @param Salle $idSalle L'identifiant de la salle associée à l'expérimentation.
+     * @return void
      */
+
     private function supprimerExperimentationDemandeInstallation(Experimentation $exp, Salle $idSalle): void
     {
         $this->saRepository->suppressionExp($exp->getSA());
@@ -172,9 +204,13 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    /*
-     * Modifie une expérimentation qui était installée en demande de retrait
+    /**
+     * Modifie le statut d'une expérimentation installée en demande de retrait.
+     * Met à jour la date de demande et l'état de l'expérimentation.
+     * @param Experimentation $exp L'expérimentation à mettre à jour.
+     * @return void
      */
+
     private function retireExperimentationInstallee(Experimentation $exp): void
     {
         $exp->setEtat(EtatExperimentation::demandeRetrait);
@@ -182,9 +218,12 @@ class ExperimentationRepository extends ServiceEntityRepository
         $this->persisteEtVide($exp);
     }
 
-    /*
-     * Supprime du repository
+    /**
+     * Supprime une entité Experimentation du repository et effectue un flush.
+     * @param Experimentation $entity L'entité à supprimer.
+     * @return void
      */
+
     private function supprimerEtVide(Experimentation $entity): void
     {
         $em = $this->getEntityManager();
@@ -192,9 +231,12 @@ class ExperimentationRepository extends ServiceEntityRepository
         $em->flush();
     }
 
-    /*
-     * Persiste dans le repository
+    /**
+     * Persiste une entité Experimentation dans le repository et effectue un flush.
+     * @param Experimentation $entity L'entité à persister.
+     * @return void
      */
+
     private function persisteEtVide(Experimentation $entity): void
     {
         $em = $this->getEntityManager();
@@ -206,10 +248,12 @@ class ExperimentationRepository extends ServiceEntityRepository
      * Fonction de filtrage pour la liste des salles en cours d'analyse
      */
     /**
-     * @param array<int, int> $etages
-     * @param array<int, string> $orientation
-     * @param int|null $ordinateurs
-     * @param int|null $sa
+     * Filtre les expérimentations en cours d'analyse selon divers critères.
+     * Permet de filtrer par étage, orientation, nombre d'ordinateurs, et état du SA.
+     * @param array<int, int> $etages Les étages à filtrer.
+     * @param array<int, string> $orientation Les orientations à filtrer.
+     * @param int|null $ordinateurs Le nombre d'ordinateurs à filtrer.
+     * @param int|null $sa L'état du SA à filtrer.
      * @return array<int, array{
      *   nom: string,
      *   etage: int,
@@ -221,7 +265,7 @@ class ExperimentationRepository extends ServiceEntityRepository
      *   dateinstallation: DateTime,
      *   etat: EtatExperimentation,
      *   sa_etat: EtatSA
-     *   }>
+     *   }> Liste filtrée des expérimentations.
      */
     public function filtreExperimentationAnalyse(array $etages = null, array $orientation = null, int $ordinateurs = null, int $sa = null): array
     {
@@ -250,10 +294,11 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $this->enleveExperimentationsInutiles($queryBuilder->getQuery()->getResult());
     }
 
-    /*
-     * Requête commune à la fonction de filtrage et de recherche (fonction qui récupère tout)
+    /**
+     * Construit une requête commune utilisée pour les fonctions de filtrage et de recherche.
+     * @return \Doctrine\ORM\QueryBuilder Le QueryBuilder construit avec les critères communs.
      */
-    private function requeteCommune(): \Doctrine\ORM\QueryBuilder
+    public function requeteCommune(): \Doctrine\ORM\QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('experimentation')
             ->select([
@@ -276,8 +321,10 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-    /*
-     * Selon le numéro de filtre pour les SA, ajoute une condition à la requête
+    /**
+     * Construit une condition pour le filtrage basé sur le SA.
+     * @param int $sa Le numéro de filtre pour les SA.
+     * @return string La condition de filtrage pour le SA.
      */
     private function conditionsSA(int $sa): string
     {
@@ -297,6 +344,7 @@ class ExperimentationRepository extends ServiceEntityRepository
      * Supprime les expérimentations inutiles
      */
     /**
+     * Enlève les expérimentations inutiles d'un ensemble de résultats.
      * @param array<int, array{
      * nom: string,
      * etage: int,
@@ -308,7 +356,7 @@ class ExperimentationRepository extends ServiceEntityRepository
      * dateinstallation: DateTime,
      * etat: EtatExperimentation,
      * sa_etat: EtatSA
-     * }> $exp
+     * }> $exp Les expérimentations à filtrer.
      *
      * @return array<int, array{
      *  nom: string,
@@ -321,9 +369,9 @@ class ExperimentationRepository extends ServiceEntityRepository
      *  dateinstallation: DateTime,
      *  etat: EtatExperimentation,
      *  sa_etat: EtatSA
-     *  }>
+     *  }> L'ensemble filtré des expérimentations.
      */
-    private function enleveExperimentationsInutiles(array $exp): array
+    public function enleveExperimentationsInutiles(array $exp): array
     {
         $len = count($exp);
         for ($i = 0; $i < $len; $i++) {
@@ -339,8 +387,9 @@ class ExperimentationRepository extends ServiceEntityRepository
      * Fonction de recherche
      */
     /**
-     * @param int|null $batiment
-     * @param string|null $salle
+     * Recherche des expérimentations selon le bâtiment et le nom de la salle.
+     * @param int|null $batiment Le numéro du bâtiment à filtrer.
+     * @param string|null $salle Le nom de la salle à filtrer.
      * @return array<int, array{
      *    nom: string,
      *    etage: int,
@@ -352,7 +401,7 @@ class ExperimentationRepository extends ServiceEntityRepository
      *    dateinstallation: DateTime,
      *    etat: EtatExperimentation,
      *    sa_etat: EtatSA
-     *    }>
+     *    }> Liste des expérimentations correspondantes.
      */
     public function rechercheExperimentationAnalyse(int $batiment = null, string $salle = null): array
     {
@@ -372,8 +421,12 @@ class ExperimentationRepository extends ServiceEntityRepository
     }
 
 
-    /*
-     * Modifie l'etat du experimentation à $etat pour la salle de nom $salle
+    /**
+     * Modifie l'état d'une expérimentation pour une salle donnée.
+     * Met à jour l'état et persiste l'expérimentation si elle existe.
+     * @param EtatExperimentation $etat Le nouvel état à attribuer à l'expérimentation.
+     * @param string $salle Le nom de la salle pour laquelle l'état doit être modifié.
+     * @return void
      */
     public function modifierEtat(EtatExperimentation $etat, string $salle): void
     {
@@ -385,8 +438,12 @@ class ExperimentationRepository extends ServiceEntityRepository
         }
     }
 
-    /*
-     * Mets à jour l'état et persiste dans le repository
+    /**
+     * Met à jour l'état d'une expérimentation et la persiste.
+     * Change également les dates d'installation/désinstallation si nécessaire.
+     * @param Experimentation $exp L'expérimentation à mettre à jour.
+     * @param EtatExperimentation $etat Le nouvel état de l'expérimentation.
+     * @return void
      */
     private function MajEtatEtPersist(Experimentation $exp, EtatExperimentation $etat): void
     {
@@ -409,20 +466,22 @@ class ExperimentationRepository extends ServiceEntityRepository
      * Tri les expérimentations par salle et par date de capture dans l'ordre décroissant et supprime les doublons
      */
     /**
+     * Trie un ensemble d'expérimentations par salle et par date de capture, en supprimant les doublons.
      * @param array<int, array{
      * nom_salle: string,
      * nom_sa: string,
      * datedemande: DateTime,
      * dateinstallation: DateTime,
      * etat: int
-     * }> $exp
+     * }> $exp Les expérimentations à trier.
+     *
      * @return array<int, array{
      * nom_salle: string,
      * nom_sa: string,
      * datedemande: DateTime,
      * dateinstallation: DateTime,
      * etat: int
-     * }>
+     * }> Les expérimentations triées.
      */
     public function triExperimentation(array $exp): array
     {
@@ -450,8 +509,10 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $exp;
     }
 
-    /*
-     * Récupère l'état d'une experimentation pour la salle de nom $salle
+    /**
+     * Récupère l'état actuel d'une expérimentation pour une salle donnée.
+     * @param string $salle Le nom de la salle.
+     * @return EtatExperimentation L'état actuel de l'expérimentation.
      */
     public function etatExperimentation(string $salle) : EtatExperimentation
     {
@@ -467,10 +528,12 @@ class ExperimentationRepository extends ServiceEntityRepository
      * Liste les expérimentations passées d'une salle
      */
     /**
+     * Liste les intervalles de temps des expérimentations passées pour une salle donnée.
+     * @param string $nomSalle Le nom de la salle.
      * @return array<int, array{
      * date_install: DateTime,
      * date_desinstall: DateTime
-     * }>
+     * }> Liste des intervalles de temps des expérimentations passées.
      */
     public function listerLesIntervallesArchives(string $nomSalle): array
     {
@@ -484,11 +547,10 @@ class ExperimentationRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    /*
-     * Récupère l'expérimentation en cours d'une salle
-     */
     /**
-     * @return array<string, DateTime>
+     * Extrait la date d'installation de l'expérimentation actuelle pour une salle donnée.
+     * @param string $nomSalle Le nom de la salle.
+     * @return array<string, DateTime> La date d'installation de l'expérimentation actuelle.
      */
     public function extraireDateInstallExpActuelle(string $nomSalle): array
     {
@@ -503,13 +565,12 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    /*
-     * Récupère l'état d'une expérimentation d'une salle
-     */
     /**
+     * Récupère l'état d'une expérimentation pour une salle donnée.
+     * @param string $nomSalle Le nom de la salle.
      * @return array<int, array{
      * etat_exp: EtatExperimentation
-     * }>
+     * }> Liste des états des expérimentations pour la salle donnée.
      */
     public function etatExp(string $nomSalle): array
     {
@@ -522,12 +583,10 @@ class ExperimentationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-    /*
-     * Fonctions qui retourne une liste des experimentations qui ont eu lieu dans une salle de nom $nomSalle
-     */
     /**
-     * @return array<int, Experimentation>
+     * Trouve toutes les expérimentations qui ont eu lieu dans une salle spécifiée par son nom.
+     * @param string $nomSalle Le nom de la salle.
+     * @return array<int, Experimentation> Liste des expérimentations pour la salle spécifiée.
      */
     public function trouveExperimentationsParNomSalle(string $nomSalle): array
     {

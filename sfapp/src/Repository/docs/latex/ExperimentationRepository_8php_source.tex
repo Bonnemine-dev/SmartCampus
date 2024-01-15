@@ -1,0 +1,384 @@
+\doxysection{Experimentation\+Repository.\+php}
+\hypertarget{ExperimentationRepository_8php_source}{}\label{ExperimentationRepository_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Repository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00005}00005\ use\ App\(\backslash\)Config\(\backslash\)EtatExperimentation;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00006}00006\ use\ App\(\backslash\)Config\(\backslash\)EtatSA;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00007}00007\ use\ App\(\backslash\)Entity\(\backslash\)Experimentation;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00008}00008\ use\ App\(\backslash\)Entity\(\backslash\)Salle;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00009}00009\ use\ DateTime;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00010}00010\ use\ Doctrine\(\backslash\)Bundle\(\backslash\)DoctrineBundle\(\backslash\)Repository\(\backslash\)ServiceEntityRepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00011}00011\ use\ Doctrine\(\backslash\)ORM\(\backslash\)NonUniqueResultException;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00012}00012\ use\ Doctrine\(\backslash\)Persistence\(\backslash\)ManagerRegistry;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00024}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository}{00024}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository}{ExperimentationRepository}}\ \textcolor{keyword}{extends}\ ServiceEntityRepository}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository}{SalleRepository}}\ \$salleRepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository}{SARepository}}\ \$saRepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00044}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a895b964376fcf8a6c29d33ff4ea0b9a9}{00044}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a895b964376fcf8a6c29d33ff4ea0b9a9}{\_\_construct}}(ManagerRegistry\ \$registry,\ \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository}{SalleRepository}}\ \$salleRepository,\ \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository}{SARepository}}\ \$saRepository)}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ Experimentation::class);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \$this-\/>salleRepository\ =\ \$salleRepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \$this-\/>saRepository\ =\ \$saRepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00049}00049\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00057}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2249ea29d74d0507c1e2d2def84415fb}{00057}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2249ea29d74d0507c1e2d2def84415fb}{ajouterExperimentation}}(\textcolor{keywordtype}{string}\ \$salle):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Créer\ une\ nouvelle\ instance\ de\ l'entité\ Experimentation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \$experimentation\ =\ \textcolor{keyword}{new}\ Experimentation();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Récupérer\ l'ID\ de\ la\ salle\ et\ définir\ les\ salles\ de\ l'expérimentation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ \$id\ =\ \$this-\/>salleRepository-\/>nomSalleId(\$salle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \$experimentation-\/>setSalles(\$id);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définir\ la\ date\ de\ demande\ avec\ le\ fuseau\ horaire\ de\ Paris}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \$dateDemande\ =\ new\ \(\backslash\)DateTime(\textcolor{stringliteral}{'now'},\ \textcolor{keyword}{new}\ \(\backslash\)DateTimeZone(\textcolor{stringliteral}{'Europe/Paris'}));}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \$experimentation-\/>setDatedemande(\$dateDemande);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définir\ l'état\ et\ le\ SA\ de\ l'expérimentation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \$experimentation-\/>setEtat(EtatExperimentation::demandeInstallation);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ \$experimentation-\/>setSA(\$this-\/>saRepository-\/>saNonUtiliser());}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Persister\ et\ flush\ l'entité}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>persist(\$experimentation);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>flush();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00087}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a436b3809d4adf9fd12e670d7022cf481}{00087}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a436b3809d4adf9fd12e670d7022cf481}{estExistante}}(\textcolor{keywordtype}{string}\ \$nomSalle):\ bool}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00088}00088\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{charliteral}{'e'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'count(e.id)'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'e.Salles'},\ \textcolor{charliteral}{'s'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'s.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'e.etat\ BETWEEN\ :etat1\ AND\ :etat2'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameters([}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomSalle'}\ =>\ \$nomSalle,}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat1'}\ =>\ EtatExperimentation::demandeInstallation,}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat2'}\ =>\ EtatExperimentation::demandeRetrait}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getSingleScalarResult()\ >\ 0;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00101}00101\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00115}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_af6e1282fd7124ddd5f8bf36ed1c466fd}{00115}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_af6e1282fd7124ddd5f8bf36ed1c466fd}{trouveExperimentationDemandeInstallation}}():\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00116}00116\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00117}00117\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nom\ AS\ nom\_salle'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sa.nom\ AS\ nom\_sa'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.datedemande'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.dateinstallation'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'CASE\ WHEN\ experimentation.etat\ =\ :etat\_demande\_installation\ THEN\ 0}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_installee\ THEN\ 1}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_demandeRetrait\ THEN\ 2}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_retiree\ THEN\ 4}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ELSE\ 4\ END\ AS\ etat'}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.SA'},\ \textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>orderBy(\textcolor{stringliteral}{'salle.nom'},\ \textcolor{stringliteral}{'ASC'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameters([}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_demande\_installation'}\ =>\ EtatExperimentation::demandeInstallation,}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_installee'}\ =>\ EtatExperimentation::installee,}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_demandeRetrait'}\ =>\ EtatExperimentation::demandeRetrait,}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_retiree'}\ =>\ EtatExperimentation::retiree}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00142}00142\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00143}00143\ \textcolor{comment}{\ \ \ \ \ *\ Cherche\ les\ expérimentations\ qui\ ne\ sont\ pas\ retirées}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00144}00144\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00150}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{00150}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\textcolor{keywordtype}{string}\ \$salle):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00151}00151\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00152}00152\ \ \ \ \ \ \ \ \ \$idSalle\ =\ \$this-\/>salleRepository-\/>nomSalleId(\$salle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'experimentation.etat\ !=\ 3\ and\ experimentation.Salles\ ='}\ .\ \$idSalle-\/>getId())}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getResult();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00157}00157\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00165}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0b78c2ca8153ee76feecca41970371d6}{00165}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0b78c2ca8153ee76feecca41970371d6}{supprimerExperimentation}}(\textcolor{keywordtype}{string}\ \$salle):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00166}00166\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00167}00167\ \ \ \ \ \ \ \ \ \$idSalle\ =\ \$this-\/>salleRepository-\/>nomSalleId(\$salle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00168}00168\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\$salle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00169}00169\ \ \ \ \ \ \ \ \ \$exp\ =\ \$exp[0];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00170}00170\ \ \ \ \ \ \ \ \ \$listeEtat\ =\ [\$exp-\/>getEtat(),\ \textcolor{keyword}{null}];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00172}00172\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>findOneBy([\textcolor{stringliteral}{'Salles'}\ =>\ \$idSalle,\ \textcolor{stringliteral}{'etat'}\ =>\ EtatExperimentation::demandeInstallation]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>supprimerExperimentationDemandeInstallation(\$exp,\ \$idSalle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00176}00176\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>findOneBy([\textcolor{stringliteral}{'Salles'}\ =>\ \$idSalle,\ \textcolor{stringliteral}{'etat'}\ =>\ EtatExperimentation::installee]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>retireExperimentationInstallee(\$exp);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00181}00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00183}00183\ \ \ \ \ \ \ \ \ \$listeEtat[1]\ =\ \$exp-\/>getEtat();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$listeEtat;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00185}00185\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00195}00195\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{function}\ supprimerExperimentationDemandeInstallation(Experimentation\ \$exp,\ Salle\ \$idSalle):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00196}00196\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00197}00197\ \ \ \ \ \ \ \ \ \$this-\/>saRepository-\/>suppressionExp(\$exp-\/>getSA());}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00198}00198\ \ \ \ \ \ \ \ \ \$this-\/>supprimerEtVide(\$exp);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00199}00199\ \ \ \ \ \ \ \ \ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>delete()}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'experimentation.etat\ !=\ 3\ and\ experimentation.Salles\ =\ :idSalle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'idSalle'},\ \$idSalle-\/>getId())}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>execute();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00205}00205\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00214}00214\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{function}\ retireExperimentationInstallee(Experimentation\ \$exp):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00215}00215\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00216}00216\ \ \ \ \ \ \ \ \ \$exp-\/>setEtat(EtatExperimentation::demandeRetrait);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00217}00217\ \ \ \ \ \ \ \ \ \$exp-\/>setDatedemande(\textcolor{keyword}{new}\ \(\backslash\)DateTime(\textcolor{stringliteral}{'now'},\ \textcolor{keyword}{new}\ \(\backslash\)DateTimeZone(\textcolor{stringliteral}{'Europe/Paris'})));}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00218}00218\ \ \ \ \ \ \ \ \ \$this-\/>persisteEtVide(\$exp);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00219}00219\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00227}00227\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{function}\ supprimerEtVide(Experimentation\ \$entity):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00228}00228\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00229}00229\ \ \ \ \ \ \ \ \ \$em\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00230}00230\ \ \ \ \ \ \ \ \ \$em-\/>remove(\$entity);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00231}00231\ \ \ \ \ \ \ \ \ \$em-\/>flush();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00232}00232\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00240}00240\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{function}\ persisteEtVide(Experimentation\ \$entity):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00241}00241\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00242}00242\ \ \ \ \ \ \ \ \ \$em\ =\ \$this-\/>getEntityManager();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00243}00243\ \ \ \ \ \ \ \ \ \$em-\/>persist(\$entity);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00244}00244\ \ \ \ \ \ \ \ \ \$em-\/>flush();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00245}00245\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00247}00247\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00248}00248\ \textcolor{comment}{\ \ \ \ \ *\ Fonction\ de\ filtrage\ pour\ la\ liste\ des\ salles\ en\ cours\ d'analyse}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00249}00249\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00270}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ad3bb921d280c2ada19403566fa841b48}{00270}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ad3bb921d280c2ada19403566fa841b48}{filtreExperimentationAnalyse}}(array\ \$etages\ =\ \textcolor{keyword}{null},\ array\ \$orientation\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{int}\ \$ordinateurs\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{int}\ \$sa\ =\ \textcolor{keyword}{null}):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00271}00271\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00272}00272\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{requeteCommune}}();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00274}00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$etages)\ \&\&\ \$etages\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.etage\ IN\ (:etages)'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etages'},\ \$etages);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00277}00277\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$orientation)\ \&\&\ \$orientation\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.orientation\ IN\ (:orientation)'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'orientation'},\ \$orientation);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00282}00282\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00284}00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ordinateurs\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \$ordinateursCondition\ =\ \$ordinateurs\ ===\ 0\ ?\ \textcolor{stringliteral}{'salle.nb\_ordis\ =\ 0'}\ :\ \textcolor{stringliteral}{'salle.nb\_ordis\ >\ 0'};}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\$ordinateursCondition);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00287}00287\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00289}00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$sa\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \$saCondition\ =\ \$this-\/>conditionsSA(\$sa);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\$saCondition);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00292}00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{enleveExperimentationsInutiles}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00295}00295\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00301}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{00301}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{requeteCommune}}():\ \(\backslash\)Doctrine\(\backslash\)ORM\(\backslash\)QueryBuilder}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00302}00302\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00303}00303\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nom'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.etage'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.numero'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.orientation'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nb\_fenetres'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nb\_ordis'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.datedemande'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.dateinstallation'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.etat'},}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sa.etat\ AS\ sa\_etat'}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.SA'},\ \textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'experimentation.etat\ IN\ (:etats)'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etats'},\ [EtatExperimentation::installee,\ EtatExperimentation::demandeRetrait]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00321}00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00322}00322\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00329}00329\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{function}\ conditionsSA(\textcolor{keywordtype}{int}\ \$sa):\ string}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00330}00330\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00331}00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\$sa)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'experimentation.datedemande\ IS\ NULL\ AND\ experimentation.dateinstallation\ IS\ NULL'};}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'experimentation.datedemande\ IS\ NOT\ NULL\ AND\ experimentation.dateinstallation\ IS\ NOT\ NULL'};}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'experimentation.datedemande\ IS\ NOT\ NULL\ AND\ experimentation.dateinstallation\ IS\ NULL'};}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00339}00339\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00340}00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{''};}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00341}00341\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00343}00343\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00344}00344\ \textcolor{comment}{\ \ \ \ \ *\ Supprime\ les\ expérimentations\ inutiles}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00345}00345\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00374}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{00374}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{enleveExperimentationsInutiles}}(array\ \$exp):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00375}00375\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00376}00376\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$exp);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00377}00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$i\ =\ 0;\ \$i\ <\ \$len;\ \$i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp[\$i][\textcolor{stringliteral}{'sa\_etat'}]\ ==\ \textcolor{keyword}{null}\ or\ \$exp[\$i][\textcolor{stringliteral}{'etat'}]\ ==\ 4\ or\ \$exp[\$i][\textcolor{stringliteral}{'etat'}]\ ==\ EtatExperimentation::retiree\ or\ \$exp[\$i][\textcolor{stringliteral}{'etat'}]\ ==\ EtatExperimentation::demandeInstallation)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$exp[\$i]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00381}00381\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00383}00383\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$exp;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00384}00384\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00386}00386\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00387}00387\ \textcolor{comment}{\ \ \ \ \ *\ Fonction\ de\ recherche}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00388}00388\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00406}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0cb30186c122c5b7c691c661198354d9}{00406}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0cb30186c122c5b7c691c661198354d9}{rechercheExperimentationAnalyse}}(\textcolor{keywordtype}{int}\ \$batiment\ =\ \textcolor{keyword}{null},\ \textcolor{keywordtype}{string}\ \$salle\ =\ \textcolor{keyword}{null}):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00407}00407\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00408}00408\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{requeteCommune}}();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00410}00410\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$batiment\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.batiment\ =\ :batiment'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'batiment'},\ \$batiment);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00413}00413\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00415}00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salle\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.nom\ LIKE\ :salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'salle'},\ \textcolor{charliteral}{'\%'}\ .\ \$salle\ .\ \textcolor{charliteral}{'\%'});}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00418}00418\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00419}00419\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00420}00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{enleveExperimentationsInutiles}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00421}00421\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00431}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a74271d39528fa7de71b096dcf444e63c}{00431}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a74271d39528fa7de71b096dcf444e63c}{modifierEtat}}(EtatExperimentation\ \$etat,\ \textcolor{keywordtype}{string}\ \$salle):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00432}00432\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00433}00433\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\$salle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00434}00434\ \ \ \ \ \ \ \ \ \$exp\ =\ \$exp[0];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00435}00435\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00436}00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>MajEtatEtPersist(\$exp,\ \$etat);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00438}00438\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00439}00439\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00440}00440\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00448}00448\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{function}\ MajEtatEtPersist(Experimentation\ \$exp,\ EtatExperimentation\ \$etat):\ void}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00449}00449\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00450}00450\ \ \ \ \ \ \ \ \ \$exp-\/>setEtat(\$etat);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00451}00451\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$etat\ ==\ EtatExperimentation::installee)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setDateinstallation(\textcolor{keyword}{new}\ \(\backslash\)DateTime(\textcolor{stringliteral}{'now'},\ \textcolor{keyword}{new}\ \(\backslash\)DateTimeZone(\textcolor{stringliteral}{'Europe/Paris'})));}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00453}00453\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00454}00454\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$etat\ ==\ EtatExperimentation::retiree)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setDatedesinstallation(\textcolor{keyword}{new}\ \(\backslash\)DateTime(\textcolor{stringliteral}{'now'},\ \textcolor{keyword}{new}\ \(\backslash\)DateTimeZone(\textcolor{stringliteral}{'Europe/Paris'})));}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00456}00456\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00457}00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$etat\ ===\ EtatExperimentation::retiree)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>getSA()-\/>setDisponible(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00459}00459\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00461}00461\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>persist(\$exp);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00462}00462\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>flush();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00463}00463\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00464}00464\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00465}00465\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00466}00466\ \textcolor{comment}{\ \ \ \ \ *\ Tri\ les\ expérimentations\ par\ salle\ et\ par\ date\ de\ capture\ dans\ l'ordre\ décroissant\ et\ supprime\ les\ doublons}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00467}00467\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00486}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ad395fc98439200de3c1b55a07c0eec2b}{00486}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ad395fc98439200de3c1b55a07c0eec2b}{triExperimentation}}(array\ \$exp):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00487}00487\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00488}00488\ \ \ \ \ \ \ \ \ usort(\$exp,\ \textcolor{keyword}{function}(\$a,\ \$b)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tri\ par\ nom\_salle}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$a[\textcolor{stringliteral}{'nom\_salle'}]\ !=\ \$b[\textcolor{stringliteral}{'nom\_salle'}])\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$a[\textcolor{stringliteral}{'nom\_salle'}]\ <=>\ \$b[\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ nom\_salle\ est\ identique,\ tri\ par\ datedemande\ en\ ordre\ décroissant}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$b[\textcolor{stringliteral}{'datedemande'}]\ <=>\ \$a[\textcolor{stringliteral}{'datedemande'}];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00496}00496\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00497}00497\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00498}00498\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$exp);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00499}00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count(\$exp)\ >\ 2)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$exp[0][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$i\ =\ 0;\ \$i\ <\ \$len\ -\/\ 1;\ \$i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salle\ ==\ \$exp[\$i\ +\ 1][\textcolor{stringliteral}{'nom\_salle'}])\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$exp[\$i\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00504}00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00505}00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$exp[\$i\ +\ 1][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00508}00508\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00509}00509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$exp;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00510}00510\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00511}00511\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00517}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ab6557da70fac8e5d5820f6dfb22a6868}{00517}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ab6557da70fac8e5d5820f6dfb22a6868}{etatExperimentation}}(\textcolor{keywordtype}{string}\ \$salle)\ :\ EtatExperimentation}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00518}00518\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00519}00519\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\$salle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00520}00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count(\$exp)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00521}00521\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EtatExperimentation::retiree;}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00522}00522\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00523}00523\ \ \ \ \ \ \ \ \ \$Exp\ =\ \$exp[0];}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$Exp-\/>getEtat();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00525}00525\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00526}00526\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00527}00527\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00528}00528\ \textcolor{comment}{\ \ \ \ \ *\ Liste\ les\ expérimentations\ passées\ d'une\ salle}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00529}00529\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00538}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a09b61ee79cb973329cfb0b5903692e6a}{00538}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a09b61ee79cb973329cfb0b5903692e6a}{listerLesIntervallesArchives}}(\textcolor{keywordtype}{string}\ \$nomSalle):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00539}00539\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00540}00540\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00541}00541\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([\textcolor{stringliteral}{'experimentation.dateinstallation\ AS\ date\_install'},\ \textcolor{stringliteral}{'experimentation.datedesinstallation\ AS\ date\_desinstall'}])}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'experimentation.datedesinstallation\ IS\ NOT\ NULL'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00547}00547\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00548}00548\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00549}00549\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00555}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a48084292d42c530f91f82e16d8cbf830}{00555}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a48084292d42c530f91f82e16d8cbf830}{extraireDateInstallExpActuelle}}(\textcolor{keywordtype}{string}\ \$nomSalle):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00556}00556\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00557}00557\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'experimentation.dateinstallation\ AS\ date\_install'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'experimentation.etat\ IN\ (:etats)'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle)}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00563}00563\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etats'},\ [EtatExperimentation::installee,\ EtatExperimentation::demandeRetrait])}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getOneOrNullResult();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00566}00566\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00567}00567\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00575}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ae91a59fe8228eb76302299059b5546ae}{00575}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ae91a59fe8228eb76302299059b5546ae}{etatExp}}(\textcolor{keywordtype}{string}\ \$nomSalle):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00576}00576\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00577}00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'experimentation.etat\ AS\ etat\_exp'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle)}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getResult();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00584}00584\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00585}00585\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00591}\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0b381a02a96e7a2707b3b7f2a2ea309a}{00591}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0b381a02a96e7a2707b3b7f2a2ea309a}{trouveExperimentationsParNomSalle}}(\textcolor{keywordtype}{string}\ \$nomSalle):\ array}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00592}00592\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00593}00593\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'exp'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'exp.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00596}00596\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00598}00598\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00599}00599\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00600}00600\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationRepository_8php_source_l00601}00601\ \}}
+
+\end{DoxyCode}

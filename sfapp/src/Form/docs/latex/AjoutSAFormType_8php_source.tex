@@ -1,0 +1,33 @@
+\doxysection{Ajout\+SAForm\+Type.\+php}
+\hypertarget{AjoutSAFormType_8php_source}{}\label{AjoutSAFormType_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Form;}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00005}00005\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)AbstractType;}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00006}00006\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)SubmitType;}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00007}00007\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)Extension\(\backslash\)Core\(\backslash\)Type\(\backslash\)TextType;}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)Form\(\backslash\)FormBuilderInterface;}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00014}\mbox{\hyperlink{classApp_1_1Form_1_1AjoutSAFormType}{00014}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Form_1_1AjoutSAFormType}{AjoutSAFormType}}\ \textcolor{keyword}{extends}\ AbstractType}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00023}\mbox{\hyperlink{classApp_1_1Form_1_1AjoutSAFormType_a35de241c3fbe6731a33dbe8f091e9b8b}{00023}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Form_1_1AjoutSAFormType_a35de241c3fbe6731a33dbe8f091e9b8b}{buildForm}}(FormBuilderInterface\ \$builder,\ array\ \$options)}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00024}00024\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'batiment'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'nom'},\ TextType::class,\ [}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Nom\ du\ SA'}}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'ajout'}}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AjoutSAFormType_8php_source_l00039}00039\ \}}
+
+\end{DoxyCode}

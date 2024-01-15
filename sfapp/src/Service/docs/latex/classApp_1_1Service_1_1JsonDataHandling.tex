@@ -1,0 +1,573 @@
+\doxysection{App\textbackslash{}Service\textbackslash{}Json\+Data\+Handling Class Reference}
+\hypertarget{classApp_1_1Service_1_1JsonDataHandling}{}\label{classApp_1_1Service_1_1JsonDataHandling}\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a6cdb1563da5de7f823110605520d7e8a}{\+\_\+\+\_\+construct}} (Manager\+Registry \$manager\+Registry)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a5b38cbb7a7254d3067c5a6450804aadc}{get\+Salles}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a680c81f001a8d8f88fc4041955e559ec}{get\+Capture\+Data}} (string \$nomsalle, string \$type)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a9e74902a0ac751f70a9ee1c8e2c48be3}{get\+Capture\+Data\+Limited}} (string \$nomsalle, string \$type, int \$count)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a4843cf6bdf01341d264886f2ef3bce3f}{get\+Capture\+Data\+Interval}} (string \$nomsalle, string \$type, string \$date1, string \$date2)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a5c8ef442def904865775eabff168fda6}{get\+Moyenne\+Par\+Type}} (string \$type)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_abe761b724695b8fb4558a45e44a95007}{extraire\+Derniere\+Donnee\+Salle}} (string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a60919c23c1865bdcf36502c2d86b0db9}{extraire\+Toutes\+Les\+Donnee\+Actuelles\+Salle}} (string \$nomsalle, array \$date\+\_\+install)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_acbbd7cc60ace29780ee6dcbd7fa50432}{extraire\+Donnee\+Sur\+Intervalle}} (string \$nomsalle, Date\+Time \$date\+\_\+install, Date\+Time \$date\+\_\+desinstall)
+\item 
+\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a8ce3f8d88a44235a287f24294848ca2b}{extraire\+Dernieres\+Donnees\+Des\+Salles}} (array \$experimentations)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Json\+Data\+Handling pour gérer le traitement des données JSON. Cette classe est responsable de la récupération, du traitement, et de la fourniture de données JSON en provenance de différentes sources, notamment des bases de données et des API externes. 
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00020}{20}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a6cdb1563da5de7f823110605520d7e8a}\label{classApp_1_1Service_1_1JsonDataHandling_a6cdb1563da5de7f823110605520d7e8a} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Manager\+Registry}]{\$manager\+Registry }\end{DoxyParamCaption})}
+
+Constructeur de la classe Json\+Data\+Handling. Initialise les référentiels nécessaires et prépare le tableau des salles.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Manager\+Registry & {\em \$manager\+Registry} & Le gestionnaire de registre pour les entités Doctrine. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00041}{41}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \$this-\/>experimentationRepository\ =\ \textcolor{keyword}{new}\ ExperimentationRepository(\$managerRegistry,\ \textcolor{keyword}{new}\ SalleRepository(\$managerRegistry),\ \textcolor{keyword}{new}\ SARepository(\$managerRegistry));}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \$this-\/>salles\ =\ [}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D205"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/001"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 1,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdk1eq1"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}k1eq1"{}}],}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D206"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/002"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 2,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdk1eq2"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}k1eq2"{}}],}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D207"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/003"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 3,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdk1eq3"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}k1eq3"{}}],}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D204"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/004"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 4,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdk2eq1"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}k2eq1"{}}],}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D203"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/005"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 5,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdk2eq2"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}k2eq2"{}}],}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D303"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/006"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 6,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdk2eq3"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}k2eq3"{}}],}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D304"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/007"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 7,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdl1eq1"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}l1eq1"{}}],}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}C101"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/008"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 8,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdl1eq2"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}l1eq2"{}}],}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D109"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/009"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 9,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdl1eq3"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}l1eq3"{}}],}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D106"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/010"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 10,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdl2eq1"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}l2eq1"{}}],}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D001"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/011"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 11,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdl2eq2"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}l2eq2"{}}],}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D002"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/012"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 12,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdl2eq3"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}l2eq3"{}}],}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D004"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/013"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 13,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdm1eq1"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}m1eq1"{}}],}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}C004"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/014"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 14,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdm1eq2"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}m1eq2"{}}],}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}C007"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/015"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 15,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdm1eq3"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}m1eq3"{}}],}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D201"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/016"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 16,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdm2eq1"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}m2eq1"{}}],}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}D307"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/017"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 17,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdm2eq2"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}m2eq2"{}}],}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}C005"{}}\ =>\ [\textcolor{stringliteral}{"{}nomSA"{}}\ =>\ \textcolor{stringliteral}{"{}ESP-\/018"{}},\ \textcolor{stringliteral}{"{}idSA"{}}\ =>\ 18,\ \textcolor{stringliteral}{"{}dbname"{}}\ =>\ \textcolor{stringliteral}{"{}sae34bdm2eq3"{}},\ \textcolor{stringliteral}{"{}username"{}}\ =>\ \textcolor{stringliteral}{"{}m2eq3"{}}]}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_abe761b724695b8fb4558a45e44a95007}\label{classApp_1_1Service_1_1JsonDataHandling_abe761b724695b8fb4558a45e44a95007} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!extraireDerniereDonneeSalle@{extraireDerniereDonneeSalle}}
+\index{extraireDerniereDonneeSalle@{extraireDerniereDonneeSalle}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{extraireDerniereDonneeSalle()}{extraireDerniereDonneeSalle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::extraire\+Derniere\+Donnee\+Salle (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Extrait et retourne les dernières données de capture pour une salle donnée.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Nom de la salle pour laquelle extraire les données. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string, string$>$ Tableau associatif des dernières données de capture pour la salle. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00224}{224}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00225\ \ \ \ \ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ date\_default\_timezone\_set(\textcolor{stringliteral}{'Europe/Paris'});}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \$derniereDonnee\ =\ [}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'co2'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date\_de\_capture'}\ =>\ null}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \$types\ =\ [\textcolor{stringliteral}{'hum'},\ \textcolor{stringliteral}{'temp'},\ \textcolor{stringliteral}{'co2'}];}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$types\ as\ \$type)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \$donnees\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a9e74902a0ac751f70a9ee1c8e2c48be3}{getCaptureDataLimited}}(\$nomsalle,\ \$type,\ 1);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$donnees))\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$derniereDonnee[\$type]\ =\ \$donnees[0][\textcolor{stringliteral}{'valeur'}];}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dateCapture\ =\ \$donnees[0][\textcolor{stringliteral}{'dateCapture'}];}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérification\ du\ format\ de\ la\ date}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (preg\_match(\textcolor{stringliteral}{'/\string^\(\backslash\)d\{4\}-\/\(\backslash\)d\{2\}-\/\(\backslash\)d\{2\}\ \(\backslash\)d\{2\}:\(\backslash\)d\{2\}:\(\backslash\)d\{2\}\$/'},\ \$dateCapture))\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dateCaptureObj\ =\ new\ \(\backslash\)DateTime(\$dateCapture);}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]\ ===\ \textcolor{keyword}{null}\ ||\ \$dateCaptureObj\ >\ \textcolor{keyword}{new}\ \(\backslash\)DateTime(\$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]))\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]\ =\ \$dateCaptureObj-\/>format(\textcolor{stringliteral}{'Y-\/m-\/d\ H:i:s'});}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]\ =\ (new\ \(\backslash\)DateTime())-\/>format(\textcolor{stringliteral}{'Y-\/m-\/d\ H:i:s'});}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$derniereDonnee;}
+\DoxyCodeLine{00260\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a8ce3f8d88a44235a287f24294848ca2b}\label{classApp_1_1Service_1_1JsonDataHandling_a8ce3f8d88a44235a287f24294848ca2b} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!extraireDernieresDonneesDesSalles@{extraireDernieresDonneesDesSalles}}
+\index{extraireDernieresDonneesDesSalles@{extraireDernieresDonneesDesSalles}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{extraireDernieresDonneesDesSalles()}{extraireDernieresDonneesDesSalles()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::extraire\+Dernieres\+Donnees\+Des\+Salles (\begin{DoxyParamCaption}\item[{array}]{\$experimentations }\end{DoxyParamCaption})}
+
+Extrait les dernières données des salles basées sur les expérimentations données.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,array\{} & nom\+: string, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: Etat\+Experimentation, sa\+\_\+etat\+: Etat\+SA \}\texorpdfstring{$>$}{>} \$experimentations Tableau des expérimentations pour les salles. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ localisation\+: string, co2\+: string, hum\+: string, temp\+: string, date\+Capture\+: string \}\texorpdfstring{$>$}{>} Tableau des dernières données pour chaque salle. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00378}{378}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00379\ \ \ \ \ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \$resultats\ =\ [];}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$experimentations))}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$experimentations\ as\ \$experimentation)\ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$nomsalle\ =\ \$experimentation[\textcolor{stringliteral}{'nom'}];}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$derniereDonnee\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_abe761b724695b8fb4558a45e44a95007}{extraireDerniereDonneeSalle}}(\$nomsalle);}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ des\ données\ ont\ été\ trouvées\ pour\ la\ salle}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$resultats[]\ =\ [}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'localisation'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'co2'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'co2'}],}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'hum'}],}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'temp'}],}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dateCapture'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$this-\/>salles\ as\ \$nomsalle\ =>\ \$infosalle)\{}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$derniereDonnee\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_abe761b724695b8fb4558a45e44a95007}{extraireDerniereDonneeSalle}}(\$nomsalle);}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ des\ données\ ont\ été\ trouvées\ pour\ la\ salle}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$resultats[]\ =\ [}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'localisation'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'co2'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'co2'}],}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'hum'}],}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'temp'}],}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dateCapture'}\ =>\ \$derniereDonnee[\textcolor{stringliteral}{'date\_de\_capture'}]}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$resultats;}
+\DoxyCodeLine{00420\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_acbbd7cc60ace29780ee6dcbd7fa50432}\label{classApp_1_1Service_1_1JsonDataHandling_acbbd7cc60ace29780ee6dcbd7fa50432} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!extraireDonneeSurIntervalle@{extraireDonneeSurIntervalle}}
+\index{extraireDonneeSurIntervalle@{extraireDonneeSurIntervalle}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{extraireDonneeSurIntervalle()}{extraireDonneeSurIntervalle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::extraire\+Donnee\+Sur\+Intervalle (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle,  }\item[{Date\+Time}]{\$date\+\_\+install,  }\item[{Date\+Time}]{\$date\+\_\+desinstall }\end{DoxyParamCaption})}
+
+Extrait et retourne les données de capture pour une salle donnée sur un intervalle de temps spécifique.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Nom de la salle. \\
+\hline
+Date\+Time & {\em \$date\+\_\+install} & Date de début de l\textquotesingle{}intervalle. \\
+\hline
+Date\+Time & {\em \$date\+\_\+desinstall} & Date de fin de l\textquotesingle{}intervalle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ date\+: string, temp\+: string, hum\+: string, co2\+: string \}\texorpdfstring{$>$}{>} Tableau des données de capture pour la salle et l\textquotesingle{}intervalle spécifiés. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00321}{321}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00322\ \ \ \ \ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \$dateInstallString\ =\ \$date\_install-\/>format(\textcolor{stringliteral}{'Y-\/m-\/d'});}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \$dateDesinstallString\ =\ \$date\_desinstall-\/>format(\textcolor{stringliteral}{'Y-\/m-\/d'});}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \$types\ =\ [\textcolor{stringliteral}{'hum'},\ \textcolor{stringliteral}{'temp'},\ \textcolor{stringliteral}{'co2'}];\ \textcolor{comment}{//\ Types\ de\ données\ à\ récupérer}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \$groupedData\ =\ [];}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$types\ as\ \$type)\ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Remplacez\ cette\ partie\ par\ l'appel\ à\ votre\ API}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a4843cf6bdf01341d264886f2ef3bce3f}{getCaptureDataInterval}}(\$nomsalle,\ \$type,\ \$dateInstallString,\ \$dateDesinstallString);}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$data\ as\ \$entry)\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$date\ =\ \$entry[\textcolor{stringliteral}{'dateCapture'}];}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isset(\$groupedData[\$date]))\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$groupedData[\$date]\ =\ [}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date'}\ =>\ \$date,}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'co2'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$groupedData[\$date][\$type]\ =\ \$entry[\textcolor{stringliteral}{'valeur'}];}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tri\ par\ date\ et\ conversion\ en\ tableau\ indexé}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ uasort(\$groupedData,\ \textcolor{keyword}{function}\ (\$a,\ \$b)\ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ new\ \(\backslash\)DateTime(\$b[\textcolor{stringliteral}{'date'}])\ <=>\ new\ \(\backslash\)DateTime(\$a[\textcolor{stringliteral}{'date'}]);}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ array\_values(\$groupedData);}
+\DoxyCodeLine{00353\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a60919c23c1865bdcf36502c2d86b0db9}\label{classApp_1_1Service_1_1JsonDataHandling_a60919c23c1865bdcf36502c2d86b0db9} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!extraireToutesLesDonneeActuellesSalle@{extraireToutesLesDonneeActuellesSalle}}
+\index{extraireToutesLesDonneeActuellesSalle@{extraireToutesLesDonneeActuellesSalle}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{extraireToutesLesDonneeActuellesSalle()}{extraireToutesLesDonneeActuellesSalle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::extraire\+Toutes\+Les\+Donnee\+Actuelles\+Salle (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle,  }\item[{array}]{\$date\+\_\+install }\end{DoxyParamCaption})}
+
+Extrait et retourne toutes les données de capture actuelles pour une salle donnée.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Nom de la salle. \\
+\hline
+ & {\em array$<$string,Date\+Time$>$} & \$date\+\_\+install Date d\textquotesingle{}installation pour le filtre des données. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ date\+: string, temp\+: string, hum\+: string, co2\+: string \}\texorpdfstring{$>$}{>} Tableau des données de capture pour la salle. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00274}{274}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00275\ \ \ \ \ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \$dateInstallString\ =\ \$date\_install[\textcolor{stringliteral}{'date\_install'}]-\/>format(\textcolor{stringliteral}{'Y-\/m-\/d'});}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \$dateActuelle\ =\ new\ \(\backslash\)DateTime();}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \$dateActuelleString\ =\ \$dateActuelle-\/>format(\textcolor{stringliteral}{'Y-\/m-\/d'});}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \$types\ =\ [\textcolor{stringliteral}{'hum'},\ \textcolor{stringliteral}{'temp'},\ \textcolor{stringliteral}{'co2'}];}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \$groupedData\ =\ [];}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$types\ as\ \$type)\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a4843cf6bdf01341d264886f2ef3bce3f}{getCaptureDataInterval}}(\$nomsalle,\ \$type,\ \$dateInstallString,\ \$dateActuelleString);}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$data\ as\ \$entry)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$date\ =\ \$entry[\textcolor{stringliteral}{'dateCapture'}];}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isset(\$groupedData[\$date]))\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$groupedData[\$date]\ =\ [}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date'}\ =>\ \$date,}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'co2'}\ =>\ \textcolor{keyword}{null},}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$groupedData[\$date][\$type]\ =\ \$entry[\textcolor{stringliteral}{'valeur'}];}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tri\ par\ date\ et\ conversion\ en\ tableau\ indexé}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ uasort(\$groupedData,\ \textcolor{keyword}{function}\ (\$a,\ \$b)\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ new\ \(\backslash\)DateTime(\$b[\textcolor{stringliteral}{'date'}])\ <=>\ new\ \(\backslash\)DateTime(\$a[\textcolor{stringliteral}{'date'}]);}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ array\_values(\$groupedData);}
+\DoxyCodeLine{00306\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a680c81f001a8d8f88fc4041955e559ec}\label{classApp_1_1Service_1_1JsonDataHandling_a680c81f001a8d8f88fc4041955e559ec} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!getCaptureData@{getCaptureData}}
+\index{getCaptureData@{getCaptureData}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{getCaptureData()}{getCaptureData()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::get\+Capture\+Data (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle,  }\item[{string}]{\$type }\end{DoxyParamCaption})}
+
+Récupère les données de capture pour une salle donnée.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Le nom de la salle. \\
+\hline
+string & {\em \$type} & Le type de données à récupérer (temp, hum, etc.). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed Les données de capture sous forme de tableau ou autre format. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00094}{94}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ mixed}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \$nomSA\ =\ \$this-\/>salles[\$nomsalle][\textcolor{stringliteral}{'nomSA'}];}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \$dbname\ =\ \$this-\/>salles[\$nomsalle][\textcolor{stringliteral}{'dbname'}];}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \$client\ =\ \textcolor{keyword}{new}\ Client();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \$response\ =\ \$client-\/>request(\textcolor{stringliteral}{'GET'},\ \textcolor{stringliteral}{'https://sae34.k8s.iut-\/larochelle.fr/api/captures'},\ [}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'query'}\ =>\ [}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nom'}\ =>\ \$type,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsa'}\ =>\ \$nomSA,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'page'}\ =>\ 1}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'headers'}\ =>\ [}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'accept'}\ =>\ \textcolor{stringliteral}{'application/json'},}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dbname'}\ =>\ \$dbname,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'l2eq2'},}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'userpass'}\ =>\ \textcolor{stringliteral}{'wiqnyt-\/fuqgyc-\/7vUhby'}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ json\_decode(\$response-\/>getBody(),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a4843cf6bdf01341d264886f2ef3bce3f}\label{classApp_1_1Service_1_1JsonDataHandling_a4843cf6bdf01341d264886f2ef3bce3f} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!getCaptureDataInterval@{getCaptureDataInterval}}
+\index{getCaptureDataInterval@{getCaptureDataInterval}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{getCaptureDataInterval()}{getCaptureDataInterval()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::get\+Capture\+Data\+Interval (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle,  }\item[{string}]{\$type,  }\item[{string}]{\$date1,  }\item[{string}]{\$date2 }\end{DoxyParamCaption})}
+
+Récupère les données de capture pour une salle et un type de mesure sur un intervalle de temps donné.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Nom de la salle. \\
+\hline
+string & {\em \$type} & Type de données à récupérer. \\
+\hline
+string & {\em \$date1} & Date de début de l\textquotesingle{}intervalle. \\
+\hline
+string & {\em \$date2} & Date de fin de l\textquotesingle{}intervalle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed Les données de capture sous forme de tableau ou autre format. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00158}{158}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ mixed}
+\DoxyCodeLine{00159\ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \$dbname\ =\ \$this-\/>salles[\$nomsalle][\textcolor{stringliteral}{'dbname'}];}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \$client\ =\ \textcolor{keyword}{new}\ Client();}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \$response\ =\ \$client-\/>request(\textcolor{stringliteral}{'GET'},\ \textcolor{stringliteral}{'https://sae34.k8s.iut-\/larochelle.fr/api/captures/interval'},\ [}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'query'}\ =>\ [}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nom'}\ =>\ \$type,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date1'}\ =>\ \$date1,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date2'}\ =>\ \$date2,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'page'}\ =>\ 1}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'headers'}\ =>\ [}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'accept'}\ =>\ \textcolor{stringliteral}{'application/json'},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dbname'}\ =>\ \$dbname,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'l2eq2'},}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'userpass'}\ =>\ \textcolor{stringliteral}{'wiqnyt-\/fuqgyc-\/7vUhby'}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ json\_decode(\$response-\/>getBody(),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a9e74902a0ac751f70a9ee1c8e2c48be3}\label{classApp_1_1Service_1_1JsonDataHandling_a9e74902a0ac751f70a9ee1c8e2c48be3} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!getCaptureDataLimited@{getCaptureDataLimited}}
+\index{getCaptureDataLimited@{getCaptureDataLimited}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{getCaptureDataLimited()}{getCaptureDataLimited()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::get\+Capture\+Data\+Limited (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle,  }\item[{string}]{\$type,  }\item[{int}]{\$count }\end{DoxyParamCaption})}
+
+Récupère une quantité limitée de données de capture pour une salle et un type de mesure spécifiques.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nomsalle} & Nom de la salle. \\
+\hline
+string & {\em \$type} & Type de données à récupérer. \\
+\hline
+int & {\em \$count} & Nombre de données à récupérer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed Les données de capture sous forme de tableau ou autre format. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00125}{125}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ mixed}
+\DoxyCodeLine{00126\ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \$nomSA\ =\ \$this-\/>salles[\$nomsalle][\textcolor{stringliteral}{'nomSA'}];}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \$dbname\ =\ \$this-\/>salles[\$nomsalle][\textcolor{stringliteral}{'dbname'}];}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \$client\ =\ \textcolor{keyword}{new}\ Client();}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \$response\ =\ \$client-\/>request(\textcolor{stringliteral}{'GET'},\ \textcolor{stringliteral}{'https://sae34.k8s.iut-\/larochelle.fr/api/captures/last'},\ [}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'query'}\ =>\ [}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nom'}\ =>\ \$type,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsa'}\ =>\ \$nomSA,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'limit'}\ =>\ \$count,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'page'}\ =>\ 1}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'headers'}\ =>\ [}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'accept'}\ =>\ \textcolor{stringliteral}{'application/json'},}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dbname'}\ =>\ \$dbname,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'l2eq2'},}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'userpass'}\ =>\ \textcolor{stringliteral}{'wiqnyt-\/fuqgyc-\/7vUhby'}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ json\_decode(\$response-\/>getBody(),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a5c8ef442def904865775eabff168fda6}\label{classApp_1_1Service_1_1JsonDataHandling_a5c8ef442def904865775eabff168fda6} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!getMoyenneParType@{getMoyenneParType}}
+\index{getMoyenneParType@{getMoyenneParType}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{getMoyenneParType()}{getMoyenneParType()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::get\+Moyenne\+Par\+Type (\begin{DoxyParamCaption}\item[{string}]{\$type }\end{DoxyParamCaption})}
+
+Calcule et retourne la moyenne des valeurs de capture pour un type de mesure donné.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & Type de données pour lequel calculer la moyenne (température, humidité, etc.). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float La moyenne calculée pour le type de données spécifié. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00187}{187}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{float}}
+\DoxyCodeLine{00188\ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \$somme\ =\ 0;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \$count\ =\ 0;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$this-\/>salles\ as\ \$nomSalle\ =>\ \$infoSalle)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \$donnee\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Service_1_1JsonDataHandling_a9e74902a0ac751f70a9ee1c8e2c48be3}{getCaptureDataLimited}}(\$nomSalle,\ \$type,\ 1);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dump(\$donnee);}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$donnee)\ \&\&\ isset(\$donnee[0][\textcolor{stringliteral}{'valeur'}])\ \&\&\ \$donnee[0][\textcolor{stringliteral}{'valeur'}]\ !==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dump(\$donnee[0]['valeur']);}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$somme\ +=\ floatval(\$donnee[0][\textcolor{stringliteral}{'valeur'}]);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$count++;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \$moyenneGlobale\ =\ \$somme\ /\ \$count;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$type\ ===\ \textcolor{stringliteral}{"{}hum"{}}\ ||\ \$type\ ===\ \textcolor{stringliteral}{"{}temp"{}})}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \$moyenneGlobale\ =\ round(\$moyenneGlobale,\ 1);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \$moyenneGlobale\ =\ round(\$moyenneGlobale);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$moyenneGlobale;}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Service_1_1JsonDataHandling_a5b38cbb7a7254d3067c5a6450804aadc}\label{classApp_1_1Service_1_1JsonDataHandling_a5b38cbb7a7254d3067c5a6450804aadc} 
+\index{App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}!getSalles@{getSalles}}
+\index{getSalles@{getSalles}!App\textbackslash{}Service\textbackslash{}JsonDataHandling@{App\textbackslash{}Service\textbackslash{}JsonDataHandling}}
+\doxysubsubsection{\texorpdfstring{getSalles()}{getSalles()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Service\textbackslash{}\+Json\+Data\+Handling\+::get\+Salles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Récupère les informations des salles. Cette méthode filtre et retourne les informations pertinentes des salles.
+
+\begin{DoxyReturn}{Returns}
+array Tableau contenant les informations des salles. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{JsonDataHandling_8php_source_l00072}{72}} of file \mbox{\hyperlink{JsonDataHandling_8php_source}{Json\+Data\+Handling.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \$listeSalles\ =\ [];}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \$listeExperimentations\ =\ \$this-\/>experimentationRepository-\/>enleveExperimentationsInutiles(\$this-\/>experimentationRepository-\/>requeteCommune()-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$listeExperimentations\ as\ \$experimentation)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \$nomSalle\ =\ \$experimentation[\textcolor{stringliteral}{'nom'}];}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$this-\/>salles\ as\ \$nomSalle2\ =>\ \$infoSalle)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$nomSalle\ ===\ \$nomSalle2)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$listeSalles[\$nomSalle]\ =\ \$infoSalle;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$listeSalles;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Json\+Data\+Handling.\+php\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+$reco-green: #00B292;
+$reco-orange: #F5C108;
+$reco-red: #ff5050;
+
+.container.recommandations .recommandation {
+  @include flex($justify: space-between, $align: center);
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1.5px solid $other-white;
+  background: $grey-4;
+  color: #FFF;
+  margin-bottom: 10px;
+
+  h1{
+    margin-bottom: 35px;
+  }
+
+  p{
+    color: #FFF;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  &.green{
+    border-color: $reco-green;
+    background:rgba($reco-green, 0.5);
+  }
+
+  &.orange{
+    border-color: $reco-orange;
+    background:rgba($reco-orange, 0.5);
+  }
+
+  &.red{
+    border-color: $reco-red;
+    background:rgba($reco-red, 0.5);
+  }
+
+  @media (max-width: 500px){
+    p{
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 500px){
+  #reco-title {
+    align-self: center;
+  }
+
+  #reco-title h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}

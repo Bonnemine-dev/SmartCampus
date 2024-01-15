@@ -1,0 +1,108 @@
+\doxysection{Utilisateur\+Controller.\+php}
+\hypertarget{UtilisateurController_8php_source}{}\label{UtilisateurController_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Controller;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00005}00005\ use\ App\(\backslash\)Form\(\backslash\)RechercheSalleFormType;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00006}00006\ use\ App\(\backslash\)Repository\(\backslash\)BatimentRepository;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00007}00007\ use\ App\(\backslash\)Repository\(\backslash\)ExperimentationRepository;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00008}00008\ use\ App\(\backslash\)Repository\(\backslash\)SalleRepository;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00009}00009\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00010}00010\ use\ App\(\backslash\)Repository\(\backslash\)UserRepository;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00011}00011\ use\ App\(\backslash\)Service\(\backslash\)JsonDataHandling;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00012}00012\ use\ Symfony\(\backslash\)Bundle\(\backslash\)FrameworkBundle\(\backslash\)Controller\(\backslash\)AbstractController;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00013}00013\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Request;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00014}00014\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00015}00015\ use\ Symfony\(\backslash\)Component\(\backslash\)Routing\(\backslash\)Annotation\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00022}\mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController}{00022}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController}{UtilisateurController}}\ \textcolor{keyword}{extends}\ AbstractController}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00033}00033\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/',\ name:\ 'app\_accueil')]}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00034}\mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController_a9711b13161a0a0451de8c6ac6cd66c2a}{00034}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController_a9711b13161a0a0451de8c6ac6cd66c2a}{index}}(Request\ \$request,\ SalleRepository\ \$salleRepository,\ SARepository\ \$saRepository,\ BatimentRepository\ \$batimentRepository):\ Response}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00035}00035\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \$rechercheSalleForm\ =\ \$this-\/>createForm(RechercheSalleFormType::class,\ \textcolor{keyword}{null},\ [}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batimentRepository-\/>tableauBatimentsNomID(),}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \$rechercheSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherche\ des\ salles\ en\ fonction\ du\ formulaire\ de\ recherche}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$rechercheSalleForm-\/>isSubmitted()\ \&\&\ \$rechercheSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSalleForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ la\ salles}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$dataRecherche[\textcolor{stringliteral}{'salle'}]]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$salle\ !=\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirect(\textcolor{stringliteral}{'/utilisateur/'}.\$salle-\/>getNom());}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}.\$dataRecherche[\textcolor{stringliteral}{'salle'}].\textcolor{stringliteral}{"{}\ n'existe\ pas"{}});}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'utilisateur/index.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSalleForm'}\ =>\ \$rechercheSalleForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00073}00073\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/utilisateur/\{nomsalle\}',\ name:\ 'utilisateur\_donnees')]}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00074}\mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController_a1196bd6b9fc93160a1040c4b1046c0f4}{00074}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1UtilisateurController_a1196bd6b9fc93160a1040c4b1046c0f4}{utilisateur\_donnees}}(UserRepository\ \$userRepository,\ JsonDataHandling\ \$JsonDataHandling\_service,\ ExperimentationRepository\ \$experimentationRepository,SalleRepository\ \$salleRepository,\textcolor{keywordtype}{string}\ \$nomsalle):\ Response}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00075}00075\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//salle\ inexistante\ ?}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$nomsalle])\ ===\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}.\$nomsalle.\textcolor{stringliteral}{"{}\ n'existe\ pas"{}});}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_accueil'});}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00080}00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}.\$nomsalle.\textcolor{stringliteral}{"{}\ n'est\ pas\ dans\ le\ plan\ d'experimenattion"{}});}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_accueil'});}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00087}00087\ \ \ \ \ \ \ \ \ \$dernieres\_donnees\ =\ \$JsonDataHandling\_service-\/>extraireDerniereDonneeSalle(\$nomsalle);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]\ !=\ \textcolor{keyword}{null})\{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \$date\_de\_capture\ =\ new\ \(\backslash\)DateTime(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \$now\ =\ new\ \(\backslash\)DateTime();}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \$interval\ =\ \$date\_de\_capture-\/>diff(\$now);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Format\ l'intervalle\ de\ temps\ de\ manière\ lisible}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$interval-\/>y\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>y\ .\ \textcolor{stringliteral}{'\ années'};}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>m\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>m\ .\ \textcolor{stringliteral}{'\ mois'};}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>d\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>d\ .\ \textcolor{stringliteral}{'\ jours'};}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>h\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>h\ .\ \textcolor{stringliteral}{'\ heures'};}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ elseif\ (\$interval-\/>i\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>i\ .\ \textcolor{stringliteral}{'\ minutes'};}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$elapsed\ =\ \$interval-\/>s\ .\ \textcolor{stringliteral}{'\ secondes'};}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \$recommandations\ =\ \$userRepository-\/>recommandationsSalles(\$dernieres\_donnees,\ \$dernieres\_donnees[\textcolor{stringliteral}{'date\_de\_capture'}]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ de\ salle\ details\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'utilisateur/utilisateur-\/donnees.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//nom\ de\ la\ salle}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomsalle'}\ =>\ \$nomsalle,}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dernière\ données\ de\ la\ salle,\ null\ si\ inexistantes}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dernieres\_donnees'}\ =>\ \$dernieres\_donnees,}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//temps\ écoulé\ depuis\ la\ dernière\ remonté\ de\ données}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'elapsed'}\ =>\ \$elapsed\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//intervalle\ de\ température\ de\ la\ saison}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//recommandations}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'recommandations'}\ =>\ \$recommandations,}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00125}00125\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00126}00126\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{UtilisateurController_8php_source_l00127}00127\ \}}
+
+\end{DoxyCode}

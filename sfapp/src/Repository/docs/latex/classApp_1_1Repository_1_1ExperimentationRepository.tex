@@ -1,0 +1,696 @@
+\doxysection{App\textbackslash{}Repository\textbackslash{}Experimentation\+Repository Class Reference}
+\hypertarget{classApp_1_1Repository_1_1ExperimentationRepository}{}\label{classApp_1_1Repository_1_1ExperimentationRepository}\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+Inheritance diagram for App\textbackslash{}Repository\textbackslash{}Experimentation\+Repository\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Repository_1_1ExperimentationRepository}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a895b964376fcf8a6c29d33ff4ea0b9a9}{\+\_\+\+\_\+construct}} (Manager\+Registry \$registry, \mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository}{Salle\+Repository}} \$salle\+Repository, \mbox{\hyperlink{classApp_1_1Repository_1_1SARepository}{SARepository}} \$sa\+Repository)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2249ea29d74d0507c1e2d2def84415fb}{ajouter\+Experimentation}} (string \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a436b3809d4adf9fd12e670d7022cf481}{est\+Existante}} (string \$nom\+Salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_af6e1282fd7124ddd5f8bf36ed1c466fd}{trouve\+Experimentation\+Demande\+Installation}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{find\+One\+By\+Pas\+Retiree}} (string \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0b78c2ca8153ee76feecca41970371d6}{supprimer\+Experimentation}} (string \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ad3bb921d280c2ada19403566fa841b48}{filtre\+Experimentation\+Analyse}} (array \$etages=null, array \$orientation=null, int \$ordinateurs=null, int \$sa=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{requete\+Commune}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{enleve\+Experimentations\+Inutiles}} (array \$exp)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0cb30186c122c5b7c691c661198354d9}{recherche\+Experimentation\+Analyse}} (int \$batiment=null, string \$salle=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a74271d39528fa7de71b096dcf444e63c}{modifier\+Etat}} (Etat\+Experimentation \$etat, string \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ad395fc98439200de3c1b55a07c0eec2b}{tri\+Experimentation}} (array \$exp)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ab6557da70fac8e5d5820f6dfb22a6868}{etat\+Experimentation}} (string \$salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a09b61ee79cb973329cfb0b5903692e6a}{lister\+Les\+Intervalles\+Archives}} (string \$nom\+Salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a48084292d42c530f91f82e16d8cbf830}{extraire\+Date\+Install\+Exp\+Actuelle}} (string \$nom\+Salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ae91a59fe8228eb76302299059b5546ae}{etat\+Exp}} (string \$nom\+Salle)
+\item 
+\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a0b381a02a96e7a2707b3b7f2a2ea309a}{trouve\+Experimentations\+Par\+Nom\+Salle}} (string \$nom\+Salle)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gère les opérations de base de données pour l\textquotesingle{}entité Experimentation. $<$\+Experimentation$>$
+
+@method Experimentation\texorpdfstring{$\vert$}{|}null find(\$id, \$lock\+Mode = null, \$lock\+Version = null) @method Experimentation\texorpdfstring{$\vert$}{|}null find\+One\+By(array \$criteria, array \$order\+By = null) @method Experimentation\mbox{[}\mbox{]} find\+All() @method Experimentation\mbox{[}\mbox{]} find\+By(array \$criteria, array \$order\+By = null, \$limit = null, \$offset = null) 
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00024}{24}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a895b964376fcf8a6c29d33ff4ea0b9a9}\label{classApp_1_1Repository_1_1ExperimentationRepository_a895b964376fcf8a6c29d33ff4ea0b9a9} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Manager\+Registry}]{\$registry,  }\item[{\mbox{\hyperlink{classApp_1_1Repository_1_1SalleRepository}{Salle\+Repository}}}]{\$salle\+Repository,  }\item[{\mbox{\hyperlink{classApp_1_1Repository_1_1SARepository}{SARepository}}}]{\$sa\+Repository }\end{DoxyParamCaption})}
+
+Constructeur de la classe Experimentation\+Repository. 
+\begin{DoxyParams}[1]{Parameters}
+Manager\+Registry & {\em \$registry} & Gestionnaire de l\textquotesingle{}entité. \\
+\hline
+Salle\+Repository & {\em \$salle\+Repository} & Repository pour l\textquotesingle{}entité Salle. \\
+\hline
+SARepository & {\em \$sa\+Repository} & Repository pour l\textquotesingle{}entité SA. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00044}{44}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ Experimentation::class);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \$this-\/>salleRepository\ =\ \$salleRepository;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \$this-\/>saRepository\ =\ \$saRepository;}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a2249ea29d74d0507c1e2d2def84415fb}\label{classApp_1_1Repository_1_1ExperimentationRepository_a2249ea29d74d0507c1e2d2def84415fb} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!ajouterExperimentation@{ajouterExperimentation}}
+\index{ajouterExperimentation@{ajouterExperimentation}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{ajouterExperimentation()}{ajouterExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::ajouter\+Experimentation (\begin{DoxyParamCaption}\item[{string}]{\$salle }\end{DoxyParamCaption})}
+
+Ajoute une nouvelle expérimentation pour la salle donnée. Crée une instance d\textquotesingle{}Experimentation, définit ses propriétés et la persiste dans la base de données. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$salle} & Nom de la salle pour laquelle l\textquotesingle{}expérimentation est ajoutée. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00057}{57}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Créer\ une\ nouvelle\ instance\ de\ l'entité\ Experimentation}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \$experimentation\ =\ \textcolor{keyword}{new}\ Experimentation();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Récupérer\ l'ID\ de\ la\ salle\ et\ définir\ les\ salles\ de\ l'expérimentation}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \$id\ =\ \$this-\/>salleRepository-\/>nomSalleId(\$salle);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \$experimentation-\/>setSalles(\$id);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définir\ la\ date\ de\ demande\ avec\ le\ fuseau\ horaire\ de\ Paris}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \$dateDemande\ =\ new\ \(\backslash\)DateTime(\textcolor{stringliteral}{'now'},\ \textcolor{keyword}{new}\ \(\backslash\)DateTimeZone(\textcolor{stringliteral}{'Europe/Paris'}));}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \$experimentation-\/>setDatedemande(\$dateDemande);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définir\ l'état\ et\ le\ SA\ de\ l'expérimentation}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \$experimentation-\/>setEtat(EtatExperimentation::demandeInstallation);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \$experimentation-\/>setSA(\$this-\/>saRepository-\/>saNonUtiliser());}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Persister\ et\ flush\ l'entité}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>persist(\$experimentation);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \$this-\/>getEntityManager()-\/>flush();}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}\label{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!enleveExperimentationsInutiles@{enleveExperimentationsInutiles}}
+\index{enleveExperimentationsInutiles@{enleveExperimentationsInutiles}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{enleveExperimentationsInutiles()}{enleveExperimentationsInutiles()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::enleve\+Experimentations\+Inutiles (\begin{DoxyParamCaption}\item[{array}]{\$exp }\end{DoxyParamCaption})}
+
+Enlève les expérimentations inutiles d\textquotesingle{}un ensemble de résultats. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,array\{} & nom\+: string, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: Etat\+Experimentation, sa\+\_\+etat\+: Etat\+SA \}\texorpdfstring{$>$}{>} \$exp Les expérimentations à filtrer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ nom\+: string, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: Etat\+Experimentation, sa\+\_\+etat\+: Etat\+SA \}\texorpdfstring{$>$}{>} L\textquotesingle{}ensemble filtré des expérimentations. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00374}{374}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00375\ \ \ \ \ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$exp);}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$i\ =\ 0;\ \$i\ <\ \$len;\ \$i++)\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp[\$i][\textcolor{stringliteral}{'sa\_etat'}]\ ==\ \textcolor{keyword}{null}\ or\ \$exp[\$i][\textcolor{stringliteral}{'etat'}]\ ==\ 4\ or\ \$exp[\$i][\textcolor{stringliteral}{'etat'}]\ ==\ EtatExperimentation::retiree\ or\ \$exp[\$i][\textcolor{stringliteral}{'etat'}]\ ==\ EtatExperimentation::demandeInstallation)\ \{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$exp[\$i]);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$exp;}
+\DoxyCodeLine{00384\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a436b3809d4adf9fd12e670d7022cf481}\label{classApp_1_1Repository_1_1ExperimentationRepository_a436b3809d4adf9fd12e670d7022cf481} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!estExistante@{estExistante}}
+\index{estExistante@{estExistante}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{estExistante()}{estExistante()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::est\+Existante (\begin{DoxyParamCaption}\item[{string}]{\$nom\+Salle }\end{DoxyParamCaption})}
+
+Vérifie si une expérimentation existe pour une salle donnée. Utilise un Query\+Builder pour compter le nombre d\textquotesingle{}expérimentations correspondant aux critères. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nom\+Salle} & Le nom de la salle à vérifier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Renvoie true si une expérimentation existe, false sinon. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00087}{87}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{charliteral}{'e'})}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'count(e.id)'})}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'e.Salles'},\ \textcolor{charliteral}{'s'})}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'s.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'e.etat\ BETWEEN\ :etat1\ AND\ :etat2'})}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameters([}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nomSalle'}\ =>\ \$nomSalle,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat1'}\ =>\ EtatExperimentation::demandeInstallation,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat2'}\ =>\ EtatExperimentation::demandeRetrait}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getSingleScalarResult()\ >\ 0;}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_ae91a59fe8228eb76302299059b5546ae}\label{classApp_1_1Repository_1_1ExperimentationRepository_ae91a59fe8228eb76302299059b5546ae} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!etatExp@{etatExp}}
+\index{etatExp@{etatExp}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{etatExp()}{etatExp()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::etat\+Exp (\begin{DoxyParamCaption}\item[{string}]{\$nom\+Salle }\end{DoxyParamCaption})}
+
+Récupère l\textquotesingle{}état d\textquotesingle{}une expérimentation pour une salle donnée. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nom\+Salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ etat\+\_\+exp\+: Etat\+Experimentation \}\texorpdfstring{$>$}{>} Liste des états des expérimentations pour la salle donnée. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00575}{575}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00576\ \ \ \ \ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'experimentation.etat\ AS\ etat\_exp'})}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle)}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getResult();}
+\DoxyCodeLine{00584\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_ab6557da70fac8e5d5820f6dfb22a6868}\label{classApp_1_1Repository_1_1ExperimentationRepository_ab6557da70fac8e5d5820f6dfb22a6868} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!etatExperimentation@{etatExperimentation}}
+\index{etatExperimentation@{etatExperimentation}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{etatExperimentation()}{etatExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::etat\+Experimentation (\begin{DoxyParamCaption}\item[{string}]{\$salle }\end{DoxyParamCaption})}
+
+Récupère l\textquotesingle{}état actuel d\textquotesingle{}une expérimentation pour une salle donnée. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Etat\+Experimentation L\textquotesingle{}état actuel de l\textquotesingle{}expérimentation. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00517}{517}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ EtatExperimentation}
+\DoxyCodeLine{00518\ \ \ \ \ \{}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\$salle);}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count(\$exp)\ ==\ 0)\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EtatExperimentation::retiree;}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \$Exp\ =\ \$exp[0];}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$Exp-\/>getEtat();}
+\DoxyCodeLine{00525\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a48084292d42c530f91f82e16d8cbf830}\label{classApp_1_1Repository_1_1ExperimentationRepository_a48084292d42c530f91f82e16d8cbf830} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!extraireDateInstallExpActuelle@{extraireDateInstallExpActuelle}}
+\index{extraireDateInstallExpActuelle@{extraireDateInstallExpActuelle}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{extraireDateInstallExpActuelle()}{extraireDateInstallExpActuelle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::extraire\+Date\+Install\+Exp\+Actuelle (\begin{DoxyParamCaption}\item[{string}]{\$nom\+Salle }\end{DoxyParamCaption})}
+
+Extrait la date d\textquotesingle{}installation de l\textquotesingle{}expérimentation actuelle pour une salle donnée. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nom\+Salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string, Date\+Time$>$ La date d\textquotesingle{}installation de l\textquotesingle{}expérimentation actuelle. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00555}{555}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00556\ \ \ \ \ \{}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'experimentation.dateinstallation\ AS\ date\_install'})}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'experimentation.etat\ IN\ (:etats)'})}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle)}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etats'},\ [EtatExperimentation::installee,\ EtatExperimentation::demandeRetrait])}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getOneOrNullResult();}
+\DoxyCodeLine{00566\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_ad3bb921d280c2ada19403566fa841b48}\label{classApp_1_1Repository_1_1ExperimentationRepository_ad3bb921d280c2ada19403566fa841b48} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!filtreExperimentationAnalyse@{filtreExperimentationAnalyse}}
+\index{filtreExperimentationAnalyse@{filtreExperimentationAnalyse}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{filtreExperimentationAnalyse()}{filtreExperimentationAnalyse()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::filtre\+Experimentation\+Analyse (\begin{DoxyParamCaption}\item[{array}]{\$etages = {\ttfamily null},  }\item[{array}]{\$orientation = {\ttfamily null},  }\item[{int}]{\$ordinateurs = {\ttfamily null},  }\item[{int}]{\$sa = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Filtre les expérimentations en cours d\textquotesingle{}analyse selon divers critères. Permet de filtrer par étage, orientation, nombre d\textquotesingle{}ordinateurs, et état du SA. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int,int$>$} & \$etages Les étages à filtrer. \\
+\hline
+ & {\em array$<$int,string$>$} & \$orientation Les orientations à filtrer. \\
+\hline
+int | null & {\em \$ordinateurs} & Le nombre d\textquotesingle{}ordinateurs à filtrer. \\
+\hline
+int | null & {\em \$sa} & L\textquotesingle{}état du SA à filtrer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ nom\+: string, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: Etat\+Experimentation, sa\+\_\+etat\+: Etat\+SA \}\texorpdfstring{$>$}{>} Liste filtrée des expérimentations. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00270}{270}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00271\ \ \ \ \ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{requeteCommune}}();}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$etages)\ \&\&\ \$etages\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.etage\ IN\ (:etages)'})}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etages'},\ \$etages);}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!empty(\$orientation)\ \&\&\ \$orientation\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.orientation\ IN\ (:orientation)'})}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'orientation'},\ \$orientation);}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$ordinateurs\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \$ordinateursCondition\ =\ \$ordinateurs\ ===\ 0\ ?\ \textcolor{stringliteral}{'salle.nb\_ordis\ =\ 0'}\ :\ \textcolor{stringliteral}{'salle.nb\_ordis\ >\ 0'};}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\$ordinateursCondition);}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$sa\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \$saCondition\ =\ \$this-\/>conditionsSA(\$sa);}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\$saCondition);}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{enleveExperimentationsInutiles}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{00295\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}\label{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!findOneByPasRetiree@{findOneByPasRetiree}}
+\index{findOneByPasRetiree@{findOneByPasRetiree}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{findOneByPasRetiree()}{findOneByPasRetiree()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::find\+One\+By\+Pas\+Retiree (\begin{DoxyParamCaption}\item[{string}]{\$salle }\end{DoxyParamCaption})}
+
+Trouve les expérimentations pour une salle donnée qui ne sont pas retirées. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int, Experimentation$>$ Liste des expérimentations non retirées pour la salle spécifiée. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00150}{150}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00151\ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \$idSalle\ =\ \$this-\/>salleRepository-\/>nomSalleId(\$salle);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'experimentation.etat\ !=\ 3\ and\ experimentation.Salles\ ='}\ .\ \$idSalle-\/>getId())}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getResult();}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a09b61ee79cb973329cfb0b5903692e6a}\label{classApp_1_1Repository_1_1ExperimentationRepository_a09b61ee79cb973329cfb0b5903692e6a} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!listerLesIntervallesArchives@{listerLesIntervallesArchives}}
+\index{listerLesIntervallesArchives@{listerLesIntervallesArchives}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{listerLesIntervallesArchives()}{listerLesIntervallesArchives()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::lister\+Les\+Intervalles\+Archives (\begin{DoxyParamCaption}\item[{string}]{\$nom\+Salle }\end{DoxyParamCaption})}
+
+Liste les intervalles de temps des expérimentations passées pour une salle donnée. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nom\+Salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ date\+\_\+install\+: Date\+Time, date\+\_\+desinstall\+: Date\+Time \}\texorpdfstring{$>$}{>} Liste des intervalles de temps des expérimentations passées. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00538}{538}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00539\ \ \ \ \ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([\textcolor{stringliteral}{'experimentation.dateinstallation\ AS\ date\_install'},\ \textcolor{stringliteral}{'experimentation.datedesinstallation\ AS\ date\_desinstall'}])}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>andWhere(\textcolor{stringliteral}{'experimentation.datedesinstallation\ IS\ NOT\ NULL'})}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle);}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{00548\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a74271d39528fa7de71b096dcf444e63c}\label{classApp_1_1Repository_1_1ExperimentationRepository_a74271d39528fa7de71b096dcf444e63c} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!modifierEtat@{modifierEtat}}
+\index{modifierEtat@{modifierEtat}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{modifierEtat()}{modifierEtat()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::modifier\+Etat (\begin{DoxyParamCaption}\item[{Etat\+Experimentation}]{\$etat,  }\item[{string}]{\$salle }\end{DoxyParamCaption})}
+
+Modifie l\textquotesingle{}état d\textquotesingle{}une expérimentation pour une salle donnée. Met à jour l\textquotesingle{}état et persiste l\textquotesingle{}expérimentation si elle existe. 
+\begin{DoxyParams}[1]{Parameters}
+Etat\+Experimentation & {\em \$etat} & Le nouvel état à attribuer à l\textquotesingle{}expérimentation. \\
+\hline
+string & {\em \$salle} & Le nom de la salle pour laquelle l\textquotesingle{}état doit être modifié. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00431}{431}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00432\ \ \ \ \ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\$salle);}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \$exp\ =\ \$exp[0];}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp)\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>MajEtatEtPersist(\$exp,\ \$etat);}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00439\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a0cb30186c122c5b7c691c661198354d9}\label{classApp_1_1Repository_1_1ExperimentationRepository_a0cb30186c122c5b7c691c661198354d9} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!rechercheExperimentationAnalyse@{rechercheExperimentationAnalyse}}
+\index{rechercheExperimentationAnalyse@{rechercheExperimentationAnalyse}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{rechercheExperimentationAnalyse()}{rechercheExperimentationAnalyse()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::recherche\+Experimentation\+Analyse (\begin{DoxyParamCaption}\item[{int}]{\$batiment = {\ttfamily null},  }\item[{string}]{\$salle = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Recherche des expérimentations selon le bâtiment et le nom de la salle. 
+\begin{DoxyParams}[1]{Parameters}
+int | null & {\em \$batiment} & Le numéro du bâtiment à filtrer. \\
+\hline
+string | null & {\em \$salle} & Le nom de la salle à filtrer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ nom\+: string, etage\+: int, numero\+: int, orientation\+: string, nb\+\_\+fenetres\+: int, nb\+\_\+ordis\+: int, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: Etat\+Experimentation, sa\+\_\+etat\+: Etat\+SA \}\texorpdfstring{$>$}{>} Liste des expérimentations correspondantes. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00406}{406}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00407\ \ \ \ \ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}{requeteCommune}}();}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$batiment\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.batiment\ =\ :batiment'})}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'batiment'},\ \$batiment);}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salle\ !==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \$queryBuilder-\/>andWhere(\textcolor{stringliteral}{'salle.nom\ LIKE\ :salle'})}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'salle'},\ \textcolor{charliteral}{'\%'}\ .\ \$salle\ .\ \textcolor{charliteral}{'\%'});}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_a270eb69d2686cfeb4ef90a1a66bbf15d}{enleveExperimentationsInutiles}}(\$queryBuilder-\/>getQuery()-\/>getResult());}
+\DoxyCodeLine{00421\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8}\label{classApp_1_1Repository_1_1ExperimentationRepository_a2959ea4f8fe3c9bb85a5554d79caaee8} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!requeteCommune@{requeteCommune}}
+\index{requeteCommune@{requeteCommune}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{requeteCommune()}{requeteCommune()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::requete\+Commune (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Construit une requête commune utilisée pour les fonctions de filtrage et de recherche. \begin{DoxyReturn}{Returns}
+\textbackslash{}\+Doctrine\textbackslash{}\+ORM\textbackslash{}\+Query\+Builder Le Query\+Builder construit avec les critères communs. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00301}{301}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \(\backslash\)Doctrine\(\backslash\)ORM\(\backslash\)QueryBuilder}
+\DoxyCodeLine{00302\ \ \ \ \ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nom'},}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.etage'},}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.numero'},}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.orientation'},}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nb\_fenetres'},}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nb\_ordis'},}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.datedemande'},}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.dateinstallation'},}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.etat'},}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sa.etat\ AS\ sa\_etat'}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.SA'},\ \textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'experimentation.etat\ IN\ (:etats)'})}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'etats'},\ [EtatExperimentation::installee,\ EtatExperimentation::demandeRetrait]);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder;}
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a0b78c2ca8153ee76feecca41970371d6}\label{classApp_1_1Repository_1_1ExperimentationRepository_a0b78c2ca8153ee76feecca41970371d6} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!supprimerExperimentation@{supprimerExperimentation}}
+\index{supprimerExperimentation@{supprimerExperimentation}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{supprimerExperimentation()}{supprimerExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::supprimer\+Experimentation (\begin{DoxyParamCaption}\item[{string}]{\$salle }\end{DoxyParamCaption})}
+
+Supprime une expérimentation pour une salle donnée. Effectue des vérifications et des opérations de suppression selon l\textquotesingle{}état de l\textquotesingle{}expérimentation. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$salle} & Le nom de la salle pour laquelle l\textquotesingle{}expérimentation doit être supprimée. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int, Etat\+Experimentation$>$ Liste des états avant et après la suppression. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00165}{165}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \$idSalle\ =\ \$this-\/>salleRepository-\/>nomSalleId(\$salle);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>\mbox{\hyperlink{classApp_1_1Repository_1_1ExperimentationRepository_ac7eceb4d106f0f1492f3c6ce354c1eb1}{findOneByPasRetiree}}(\$salle);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \$exp\ =\ \$exp[0];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \$listeEtat\ =\ [\$exp-\/>getEtat(),\ \textcolor{keyword}{null}];}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>findOneBy([\textcolor{stringliteral}{'Salles'}\ =>\ \$idSalle,\ \textcolor{stringliteral}{'etat'}\ =>\ EtatExperimentation::demandeInstallation]);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp)\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>supprimerExperimentationDemandeInstallation(\$exp,\ \$idSalle);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp\ =\ \$this-\/>findOneBy([\textcolor{stringliteral}{'Salles'}\ =>\ \$idSalle,\ \textcolor{stringliteral}{'etat'}\ =>\ EtatExperimentation::installee]);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$exp)\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>retireExperimentationInstallee(\$exp);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \$listeEtat[1]\ =\ \$exp-\/>getEtat();}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$listeEtat;}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_ad395fc98439200de3c1b55a07c0eec2b}\label{classApp_1_1Repository_1_1ExperimentationRepository_ad395fc98439200de3c1b55a07c0eec2b} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!triExperimentation@{triExperimentation}}
+\index{triExperimentation@{triExperimentation}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{triExperimentation()}{triExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::tri\+Experimentation (\begin{DoxyParamCaption}\item[{array}]{\$exp }\end{DoxyParamCaption})}
+
+Trie un ensemble d\textquotesingle{}expérimentations par salle et par date de capture, en supprimant les doublons. 
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,array\{} & nom\+\_\+salle\+: string, nom\+\_\+sa\+: string, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} \$exp Les expérimentations à trier.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ nom\+\_\+salle\+: string, nom\+\_\+sa\+: string, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} Les expérimentations triées. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00486}{486}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00487\ \ \ \ \ \{}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ usort(\$exp,\ \textcolor{keyword}{function}(\$a,\ \$b)\ \{}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tri\ par\ nom\_salle}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$a[\textcolor{stringliteral}{'nom\_salle'}]\ !=\ \$b[\textcolor{stringliteral}{'nom\_salle'}])\ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$a[\textcolor{stringliteral}{'nom\_salle'}]\ <=>\ \$b[\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ nom\_salle\ est\ identique,\ tri\ par\ datedemande\ en\ ordre\ décroissant}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$b[\textcolor{stringliteral}{'datedemande'}]\ <=>\ \$a[\textcolor{stringliteral}{'datedemande'}];}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \$len\ =\ count(\$exp);}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count(\$exp)\ >\ 2)\ \{}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$exp[0][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$i\ =\ 0;\ \$i\ <\ \$len\ -\/\ 1;\ \$i++)\ \{}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$salle\ ==\ \$exp[\$i\ +\ 1][\textcolor{stringliteral}{'nom\_salle'}])\ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unset(\$exp[\$i\ +\ 1]);}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$exp[\$i\ +\ 1][\textcolor{stringliteral}{'nom\_salle'}];}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$exp;}
+\DoxyCodeLine{00510\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_af6e1282fd7124ddd5f8bf36ed1c466fd}\label{classApp_1_1Repository_1_1ExperimentationRepository_af6e1282fd7124ddd5f8bf36ed1c466fd} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!trouveExperimentationDemandeInstallation@{trouveExperimentationDemandeInstallation}}
+\index{trouveExperimentationDemandeInstallation@{trouveExperimentationDemandeInstallation}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{trouveExperimentationDemandeInstallation()}{trouveExperimentationDemandeInstallation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::trouve\+Experimentation\+Demande\+Installation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Trouve les expérimentations en demande d\textquotesingle{}installation. Renvoie une liste d\textquotesingle{}expérimentations avec des détails comme le nom de la salle, le SA, les dates, et l\textquotesingle{}état. \begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{ nom\+\_\+salle\+: string, nom\+\_\+sa\+: string, datedemande\+: Date\+Time, dateinstallation\+: Date\+Time, etat\+: int \}\texorpdfstring{$>$}{>} Liste des expérimentations avec les détails spécifiés. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00115}{115}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00116\ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'experimentation'})}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select([}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salle.nom\ AS\ nom\_salle'},}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sa.nom\ AS\ nom\_sa'},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.datedemande'},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'experimentation.dateinstallation'},}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'CASE\ WHEN\ experimentation.etat\ =\ :etat\_demande\_installation\ THEN\ 0}}
+\DoxyCodeLine{00124\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_installee\ THEN\ 1}}
+\DoxyCodeLine{00125\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_demandeRetrait\ THEN\ 2}}
+\DoxyCodeLine{00126\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHEN\ experimentation.etat\ =\ :etat\_retiree\ THEN\ 4}}
+\DoxyCodeLine{00127\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ELSE\ 4\ END\ AS\ etat'}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'experimentation.SA'},\ \textcolor{stringliteral}{'sa'})}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>orderBy(\textcolor{stringliteral}{'salle.nom'},\ \textcolor{stringliteral}{'ASC'})}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameters([}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_demande\_installation'}\ =>\ EtatExperimentation::demandeInstallation,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_installee'}\ =>\ EtatExperimentation::installee,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_demandeRetrait'}\ =>\ EtatExperimentation::demandeRetrait,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'etat\_retiree'}\ =>\ EtatExperimentation::retiree}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Repository_1_1ExperimentationRepository_a0b381a02a96e7a2707b3b7f2a2ea309a}\label{classApp_1_1Repository_1_1ExperimentationRepository_a0b381a02a96e7a2707b3b7f2a2ea309a} 
+\index{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}!trouveExperimentationsParNomSalle@{trouveExperimentationsParNomSalle}}
+\index{trouveExperimentationsParNomSalle@{trouveExperimentationsParNomSalle}!App\textbackslash{}Repository\textbackslash{}ExperimentationRepository@{App\textbackslash{}Repository\textbackslash{}ExperimentationRepository}}
+\doxysubsubsection{\texorpdfstring{trouveExperimentationsParNomSalle()}{trouveExperimentationsParNomSalle()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Repository\textbackslash{}\+Experimentation\+Repository\+::trouve\+Experimentations\+Par\+Nom\+Salle (\begin{DoxyParamCaption}\item[{string}]{\$nom\+Salle }\end{DoxyParamCaption})}
+
+Trouve toutes les expérimentations qui ont eu lieu dans une salle spécifiée par son nom. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nom\+Salle} & Le nom de la salle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int, Experimentation$>$ Liste des expérimentations pour la salle spécifiée. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationRepository_8php_source_l00591}{591}} of file \mbox{\hyperlink{ExperimentationRepository_8php_source}{Experimentation\+Repository.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ array}
+\DoxyCodeLine{00592\ \ \ \ \ \{}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \$queryBuilder\ =\ \$this-\/>createQueryBuilder(\textcolor{stringliteral}{'exp'})}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>join(\textcolor{stringliteral}{'exp.Salles'},\ \textcolor{stringliteral}{'salle'})}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'salle.nom\ =\ :nomSalle'})}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>setParameter(\textcolor{stringliteral}{'nomSalle'},\ \$nomSalle);}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$queryBuilder-\/>getQuery()-\/>getResult();}
+\DoxyCodeLine{00599\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Experimentation\+Repository.\+php\end{DoxyCompactItemize}

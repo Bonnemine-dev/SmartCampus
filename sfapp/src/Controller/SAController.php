@@ -11,8 +11,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @class SAController
+ * Contrôleur pour gérer les actions liées aux systèmes d'acquisition (SA).
+ * @extends AbstractController
+ */
 class SAController extends AbstractController
 {
+    /**
+     * Affiche et traite le formulaire d'ajout d'un système d'acquisition.
+     * @param Request $request La requête HTTP entrante.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @return Response La réponse HTTP avec la vue du formulaire d'ajout de SA.
+     * @Route('/technicien/gestion-sa/ajouter-sa', name: 'ajout_sa')
+     */
     #[Route('/technicien/gestion-sa/ajouter-sa', name: 'ajout_sa')]
     public function index(Request $request, SARepository $saRepository): Response
     {
@@ -48,6 +60,14 @@ class SAController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche la page de confirmation de suppression d'un système d'acquisition.
+     * @param Request $request La requête HTTP entrante.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param string $nomsa Le nom du système d'acquisition à supprimer.
+     * @return Response La réponse HTTP avec la vue de suppression de SA.
+     * @Route('/technicien/gestion-sa/supprimer-sa/{nomsa}', name: 'supprimer_sa')
+     */
     #[Route('/technicien/gestion-sa/supprimer-sa/{nomsa}', name: 'supprimer_sa')]
     public function supprimer_sa(Request $request, SARepository $saRepository, string $nomsa): Response
     {
@@ -65,6 +85,13 @@ class SAController extends AbstractController
         }
     }
 
+    /**
+     * Valide la suppression d'un système d'acquisition.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param string $nomsa Le nom du système d'acquisition à supprimer.
+     * @return Response La réponse HTTP avec redirection vers la page de gestion des SA.
+     * @Route('/technicien/gestion-sa/suppression-sa/{nomsa}', name: 'valid_supprimer_sa')
+     */
     #[Route('/technicien/gestion-sa/suppression-sa/{nomsa}', name: 'valid_supprimer_sa')]
     public function valid_supprimer_sa(SARepository $saRepository, string $nomsa): Response
     {
@@ -83,6 +110,15 @@ class SAController extends AbstractController
         return $this->redirectToRoute('gestion_sa');
     }
 
+    /**
+     * Affiche les détails d'un système d'acquisition spécifique.
+     * @param UserRepository $userRepository Le repository pour accéder aux données des utilisateurs.
+     * @param JsonDataHandling $JsonDataHandling_service Le service de traitement des données JSON.
+     * @param SARepository $saRepository Le repository pour accéder aux données des SA.
+     * @param string $nomsa Le nom du système d'acquisition à afficher.
+     * @return Response La réponse HTTP avec la vue de détails de SA.
+     * @Route('/technicien/gestion-sa/details-sa/{nomsa}', name: 'details_sa')
+     */
     #[Route('/technicien/gestion-sa/details-sa/{nomsa}', name: 'details_sa')]
     public function details_sa(UserRepository $userRepository, JsonDataHandling $JsonDataHandling_service, SARepository $saRepository, string $nomsa): Response
     {
@@ -97,7 +133,7 @@ class SAController extends AbstractController
         $nom_salle_associe_sa = $saRepository->salle_associe_sa($nomsa);
         //Récupère les dernières données remonté par le SA
         if($nom_salle_associe_sa != null) {
-            $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nom_salle_associe_sa['nom']);
+            $dernieres_donnees = $JsonDataHandling_service->extraireDerniereDonneeSalle($nom_salle_associe_sa[0]['nom']);
         }
 
         if($nom_salle_associe_sa != null and $dernieres_donnees['date_de_capture'] != null) {

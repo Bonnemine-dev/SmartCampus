@@ -1,0 +1,167 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}Experimentation\+Controller Class Reference}
+\hypertarget{classApp_1_1Controller_1_1ExperimentationController}{}\label{classApp_1_1Controller_1_1ExperimentationController}\index{App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}Experimentation\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1ExperimentationController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a97ffd92a7272263d1301a40fe169447d}{ajouter\+Experimentation}} (Experimentation\+Repository \$experimentation\+Repository, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a467bdf8ae004294d4bfc8acee0e52482}{supprimer\+Experimentation}} (Experimentation\+Repository \$experimentation\+Repository, string \$nomsalle)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a559e162705eec80169353e1d68db65e3}{modifier\+Etat\+Experimentation}} (Experimentation\+Repository \$experimentation\+Repository, SARepository \$SARepository, string \$etat, string \$nomsalle)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour gérer les expérimentations dans l\textquotesingle{}application. 
+
+Definition at line \mbox{\hyperlink{ExperimentationController_8php_source_l00018}{18}} of file \mbox{\hyperlink{ExperimentationController_8php_source}{Experimentation\+Controller.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1ExperimentationController_a97ffd92a7272263d1301a40fe169447d}\label{classApp_1_1Controller_1_1ExperimentationController_a97ffd92a7272263d1301a40fe169447d} 
+\index{App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}!ajouterExperimentation@{ajouterExperimentation}}
+\index{ajouterExperimentation@{ajouterExperimentation}!App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}}
+\doxysubsubsection{\texorpdfstring{ajouterExperimentation()}{ajouterExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Experimentation\+Controller\+::ajouter\+Experimentation (\begin{DoxyParamCaption}\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Gère l\textquotesingle{}ajout d\textquotesingle{}une expérimentation pour une salle donnée. Ajoute une expérimentation et affiche un message flash selon le résultat. 
+\begin{DoxyParams}[1]{Parameters}
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository pour accéder aux données des expérimentations. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle pour laquelle l\textquotesingle{}expérimentation est ajoutée. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec redirection vers la page de gestion des expérimentations. @\+Route(\textquotesingle{}/charge-\/de-\/mission/plan-\/experimentation/ajout-\/experimentation/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}ajout\+\_\+exp\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationController_8php_source_l00029}{29}} of file \mbox{\hyperlink{ExperimentationController_8php_source}{Experimentation\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logique\ d'ajout\ d'expérimentation}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \$experimentationRepository-\/>ajouterExperimentation(\$nomsalle);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifiez\ le\ résultat\ et\ ajoutez\ un\ message\ flash\ approprié}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ ajoutée\ au\ plan\ d'expérimentation\ avec\ succès."{}});}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ ajoutée\ au\ plan\ d'expérimentation."{}});}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirection}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_charge\_mission'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1ExperimentationController_a559e162705eec80169353e1d68db65e3}\label{classApp_1_1Controller_1_1ExperimentationController_a559e162705eec80169353e1d68db65e3} 
+\index{App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}!modifierEtatExperimentation@{modifierEtatExperimentation}}
+\index{modifierEtatExperimentation@{modifierEtatExperimentation}!App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}}
+\doxysubsubsection{\texorpdfstring{modifierEtatExperimentation()}{modifierEtatExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Experimentation\+Controller\+::modifier\+Etat\+Experimentation (\begin{DoxyParamCaption}\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{SARepository}]{\$\+SARepository,  }\item[{string}]{\$etat,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Gère la modification de l\textquotesingle{}état d\textquotesingle{}une expérimentation pour une salle donnée. Modifie l\textquotesingle{}état de l\textquotesingle{}expérimentation et affiche un message flash selon le résultat. 
+\begin{DoxyParams}[1]{Parameters}
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository pour accéder aux données des expérimentations. \\
+\hline
+SARepository & {\em \$\+SARepository} & Le repository pour accéder aux données des SA. \\
+\hline
+string & {\em \$etat} & Le nouvel état de l\textquotesingle{}expérimentation. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle pour laquelle l\textquotesingle{}état de l\textquotesingle{}expérimentation est modifié. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec redirection vers la page appropriée. @\+Route(\textquotesingle{}/technicien/modifier-\/etat-\/experimentation/\{etat\}/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}modifier\+\_\+etat\+\_\+exp\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationController_8php_source_l00085}{85}} of file \mbox{\hyperlink{ExperimentationController_8php_source}{Experimentation\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Utilisez\ la\ méthode\ du\ repository\ pour\ modifier\ l'état\ de\ l'expérimentation}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$etat\ ==\ \textcolor{stringliteral}{"{}installee"{}})\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \$nouvelEtat\ =\ EtatExperimentation::installee;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$etat\ ==\ \textcolor{stringliteral}{"{}retiree"{}})\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \$nouvelEtat\ =\ EtatExperimentation::retiree;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \$SARepository-\/>changerEtatSA(\$nomsalle,\ EtatSA::eteint);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}L'état\ de\ l'expérimentation\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ modifié."{}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_technicien'});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \$experimentationRepository-\/>modifierEtat(\$nouvelEtat,\ \$nomsalle);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifiez\ le\ résultat\ et\ ajoutez\ un\ message\ flash\ approprié}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentationRepository-\/>etatExperimentation(\$nomsalle)\ ==\ \$nouvelEtat)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}L'état\ de\ l'expérimentation\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ modifié\ avec\ succès."{}});}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}L'état\ de\ l'expérimentation\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ modifié."{}});}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirigez\ l'utilisateur\ après\ l'ajout\ réussi,\ par\ exemple\ à\ une\ page\ de\ confirmation}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_technicien'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1ExperimentationController_a467bdf8ae004294d4bfc8acee0e52482}\label{classApp_1_1Controller_1_1ExperimentationController_a467bdf8ae004294d4bfc8acee0e52482} 
+\index{App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}!supprimerExperimentation@{supprimerExperimentation}}
+\index{supprimerExperimentation@{supprimerExperimentation}!App\textbackslash{}Controller\textbackslash{}ExperimentationController@{App\textbackslash{}Controller\textbackslash{}ExperimentationController}}
+\doxysubsubsection{\texorpdfstring{supprimerExperimentation()}{supprimerExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+Experimentation\+Controller\+::supprimer\+Experimentation (\begin{DoxyParamCaption}\item[{Experimentation\+Repository}]{\$experimentation\+Repository,  }\item[{string}]{\$nomsalle }\end{DoxyParamCaption})}
+
+Gère la suppression d\textquotesingle{}une expérimentation pour une salle donnée. Supprime une expérimentation et affiche un message flash selon le résultat. 
+\begin{DoxyParams}[1]{Parameters}
+Experimentation\+Repository & {\em \$experimentation\+Repository} & Le repository pour accéder aux données des expérimentations. \\
+\hline
+string & {\em \$nomsalle} & Le nom de la salle pour laquelle l\textquotesingle{}expérimentation est supprimée. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse HTTP avec redirection vers la page de gestion des expérimentations. @\+Route(\textquotesingle{}/charge-\/de-\/mission/plan-\/experimentation/supprimer-\/experimentation/\{nomsalle\}\textquotesingle{}, name\+: \textquotesingle{}supprimer\+\_\+exp\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ExperimentationController_8php_source_l00054}{54}} of file \mbox{\hyperlink{ExperimentationController_8php_source}{Experimentation\+Controller.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Utilisez\ la\ méthode\ du\ repository\ pour\ ajouter\ des\ données}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \$etat\ =\ \$experimentationRepository-\/>supprimerExperimentation(\$nomsalle);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifiez\ le\ résultat\ et\ ajoutez\ un\ message\ flash\ approprié}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$etat[0]\ ==\ EtatExperimentation::demandeInstallation)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ retirée\ du\ plan\ d'expérimentation\ avec\ succès."{}});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ elseif\ (\$etat[0]\ ==\ EtatExperimentation::installee\ and\ \$etat[1]\ ==\ EtatExperimentation::demandeRetrait)\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}La\ demande\ de\ retrait\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ envoyée\ avec\ succès."{}});}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ retirée\ du\ plan\ d'expérimentation."{}});}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirigez\ l'utilisateur\ après\ l'ajout\ réussi,\ par\ exemple\ à\ une\ page\ de\ confirmation}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_charge\_mission'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Experimentation\+Controller.\+php\end{DoxyCompactItemize}

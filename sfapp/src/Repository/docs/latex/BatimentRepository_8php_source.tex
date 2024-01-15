@@ -1,0 +1,38 @@
+\doxysection{Batiment\+Repository.\+php}
+\hypertarget{BatimentRepository_8php_source}{}\label{BatimentRepository_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Repository;}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00005}00005\ use\ App\(\backslash\)Entity\(\backslash\)Batiment;}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00006}00006\ use\ Doctrine\(\backslash\)Bundle\(\backslash\)DoctrineBundle\(\backslash\)Repository\(\backslash\)ServiceEntityRepository;}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00007}00007\ use\ Doctrine\(\backslash\)Persistence\(\backslash\)ManagerRegistry;}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00017}\mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository}{00017}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository}{BatimentRepository}}\ \textcolor{keyword}{extends}\ ServiceEntityRepository}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00026}\mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository_ac073a3a43720a66c7bb53d65b5ff35f9}{00026}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository_ac073a3a43720a66c7bb53d65b5ff35f9}{\_\_construct}}(ManagerRegistry\ \$registry)}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ parent::\_\_construct(\$registry,\ Batiment::class);}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00040}\mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository_aad902fd7782b03c720a33d57c0a7bd96}{00040}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Repository_1_1BatimentRepository_aad902fd7782b03c720a33d57c0a7bd96}{tableauBatimentsNomID}}():\ array}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Construction\ de\ la\ requête\ DQL\ pour\ sélectionner\ les\ id\ et\ noms\ des\ bâtiments.}}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \$batiments\ =\ \$this-\/>createQueryBuilder(\textcolor{charliteral}{'b'})}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>select(\textcolor{stringliteral}{'b.id'},\ \textcolor{stringliteral}{'b.nom'})}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getQuery()}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>getResult();}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transformation\ du\ tableau\ de\ résultats\ en\ un\ tableau\ associatif\ ['Nom\ du\ bâtiment'\ =>\ 'id'].}}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \$batimentsArray\ =\ [];}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$batiments\ as\ \$batiment)\ \{}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \$batimentsArray[\$batiment[\textcolor{stringliteral}{'nom'}]]\ =\ \$batiment[\textcolor{stringliteral}{'id'}];}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retour\ du\ tableau\ résultant.}}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$batimentsArray;}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BatimentRepository_8php_source_l00057}00057\ \}}
+
+\end{DoxyCode}

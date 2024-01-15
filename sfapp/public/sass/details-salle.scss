@@ -39,6 +39,20 @@
     transition: opacity 0.5s ease-in-out; /* Transition d'opacité sur 0.5 seconde */
   }
 
+  @media (max-width: 450px){
+    width: 100%;
+    margin-bottom: 30px;
+    align-self: center;
+
+    h4{
+      font-size: 1.5rem;
+    }
+
+    h5{
+      font-size: 1rem;
+    }
+  }
+
 }
 
 //----------------------------------
@@ -54,6 +68,18 @@
     p {
       margin-bottom: 0;
     }
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 450px) {
+    h4{
+      font-size: 1.5rem;
+      text-align: center;
+      margin-right: 0;
+    }
+  }
 }
 
 //-------------------------------------

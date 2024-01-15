@@ -1,90 +1,119 @@
 {% extends 'base.html.twig' %}
-{% block head %}<link rel="icon" href="{{ asset('img/logo.jpg') }}">{% endblock %}
+{% block head %}
+    <link rel="icon" href="{{ asset('img/logo.jpg') }}">{% endblock %}
 {% block title %}Smart Campus{% endblock %}
 
 {% block navlink %}
-        <li><a class="nav-link" href="/connexion">Connexion</a></li>
-        <li><a class="nav-link current-page">Accueil</a></li>
+    <li><a class="nav-link" href="/connexion">Connexion</a></li>
+    <li><a class="nav-link current-page">Accueil</a></li>
 {% endblock %}
 
 {% block appcontent %}
-        <div class="app-content">
-                {# Affichage des messages de succès #}
-                {% for message in app.flashes('success') %}
-                        <div class="alert alert-success">
-                                {{ message }}
-                        </div>
-                {% endfor %}
+    <div class="app-content cm-pe page-accueil">
+        {# Affichage des messages de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
-                {# Affichage des messages d'erreur #}
-                {% for message in app.flashes('error') %}
-                        <div class="alert alert-error">
-                                {{ message }}
-                        </div>
-                        <script>
-                        // Code JavaScript pour faire défiler la page vers le bas au chargement
-                        window.onload = function() {
-                                window.scrollTo(0, document.body.scrollHeight);
-                        };
-                        </script>
-                {% endfor %}
-                <div class="accueil">
-                        <div class="img-accueil">
-                                <!-- Lien de déconnexion avec icônes -->
-                                <a class="link" href="{{ path('app_deconnexion') }}">
-                                        <div class="circle_icon">
-                                                <img src="{{ asset('img/leave_left.png') }}" alt="leave_left" class="leave_left">
-                                                <img src="{{ asset('img/leave_right.png') }}" alt="leave_right" class="leave_right">
-                                        </div>
-                                </a>
-                                <!-- Titre -->
-                                <h1>SmartCampus</h1>
-                        </div>
-                        <div class="info-accueil">
-                                <h3>Comment avoir des informations sur ma salle ?</h3>
-                                <p>
-                                        Vous êtes curieux de connaître l'ambiance environnementale de votre salle, comme la température,
-                                        l'humidité, ou encore le taux de CO2 ? Bonne nouvelle ! Nous avons installé des capteurs dans
-                                        certaines salles du département informatique. Vous pouvez consulter ces données facilement et
-                                        gratuitement. Voici comment faire :
-                                </p>
-                        </div>
-                        <div class="bloc-acceuil">
-                                <div>
-                                        <div class="accueil-form">
-                                                <p>
-                                                        À l'entrée de votre salle, vous trouverez une affiche Smart Campus. Cette affiche vous donne des conseils pour améliorer l’efficacité énergétique et le confort de la salle. Un QR code est également visible en bas de celle-ci. Scannez-le avec votre smartphone, et vous aurez accès aux dernières données remontées par les capteurs installés dans votre salle, s'il y en a.
-                                                </p>
-                                        </div>
-                                        <div class="accueil-form">
-                                                <p>
-                                                        Si le cours a déjà commencé et que vous ne n’avez pas envie de vous lever et déranger, pas de problème ! Utilisez la barre de recherche ci-dessous en y entrant le nom de la salle et accéder aux informations.
+        {# Affichage des messages d'erreur #}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+            <script>
+                // Code JavaScript pour faire défiler la page vers le bas au chargement
+                window.onload = function () {
+                    window.scrollTo(0, document.body.scrollHeight);
+                };
+            </script>
+        {% endfor %}
 
-                                                </p>
-                                                <div>
+        {# ----------------------------- #}
 
-                                                        {{ form_start(rechercheSalleForm) }}
-                                                        {{ form_widget(rechercheSalleForm.salle) }}
-
-                                                        <button type='submit'>Valider</button>
-                                                        {{ form_row(rechercheSalleForm._token) }}
-                                                        {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
-                                                </div>
-                                        </div>
-                                </div>
-                                <div>
-                                        <img src="{{ asset('img/affiche.png') }}" alt="leave_left" class="leave_left">
-                                </div>
-                        </div>
+        {# Image Heading #}
+        <div class="container img-accueil">
+            <!-- Lien de déconnexion avec icônes -->
+            <a class="link">
+                <div class="circle_icon">
+                    <img src="{{ asset('img/leave_left.png') }}" alt="leave_left" class="leave_left">
+                    <img src="{{ asset('img/leave_right.png') }}" alt="leave_right" class="leave_right">
                 </div>
+            </a>
+            <!-- Titre -->
+            <h1>SmartCampus</h1>
         </div>
 
-        //code konami lance un audio
-        <audio id="konami-audio">
-                <source src="{{ asset('audio/presentation.mp3') }}" type="audio/mp3">
-                Votre navigateur ne prend pas en charge l'élément audio.
-        </audio>
+        {# INFOS ACCUEIL #}
+        <h3>Avoir des informations sur ma salle ?</h3>
+        <div class="container info-accueil main">
+            <div class="info-content">
+            <p>
+                Vous êtes curieux de connaître l'ambiance <strong>environnementale</strong> de votre salle, comme la température,
+                l'humidité, ou encore le taux de CO2 ? <br><br>Bonne nouvelle ! Nous avons installé des <strong>capteurs</strong> dans
+                certaines salles du département informatique. <br><br>Vous pouvez consulter ces données facilement et
+                <strong>gratuitement</strong>. Voici comment faire...
+            </p>
+            </div>
+        </div>
 
-        <script src="{{ asset('js/konami.js') }}"></script>
-        <script src="{{ asset('js/flashMessage.js') }}"></script>
+        {# INFOS SECONDAIRES #}
+        <div class="container info-accueil light">
+            <div class="info-content">
+                <svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="46" cy="46" r="44" stroke="white" stroke-width="4"/>
+                    <path d="M65.625 53.5V28.5C65.625 27.1739 65.1772 25.9021 64.3802 24.9645C63.5832 24.0268 62.5022 23.5 61.375 23.5H31.625C30.4978 23.5 29.4168 24.0268 28.6198 24.9645C27.8228 25.9021 27.375 27.1739 27.375 28.5V63.5C27.375 64.8261 27.8228 66.0979 28.6198 67.0355C29.4168 67.9732 30.4978 68.5 31.625 68.5H52.875M65.625 53.5V53.93C65.6248 55.256 65.1768 56.5275 64.3797 57.465L56.2453 67.035C55.4484 67.9727 54.3676 68.4997 53.2405 68.5H52.875M65.625 53.5H57.125C55.9978 53.5 54.9168 54.0268 54.1198 54.9645C53.3228 55.9021 52.875 57.1739 52.875 58.5V68.5M35.875 33.5H57.125M35.875 43.5H57.125M35.875 53.5H44.375"
+                          stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p>
+                    À l'entrée de votre salle, vous trouverez une affiche <strong>Smart Campus</strong>. Cette affiche vous donne
+                    des conseils pour améliorer l’efficacité énergétique et le confort de la salle. <br><br>Un <strong>QR code</strong>
+                    est également visible en bas de celle-ci. <strong>Scannez-le</strong> avec votre smartphone, et vous aurez
+                    accès aux dernières données remontées par les capteurs installés dans votre salle, s'il y en a.
+                </p>
+            </div>
+
+
+        </div>
+
+        <div class="container info-accueil light">
+            <div class="info-content">
+
+                <div class="form-div">
+                    <p>
+                        Si le cours a déjà commencé et que vous ne n’avez pas envie de vous lever et déranger, pas
+                        de problème ! <br><br>Utilisez la barre de <strong>recherche</strong> ci-dessous en y entrant
+                        le nom de la salle et accéder aux informations.
+
+                    </p>
+                    <div class="sa-form accueil-form">
+                        {{ form_start(rechercheSalleForm) }}
+                        {{ form_widget(rechercheSalleForm.salle) }}
+
+                        <button type='submit'>Valider</button>
+                        {{ form_row(rechercheSalleForm._token) }}
+                        {{ form_end(rechercheSalleForm, {'render_rest': false}) }}
+                    </div>
+                </div>
+
+                <svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="46" cy="46" r="44" stroke="white" stroke-width="4"/>
+                    <path d="M65.666 68.2265L53.3333 55.9185V54.2267V53.8231L53.0532 53.5325L52.3332 52.7859L51.6776 52.106L50.9615 52.7217C48.0957 55.1853 44.3781 56.6667 40.3333 56.6667C37.1029 56.6667 33.945 55.7087 31.259 53.914C28.573 52.1193 26.4795 49.5684 25.2433 46.5838C24.0071 43.5993 23.6836 40.3152 24.3138 37.1469C24.9441 33.9785 26.4997 31.0682 28.7839 28.7839C31.0682 26.4997 33.9785 24.9441 37.1469 24.3138C40.3152 23.6836 43.5993 24.0071 46.5838 25.2433C49.5684 26.4795 52.1193 28.573 53.914 31.259C55.7087 33.945 56.6667 37.1029 56.6667 40.3333V40.334C56.6694 44.2346 55.2696 48.0062 52.7226 50.9604L52.1051 51.6767L52.7859 52.3332L53.5325 53.0532L53.8231 53.3333H54.2267H55.9185L68.2265 65.666L65.666 68.2265ZM27.3333 40.3333C27.3333 47.5256 33.1411 53.3333 40.3333 53.3333C47.5256 53.3333 53.3333 47.5256 53.3333 40.3333C53.3333 33.1411 47.5256 27.3333 40.3333 27.3333C33.1411 27.3333 27.3333 33.1411 27.3333 40.3333Z"
+                          fill="white" stroke="white" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+
+    {# AUDIO #}
+    <audio id="konami-audio">
+        <source src="{{ asset('audio/presentation.mp3') }}" type="audio/mp3">
+        Votre navigateur ne prend pas en charge l'élément audio.
+    </audio>
+    </div>
+
+    <script src="{{ asset('js/konami.js') }}"></script>
+    <script src="{{ asset('js/flashMessage.js') }}"></script>
 {% endblock %}

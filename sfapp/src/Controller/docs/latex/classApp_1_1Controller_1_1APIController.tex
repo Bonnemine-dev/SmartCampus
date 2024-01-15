@@ -1,0 +1,152 @@
+\doxysection{App\textbackslash{}Controller\textbackslash{}APIController Class Reference}
+\hypertarget{classApp_1_1Controller_1_1APIController}{}\label{classApp_1_1Controller_1_1APIController}\index{App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}}
+Inheritance diagram for App\textbackslash{}Controller\textbackslash{}APIController\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Controller_1_1APIController}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_af2b64a0ff856571e547f2426af492a04}{\+\_\+\+\_\+construct}} (Json\+Data\+Handling \$json\+Data\+Handling)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_ae5dacf766f122c3c651343d4ee6be405}{index}} (string \$nomsalle=null, string \$type=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_a30f75b6062b90251d3102f2ee4a93db2}{limit}} (string \$type=null, string \$nomsalle=null, int \$count=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Controller_1_1APIController_af5c45fa37490449553f7bb009ed12168}{interval}} (string \$type, string \$date1, string \$date2, string \$nomsalle=null)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contrôleur pour gérer les requêtes API liées aux données capturées. 
+
+Definition at line \mbox{\hyperlink{APIController_8php_source_l00016}{16}} of file \mbox{\hyperlink{APIController_8php_source}{APIController.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Controller_1_1APIController_af2b64a0ff856571e547f2426af492a04}\label{classApp_1_1Controller_1_1APIController_af2b64a0ff856571e547f2426af492a04} 
+\index{App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+APIController\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Json\+Data\+Handling}]{\$json\+Data\+Handling }\end{DoxyParamCaption})}
+
+Constructeur de APIController. Initialise le contrôleur avec le service de gestion des données JSON. 
+\begin{DoxyParams}[1]{Parameters}
+Json\+Data\+Handling & {\em \$json\+Data\+Handling} & Le service de gestion des données JSON. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{APIController_8php_source_l00025}{25}} of file \mbox{\hyperlink{APIController_8php_source}{APIController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \$this-\/>jsonDataHandling\ =\ \$jsonDataHandling;}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controller_1_1APIController_ae5dacf766f122c3c651343d4ee6be405}\label{classApp_1_1Controller_1_1APIController_ae5dacf766f122c3c651343d4ee6be405} 
+\index{App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}!index@{index}}
+\index{index@{index}!App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+APIController\+::index (\begin{DoxyParamCaption}\item[{string}]{\$nomsalle = {\ttfamily null},  }\item[{string}]{\$type = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Gère les requêtes API pour récupérer les données capturées. Cette méthode peut filtrer les données par nom de salle et type. 
+\begin{DoxyParams}[1]{Parameters}
+string | null & {\em \$nomsalle} & Le nom de la salle (filtre optionnel). \\
+\hline
+string | null & {\em \$type} & Le type de capture (filtre optionnel). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse JSON contenant les données capturées. @\+Route(\textquotesingle{}/api/captures/\{nomsalle?\}/\{type?\}\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+api\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{APIController_8php_source_l00039}{39}} of file \mbox{\hyperlink{APIController_8php_source}{APIController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>jsonDataHandling-\/>getCaptureData(\$nomsalle,\ \$type);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ JsonResponse(\$data);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1APIController_af5c45fa37490449553f7bb009ed12168}\label{classApp_1_1Controller_1_1APIController_af5c45fa37490449553f7bb009ed12168} 
+\index{App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}!interval@{interval}}
+\index{interval@{interval}!App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}}
+\doxysubsubsection{\texorpdfstring{interval()}{interval()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+APIController\+::interval (\begin{DoxyParamCaption}\item[{string}]{\$type,  }\item[{string}]{\$date1,  }\item[{string}]{\$date2,  }\item[{string}]{\$nomsalle = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Gère les requêtes API pour récupérer les données capturées dans un intervalle de temps. Peut filtrer par type, nom de salle et les dates de début et de fin. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & Le type de capture (obligatoire). \\
+\hline
+string & {\em \$date1} & La date de début de l\textquotesingle{}intervalle (obligatoire). \\
+\hline
+string & {\em \$date2} & La date de fin de l\textquotesingle{}intervalle (obligatoire). \\
+\hline
+string | null & {\em \$nomsalle} & Le nom de la salle (filtre optionnel). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse JSON contenant les données capturées dans l\textquotesingle{}intervalle. @\+Route(\textquotesingle{}/api/captures/interval/\{nomsalle?\}/\{type\}/\{date1\}/\{date2\}\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+api\+\_\+interval\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{APIController_8php_source_l00072}{72}} of file \mbox{\hyperlink{APIController_8php_source}{APIController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>jsonDataHandling-\/>getCaptureDataInterval(\$nomsalle,\ \$type,\ \$date1,\ \$date2);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ JsonResponse(\$data);}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Controller_1_1APIController_a30f75b6062b90251d3102f2ee4a93db2}\label{classApp_1_1Controller_1_1APIController_a30f75b6062b90251d3102f2ee4a93db2} 
+\index{App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}!limit@{limit}}
+\index{limit@{limit}!App\textbackslash{}Controller\textbackslash{}APIController@{App\textbackslash{}Controller\textbackslash{}APIController}}
+\doxysubsubsection{\texorpdfstring{limit()}{limit()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Controller\textbackslash{}\+APIController\+::limit (\begin{DoxyParamCaption}\item[{string}]{\$type = {\ttfamily null},  }\item[{string}]{\$nomsalle = {\ttfamily null},  }\item[{int}]{\$count = {\ttfamily null} }\end{DoxyParamCaption})}
+
+Gère les requêtes API pour récupérer un nombre limité de données capturées. Peut filtrer par type, nom de salle et limite le nombre de résultats. 
+\begin{DoxyParams}[1]{Parameters}
+string | null & {\em \$type} & Le type de capture (filtre optionnel). \\
+\hline
+string | null & {\em \$nomsalle} & Le nom de la salle (filtre optionnel). \\
+\hline
+int | null & {\em \$count} & Le nombre maximum de résultats à retourner (filtre optionnel). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response La réponse JSON contenant les données capturées limitées. @\+Route(\textquotesingle{}/api/captures/\{nomsalle?\}/\{type?\}/\{count?\}\textquotesingle{}, name\+: \textquotesingle{}app\+\_\+api\+\_\+limit\textquotesingle{}) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{APIController_8php_source_l00055}{55}} of file \mbox{\hyperlink{APIController_8php_source}{APIController.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Response}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \$data\ =\ \$this-\/>jsonDataHandling-\/>getCaptureDataLimited(\$nomsalle,\ \$type,\ \$count);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ JsonResponse(\$data);}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+APIController.\+php\end{DoxyCompactItemize}

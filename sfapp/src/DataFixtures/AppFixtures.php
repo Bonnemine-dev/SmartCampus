@@ -16,20 +16,52 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
-class AppFixtures extends Fixture 
+/**
+ * Classe AppFixtures pour charger les données initiales dans la base de données.
+ * Cette classe utilise le bundle DoctrineFixtures pour créer des données de test,
+ * notamment des bâtiments, des salles, des systèmes d'acquisitions, etc.
+ */
+class AppFixtures extends Fixture
 {
+    /**
+     * @var Generator
+     * Générateur Faker pour créer des données aléatoires.
+     */
     private Generator $faker;
+
+    /**
+     * @var SalleRepository
+     * Référentiel pour accéder aux données des salles.
+     */
     private SalleRepository $salleRepository;
+
+    /**
+     * @var SARepository
+     * Référentiel pour accéder aux données des systèmes d'acquisitions (SA).
+     */
     private SARepository $saRepository;
 
-    // Initialisation du générateur Faker dans le constructeur.
+
+    /**
+     * Constructeur de la classe AppFixtures.
+     * Initialise le générateur Faker et les référentiels nécessaires.
+     *
+     * @param SalleRepository $salleRepository Référentiel pour les salles.
+     * @param SARepository $saRepository Référentiel pour les SA.
+     */
     public function __construct(SalleRepository $salleRepository, SARepository $saRepository)
     {
         $this->faker = Factory::create('fr_FR');
         $this->salleRepository = $salleRepository;
         $this->saRepository = $saRepository;
     }
-    // Méthode principale pour charger les données de test dans la base de données.
+
+    /**
+     * Méthode principale pour charger les données de test dans la base de données.
+     * Cette méthode crée des bâtiments, des salles, des SA, des utilisateurs, etc.
+     *
+     * @param ObjectManager $manager Le gestionnaire d'entité Doctrine.
+     */
     public function load(ObjectManager $manager): void
     {
         // Création d'un bâtiment avec des salles pour chaque étage et numéro de salle.

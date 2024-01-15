@@ -1,0 +1,258 @@
+\doxysection{Charge\+Mission\+Controller.\+php}
+\hypertarget{ChargeMissionController_8php_source}{}\label{ChargeMissionController_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Controller;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00005}00005\ use\ App\(\backslash\)Form\(\backslash\)FiltreSalleFormType;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00006}00006\ use\ App\(\backslash\)Form\(\backslash\)RechercheSalleFormType;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00007}00007\ use\ App\(\backslash\)Form\(\backslash\)UserType;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00008}00008\ use\ App\(\backslash\)Repository\(\backslash\)SalleRepository;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00009}00009\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00010}00010\ use\ App\(\backslash\)Repository\(\backslash\)BatimentRepository;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00011}00011\ use\ App\(\backslash\)Repository\(\backslash\)UserRepository;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00012}00012\ use\ App\(\backslash\)Service\(\backslash\)JsonDataHandling;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00013}00013\ use\ Doctrine\(\backslash\)ORM\(\backslash\)EntityManagerInterface;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00014}00014\ use\ Symfony\(\backslash\)Bundle\(\backslash\)FrameworkBundle\(\backslash\)Controller\(\backslash\)AbstractController;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00015}00015\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Request;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00016}00016\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00017}00017\ use\ Symfony\(\backslash\)Component\(\backslash\)PasswordHasher\(\backslash\)Hasher\(\backslash\)UserPasswordHasherInterface;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00018}00018\ use\ Symfony\(\backslash\)Component\(\backslash\)Routing\(\backslash\)Annotation\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00019}00019\ use\ App\(\backslash\)Repository\(\backslash\)ExperimentationRepository;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00026}\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController}{00026}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController}{ChargeMissionController}}\ \textcolor{keyword}{extends}\ AbstractController}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00038}00038\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/charge-\/de-\/mission/plan-\/experimentation',\ name:\ 'app\_charge\_mission')]}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00039}\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a05790a7d55b223d6ef3358f2c4d7204b}{00039}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a05790a7d55b223d6ef3358f2c4d7204b}{index}}(Request\ \$request,\ SalleRepository\ \$salleRepository,\ SARepository\ \$saRepository,\ BatimentRepository\ \$batimentRepository):\ Response}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \$filtreSalleForm\ =\ \$this-\/>createForm(FiltreSalleFormType::class);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \$rechercheSalleForm\ =\ \$this-\/>createForm(RechercheSalleFormType::class,\ \textcolor{keyword}{null},\ [}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batimentRepository-\/>tableauBatimentsNomID(),}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \$filtreSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \$rechercheSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialisation\ des\ résultats\ de\ la\ salle}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \$salles\ =\ \$salleRepository-\/>filtrerSallePlanExp();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtrage\ des\ salles\ en\ fonction\ du\ formulaire\ de\ filtre}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$filtreSalleForm-\/>isSubmitted()\ \&\&\ \$filtreSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre\ =\ \$filtreSalleForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ filtrer\ les\ salles}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \$salles\ =\ \$salleRepository-\/>filtrerSallePlanExp(}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'etage'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'orientation'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'ordinateurs'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'sa'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherche\ des\ salles\ en\ fonction\ du\ formulaire\ de\ recherche}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$rechercheSalleForm-\/>isSubmitted()\ \&\&\ \$rechercheSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSalleForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extraire\ les\ données\ et\ les\ utiliser\ pour\ rechercher\ les\ salles}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \$salles\ =\ \$salleRepository-\/>rechercheSallePlanExp(}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'batiment'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'salle'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logique\ métier\ supplémentaire}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \$nb\_sa\ =\ \$saRepository-\/>compteSASansExperimentation();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00079}00079\ \ \ \ \ \ \ \ \ \$batiments\ =\ \$batimentRepository-\/>findAll();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Passer\ les\ instances\ de\ formulaire\ au\ template}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/plan-\/experimentation.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_salles'}\ =>\ \$salles,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nb\_sa'}\ =>\ \$nb\_sa,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batiments,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'filtreSalleForm'}\ =>\ \$filtreSalleForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSalleForm'}\ =>\ \$rechercheSalleForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00088}00088\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00089}00089\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00103}00103\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/charge-\/de-\/mission/liste-\/salles',\ name:\ 'liste\_salles')]}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00104}\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_aad89b315e94e8e71fb511870d83c1101}{00104}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_aad89b315e94e8e71fb511870d83c1101}{liste\_experimentation}}(SARepository\ \$saRepository,\ UserRepository\ \$userRepository,\ Request\ \$request,\ BatimentRepository\ \$batimentRepository,\ ExperimentationRepository\ \$experimentationRepository,\ JsonDataHandling\ \$jsonDataHandling):\ Response}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00105}00105\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ instances\ de\ formulaire}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \$filtreSalleForm\ =\ \$this-\/>createForm(FiltreSalleFormType::class);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \$rechercheSalleForm\ =\ \$this-\/>createForm(RechercheSalleFormType::class,\ \textcolor{keyword}{null},\ [}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batimentRepository-\/>tableauBatimentsNomID(),}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00112}00112\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Soumission\ des\ formulaires\ à\ la\ requête}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00115}00115\ \ \ \ \ \ \ \ \ \$filtreSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00116}00116\ \ \ \ \ \ \ \ \ \$rechercheSalleForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialisation\ des\ résultats\ de\ la\ salle}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \$liste\_experimentations\ =\ \$experimentationRepository-\/>filtreExperimentationAnalyse();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtrage\ des\ salles\ en\ fonction\ du\ formulaire\ de\ filtre}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$filtreSalleForm-\/>isSubmitted()\ \&\&\ \$filtreSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre\ =\ \$filtreSalleForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_experimentations\ =\ \$experimentationRepository-\/>filtreExperimentationAnalyse(}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'etage'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'orientation'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'ordinateurs'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataFiltre[\textcolor{stringliteral}{'sa'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00130}00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recherche\ des\ salles\ en\ fonction\ du\ formulaire\ de\ recherche}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$rechercheSalleForm-\/>isSubmitted()\ \&\&\ \$rechercheSalleForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche\ =\ \$rechercheSalleForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \$liste\_experimentations\ =\ \$experimentationRepository-\/>rechercheExperimentationAnalyse(}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'batiment'}]\ ??\ \textcolor{keyword}{null},}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$dataRecherche[\textcolor{stringliteral}{'salle'}]\ ??\ \textcolor{keyword}{null}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00139}00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logique\ métier\ supplémentaire}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00141}00141\ \ \ \ \ \ \ \ \ \$batiments\ =\ \$batimentRepository-\/>findAll();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Afficher\ la\ vue\ d'ajout\ de\ salle\ avec\ le\ résultat\ de\ l'existence}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00144}00144\ \ \ \ \ \ \ \ \ \$listeSallesAvecDonnees\ =\ \$jsonDataHandling-\/>extraireDernieresDonneesDesSalles(\$liste\_experimentations);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00145}00145\ \ \ \ \ \ \ \ \ \$saRepository-\/>sa\_eteint\_probleme(\$listeSallesAvecDonnees);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00146}00146\ \ \ \ \ \ \ \ \ \$listeSallesAvecDonnees\ =\ \$jsonDataHandling-\/>extraireDernieresDonneesDesSalles(\$liste\_experimentations);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(empty(\$liste\_experimentations))\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Votre\ recherche\ ne\ correspond\ pas\ a\ une\ expérimentation\ en\ cours"{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00149}00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00150}00150\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!empty(\$listeSallesAvecDonnees))\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(\$listeSallesAvecDonnees[0][\textcolor{stringliteral}{'dateCapture'}]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00153}00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (empty(\$intervalleTempSaison)\ or\ \$intervalleTempSaison\ ==\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ [-\/50,-\/20,50,100];}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00157}00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/liste-\/salles.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_experimentations'}\ =>\ \$liste\_experimentations,\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'listeDerniereValeur'}\ =>\ \$listeSallesAvecDonnees,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ \$batiments,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'filtreSalleForm'}\ =>\ \$filtreSalleForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rechercheSalleForm'}\ =>\ \$rechercheSalleForm-\/>createView(),}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00168}00168\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00169}00169\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00179}00179\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/charge-\/de-\/mission/tableau-\/de-\/bord',\ name:\ 'cm\_tableau\_de\_bord')]}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00180}\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a2b39bfe4d26d32bb8c579f7857ae9088}{00180}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a2b39bfe4d26d32bb8c579f7857ae9088}{cm\_tableau\_de\_bord}}(JsonDataHandling\ \$jsonDataHandling,\ UserRepository\ \$userRepository):\ Response}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00181}00181\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{comment}{//récuperer\ la\ température\ exterireur}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00183}00183\ \ \ \ \ \ \ \ \ \$apiKey\ =\ \textcolor{stringliteral}{'fb96e1802894f03c5c50e5408b058bce'};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ La\ Rochelle,\ France\ -\/\ ID\ de\ la\ ville}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00186}00186\ \ \ \ \ \ \ \ \ \$cityId\ =\ 3006787;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00188}00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ URL\ de\ l'API\ OpenWeatherMap}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00189}00189\ \ \ \ \ \ \ \ \ \$apiUrl\ =\ \textcolor{stringliteral}{"{}http://api.openweathermap.org/data/2.5/weather?id=\$cityId\&appid=\$apiKey"{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Effectuer\ la\ requête\ HTTP\ pour\ récupérer\ les\ données\ météorologiques}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \$response\ =\ file\_get\_contents(\$apiUrl);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00194}00194\ \ \ \ \ \ \ \ \ \$temperature\_ext\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifier\ si\ la\ requête\ a\ réussi}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$response\ !==\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convertir\ la\ réponse\ JSON\ en\ tableau\ associatif}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \$weatherData\ =\ json\_decode(\$response,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifier\ si\ la\ réponse\ contient\ des\ données\ valides}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$weatherData\ \&\&\ isset(\$weatherData[\textcolor{stringliteral}{'main'}][\textcolor{stringliteral}{'temp'}]))\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Température\ en\ Kelvin,\ convertir\ en\ Celsius}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$temperatureCelsius\ =\ \$weatherData[\textcolor{stringliteral}{'main'}][\textcolor{stringliteral}{'temp'}]\ -\/\ 273.15;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ récuperer\ la\ température}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$temperature\_ext\ =\ round(\$temperatureCelsius,\ 2);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//arondir\ a\ 1\ aprés\ la\ virgule}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$temperature\_ext\ =\ round(\$temperature\_ext,\ 1);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Erreur\ lors\ de\ la\ récupération\ des\ données\ météorologiques."{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00212}00212\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Erreur\ lors\ de\ la\ requête\ vers\ l'API\ OpenWeatherMap."{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00214}00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00216}00216\ \ \ \ \ \ \ \ \ \$salles\ =\ [];}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00217}00217\ \ \ \ \ \ \ \ \ \$compteur\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$jsonDataHandling-\/>getSalles()\ as\ \$nomSalle\ =>\ \$infosSalle)\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$compteur\ <\ 12)\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salles[]\ =\ \$nomSalle;\ \textcolor{comment}{//\ Ajoutez\ le\ nom\ de\ la\ salle\ au\ tableau}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$compteur++;\ \textcolor{comment}{//\ Incrémentez\ le\ compteur}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ Arrêtez\ la\ boucle\ après\ avoir\ ajouté\ les\ 12\ premières\ salles}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00225}00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00227}00227\ \ \ \ \ \ \ \ \ \$intervalleTempSaison\ =\ \$userRepository-\/>intervallesTempSaison(date(\textcolor{stringliteral}{"{}Y-\/m-\/d\ H:i:s"{}}));}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00229}00229\ \ \ \ \ \ \ \ \ \$moyenneTemp\ =\ \$jsonDataHandling-\/>getMoyenneParType(\textcolor{stringliteral}{"{}temp"{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00230}00230\ \ \ \ \ \ \ \ \ \$moyenneHum\ =\ \$jsonDataHandling-\/>getMoyenneParType(\textcolor{stringliteral}{"{}hum"{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00231}00231\ \ \ \ \ \ \ \ \ \$moyenneCo2\ =\ \$jsonDataHandling-\/>getMoyenneParType(\textcolor{stringliteral}{"{}co2"{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/tableau-\/de-\/bord.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temp\_moy'}\ =>\ \$moyenneTemp,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hum\_moy'}\ =>\ \$moyenneHum,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'taux\_carbone\_moy'}\ =>\ \$moyenneCo2,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'salles'}\ =>\ \$salles,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'temperature\_ext'}\ =>\ \$temperature\_ext,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intervalleTempSaison'}\ =>\ \$intervalleTempSaison,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00241}00241\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00242}00242\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00254}00254\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/charge-\/de-\/mission/modifier',\ name:\ 'app\_modifier\_chargemission')]}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00255}\mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a492097a8bff704211875c824826343c1}{00255}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ChargeMissionController_a492097a8bff704211875c824826343c1}{modifier}}(Request\ \$request\ ,UserRepository\ \$repository,\ EntityManagerInterface\ \$manager,\ UserPasswordHasherInterface\ \$hasher):\ Response}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00256}00256\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00257}00257\ \ \ \ \ \ \ \ \ \$user\ =\ \$repository-\/>rechercheUser(\textcolor{stringliteral}{'chargemission'});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00258}00258\ \ \ \ \ \ \ \ \ \$userForm\ =\ \$this-\/>createForm(UserType::class);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00259}00259\ \ \ \ \ \ \ \ \ \$userForm-\/>handleRequest(\$request);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00260}00260\ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$userForm-\/>isSubmitted()\ \&\&\ \$userForm-\/>isValid())\ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \$data\ =\ \$userForm-\/>getData();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\$data[\textcolor{stringliteral}{'PlainPassword'}]\ !=\ \$data[\textcolor{stringliteral}{'verif'}])\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}Vos\ nouveaux\ mots\ de\ passe\ ne\ correspondent\ pas\ entre\ eux.\ Veuillez\ réessayer."{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(!\$hasher-\/>isPasswordValid(\$user,\$data[\textcolor{stringliteral}{'MDP'}]))\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}mot\ de\ passe\ actuel\ incorrects"{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(strlen(\$data[\textcolor{stringliteral}{'PlainPassword'}])\ <\ 8\ )}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ 8\ caractère"{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[a-\/z]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ une\ minuscule"{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[A-\/Z]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ une\ majuscule"{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(preg\_match(\textcolor{stringliteral}{'/[\string^a-\/zA-\/Z0-\/9]/'},\ \$data[\textcolor{stringliteral}{'PlainPassword'}])\ !==\ 1)\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$erreur\ =\ \textcolor{stringliteral}{"{}Le\ mot\ de\ passe\ doit\ contenir\ au\ moins\ un\ un\ caractère\ spécial"{}};}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\$data[\textcolor{stringliteral}{'PlainPassword'}]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}mot\ de\ passe\ modifier\ !"{}});}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00291}00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00292}00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rend\ la\ vue\ avec\ la\ liste\ des\ expérimentations.}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>render(\textcolor{stringliteral}{'chargemission/modifier.html.twig'},\ [}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'userForm'}\ =>\ \$userForm-\/>createView()\ ,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'erreur'}\ =>\ \$erreur\ ,}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00296}00296\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00297}00297\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ChargeMissionController_8php_source_l00298}00298\ \}}
+
+\end{DoxyCode}

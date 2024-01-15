@@ -1,0 +1,126 @@
+\doxysection{Experimentation.\+php}
+\hypertarget{Experimentation_8php_source}{}\label{Experimentation_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Entity;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00005}00005\ use\ App\(\backslash\)Repository\(\backslash\)ExperimentationRepository;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00006}00006\ use\ Doctrine\(\backslash\)DBAL\(\backslash\)Types\(\backslash\)Types;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00007}00007\ use\ Doctrine\(\backslash\)ORM\(\backslash\)Mapping\ as\ ORM;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)Validator\(\backslash\)Constraints\ as\ Assert;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00009}00009\ use\ App\(\backslash\)Config\(\backslash\)EtatExperimentation;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00011}00011\ \textcolor{preprocessor}{\#[ORM\(\backslash\)Entity(repositoryClass:\ ExperimentationRepository::class)]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00012}\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{00012}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00014}00014\ \ \ \ \ \textcolor{comment}{//\ Identifiant\ unique\ généré\ automatiquement\ pour\ l'expérimentation.}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00015}00015\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Id]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00016}00016\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)GeneratedValue]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00017}00017\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00018}00018\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)NotBlank]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{private}\ ?\textcolor{keywordtype}{int}\ \$id\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00021}00021\ \ \ \ \ \textcolor{comment}{//\ Date\ de\ demande\ de\ l'expérimentation.}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00022}00022\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column(type:\ Types::DATETIME\_MUTABLE,\ nullable:\ true)]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00023}00023\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)DateTime]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{private}\ ?\(\backslash\)DateTimeInterface\ \$datedemande\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ Date\ d'installation\ de\ l'expérimentation\ (nullable).}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00027}00027\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column(type:\ Types::DATETIME\_MUTABLE,\ nullable:\ true)]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00028}00028\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)DateTime]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00029}00029\ \ \ \ \ \textcolor{keyword}{private}\ ?\(\backslash\)DateTimeInterface\ \$dateinstallation\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00031}00031\ \ \ \ \ \textcolor{comment}{//\ Date\ de\ desinstallation\ de\ l'expérimentation\ (nullable).}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00032}00032\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column(type:\ Types::DATETIME\_MUTABLE,\ nullable:\ true)]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00033}00033\ \textcolor{preprocessor}{\ \ \ \ \#[Assert\(\backslash\)DateTime]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{private}\ ?\(\backslash\)DateTimeInterface\ \$datedesinstallation\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00036}00036\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)Column]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{private}\ ?EtatExperimentation\ \$etat\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00039}00039\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getEtat():\ ?EtatExperimentation}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>etat;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00044}00044\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setEtat(?EtatExperimentation\ \$etat):\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \$this-\/>etat\ =\ \$etat;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00049}00049\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)ManyToOne(inversedBy:\ 'experimentations')]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00050}00050\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)JoinColumn(nullable:\ false)]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{private}\ ?\mbox{\hyperlink{classApp_1_1Entity_1_1Salle}{Salle}}\ \$Salles\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00053}00053\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)ManyToOne(inversedBy:\ 'experimentations')]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00054}00054\ \textcolor{preprocessor}{\ \ \ \ \#[ORM\(\backslash\)JoinColumn(nullable:\ true)]}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00055}00055\ \ \ \ \ \textcolor{keyword}{private}\ ?\mbox{\hyperlink{classApp_1_1Entity_1_1SA}{SA}}\ \$SA\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00057}00057\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getId():\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>id;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getDatedemande():\ ?\(\backslash\)DateTimeInterface}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00063}00063\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>datedemande;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setDatedemande(?\(\backslash\)DateTimeInterface\ \$datedemande):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00068}00068\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \$this-\/>datedemande\ =\ \$datedemande;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00074}00074\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getDateinstallation():\ ?\(\backslash\)DateTimeInterface}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00075}00075\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>dateinstallation;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setDateinstallation(?\(\backslash\)DateTimeInterface\ \$dateinstallation):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00080}00080\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00081}00081\ \ \ \ \ \ \ \ \ \$this-\/>dateinstallation\ =\ \$dateinstallation;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getDatedesinstallation():\ ?\(\backslash\)DateTimeInterface}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00087}00087\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>datedesinstallation;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00089}00089\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00091}00091\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setDatedesinstallation(?\(\backslash\)DateTimeInterface\ \$datedesinstallation):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00092}00092\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \$this-\/>datedesinstallation\ =\ \$datedesinstallation;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00098}00098\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getSalles():\ ?\mbox{\hyperlink{classApp_1_1Entity_1_1Salle}{Salle}}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00099}00099\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>Salles;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00101}00101\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00103}00103\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setSalles(?\mbox{\hyperlink{classApp_1_1Entity_1_1Salle}{Salle}}\ \$Salles):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00104}00104\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \$this-\/>Salles\ =\ \$Salles;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00108}00108\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00110}00110\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getSA():\ ?\mbox{\hyperlink{classApp_1_1Entity_1_1SA}{SA}}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00111}00111\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>SA;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00115}00115\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ setSA(?\mbox{\hyperlink{classApp_1_1Entity_1_1SA}{SA}}\ \$SA):\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00116}00116\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00117}00117\ \ \ \ \ \ \ \ \ \$this-\/>\mbox{\hyperlink{classApp_1_1Entity_1_1SA}{SA}}\ =\ \$SA;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00120}00120\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Experimentation_8php_source_l00121}00121\ \}}
+
+\end{DoxyCode}

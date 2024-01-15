@@ -7,10 +7,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * @class ConnexionController
+ * Contrôleur pour gérer les actions de connexion et de déconnexion des utilisateurs.
+ * @extends AbstractController
+ */
 class ConnexionController extends AbstractController
 {
-    // La fonction index représente la page d'accueil de l'application.
-    // Elle rend une vue Twig spécifique avec le nom du contrôleur en tant que paramètre.
+    /**
+     * Gère la page de connexion de l'application.
+     * Récupère les éventuelles erreurs de connexion et affiche la vue de connexion.
+     * @param AuthenticationUtils $authenticationUtils Utilitaire pour gérer l'authentification.
+     * @return Response La réponse HTTP avec la vue de la page de connexion.
+     * @Route('/connexion', name: 'app_connexion')
+     */
     #[Route('/connexion', name: 'app_connexion')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
@@ -31,6 +41,12 @@ class ConnexionController extends AbstractController
           ]);
     }
 
+    /**
+     * Gère la déconnexion de l'utilisateur.
+     * Le code de cette méthode n'est jamais exécuté car Symfony redirige avant son atteinte.
+     * @Route('/logout', name: 'app_deconnexion')
+     * @return void
+     */
     #[Route('/logout', name: 'app_deconnexion')]
     public function logout(): void
     {

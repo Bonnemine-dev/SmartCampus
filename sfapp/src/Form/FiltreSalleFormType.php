@@ -8,9 +8,20 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Classe FiltreSalleFormType pour créer un formulaire de filtrage pour les salles.
+ * Cette classe étend AbstractType et définit la structure du formulaire pour filtrer les salles
+ * en fonction de divers critères tels que l'étage, l'orientation, la présence d'ordinateurs, et de systèmes d'acquisition.
+ */
 class FiltreSalleFormType extends AbstractType
 {
-    // Méthode pour construire le formulaire.
+    /**
+     * Construit le formulaire de filtrage pour les salles.
+     * Ajoute des champs de sélection pour filtrer les salles par étage, orientation, présence d'ordinateurs, et de systèmes d'acquisition.
+     *
+     * @param FormBuilderInterface $builder Le constructeur de formulaire.
+     * @param array $options Les options pour le constructeur de formulaire.
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Ajout d'un champ 'etage' de type ChoiceType avec des options spécifiques.
@@ -67,7 +78,12 @@ class FiltreSalleFormType extends AbstractType
             ]);
     }
 
-    // Méthode pour configurer les options du formulaire.
+    /**
+     * Configure les options par défaut pour le formulaire de filtrage des salles.
+     * Définit les options par défaut, y compris la méthode de requête HTTP utilisée pour le formulaire.
+     *
+     * @param OptionsResolver $resolver Le résolveur d'options pour le formulaire.
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         // Définition d'options par défaut, notamment la méthode de soumission du formulaire.

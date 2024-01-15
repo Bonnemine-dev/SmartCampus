@@ -1,0 +1,301 @@
+\doxysection{App\textbackslash{}Entity\textbackslash{}SA Class Reference}
+\hypertarget{classApp_1_1Entity_1_1SA}{}\label{classApp_1_1Entity_1_1SA}\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a6ac4d5ab39f9cc37509e82a25c7c7bc6}{get\+Etat}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_aef74a971b3f950c36ed00dbec4ccc2a2}{set\+Etat}} (?Etat\+SA \$etat)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a7ffc5b3cdd806b44599d97683f4609da}{get\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a441a297f475a78083c566069dcfcaac0}{get\+Numero}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_ac40057daa40c09ffdc187c5eeb3c8837}{set\+Numero}} (int \$numero)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_ab80f91d8e995d9bc9c4cff0fc08de8a1}{get\+Nom}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_af252654ad3ee243d8aa3c8666c262780}{set\+Nom}} (string \$nom)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_aadf79d2b13f52ca98f841cff2f1c17cd}{is\+Disponible}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a1ffc93abc8004afd8cdd6e6e36b977d8}{set\+Disponible}} (bool \$disponible)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a00d76e0863a4966a4e62d539210130fe}{get\+Experimentations}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_a71b94acfb808cd0d89e7acdd0a20849f}{add\+Experimentation}} (\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}} \$experimentation)
+\item 
+\mbox{\hyperlink{classApp_1_1Entity_1_1SA_ab8048c3f98ad4741ad614102128835d4}{remove\+Experimentation}} (\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}} \$experimentation)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00013}{13}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Entity_1_1SA_ab967238fc05a7253d716d44af4ea8be7}\label{classApp_1_1Entity_1_1SA_ab967238fc05a7253d716d44af4ea8be7} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00043}{43}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \$this-\/>experimentations\ =\ \textcolor{keyword}{new}\ ArrayCollection();}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Entity_1_1SA_a71b94acfb808cd0d89e7acdd0a20849f}\label{classApp_1_1Entity_1_1SA_a71b94acfb808cd0d89e7acdd0a20849f} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!addExperimentation@{addExperimentation}}
+\index{addExperimentation@{addExperimentation}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{addExperimentation()}{addExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::add\+Experimentation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}}}]{\$experimentation }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00107}{107}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00108\ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$this-\/>experimentations-\/>contains(\$experimentation))\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>experimentations-\/>add(\$experimentation);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \$experimentation-\/>setSA(\$this);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_a6ac4d5ab39f9cc37509e82a25c7c7bc6}\label{classApp_1_1Entity_1_1SA_a6ac4d5ab39f9cc37509e82a25c7c7bc6} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!getEtat@{getEtat}}
+\index{getEtat@{getEtat}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{getEtat()}{getEtat()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::get\+Etat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00048}{48}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?EtatSA}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>etat;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_a00d76e0863a4966a4e62d539210130fe}\label{classApp_1_1Entity_1_1SA_a00d76e0863a4966a4e62d539210130fe} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!getExperimentations@{getExperimentations}}
+\index{getExperimentations@{getExperimentations}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{getExperimentations()}{getExperimentations()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::get\+Experimentations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Collection$<$int, Experimentation$>$ 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00102}{102}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Collection}
+\DoxyCodeLine{00103\ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>experimentations;}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_a7ffc5b3cdd806b44599d97683f4609da}\label{classApp_1_1Entity_1_1SA_a7ffc5b3cdd806b44599d97683f4609da} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!getId@{getId}}
+\index{getId@{getId}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00058}{58}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>id;}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_ab80f91d8e995d9bc9c4cff0fc08de8a1}\label{classApp_1_1Entity_1_1SA_ab80f91d8e995d9bc9c4cff0fc08de8a1} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!getNom@{getNom}}
+\index{getNom@{getNom}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{getNom()}{getNom()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::get\+Nom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00075}{75}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{string}}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>nom;}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_a441a297f475a78083c566069dcfcaac0}\label{classApp_1_1Entity_1_1SA_a441a297f475a78083c566069dcfcaac0} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!getNumero@{getNumero}}
+\index{getNumero@{getNumero}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{getNumero()}{getNumero()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::get\+Numero (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00063}{63}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{int}}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>numero;}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_aadf79d2b13f52ca98f841cff2f1c17cd}\label{classApp_1_1Entity_1_1SA_aadf79d2b13f52ca98f841cff2f1c17cd} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!isDisponible@{isDisponible}}
+\index{isDisponible@{isDisponible}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{isDisponible()}{isDisponible()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::is\+Disponible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00087}{87}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ?\textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>disponible;}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_ab8048c3f98ad4741ad614102128835d4}\label{classApp_1_1Entity_1_1SA_ab8048c3f98ad4741ad614102128835d4} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!removeExperimentation@{removeExperimentation}}
+\index{removeExperimentation@{removeExperimentation}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{removeExperimentation()}{removeExperimentation()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::remove\+Experimentation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Entity_1_1Experimentation}{Experimentation}}}]{\$experimentation }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00117}{117}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00118\ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$this-\/>experimentations-\/>removeElement(\$experimentation))\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ owning\ side\ to\ null\ (unless\ already\ changed)}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentation-\/>getSA()\ ===\ \$this)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$experimentation-\/>setSA(\textcolor{keyword}{null});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_a1ffc93abc8004afd8cdd6e6e36b977d8}\label{classApp_1_1Entity_1_1SA_a1ffc93abc8004afd8cdd6e6e36b977d8} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!setDisponible@{setDisponible}}
+\index{setDisponible@{setDisponible}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{setDisponible()}{setDisponible()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::set\+Disponible (\begin{DoxyParamCaption}\item[{bool}]{\$disponible }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00092}{92}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00093\ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \$this-\/>disponible\ =\ \$disponible;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_aef74a971b3f950c36ed00dbec4ccc2a2}\label{classApp_1_1Entity_1_1SA_aef74a971b3f950c36ed00dbec4ccc2a2} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!setEtat@{setEtat}}
+\index{setEtat@{setEtat}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{setEtat()}{setEtat()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::set\+Etat (\begin{DoxyParamCaption}\item[{?Etat\+SA}]{\$etat }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00053}{53}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00054\ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \$this-\/>etat\ =\ \$etat;}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_af252654ad3ee243d8aa3c8666c262780}\label{classApp_1_1Entity_1_1SA_af252654ad3ee243d8aa3c8666c262780} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!setNom@{setNom}}
+\index{setNom@{setNom}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{setNom()}{setNom()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::set\+Nom (\begin{DoxyParamCaption}\item[{string}]{\$nom }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00080}{80}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \$this-\/>nom\ =\ \$nom;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Entity_1_1SA_ac40057daa40c09ffdc187c5eeb3c8837}\label{classApp_1_1Entity_1_1SA_ac40057daa40c09ffdc187c5eeb3c8837} 
+\index{App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}!setNumero@{setNumero}}
+\index{setNumero@{setNumero}!App\textbackslash{}Entity\textbackslash{}SA@{App\textbackslash{}Entity\textbackslash{}SA}}
+\doxysubsubsection{\texorpdfstring{setNumero()}{setNumero()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Entity\textbackslash{}\+SA\+::set\+Numero (\begin{DoxyParamCaption}\item[{int}]{\$numero }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{SA_8php_source_l00068}{68}} of file \mbox{\hyperlink{SA_8php_source}{SA.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{static}}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \$this-\/>numero\ =\ \$numero;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this;}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+SA.\+php\end{DoxyCompactItemize}

@@ -1,0 +1,104 @@
+\doxysection{App\textbackslash{}Form\textbackslash{}Recherche\+Salle\+Form\+Type Class Reference}
+\hypertarget{classApp_1_1Form_1_1RechercheSalleFormType}{}\label{classApp_1_1Form_1_1RechercheSalleFormType}\index{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType@{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType}}
+Inheritance diagram for App\textbackslash{}Form\textbackslash{}Recherche\+Salle\+Form\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classApp_1_1Form_1_1RechercheSalleFormType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType_a3332a6ecb592cdafe4f5106a9d07a4a8}{build\+Form}} (Form\+Builder\+Interface \$builder, array \$options)
+\item 
+\mbox{\hyperlink{classApp_1_1Form_1_1RechercheSalleFormType_a3e7b8d255cd8a2d33b25edeb69852c01}{configure\+Options}} (Options\+Resolver \$resolver)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe Recherche\+Salle\+Form\+Type pour créer un formulaire de recherche pour les salles. Cette classe étend Abstract\+Type et définit la structure du formulaire pour permettre la recherche de salles par bâtiment et/ou par nom de salle. 
+
+Definition at line \mbox{\hyperlink{RechercheSalleFormType_8php_source_l00017}{17}} of file \mbox{\hyperlink{RechercheSalleFormType_8php_source}{Recherche\+Salle\+Form\+Type.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Form_1_1RechercheSalleFormType_a3332a6ecb592cdafe4f5106a9d07a4a8}\label{classApp_1_1Form_1_1RechercheSalleFormType_a3332a6ecb592cdafe4f5106a9d07a4a8} 
+\index{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType@{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType}!buildForm@{buildForm}}
+\index{buildForm@{buildForm}!App\textbackslash{}Form\textbackslash{}RechercheSalleFormType@{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType}}
+\doxysubsubsection{\texorpdfstring{buildForm()}{buildForm()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Recherche\+Salle\+Form\+Type\+::build\+Form (\begin{DoxyParamCaption}\item[{Form\+Builder\+Interface}]{\$builder,  }\item[{array}]{\$options }\end{DoxyParamCaption})}
+
+Construit le formulaire de recherche pour les salles. Ajoute des champs pour la sélection d\textquotesingle{}un bâtiment, la saisie du nom d\textquotesingle{}une salle, et un bouton de soumission.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Form\+Builder\+Interface & {\em \$builder} & Le constructeur de formulaire. \\
+\hline
+array & {\em \$options} & Les options pour le constructeur de formulaire, y compris la liste des bâtiments disponibles. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{RechercheSalleFormType_8php_source_l00026}{26}} of file \mbox{\hyperlink{RechercheSalleFormType_8php_source}{Recherche\+Salle\+Form\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'batiment'\ de\ type\ ChoiceType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \$builder}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'batiment'},\ ChoiceType::class,\ [}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'choices'}\ =>\ \$options[\textcolor{stringliteral}{'liste\_batiments'}],}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Choisir\ un\ batiment'},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [\textcolor{stringliteral}{'class'}\ =>\ \textcolor{stringliteral}{'bat-\/selection'}],}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'salle'\ de\ type\ TextType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'salle'},\ TextType::class,\ [}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'attr'}\ =>\ [}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'placeholder'}\ =>\ \textcolor{stringliteral}{'Rechercher\ une\ salle'}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ d'un\ champ\ 'submit'\ de\ type\ SubmitType\ avec\ des\ options\ spécifiques.}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>add(\textcolor{stringliteral}{'submit'},\ SubmitType::class,\ [}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}\ =>\ \textcolor{stringliteral}{'Rechercher'}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Form_1_1RechercheSalleFormType_a3e7b8d255cd8a2d33b25edeb69852c01}\label{classApp_1_1Form_1_1RechercheSalleFormType_a3e7b8d255cd8a2d33b25edeb69852c01} 
+\index{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType@{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType}!configureOptions@{configureOptions}}
+\index{configureOptions@{configureOptions}!App\textbackslash{}Form\textbackslash{}RechercheSalleFormType@{App\textbackslash{}Form\textbackslash{}RechercheSalleFormType}}
+\doxysubsubsection{\texorpdfstring{configureOptions()}{configureOptions()}}
+{\footnotesize\ttfamily App\textbackslash{}\+Form\textbackslash{}\+Recherche\+Salle\+Form\+Type\+::configure\+Options (\begin{DoxyParamCaption}\item[{Options\+Resolver}]{\$resolver }\end{DoxyParamCaption})}
+
+Configure les options par défaut pour le formulaire de recherche des salles. Définit les options par défaut, y compris la liste des bâtiments disponibles et la méthode de requête HTTP utilisée pour le formulaire.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Options\+Resolver & {\em \$resolver} & Le résolveur d\textquotesingle{}options pour le formulaire. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{RechercheSalleFormType_8php_source_l00057}{57}} of file \mbox{\hyperlink{RechercheSalleFormType_8php_source}{Recherche\+Salle\+Form\+Type.\+php}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Définition\ d'options\ par\ défaut,\ notamment\ la\ méthode\ de\ soumission\ du\ formulaire\ et\ la\ liste\ des\ batiments.}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \$resolver-\/>setDefaults([}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'liste\_batiments'}\ =>\ [],}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'method'}\ =>\ \textcolor{stringliteral}{'GET'},}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Recherche\+Salle\+Form\+Type.\+php\end{DoxyCompactItemize}

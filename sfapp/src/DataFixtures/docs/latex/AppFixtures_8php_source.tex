@@ -1,0 +1,156 @@
+\doxysection{App\+Fixtures.\+php}
+\hypertarget{AppFixtures_8php_source}{}\label{AppFixtures_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)DataFixtures;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00005}00005\ use\ App\(\backslash\)Config\(\backslash\)EtatExperimentation;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00006}00006\ use\ App\(\backslash\)Config\(\backslash\)EtatSA;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00007}00007\ use\ App\(\backslash\)Entity\(\backslash\)Batiment;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00008}00008\ use\ App\(\backslash\)Entity\(\backslash\)User;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00009}00009\ use\ App\(\backslash\)Entity\(\backslash\)Salle;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00010}00010\ use\ App\(\backslash\)Entity\(\backslash\)SA;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00011}00011\ use\ App\(\backslash\)Entity\(\backslash\)Experimentation;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00012}00012\ use\ App\(\backslash\)Repository\(\backslash\)SalleRepository;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00013}00013\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00014}00014\ use\ Doctrine\(\backslash\)Bundle\(\backslash\)FixturesBundle\(\backslash\)Fixture;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00015}00015\ use\ Doctrine\(\backslash\)Persistence\(\backslash\)ObjectManager;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00016}00016\ use\ Faker\(\backslash\)Factory;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00017}00017\ use\ Faker\(\backslash\)Generator;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00024}\mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures}{00024}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures}{AppFixtures}}\ \textcolor{keyword}{extends}\ Fixture}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{private}\ Generator\ \$faker;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{private}\ SalleRepository\ \$salleRepository;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{private}\ SARepository\ \$saRepository;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00052}\mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures_a1f0d9ce04c4253e7b1bbed9edfc52be8}{00052}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures_a1f0d9ce04c4253e7b1bbed9edfc52be8}{\_\_construct}}(SalleRepository\ \$salleRepository,\ SARepository\ \$saRepository)}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00053}00053\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \$this-\/>faker\ =\ Factory::create(\textcolor{stringliteral}{'fr\_FR'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \$this-\/>salleRepository\ =\ \$salleRepository;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \$this-\/>saRepository\ =\ \$saRepository;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00065}\mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures_ae88495a48887828eef63b9ac8e264e54}{00065}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1DataFixtures_1_1AppFixtures_ae88495a48887828eef63b9ac8e264e54}{load}}(ObjectManager\ \$manager):\ void}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00066}00066\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ d'un\ bâtiment\ avec\ des\ salles\ pour\ chaque\ étage\ et\ numéro\ de\ salle.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \$batiment\ =\ \textcolor{keyword}{new}\ Batiment();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \$batiment-\/>setNom(\textcolor{charliteral}{'D'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \$batiment-\/>setDescription(\textcolor{stringliteral}{'Bâtiment\ D\ -\/\ Département\ informatique'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$batiment);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$etage=0;\ \$etage\ <\ 4;\ \$etage++)\ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$numero=1;\ \$numero\ <\ 8;\ \$numero++)\ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \textcolor{keyword}{new}\ Salle();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setEtage(\$etage);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNumero(\$numero);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setOrientation(\$numero\%2==0?\textcolor{stringliteral}{'sud'}:\textcolor{stringliteral}{'nord'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbFenetres(\$this-\/>faker-\/>numberBetween(2,6));}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbOrdis(\$this-\/>faker-\/>randomElement([\textcolor{keyword}{true},\textcolor{keyword}{false}])?0:\$this-\/>faker-\/>numberBetween(10,20));}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setBatiment(\$batiment);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNom(\$batiment-\/>getNom().\$salle-\/>getEtage().\textcolor{charliteral}{'0'}.\$salle-\/>getNumero());}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$salle);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ajout\ de\ la\ salle\ D109}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00088}00088\ \ \ \ \ \ \ \ \ \$salle\ =\ \textcolor{keyword}{new}\ Salle();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \$salle-\/>setEtage(1);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \$salle-\/>setNumero(9);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \$salle-\/>setOrientation(\textcolor{stringliteral}{'sud'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \$salle-\/>setNbFenetres(2);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \$salle-\/>setNbOrdis(0);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \$salle-\/>setBatiment(\$batiment);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \$salle-\/>setNom(\$batiment-\/>getNom().\$salle-\/>getEtage().\textcolor{charliteral}{'0'}.\$salle-\/>getNumero());}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$salle);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ du\ batiment\ C\ et\ de\ ses\ salles\ associées}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00099}00099\ \ \ \ \ \ \ \ \ \$batiment\ =\ \textcolor{keyword}{new}\ Batiment();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \$batiment-\/>setNom(\textcolor{charliteral}{'C'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00101}00101\ \ \ \ \ \ \ \ \ \$batiment-\/>setDescription(\textcolor{stringliteral}{'Bâtiment\ C\ -\/\ Département\ réseaux\ télécoms'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00102}00102\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$batiment);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$etage=0;\ \$etage\ <\ 4;\ \$etage++)\ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$numero=1;\ \$numero\ <\ 8;\ \$numero++)\ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \textcolor{keyword}{new}\ Salle();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setEtage(\$etage);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNumero(\$numero);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setOrientation(\$numero\%2==0?\textcolor{stringliteral}{'sud'}:\textcolor{stringliteral}{'nord'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbFenetres(\$this-\/>faker-\/>numberBetween(2,6));}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNbOrdis(\$this-\/>faker-\/>randomElement([\textcolor{keyword}{true},\textcolor{keyword}{false}])?0:\$this-\/>faker-\/>numberBetween(10,20));}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setBatiment(\$batiment);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$salle-\/>setNom(\$batiment-\/>getNom().\$salle-\/>getEtage().\textcolor{charliteral}{'0'}.\$salle-\/>getNumero());}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$salle);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00116}00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ de\ 18\ systèmes\ d'acquisitions\ (SA)\ avec\ des\ numéros\ générés\ aléatoirement.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\$i=1;\ \$i\ <=\ 18;\ \$i++)\{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa\ =\ \textcolor{keyword}{new}\ SA();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setEtat(EtatSA::eteint);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \$number\ =\ sprintf(\textcolor{stringliteral}{'\%03d'},\ \$i);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setNumero(\$i);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setNom(\textcolor{stringliteral}{'ESP-\/'}.\ \$number);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$sa);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00127}00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécution\ des\ opérations\ d'écriture\ dans\ la\ base\ de\ données.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00129}00129\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Affichage\ du\ nombre\ total\ de\ salles\ générées.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00132}00132\ \ \ \ \ \ \ \ \ \$salles\ =\ \$manager-\/>getRepository(Salle::class)-\/>findAll();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00133}00133\ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Nombre\ total\ de\ salles\ :\ "{}}\ .\ count(\$salles)\ .\ PHP\_EOL;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Affichage\ du\ nombre\ total\ de\ SA\ générées.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00136}00136\ \ \ \ \ \ \ \ \ \$sas\ =\ \$manager-\/>getRepository(SA::class)-\/>findAll();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00137}00137\ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Nombre\ total\ de\ SA\ :\ "{}}\ .\ count(\$sas)\ .\ PHP\_EOL;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Création\ des\ 17\ expérimentations\ avec\ des\ dates\ de\ demande\ et\ d'installation\ aléatoires.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00140}00140\ \ \ \ \ \ \ \ \ \$expArray\ =\ [\ [\textcolor{stringliteral}{"{}D205"{}},\ \textcolor{stringliteral}{"{}ESP-\/001"{}}],\ [\textcolor{stringliteral}{"{}D206"{}},\ \textcolor{stringliteral}{"{}ESP-\/002"{}}],\ [\textcolor{stringliteral}{"{}D207"{}},\ \textcolor{stringliteral}{"{}ESP-\/003"{}}],\ [\textcolor{stringliteral}{"{}D204"{}},\ \textcolor{stringliteral}{"{}ESP-\/004"{}}],\ [\textcolor{stringliteral}{"{}D203"{}},\ \textcolor{stringliteral}{"{}ESP-\/005"{}}],\ [\textcolor{stringliteral}{"{}D303"{}},\ \textcolor{stringliteral}{"{}ESP-\/006"{}}],\ [\textcolor{stringliteral}{"{}D304"{}},\ \textcolor{stringliteral}{"{}ESP-\/007"{}}],\ [\textcolor{stringliteral}{"{}C101"{}},\ \textcolor{stringliteral}{"{}ESP-\/008"{}}],\ [\textcolor{stringliteral}{"{}D109"{}},\ \textcolor{stringliteral}{"{}ESP-\/009"{}}],\ [\textcolor{stringliteral}{"{}D106"{}},\ \textcolor{stringliteral}{"{}ESP-\/010"{}}],\ [\textcolor{stringliteral}{"{}D001"{}},\ \textcolor{stringliteral}{"{}ESP-\/011"{}}],\ [\textcolor{stringliteral}{"{}D002"{}},\ \textcolor{stringliteral}{"{}ESP-\/012"{}}],\ [\textcolor{stringliteral}{"{}D004"{}},\ \textcolor{stringliteral}{"{}ESP-\/013"{}}],\ [\textcolor{stringliteral}{"{}C004"{}},\ \textcolor{stringliteral}{"{}ESP-\/014"{}}],\ [\textcolor{stringliteral}{"{}C007"{}},\ \textcolor{stringliteral}{"{}ESP-\/015"{}}],\ [\textcolor{stringliteral}{"{}D201"{}},\ \textcolor{stringliteral}{"{}ESP-\/016"{}}],\ [\textcolor{stringliteral}{"{}D307"{}},\ \textcolor{stringliteral}{"{}ESP-\/017"{}}],\ [\textcolor{stringliteral}{"{}C005"{}},\ \textcolor{stringliteral}{"{}ESP-\/018"{}}]\ ];}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$expArray\ as\ \$experimentation)\ \{}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \$salle\ =\ \$this-\/>salleRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$experimentation[0]]);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa\ =\ \$this-\/>saRepository-\/>findOneBy([\textcolor{stringliteral}{'nom'}\ =>\ \$experimentation[1]]);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setEtat(EtatSA::marche);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \$sa-\/>setDisponible(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ echo\ \textcolor{stringliteral}{"{}Salle\ :\ "{}}\ .\ \$salle-\/>getNom()\ .\ \textcolor{stringliteral}{"{}\ -\/\ SA\ :\ "{}}\ .\ \$sa-\/>getNom()\ .\ PHP\_EOL;}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp\ =\ \textcolor{keyword}{new}\ Experimentation();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setDatedemande(\$this-\/>faker-\/>dateTimeBetween(\textcolor{stringliteral}{'-\/7\ week'},\ \textcolor{stringliteral}{'-\/1\ week'}));}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setDateinstallation(\$this-\/>faker-\/>dateTimeBetween(\textcolor{stringliteral}{'-\/7\ week'},\ \textcolor{stringliteral}{'-\/1\ week'}));}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setEtat(EtatExperimentation::installee);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setSalles(\$salle);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \$exp-\/>setSA(\$sa);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$exp);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00157}00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exécution\ des\ opérations\ d'écriture\ dans\ la\ base\ de\ données.}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00160}00160\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00162}00162\ \ \ \ \ \ \ \ \ \$user\ =\ \textcolor{keyword}{new}\ User();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00163}00163\ \ \ \ \ \ \ \ \ \$user-\/>setUsername(\textcolor{stringliteral}{'technicien'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00164}00164\ \ \ \ \ \ \ \ \ \$user-\/>setRoles([\textcolor{stringliteral}{'ROLE\_TECHNICIEN'}]);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00165}00165\ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\textcolor{stringliteral}{'technicien'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00167}00167\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00168}00168\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00170}00170\ \ \ \ \ \ \ \ \ \$user\ =\ \textcolor{keyword}{new}\ User();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00171}00171\ \ \ \ \ \ \ \ \ \$user-\/>setUsername(\textcolor{stringliteral}{'chargemission'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00172}00172\ \ \ \ \ \ \ \ \ \$user-\/>setRoles([\textcolor{stringliteral}{'ROLE\_CHARGEMISSION'}]);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00173}00173\ \ \ \ \ \ \ \ \ \$user-\/>setPlainPassword(\textcolor{stringliteral}{'chargemission'});}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00175}00175\ \ \ \ \ \ \ \ \ \$manager-\/>persist(\$user);}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00176}00176\ \ \ \ \ \ \ \ \ \$manager-\/>flush();}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00177}00177\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00178}00178\ \}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00180}00180\ \textcolor{comment}{//0-\/>eteint;1-\/>marche;2-\/>probleme\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ etatSA}}
+\DoxyCodeLine{\Hypertarget{AppFixtures_8php_source_l00181}00181\ \textcolor{comment}{//0-\/>demandeInstallation;1-\/>installe;2demandeRetrait;3-\/>retiree\ \ etatExperimentation}}
+
+\end{DoxyCode}

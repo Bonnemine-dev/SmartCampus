@@ -1,0 +1,84 @@
+\doxysection{Experimentation\+Controller.\+php}
+\hypertarget{ExperimentationController_8php_source}{}\label{ExperimentationController_8php_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Controller;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00005}00005\ use\ App\(\backslash\)Config\(\backslash\)EtatExperimentation;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00006}00006\ use\ App\(\backslash\)Config\(\backslash\)EtatSA;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00007}00007\ use\ App\(\backslash\)Repository\(\backslash\)ExperimentationRepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00008}00008\ use\ App\(\backslash\)Repository\(\backslash\)SARepository;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00009}00009\ use\ Symfony\(\backslash\)Bundle\(\backslash\)FrameworkBundle\(\backslash\)Controller\(\backslash\)AbstractController;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00010}00010\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00011}00011\ use\ Symfony\(\backslash\)Component\(\backslash\)Routing\(\backslash\)Annotation\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00018}\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController}{00018}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController}{ExperimentationController}}\ \textcolor{keyword}{extends}\ AbstractController}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00028}00028\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/charge-\/de-\/mission/plan-\/experimentation/ajout-\/experimentation/\{nomsalle\}',\ name:\ 'ajout\_exp')]}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00029}\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a97ffd92a7272263d1301a40fe169447d}{00029}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a97ffd92a7272263d1301a40fe169447d}{ajouterExperimentation}}(ExperimentationRepository\ \$experimentationRepository,\ \textcolor{keywordtype}{string}\ \$nomsalle):\ Response}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logique\ d'ajout\ d'expérimentation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \$experimentationRepository-\/>ajouterExperimentation(\$nomsalle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifiez\ le\ résultat\ et\ ajoutez\ un\ message\ flash\ approprié}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentationRepository-\/>estExistante(\$nomsalle))\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ ajoutée\ au\ plan\ d'expérimentation\ avec\ succès."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ ajoutée\ au\ plan\ d'expérimentation."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirection}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_charge\_mission'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00053}00053\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/charge-\/de-\/mission/plan-\/experimentation/supprimer-\/experimentation/\{nomsalle\}',\ name:\ 'supprimer\_exp')]}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00054}\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a467bdf8ae004294d4bfc8acee0e52482}{00054}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a467bdf8ae004294d4bfc8acee0e52482}{supprimerExperimentation}}(ExperimentationRepository\ \$experimentationRepository\ ,\ \textcolor{keywordtype}{string}\ \$nomsalle):\ Response}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00055}00055\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Utilisez\ la\ méthode\ du\ repository\ pour\ ajouter\ des\ données}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \$etat\ =\ \$experimentationRepository-\/>supprimerExperimentation(\$nomsalle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifiez\ le\ résultat\ et\ ajoutez\ un\ message\ flash\ approprié}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$etat[0]\ ==\ EtatExperimentation::demandeInstallation)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ retirée\ du\ plan\ d'expérimentation\ avec\ succès."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ elseif\ (\$etat[0]\ ==\ EtatExperimentation::installee\ and\ \$etat[1]\ ==\ EtatExperimentation::demandeRetrait)\{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}La\ demande\ de\ retrait\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ envoyée\ avec\ succès."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}La\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ retirée\ du\ plan\ d'expérimentation."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00068}00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirigez\ l'utilisateur\ après\ l'ajout\ réussi,\ par\ exemple\ à\ une\ page\ de\ confirmation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_charge\_mission'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00084}00084\ \textcolor{preprocessor}{\ \ \ \ \#[Route('/technicien/modifier-\/etat-\/experimentation/\{etat\}/\{nomsalle\}',\ name:\ 'modifier\_etat\_exp')]}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00085}\mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a559e162705eec80169353e1d68db65e3}{00085}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ \mbox{\hyperlink{classApp_1_1Controller_1_1ExperimentationController_a559e162705eec80169353e1d68db65e3}{modifierEtatExperimentation}}(ExperimentationRepository\ \$experimentationRepository,\ SARepository\ \$SARepository,\ \textcolor{keywordtype}{string}\ \$etat,\ \textcolor{keywordtype}{string}\ \$nomsalle):\ Response}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00086}00086\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Utilisez\ la\ méthode\ du\ repository\ pour\ modifier\ l'état\ de\ l'expérimentation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$etat\ ==\ \textcolor{stringliteral}{"{}installee"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \$nouvelEtat\ =\ EtatExperimentation::installee;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\$etat\ ==\ \textcolor{stringliteral}{"{}retiree"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \$nouvelEtat\ =\ EtatExperimentation::retiree;}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \$SARepository-\/>changerEtatSA(\$nomsalle,\ EtatSA::eteint);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}L'état\ de\ l'expérimentation\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ modifié."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_technicien'});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \$experimentationRepository-\/>modifierEtat(\$nouvelEtat,\ \$nomsalle);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vérifiez\ le\ résultat\ et\ ajoutez\ un\ message\ flash\ approprié}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$experimentationRepository-\/>etatExperimentation(\$nomsalle)\ ==\ \$nouvelEtat)\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'success'},\ \textcolor{stringliteral}{"{}L'état\ de\ l'expérimentation\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ a\ été\ modifié\ avec\ succès."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00103}00103\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>addFlash(\textcolor{stringliteral}{'error'},\ \textcolor{stringliteral}{"{}L'état\ de\ l'expérimentation\ de\ la\ salle\ "{}}\ .\ \$nomsalle\ .\ \textcolor{stringliteral}{"{}\ n'a\ pas\ pu\ être\ modifié."{}});}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirigez\ l'utilisateur\ après\ l'ajout\ réussi,\ par\ exemple\ à\ une\ page\ de\ confirmation}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>redirectToRoute(\textcolor{stringliteral}{'app\_technicien'},\ [\textcolor{stringliteral}{'scrollTo'}\ =>\ \$nomsalle]);}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ExperimentationController_8php_source_l00110}00110\ \}}
+
+\end{DoxyCode}

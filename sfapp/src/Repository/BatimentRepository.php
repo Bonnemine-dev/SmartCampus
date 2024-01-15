@@ -16,16 +16,26 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BatimentRepository extends ServiceEntityRepository
 {
-    // Le constructeur initialise le repository avec le manager d'entités et l'entité associée.
+    /**
+     * Constructeur de la classe BatimentRepository.
+     *
+     * Initialise le repository avec le ManagerRegistry (gestionnaire d'entités) et l'entité Batiment.
+     *
+     * @param ManagerRegistry $registry Le gestionnaire de registre des entités.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Batiment::class);
     }
 
     /**
-     * Retourne un tableau de bâtiments sous la forme ['Nom du bâtiment' => 'id'].
+     * Retourne un tableau associatif de bâtiments.
      *
-     * @return array<string, int>
+     * La méthode exécute une requête DQL pour récupérer les id et noms des bâtiments.
+     * Elle transforme ensuite les résultats en un tableau associatif où les clés sont les noms des bâtiments
+     * et les valeurs sont leurs identifiants.
+     *
+     * @return array<string, int> Un tableau associatif où les clés sont les noms des bâtiments et les valeurs sont leurs identifiants.
      */
     public function tableauBatimentsNomID(): array
     {
