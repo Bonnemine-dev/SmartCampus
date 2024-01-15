@@ -1,0 +1,12 @@
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r sfapp/src/Repository/docs/html/* .public
+    - mv .public public
+    - mv public/index.html public/404.html
+  artifacts:
+    paths:
+      - public
+  only:
+    - dev
