@@ -27,6 +27,12 @@ class JsonDataHandling
     private ExperimentationRepository $experimentationRepository;
 
     /**
+     * @var SARepository
+     * Référentiel pour accéder aux SA des salles.
+     */
+    private SARepository $saRepository;
+
+    /**
      * @var array
      * Tableau contenant des informations sur les salles.
      */
@@ -41,6 +47,7 @@ class JsonDataHandling
     public function __construct(ManagerRegistry $managerRegistry)
     {
         $this->experimentationRepository = new ExperimentationRepository($managerRegistry, new SalleRepository($managerRegistry), new SARepository($managerRegistry));
+        $this->saRepository = new SARepository($managerRegistry);
         $this->salles = [
             "D205" => ["nomSA" => "ESP-001", "idSA" => 1, "dbname" => "sae34bdk1eq1", "username" => "k1eq1"],
             "D206" => ["nomSA" => "ESP-002", "idSA" => 2, "dbname" => "sae34bdk1eq2", "username" => "k1eq2"],
@@ -255,6 +262,8 @@ class JsonDataHandling
                 }
             }
         }
+
+        $this->saRepository->sa_eteint_probleme($nomsalle, $derniereDonnee);
 
         return $derniereDonnee;
     }

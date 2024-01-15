@@ -349,16 +349,15 @@ class SARepository extends ServiceEntityRepository
      * @param array $listeSallesAvecDonnees Les données d'expérimentation pour chaque salle.
      * @return void
      */
-    public function sa_eteint_probleme(array $listeSallesAvecDonnees): void {
-        foreach ($listeSallesAvecDonnees as $experimentation) {
-            if ($experimentation['dateCapture'] < date('Y-m-d H:i:s', strtotime('-10 minutes'))) {
-                $this->changerEtatSA($experimentation['localisation'], EtatSA::eteint);
-            }
-            elseif ($experimentation['co2'] == null or $experimentation['temp'] == null or $experimentation['hum'] == null or $experimentation['co2'] < 300 or $experimentation['co2'] > 5000 or $experimentation['temp'] < 0 or $experimentation['temp'] > 50 or $experimentation['hum'] < 0 or $experimentation['hum'] > 100) {
-                $this->changerEtatSA($experimentation['localisation'], EtatSA::probleme);
-            } else {
-                $this->changerEtatSA($experimentation['localisation'], EtatSA::marche);
-            }
+    public function sa_eteint_probleme(string $nomsalle, array $data): void {
+        if ($data['date_de_capture'] < date('Y-m-d H:i:s', strtotime('-10 minutes'))) {
+            $this->changerEtatSA($nomsalle, EtatSA::eteint);
+        }
+        elseif ($data['co2'] == null or $data['temp'] == null or $data['hum'] == null or $data['co2'] < 300 or $data['co2'] > 5000 or $data['temp'] < 0 or $data['temp'] > 50 or $data['hum'] < 0 or $data['hum'] > 100) {
+            $this->changerEtatSA($nomsalle, EtatSA::probleme);
+        } else {
+            $this->changerEtatSA($nomsalle, EtatSA::marche);
         }
     }
+
 }
