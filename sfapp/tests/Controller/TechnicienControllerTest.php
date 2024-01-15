@@ -4,31 +4,34 @@ namespace App\Tests\Controller;
 
 use App\Entity\Experimentation;
 use App\Entity\Salle;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Routing\RouterInterface;
 
 class TechnicienControllerTest extends WebTestCase
 {
     // Test des pages du contrôleur Technicien
-    // public function testPages(): void
-    // {
-    //     $client = static::createClient();
+    public function testPages(): void
+    {
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByUsername('technicien');
+        $client->loginUser($testUser);
+        $container = $client->getContainer();
+        $router = $container->get(RouterInterface::class);
 
-    //     $entityManager = $this->getContainer()->get('doctrine')->getManager();
-    //     $expRepository = $entityManager->getRepository(Experimentation::class);
-    //     $salleRepository = $entityManager->getRepository(Salle::class);
-    //     $id = $salleRepository->nomSalleId('D001');
+        $url = $router->generate('app_technicien');
+        $client->request('GET', $url);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-    //     $experimentation = $expRepository->findOneBy(['Salle' => ['id' => $id]]);
+        $url = $router->generate('app_modifier');
+        $client->request('GET', $url);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-    //     if ($experimentation == null) {
-    //         $expRepository->ajouterExperimentation('D001');
-    //     }
-
-    //     $client->request('GET', '/technicien/liste-souhaits');
-
-    //     $this->assertResponseIsSuccessful();
-    //     $this->assertSelectorTextContains('h5', 'D001');
-    // }
+        $url = $router->generate('gestion_sa');
+        $client->request('GET', $url);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 }
 
 
