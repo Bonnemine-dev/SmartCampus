@@ -4,18 +4,17 @@ namespace App\Tests\Repository;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UserRepositoryTest extends KernelTestCase
 {
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
 
-    private $managerRegistry;
+    private ?EntityManagerInterface $entityManager;
+
+    private ?ManagerRegistry $managerRegistry;
 
     /**
      * {@inheritDoc}
@@ -37,7 +36,7 @@ class UserRepositoryTest extends KernelTestCase
         // Créer un utilisateur avec un mot de passe déjà hashé
         $user = new User();
         $user->setUsername('testuser');
-        $user->setPassword('hashed_password'); // Remplacez 'hashed_password' par le mot de passe déjà hashé
+        $user->setPassword('hashed_password');
 
         // Persistez l'utilisateur dans la base de données
         $this->entityManager->persist($user);
@@ -47,14 +46,12 @@ class UserRepositoryTest extends KernelTestCase
         $userRepository = $this->entityManager->getRepository(User::class);
 
         // Appeler la méthode à tester pour mettre à jour le mot de passe
-        $newHashedPassword = 'new_hashed_password'; // Remplacez 'new_hashed_password' par le nouveau mot de passe hashé
+        $newHashedPassword = 'new_hashed_password';
         $userRepository->upgradePassword($user, $newHashedPassword);
 
         // Récupérer à nouveau l'utilisateur de la base de données
         $updatedUser = $userRepository->find($user->getId());
 
-        // Assurez-vous que le mot de passe a été mis à jour correctement
-        // Assurez-vous que le mot de passe a été mis à jour correctement
         $this->assertInstanceOf(PasswordAuthenticatedUserInterface::class, $updatedUser);
         $this->assertTrue(password_verify('new_hashed_password', $updatedUser->getPassword()));
 
@@ -81,7 +78,6 @@ class UserRepositoryTest extends KernelTestCase
         // Vérifier que le premier élément du tableau est un tableau contenant les infos de l'utilisateur
         $foundUser = $foundUsers[0];
 
-        // Facultatif : Assurez-vous que le nom d'utilisateur correspond à celui que vous avez cherché
         $this->assertEquals('chargemission', $foundUser->getUsername());
     }
 
@@ -116,7 +112,6 @@ class UserRepositoryTest extends KernelTestCase
             'hum' => 70,
         ]);
 
-        // Assurez-vous que les recommandations sont correctes (ajustez cela en fonction de votre implémentation)
         $this->assertIsArray($recommandations);
         $this->assertNotEmpty($recommandations);
     }
@@ -137,7 +132,6 @@ class UserRepositoryTest extends KernelTestCase
             'hum' => 65,
         ]);
 
-        // Assurez-vous que les recommandations sont correctes (ajustez cela en fonction de votre implémentation)
         $this->assertIsArray($recommandations);
         $this->assertNotEmpty($recommandations);
     }

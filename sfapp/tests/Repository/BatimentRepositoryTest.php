@@ -4,12 +4,13 @@ namespace App\Tests\Repository;
 
 use App\Entity\Batiment;
 use App\Repository\BatimentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BatimentRepositoryTest extends KernelTestCase
 {
-    private $entityManager;
-    private $batimentRepository;
+    private ?EntityManagerInterface $entityManager;
+    private ?BatimentRepository $batimentRepository;
 
     protected function setUp(): void
     {
@@ -26,12 +27,9 @@ class BatimentRepositoryTest extends KernelTestCase
                 $result[$key] = !null;
             }
         }
-
-        // Replace with the actual expected values based on your fixtures or database state
         $expectedResult = [
             'G' => !null,
             'F' => !null,
-            // Add more entries based on your fixtures or database state
         ];
 
         $this->assertSame($expectedResult, $result);
