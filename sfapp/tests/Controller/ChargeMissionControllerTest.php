@@ -122,6 +122,7 @@ class ChargeMissionControllerTest extends WebTestCase
         $this->assertEquals([], $crawler->filter('input[name="filtreSalleForm[orientation][]"]:checked')->extract(['value']));
     }
 
+    // la page détail ne marche pas avec les fixtures de tests
     // public function testBoutonDetail()
     // {
     //     $client = static::createClient();         
@@ -137,7 +138,6 @@ class ChargeMissionControllerTest extends WebTestCase
     //     $boutonDetail = $crawler->selectLink('Détails')->link();
 
     //     $client->click($boutonDetail);
-        
     //     $this->assertResponseIsSuccessful();
     // }
 
