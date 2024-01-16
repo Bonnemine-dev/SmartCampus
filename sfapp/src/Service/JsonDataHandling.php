@@ -166,6 +166,11 @@ class JsonDataHandling
     {
         $dbname = $this->salles[$nomsalle]['dbname'];
 
+        // Ajouter un jour à la deuxième date si elle est égale à la première
+        if ($date1 === $date2) {
+            $date2 = (new \DateTime($date2))->add(new \DateInterval('P1D'))->format('Y-m-d');
+        }
+
         $client = new Client();
         $response = $client->request('GET', 'https://sae34.k8s.iut-larochelle.fr/api/captures/interval', [
             'query' => [

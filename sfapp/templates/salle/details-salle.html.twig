@@ -17,6 +17,23 @@
 
 {% block appcontent %}
 <div class="app-content tableau-de-bord details-salle">
+
+    {# Affichage des messages de succès #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# Affichage des messages d'erreur #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {# --------------------------------------------- #}
+
         <div class="title">
             <a class="return-arrow" href="../../liste-salles">
                 <svg xmlns="http://www.w3.org/2000/svg" width="47" height="40" viewBox="0 0 47 40" fill="none">

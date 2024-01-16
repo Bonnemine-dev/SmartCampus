@@ -261,6 +261,7 @@ class SalleController extends AbstractController
         }
 
         if($liste_de_liste_donnee_archive  == null){
+            $this->addFlash('error', "Pas d'archives pour cette salle");
             return $this->redirectToRoute('details_salle',['nomsalle' => $nomsalle]);
         }
 
