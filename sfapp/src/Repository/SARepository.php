@@ -201,7 +201,6 @@ class SARepository extends ServiceEntityRepository
                 }
             }
         }
-
         return $exp;
     }
 

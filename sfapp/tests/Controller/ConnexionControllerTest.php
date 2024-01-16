@@ -2,6 +2,8 @@
 
 namespace App\Tests\Controller;
 
+use App\Repository\UserRepository;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ConnexionControllerTest extends WebTestCase
@@ -11,34 +13,44 @@ class ConnexionControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/');
+        $client->request('GET', '/connexion');
 
         $this->assertResponseIsSuccessful();
     }
 
     // Test de la redirection vers la page de Chargé de mission
-    public function testRedirectionChargeMission(): void
-    {
-        $client = static::createClient();
+    public function testRedirectionChargeMission()     
+    {         
+        $client = static::createClient();         
 
-        $client->request('GET', '/');
+        $userRepository = static::getContainer()->get(UserRepository::class);         
+        $testUser = $userRepository->findOneByUsername('chargemission');         
+        $client->loginUser($testUser);   
 
-        $link = $client->getCrawler()->selectLink('Chargé de mission')->link();
-        $client->click($link);
+        $container = $client->getContainer();         
+        $router = $container->get(RouterInterface::class);         
+        $url = $router->generate('app_charge_mission');         
+        $client->request('GET', $url);         
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());     
     }
-
+    
     // Test de la redirection vers la page de Technicien
-    public function testRedirectionTechnicien(): void
-    {
-        $client = static::createClient();
+    public function testRedirectionTechnicien()     
+    {         
+        $client = static::createClient();         
 
-        $client->request('GET', '/');
+        $userRepository = static::getContainer()->get(UserRepository::class);         
+        $testUser = $userRepository->findOneByUsername('technicien');         
+        $client->loginUser($testUser);   
 
-        $link = $client->getCrawler()->selectLink('Technicien')->link();
-        $client->click($link);
+        $container = $client->getContainer();         
+        $router = $container->get(RouterInterface::class);         
+        $url = $router->generate('app_technicien');         
+        $client->request('GET', $url);         
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());     
     }
 }
+
+
