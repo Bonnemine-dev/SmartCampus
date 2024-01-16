@@ -1,10 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}detail salle {{ nomsalle }} 
-{% endblock %}
-
-
-{% block username %}Chargé de mission
+{% block title %}Archive salle {{ nomsalle }} | Chargé de mission | SmartCampus.
 {% endblock %}
 
 {% block navlink %}
@@ -12,7 +8,7 @@
         <a class="nav-link" href="/charge-de-mission/tableau-de-bord">Tableau de bord</a>
     </li>
     <li>
-        <a class="nav-link" href="/charge-de-mission/liste-salles">Salles</a>
+        <a class="nav-link current-page" href="/charge-de-mission/liste-salles">Salles</a>
     </li>
     <li>
         <a class="nav-link" href="/charge-de-mission/plan-experimentation">Plan d'expérimentation</a>

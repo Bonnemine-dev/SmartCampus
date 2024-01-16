@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste Salles 
+{% block title %}Liste des salles | Chargé de mission | SmartCampus.
 {% endblock %}
 
 {% block navlink %}
@@ -29,9 +29,6 @@
 
         {{ form_label(filtreSalleForm.ordinateurs) }}
         {{ form_widget(filtreSalleForm.ordinateurs) }}
-
-        {{ form_label(filtreSalleForm.sa) }}
-        {{ form_widget(filtreSalleForm.sa) }}
 
         <button type="submit">Valider</button>
         <button type="button" id="resetButton">Réinitialiser</button>

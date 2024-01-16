@@ -54,7 +54,7 @@ class FiltreSalleFormType extends AbstractType
             // Ajout d'un champ 'ordinateurs' de type ChoiceType avec des options spécifiques.
             ->add('ordinateurs', ChoiceType::class, [
                 'choices' => [
-                    'Non spécifié' => null,
+                    'N/A' => null,
                     'Avec' => 1,
                     'Sans' => 0,
                 ],
@@ -66,10 +66,10 @@ class FiltreSalleFormType extends AbstractType
             // Ajout d'un champ 'sa' de type ChoiceType avec des options spécifiques.
             ->add('sa', ChoiceType::class, [
                 'choices' => [
-                    'Non spécifié' => null,
+                    'N/A' => null,
                     'Avec' => 1,
                     'Sans' => 0,
-                    'Demande en cours' => 2,
+                    'Demande' => 2,
                 ],
                 'expanded' => true,
                 'multiple' => false,

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Plan d'expérimentation 
+{% block title %}Plan d'expérimentation | Chargé de mission | SmartCampus.
 {% endblock %}
 
 {% block navlink %}
@@ -99,13 +99,13 @@
 					<div id="{{ salle.nom_salle }}" class="salle {% if salle.etat != 4 and salle.etat != 3 %}darker{% endif %}">
 						<div class="salle-infos">
 							{% if salle.etat == 0 %}
-								<p>Date de demande d'installation : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+								<p>Date de demande d'installation : <strong>{{ salle.datedemande|date('Y-m-d H:i:s') }}</strong></p>
 								{% set systeme_acquisition = 'à installer' %}
 							{% elseif salle.etat == 1 %}
 								<p>Date d'installation : <strong>{{ salle.dateinstallation|date('Y-m-d H:i:s') }}</strong></p>
 								{% set systeme_acquisition = 'installé' %}
 							{% elseif salle.etat == 2 %}
-								<p>Date de demande de retrait : {{ salle.datedemande|date('Y-m-d H:i:s') }}</p>
+								<p>Date de demande de retrait : <strong>{{ salle.datedemande|date('Y-m-d H:i:s') }}</strong></p>
 								{% set systeme_acquisition = 'à retirer' %}
 							{% else %}
 								<p>Pas encore de demande de SA</p>
@@ -113,7 +113,7 @@
 							{% endif %}
 							<h5>{{ salle.nom_salle }}</h5>
 							<p>
-								Système d'acquisition : {{ systeme_acquisition }} |
+								Système d'acquisition : <strong>{{ systeme_acquisition }}</strong> |
 								Nombre d'ordis : {{ salle.nb_ordis }} |
 								Nombre de fenêtres : {{ salle.nb_fenetres }} |
 								Orientation : {{ salle.orientation }}
