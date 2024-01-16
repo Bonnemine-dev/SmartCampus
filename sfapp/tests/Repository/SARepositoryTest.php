@@ -4,24 +4,19 @@ namespace App\Tests\Repository;
 
 use App\Config\EtatExperimentation;
 use App\Config\EtatSA;
-use App\Entity\Experimentation;
 use App\Entity\SA;
-use App\Repository\SARepository;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class SARepositoryTest extends KernelTestCase
 {
     private  $entityManager;
     private  $SARepository;
-    private  $ExperimentationRepository;
 
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
         $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
         $this->SARepository = $this->entityManager->getRepository(SA::class);
-        $this->ExperimentationRepository = $this->entityManager->getRepository(Experimentation::class);
     }
 
     public function testcompteSASansExperimentation(): void
