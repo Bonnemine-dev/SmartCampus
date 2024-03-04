@@ -1,2 +1,0 @@
-# SmartCampus
-2023-2024-BUT-INFO2-SAE34-L22
